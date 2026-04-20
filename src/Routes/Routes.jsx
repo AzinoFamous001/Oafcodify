@@ -14,6 +14,7 @@ import ProfilePage from "../Pages/Profile";
 import NotificationsPage from "../Pages/Notification";
 import SettingsPage from "../Pages/Setting";
 import PerformancePage from "../Pages/Performance";
+import LessonPage from "../Pages/Lesson";
 
 const router = createBrowserRouter([
   // --- AUTH ROUTES (No Navbar/Footer) ---
@@ -38,24 +39,30 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardPage />,
       },
-      { path: "editor", element: <EditorPage /> },
       {
-        path: "profile",
+        path: "/editor",
+        element: <EditorPage />,
+      },
+      {
+        path: "/lesson/:lessonId", // Dynamic route for lessons
+        element: <LessonPage />,
+      },
+      {
+        path: "/profile",
         element: <ProfilePage />,
       },
       {
-        path: "notifications",
+        path: "/notifications",
         element: <NotificationsPage />,
       },
       {
-        path: "settings",
+        path: "/settings",
         element: <SettingsPage />,
       },
       {
-        path: "performance",
+        path: "/performance",
         element: <PerformancePage />,
       },
-      // You can add more pages here later, like /profile or /settings
     ],
   },
 
