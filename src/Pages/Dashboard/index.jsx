@@ -130,7 +130,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <main className="relative min-h-screen pb-24 bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 overflow-x-hidden">
+    <main className="relative min-h-screen pb-24 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-x-hidden">
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">

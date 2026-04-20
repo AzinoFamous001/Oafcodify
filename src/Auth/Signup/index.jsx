@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom"; // Added useNavigate
 import {
   FaGithub,
   FaGoogle,
@@ -12,10 +12,9 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 
-// --- THE BACKGROUND COMPONENT (Opacity boosted and Z-index set) ---
+// --- THE BACKGROUND COMPONENT (Stays exactly the same) ---
 const AnimatedBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-    {/* Boosted opacity from 20 to 40-60 for better visibility */}
     <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite] opacity-40">
       <FaCode size={120} className="text-white" />
     </div>
@@ -35,6 +34,7 @@ const AnimatedBackground = () => (
 );
 
 const SignupPage = () => {
+  const navigate = useNavigate(); // For redirecting after signup
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -73,24 +73,44 @@ const SignupPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // --- UPDATED AUTH LOGIC ---
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     setLoading(true);
-    setTimeout(() => {
-      alert("Account created successfully! 🎉");
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Account created successfully! 🎉");
+        navigate("/login"); // Redirect to login page
+      } else {
+        // Display backend error (e.g., "User already exists")
+        alert(data.message || "Something went wrong");
+      }
+    } catch (err) {
+      alert("Server error. Make sure your backend is running!");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
-      {/* Background stays behind everything */}
       <AnimatedBackground />
 
-      {/* Added z-10 to ensure the form stays above the floating icons */}
       <div className="relative z-10 w-full max-w-md md:max-w-4xl">
-        {/* Added 'bg-opacity-95' so icons are slightly visible if they pass behind the card */}
         <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl border border-blue-100 overflow-hidden flex flex-col md:flex-row md:items-stretch">
           <section className="flex flex-col items-center justify-center text-center md:w-2/5 bg-slate-50/80 p-6 md:p-8 border-b md:border-b-0 md:border-r border-gray-100">
             <img src="/Logo_6.png" alt="Logo" className="h-20 md:h-16" />
@@ -189,7 +209,6 @@ const SignupPage = () => {
               </Button>
             </form>
 
-            {/* Social Logins */}
             <div className="relative flex py-6 items-center">
               <div className="flex-grow border-t border-gray-200"></div>
               <span className="flex-shrink mx-4 text-gray-400 text-[10px] uppercase tracking-widest font-medium">
