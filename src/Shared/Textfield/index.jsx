@@ -44,6 +44,9 @@ export default function TextField({
         )}
         <InputComponent
           id={name}
+          name={name} // Added: Required for handleChange e.target.name
+          value={value} // Added: Links state to input
+          onChange={onChange} // Added: Triggers state update
           className={`${baseClasses} ${variantClasses} ${error ? "border-red-500" : ""} ${icon ? "pl-11" : "pl-4"}`}
           type={as === "input" ? type : undefined}
           placeholder={placeholder}

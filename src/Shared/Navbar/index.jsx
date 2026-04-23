@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Search,
   Bell,
@@ -8,94 +8,127 @@ import {
   BarChart3,
   LogOut,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // ✅ LOGOUT FIXED
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("currentUserId");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+
+    setIsDropdownOpen(false);
+    navigate("/login");
+  };
+
+  // ✅ NAVIGATION FIXED
+  const handleDropdownItemClick = (to) => {
+    setIsDropdownOpen(false);
+    navigate(to);
+  };
+
   return (
     <nav className="w-full h-[70px] bg-white border-b border-gray-100 px-4 md:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
-      {/* Left Side: Logo and Branding */}
-      <div className="flex items-center gap-2">
+      {/* Logo */}
+      <NavLink to="/dashboard" className="flex items-center gap-2">
         <div className="bg-blue-600 p-1.5 rounded-lg">
           <img src="/Logo_4.png" alt="C" className="h-10" />
         </div>
         <span className="text-2xl font-bold text-gray-800">CodeBay</span>
-      </div>
+      </NavLink>
 
-      {/* Right Side Icons */}
+      {/* Right */}
       <div className="flex items-center gap-2 md:gap-4">
-        {/* 2. Search Icon */}
-        <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
+        <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
           <Search size={20} />
         </button>
 
-        {/* 3. Notification Icon */}
-        <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors relative">
+        <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full relative">
           <Bell size={20} />
           <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
         </button>
 
-        {/* 4. Hamburger Icon with Hover Dropdown */}
-        <div className="relative group py-4">
-          {/* The 'py-4' creates a bridge so the mouse doesn't leave the hover zone */}
-          <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+        {/* Dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+          >
             <Menu size={24} />
           </button>
 
-          {/* Dropdown Menu */}
-          <div className="absolute right-0 top-[60px] w-56 bg-white border border-gray-100 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:top-[50px] transition-all duration-200 z-50 overflow-hidden">
-            <div className="py-2">
-              <NavLink to="/profile">
+          {isDropdownOpen && (
+            <div className="absolute right-0 top-[50px] w-56 bg-white border border-gray-100 rounded-2xl shadow-xl z-50 overflow-hidden">
+              <div className="py-2">
                 <DropdownItem
                   icon={<User size={18} />}
                   label="Profile"
                   to="/profile"
+                  onClick={handleDropdownItemClick}
                 />
-              </NavLink>
-              <NavLink to="/settings">
                 <DropdownItem
                   icon={<Settings size={18} />}
                   label="Settings"
                   to="/settings"
+                  onClick={handleDropdownItemClick}
                 />
-              </NavLink>
-              <NavLink to="/notifications">
                 <DropdownItem
                   icon={<Bell size={18} />}
                   label="Notifications"
                   to="/notifications"
+                  onClick={handleDropdownItemClick}
                 />
-              </NavLink>
-              <NavLink to="/performance">
                 <DropdownItem
                   icon={<BarChart3 size={18} />}
                   label="Performance"
                   to="/performance"
+                  onClick={handleDropdownItemClick}
                 />
-              </NavLink>
 
-              <hr className="my-2 border-gray-50" />
+                <hr className="my-2 border-gray-50" />
 
-              <button className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium">
-                <LogOut size={18} />
-                Logout
-              </button>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 font-medium"
+                >
+                  <LogOut size={18} />
+                  Logout
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </nav>
   );
 };
 
-// Helper Component for Dropdown Items
-const DropdownItem = ({ icon, label, to }) => (
-  <NavLink
-    to={to}
-    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+const DropdownItem = ({ icon, label, to, onClick }) => (
+  <button
+    onClick={() => onClick(to)}
+    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-700"
   >
-    <span className="text-gray-400 group-hover:text-blue-600">{icon}</span>
+    <span className="text-gray-400">{icon}</span>
     <span className="font-medium">{label}</span>
-  </NavLink>
+  </button>
 );
 
 export default Navbar;

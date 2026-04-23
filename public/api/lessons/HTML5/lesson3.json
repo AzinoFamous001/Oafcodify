@@ -1,0 +1,60 @@
+[
+  {
+    "id": "3",
+    "title": "Forms and User Input",
+    "description": "In this lesson, you will learn how websites collect information from users. You will build forms similar to login pages, registration pages, and contact forms. This is one of the most important skills in web development because almost every website uses forms.",
+    "level": "Intermediate",
+    "duration": "90 minutes",
+    "learningObjectives": [
+      "Understand what HTML forms are and how they work",
+      "Create input fields for different types of data",
+      "Use labels to make forms easy to understand",
+      "Add dropdowns and text areas",
+      "Create buttons to submit forms",
+      "Apply basic HTML validation rules"
+    ],
+    "subtopics": [
+      {
+        "title": "What is a Form?",
+        "content": "A form is used to collect information from users.\n\nExamples in real life:\n- Login form\n- Registration form\n- Contact form\n\nBasic structure:\n```html\n<form action=\"/submit\" method=\"POST\">\n</form>\n```\n\nExplanation:\n- action = where data is sent\n- method = how data is sent (GET or POST)\n\nBeginner tip:\nHTML forms collect data, but they need a backend to process it.",
+        "commonMisconceptions": [
+          "Forms do not store data by themselves.",
+          "GET is not safe for passwords."
+        ],
+        "realWorldAnalogy": "A form is like a paper you fill and submit at an office."
+      },
+      {
+        "title": "Input Fields (Collecting Data)",
+        "content": "Input fields allow users to enter information.\n\nExamples:\n```html\n<input type=\"text\" placeholder=\"Enter your name\" />\n<input type=\"email\" placeholder=\"Enter your email\" />\n<input type=\"password\" />\n<input type=\"number\" />\n<input type=\"date\" />\n```\n\nEach type helps the browser understand what kind of data is expected.\n\nBeginner tip:\nUse the correct input type to improve user experience.",
+        "commonMisconceptions": [
+          "All input fields are not the same — type matters."
+        ],
+        "realWorldAnalogy": "Input fields are like different boxes on a form."
+      },
+      {
+        "title": "Labels, Textarea, and Dropdowns",
+        "content": "Labels describe input fields.\n\nExample:\n```html\n<label for=\"name\">Name:</label>\n<input id=\"name\" type=\"text\" />\n```\n\nTextarea (for long text):\n```html\n<textarea rows=\"4\" cols=\"30\"></textarea>\n```\n\nDropdown menu:\n```html\n<select>\n  <option>Male</option>\n  <option>Female</option>\n</select>\n```\n\nBeginner tip:\nAlways use labels — they make your form easier to use.",
+        "commonMisconceptions": [
+          "Labels are important for accessibility."
+        ],
+        "realWorldAnalogy": "Labels are like instructions telling users what to fill."
+      },
+      {
+        "title": "Buttons (Submitting Forms)",
+        "content": "Buttons are used to submit the form.\n\nExample:\n```html\n<button type=\"submit\">Submit</button>\n```\n\nAlternative:\n```html\n<input type=\"submit\" value=\"Submit\" />\n```\n\nBeginner tip:\nAlways specify the button type.",
+        "commonMisconceptions": [
+          "Buttons without type may behave incorrectly."
+        ],
+        "realWorldAnalogy": "Buttons are like the 'Submit' button on a registration form."
+      },
+      {
+        "title": "HTML5 Validation (Preventing Errors)",
+        "content": "Validation helps ensure users enter correct data.\n\nExample:\n```html\n<input type=\"email\" required />\n<input type=\"text\" pattern=\"[A-Za-z]+\" />\n```\n\nCommon attributes:\n- required\n- placeholder\n- pattern\n\nBeginner tip:\nValidation improves data quality but does not replace backend checks.",
+        "commonMisconceptions": [
+          "HTML validation is not fully secure."
+        ],
+        "realWorldAnalogy": "Validation is like checking a form before submitting it."
+      }
+    ]
+  }
+]

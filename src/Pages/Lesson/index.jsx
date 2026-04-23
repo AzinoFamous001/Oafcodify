@@ -19,7 +19,11 @@ import { SiReact } from "react-icons/si";
 import Button from "../../Shared/Buttons";
 
 // ✅ Ensure this path matches your file structure
-import lessonsData from "../../../public/api/lessons/lesson1.json";
+import lesson1 from "../../../public/api/lessons/HTML5/lesson1.json";
+import lesson2 from "../../../public/api/lessons/HTML5/lesson2.json";
+import lesson3 from "../../../public/api/lessons/HTML5/lesson3.json";
+import lesson4 from "../../../public/api/lessons/HTML5/lesson4.json";
+import lesson5 from "../../../public/api/lessons/HTML5/lesson5.json";
 
 const AnimatedBackground = () => {
   return (
@@ -44,7 +48,7 @@ const AnimatedBackground = () => {
 };
 
 const LessonPage = () => {
-  const { lessonId } = useParams();
+  const { lessonId, courseKey } = useParams();
   const navigate = useNavigate();
 
   const [lesson, setLesson] = useState(null);
@@ -54,11 +58,29 @@ const LessonPage = () => {
 
   useEffect(() => {
     setLoading(true);
+
+    let lessonsData = [];
+
+    // ✅ LOAD BASED ON COURSE
+    if (courseKey === "HTML5") {
+      lessonsData = [
+        ...lesson1,
+        ...lesson2,
+        ...lesson3,
+        ...lesson4,
+        ...lesson5,
+      ];
+    }
+
     const found = lessonsData.find((l) => String(l.id) === String(lessonId));
 
     if (found) {
       setLesson(found);
-      const saved = localStorage.getItem(`lesson_${lessonId}_completed`);
+
+      const saved = localStorage.getItem(
+        `${courseKey}_lesson_${lessonId}_completed`,
+      );
+
       if (saved) {
         try {
           setCompletedTopics(JSON.parse(saved));
@@ -67,8 +89,9 @@ const LessonPage = () => {
         }
       }
     }
+
     setLoading(false);
-  }, [lessonId]);
+  }, [lessonId, courseKey]);
 
   const handleMarkComplete = (topicIndex) => {
     let updated = [...completedTopics];
@@ -79,7 +102,7 @@ const LessonPage = () => {
     }
     setCompletedTopics(updated);
     localStorage.setItem(
-      `lesson_${lessonId}_completed`,
+      `${courseKey}_lesson_${lessonId}_completed`,
       JSON.stringify(updated),
     );
   };

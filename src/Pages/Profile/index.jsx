@@ -22,9 +22,9 @@ import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 
 const STREAK_KEY = "quiz_streak_data";
 
-// --- ANIMATED BACKGROUND (Matched to Dashboard) ---
+// --- ANIMATED BACKGROUND ---
 const AnimatedBackground = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-40">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
     <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite] hidden sm:block">
       <FaCode size={120} className="text-white/30" />
     </div>
@@ -47,104 +47,60 @@ const ProfilePage = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [results, setResults] = useState([]);
   const [activeTab, setActiveTab] = useState("overview");
-  const [currentStreak, setCurrentStreak] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STREAK_KEY);
-      return saved ? JSON.parse(saved).streak : 0;
-    } catch {
-      return 0;
-    }
-  });
+  const [currentStreak, setCurrentStreak] = useState(0);
 
   const navigate = useNavigate();
 
-  // --- STREAK LOGIC ---
-  const calculateAndSaveStreak = useCallback((quizResults) => {
-    if (quizResults.length === 0) {
-      localStorage.setItem(
-        STREAK_KEY,
-        JSON.stringify({
-          streak: 0,
-          lastCheckDate: new Date().toISOString().split("T")[0],
-        }),
-      );
-      return 0;
-    }
-    const quizDates = new Set();
-    quizResults.forEach((r) => {
-      const date = new Date(r.date);
-      date.setHours(0, 0, 0, 0);
-      quizDates.add(date.toISOString().split("T")[0]);
-    });
-
-    let streak = 0;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    let currentDate = new Date(today);
-    const todayStr = currentDate.toISOString().split("T")[0];
-
-    if (quizDates.has(todayStr)) {
-      streak = 1;
-      currentDate.setDate(currentDate.getDate() - 1);
-    } else {
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
-      if (quizDates.has(yesterday.toISOString().split("T")[0])) {
-        streak = 1;
-        currentDate = yesterday;
-      } else {
-        localStorage.setItem(
-          STREAK_KEY,
-          JSON.stringify({ streak: 0, lastCheckDate: todayStr }),
-        );
-        return 0;
-      }
-    }
-
-    while (true) {
-      const prev = new Date(currentDate);
-      prev.setDate(prev.getDate() - 1);
-      const prevStr = prev.toISOString().split("T")[0];
-      if (quizDates.has(prevStr)) {
-        streak++;
-        currentDate = prev;
-      } else {
-        break;
-      }
-    }
-    localStorage.setItem(
-      STREAK_KEY,
-      JSON.stringify({ streak, lastCheckDate: todayStr }),
-    );
-    return streak;
-  }, []);
-
+  // ✅ FIXED AUTH CHECK
   useEffect(() => {
     const userId = localStorage.getItem("currentUserId");
+
     if (!userId) {
       navigate("/login");
       return;
     }
 
+    const savedName = localStorage.getItem("userName") || "Developer";
+    const savedEmail = localStorage.getItem("userEmail") || "dev@codebay.com";
+
     const savedResults = localStorage.getItem("quizResults");
     if (savedResults) {
       const parsed = JSON.parse(savedResults);
-      setResults(
-        parsed.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-        ),
-      );
+      setResults(parsed.sort((a, b) => new Date(b.date) - new Date(a.date)));
     }
 
-    setCurrentUser({ name: "Developer Name", email: "dev@codebay.com" });
+    setCurrentUser({ name: savedName, email: savedEmail });
   }, [navigate]);
 
+  // --- STREAK ---
+  const calculateAndSaveStreak = useCallback((quizResults) => {
+    if (!quizResults.length) return 0;
+
+    const dates = new Set(
+      quizResults.map((r) => new Date(r.date).toISOString().split("T")[0]),
+    );
+
+    let streak = 0;
+    let current = new Date();
+
+    while (true) {
+      const dateStr = current.toISOString().split("T")[0];
+
+      if (dates.has(dateStr)) {
+        streak++;
+        current.setDate(current.getDate() - 1);
+      } else break;
+    }
+
+    localStorage.setItem(STREAK_KEY, JSON.stringify({ streak }));
+    return streak;
+  }, []);
+
   useEffect(() => {
-    const newStreak = calculateAndSaveStreak(results);
-    setCurrentStreak(newStreak);
+    setCurrentStreak(calculateAndSaveStreak(results));
   }, [results, calculateAndSaveStreak]);
 
-  // Stats Calculations
+  // Stats
   const stats = {
     quizzesTaken: results.length,
     totalPoints: results.reduce((sum, r) => sum + r.score * 10, 0),
@@ -206,9 +162,8 @@ const ProfilePage = () => {
     );
 
   return (
-    <main className="relative min-h-screen pb-24 bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 overflow-x-hidden">
+    <main className="relative min-h-screen pb-24 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-x-hidden">
       <AnimatedBackground />
-
       <div className="relative z-10 max-w-6xl mx-auto px-4 pt-10">
         {/* HEADER SECTION */}
         <header className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
@@ -220,8 +175,7 @@ const ProfilePage = () => {
                   alt="Dev"
                   className="w-full h-full object-cover"
                   onError={(e) =>
-                    (e.target.src =
-                      "https://ui-avatars.com/api/?name=Dev&background=0D8ABC&color=fff")
+                    (e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=0D8ABC&color=fff`)
                   }
                 />
               </div>
@@ -284,7 +238,7 @@ const ProfilePage = () => {
           />
         </div>
 
-        {/* TABS MENU - Updated to FULL WIDTH */}
+        {/* TABS MENU */}
         <div className="w-full p-1.5 bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 mb-8">
           <div className="flex w-full">
             {["overview", "achievements", "activity"].map((tab) => (

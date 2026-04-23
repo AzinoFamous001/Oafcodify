@@ -22,7 +22,7 @@ import {
 
 // --- ANIMATED BACKGROUND COMPONENT (Theme Consistency) ---
 const AnimatedBackground = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
     <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite]">
       <FaCode size={120} className="text-white/20" />
     </div>
@@ -58,7 +58,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-600 to-indigo-900 overflow-hidden">
+    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-hidden">
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 pt-10">

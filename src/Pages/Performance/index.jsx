@@ -79,7 +79,7 @@ const PerformancePage = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-600 to-indigo-900 overflow-hidden text-white">
+    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-hidden text-white">
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 pt-10">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaChevronRight,
@@ -44,16 +44,15 @@ const LearningBox = ({
   onLessonClick,
 }) => {
   const lessons = [
-    { name: "Lesson 1: Introduction", number: 1 },
-    { name: "Lesson 2: Core Concepts", number: 2 },
-    { name: "Lesson 3: Advanced Logic", number: 3 },
-    { name: "Lesson 4: Best Practices", number: 4 },
-    { name: "Lesson 5: Project Build", number: 5 },
+    { name: "Lesson 1: Foundations", number: 1 },
+    { name: "Lesson 2: Core Syntax", number: 2 },
+    { name: "Lesson 3: Control Flow & Logic", number: 3 },
+    { name: "Lesson 4: Patterns & Debugging", number: 4 },
+    { name: "Lesson 5: Real Mini-Project", number: 5 },
   ];
 
   return (
     <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-xl h-full min-h-[320px] overflow-visible">
-      {/* Main Course Content */}
       <div className="relative z-10 h-full flex flex-col">
         <div
           className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg bg-gradient-to-br ${gradient}`}
@@ -67,13 +66,11 @@ const LearningBox = ({
           {desc}
         </p>
 
-        {/* View Curriculum hover trigger */}
         <div className="relative group/curriculum mt-6 pt-4 border-t border-white/10">
           <div className="flex items-center text-white text-sm font-bold cursor-pointer select-none">
             View Curriculum <FaChevronRight size={14} className="ml-1" />
           </div>
 
-          {/* Dropdown — slides up above the row */}
           <div
             className="
               absolute bottom-full left-0 mb-2 w-full min-w-[220px]
@@ -114,6 +111,14 @@ const LearningBox = ({
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("Developer");
+
+  useEffect(() => {
+    const savedName = localStorage.getItem("userName");
+    if (savedName) {
+      setUserName(savedName);
+    }
+  }, []);
 
   const handleLessonClick = (courseKey, lessonNumber) => {
     const courseMap = {
@@ -124,9 +129,7 @@ const DashboardPage = () => {
       "C++": 5,
       React: 6,
     };
-
-    const lessonId = courseMap[courseKey] || 1;
-    navigate(`/lesson/${lessonId}`);
+    navigate(`/lesson/${courseKey}/${lessonNumber}`);
   };
 
   return (
@@ -134,7 +137,6 @@ const DashboardPage = () => {
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
-        {/* Welcome Section */}
         <section className="flex flex-col md:flex-row items-center gap-6 mb-12 sm:mb-16">
           <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden ring-4 ring-blue-200/30 flex-shrink-0">
             <img
@@ -142,15 +144,14 @@ const DashboardPage = () => {
               alt="Dev"
               className="w-full h-full object-cover"
               onError={(e) =>
-                (e.target.src =
-                  "https://ui-avatars.com/api/?name=Dev&background=0D8ABC&color=fff")
+                (e.target.src = `https://ui-avatars.com/api/?name=${userName}&background=0D8ABC&color=fff`)
               }
             />
           </div>
 
           <div className="text-center md:text-left">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white drop-shadow-md leading-tight">
-              Welcome back, Developer!
+              Welcome back, {userName}!
             </h2>
             <p className="text-blue-100 text-base sm:text-lg mt-2 font-medium italic">
               "First, solve the problem. Then, write the code."
@@ -158,7 +159,6 @@ const DashboardPage = () => {
           </div>
         </section>
 
-        {/* Courses Section */}
         <div className="mb-20">
           <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 flex items-center gap-3">
             <span className="w-8 h-1 bg-white rounded-full"></span>
@@ -218,7 +218,6 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Extras Section */}
         <section>
           <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 flex items-center gap-3">
             <span className="w-8 h-1 bg-yellow-400 rounded-full"></span>

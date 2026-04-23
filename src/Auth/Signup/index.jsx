@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
-import { NavLink, useNavigate } from "react-router-dom"; // Added useNavigate
+
 import {
   FaGithub,
   FaGoogle,
@@ -11,8 +12,9 @@ import {
   FaServer,
   FaGlobe,
 } from "react-icons/fa";
+import SuccessModal from "../../Components/shared/Successmodal";
 
-// --- THE BACKGROUND COMPONENT (Stays exactly the same) ---
+// Background component EXACTLY SAME
 const AnimatedBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
     <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite] opacity-40">
@@ -34,7 +36,8 @@ const AnimatedBackground = () => (
 );
 
 const SignupPage = () => {
-  const navigate = useNavigate(); // For redirecting after signup
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -44,45 +47,68 @@ const SignupPage = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  // Storage for the user ID returned by the API
+  const [receivedUserId, setReceivedUserId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Please enter a valid email";
 
-    if (!formData.password) newErrors.password = "Password is required";
-    else if (formData.password.length < 6)
-      newErrors.password = "Password must be at least 6 characters";
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full name is required";
+    }
 
-    if (!formData.confirmPassword)
-      newErrors.confirmPassword = "Please confirm your password";
-    else if (formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Invalid email";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Min 6 characters";
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm your password";
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords mismatch";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // --- UPDATED AUTH LOGIC ---
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateForm()) return;
 
     setLoading(true);
+
     try {
       const response = await fetch("http://localhost:5000/api/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           fullName: formData.fullName,
           email: formData.email,
@@ -93,22 +119,37 @@ const SignupPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Account created successfully! 🎉");
-        navigate("/login"); // Redirect to login page
+        // SAVE DATA TO STATE, NOT LOCALSTORAGE (Prevents auto-redirect)
+        setReceivedUserId(data?.user?._id || "local-user");
+        setShowSuccess(true);
       } else {
-        // Display backend error (e.g., "User already exists")
-        alert(data.message || "Something went wrong");
+        alert(data.message || "Registration failed");
       }
     } catch (err) {
-      alert("Server error. Make sure your backend is running!");
+      alert("Server error");
     } finally {
       setLoading(false);
     }
   };
 
+  // Logic to execute when "Continue" is clicked
+  const handleFinalizeSignup = () => {
+    localStorage.setItem("userName", formData.fullName);
+    localStorage.setItem("userEmail", formData.email);
+    localStorage.setItem("currentUserId", receivedUserId);
+    navigate("/dashboard");
+  };
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
       <AnimatedBackground />
+
+      <SuccessModal
+        isOpen={showSuccess}
+        onClose={handleFinalizeSignup}
+        title="Success!"
+        message="Your account has been created successfully."
+      />
 
       <div className="relative z-10 w-full max-w-md md:max-w-4xl">
         <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl border border-blue-100 overflow-hidden flex flex-col md:flex-row md:items-stretch">
@@ -120,14 +161,11 @@ const SignupPage = () => {
             <p className="text-[#153498] font-medium italic mb-4 md:mb-6 text-sm md:text-base">
               Master Code. Build Future.
             </p>
-
             <div className="hidden md:block space-y-4 text-sm text-gray-600">
               <div className="p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-                <p className="font-semibold text-[#153498]">
-                  Join the Community
-                </p>
+                <p className="font-semibold text-[#153498]">Welcome Back</p>
                 <p className="mt-1 leading-relaxed">
-                  Access world-class coding courses and track progress.
+                  Login to access your personalized learning dashboard.
                 </p>
               </div>
             </div>
@@ -153,6 +191,7 @@ const SignupPage = () => {
                 error={errors.fullName}
                 required
               />
+
               <TextField
                 label="Email Address"
                 type="email"
@@ -175,6 +214,7 @@ const SignupPage = () => {
                   error={errors.password}
                   required
                 />
+
                 <TextField
                   label="Confirm Password"
                   type="password"
@@ -218,13 +258,20 @@ const SignupPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-              <button className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1">
+              <button
+                type="button"
+                className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
+              >
                 <FaGithub size={18} className="mr-2 text-gray-700" />
                 <span className="font-bold text-[11px] text-gray-700">
                   GitHub
                 </span>
               </button>
-              <button className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1">
+
+              <button
+                type="button"
+                className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
+              >
                 <FaGoogle size={18} className="mr-2 text-gray-700" />
                 <span className="font-bold text-[11px] text-gray-700">
                   Google

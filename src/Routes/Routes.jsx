@@ -3,7 +3,6 @@ import {
   RouterProvider,
   Navigate,
   NavLink,
-  Outlet,
 } from "react-router-dom";
 import SignUpPage from "../Auth/Signup";
 import LoginPage from "../Auth/Login";
@@ -17,7 +16,7 @@ import PerformancePage from "../Pages/Performance";
 import LessonPage from "../Pages/Lesson";
 
 const router = createBrowserRouter([
-  // --- AUTH ROUTES (No Navbar/Footer) ---
+  // --- AUTH ROUTES ---
   {
     path: "/",
     element: <Navigate to="/signup" replace />,
@@ -31,9 +30,9 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
 
-  // --- MAIN ROUTES (With Navbar & Footer) ---
+  // --- MAIN ROUTES ---
   {
-    element: <MainLayout />, // Wrap these routes in the layout
+    element: <MainLayout />,
     children: [
       {
         path: "/dashboard",
@@ -43,10 +42,13 @@ const router = createBrowserRouter([
         path: "/editor",
         element: <EditorPage />,
       },
+
+      // ✅ FIXED ROUTE (IMPORTANT)
       {
-        path: "/lesson/:lessonId", // Dynamic route for lessons
+        path: "/lesson/:courseKey/:lessonId",
         element: <LessonPage />,
       },
+
       {
         path: "/profile",
         element: <ProfilePage />,
@@ -66,7 +68,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // --- 404 PAGE ---
+  // --- 404 ---
   {
     path: "*",
     element: (
