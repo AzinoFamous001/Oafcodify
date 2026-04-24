@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaBell,
@@ -14,10 +14,9 @@ import {
   FaArrowLeft,
   FaCircle,
   FaInfoCircle,
-  FaExclamationTriangle,
 } from "react-icons/fa";
 
-// --- ANIMATED BACKGROUND COMPONENT (Consistent with Theme) ---
+// --- ANIMATED BACKGROUND ---
 const AnimatedBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
     <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite]">
@@ -41,53 +40,72 @@ const AnimatedBackground = () => (
 const NotificationsPage = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("all");
+  const [notifications, setNotifications] = useState([]);
+  const [userId, setUserId] = useState(null);
 
-  // Mock data for notifications
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: "achievement",
-      title: "New Achievement Unlocked!",
-      message: 'You earned the "Consistency King" badge for a 7-day streak.',
-      time: "2 hours ago",
-      isRead: false,
-      icon: <FaTrophy className="text-yellow-400" />,
-    },
-    {
-      id: 2,
-      type: "streak",
-      title: "Streak at Risk!",
-      message: "Complete a quiz today to maintain your 5-day streak.",
-      time: "5 hours ago",
-      isRead: false,
-      icon: <FaFire className="text-orange-500" />,
-    },
-    {
-      id: 3,
-      type: "system",
-      title: "Platform Update",
-      message: "New Python and Rust quizzes have been added to the dashboard.",
-      time: "1 day ago",
-      isRead: true,
-      icon: <FaInfoCircle className="text-blue-400" />,
-    },
-    {
-      id: 4,
-      type: "achievement",
-      title: "Level Up!",
-      message: "Congratulations! You have reached Level 10.",
-      time: "2 days ago",
-      isRead: true,
-      icon: <FaTrophy className="text-purple-400" />,
-    },
-  ]);
+  // --- LOAD USER SPECIFIC NOTIFICATIONS ---
+  useEffect(() => {
+    const currentId = localStorage.getItem("currentUserId");
+    if (!currentId) {
+      navigate("/login");
+      return;
+    }
+    setUserId(currentId);
+
+    const storageKey = `notifications_${currentId}`;
+    const savedNotifications = localStorage.getItem(storageKey);
+
+    if (savedNotifications) {
+      setNotifications(JSON.parse(savedNotifications));
+    } else {
+      // DEFAULT NOTIFICATIONS FOR NEW USER
+      const welcomeNotifications = [
+        {
+          id: Date.now(),
+          type: "system",
+          title: "Welcome to CodeBay!",
+          message:
+            "Start your journey by completing your first lesson in HTML or JavaScript.",
+          time: "Just now",
+          isRead: false,
+          iconType: "info",
+        },
+      ];
+      setNotifications(welcomeNotifications);
+      localStorage.setItem(storageKey, JSON.stringify(welcomeNotifications));
+    }
+  }, [navigate]);
+
+  // --- SAVE CHANGES HELPER ---
+  const saveToStorage = (updatedList) => {
+    setNotifications(updatedList);
+    localStorage.setItem(
+      `notifications_${userId}`,
+      JSON.stringify(updatedList),
+    );
+  };
 
   const markAllRead = () => {
-    setNotifications(notifications.map((n) => ({ ...n, isRead: true })));
+    const updated = notifications.map((n) => ({ ...n, isRead: true }));
+    saveToStorage(updated);
   };
 
   const deleteNotification = (id) => {
-    setNotifications(notifications.filter((n) => n.id !== id));
+    const updated = notifications.filter((n) => n.id !== id);
+    saveToStorage(updated);
+  };
+
+  const getIcon = (type) => {
+    switch (type) {
+      case "achievement":
+        return <FaTrophy className="text-yellow-400" />;
+      case "streak":
+        return <FaFire className="text-orange-500" />;
+      case "system":
+        return <FaInfoCircle className="text-blue-400" />;
+      default:
+        return <FaBell className="text-blue-400" />;
+    }
   };
 
   const filteredNotifications = notifications.filter((n) => {
@@ -101,7 +119,7 @@ const NotificationsPage = () => {
       <AnimatedBackground />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 pt-10">
-        {/* Header Area */}
+        {/* Header */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">
             <button
@@ -111,7 +129,7 @@ const NotificationsPage = () => {
               <FaArrowLeft size={18} />
             </button>
             <h1 className="text-4xl font-black text-white tracking-tight flex items-center gap-3">
-              Notifications <FaBell size={28} className="text-yellow-400" />
+              Inbox <FaBell size={28} className="text-yellow-400" />
             </h1>
           </div>
 
@@ -123,7 +141,7 @@ const NotificationsPage = () => {
           </button>
         </div>
 
-        {/* Tab Filters */}
+        {/* Filters */}
         <div className="flex p-1.5 bg-slate-900/40 backdrop-blur-md rounded-2xl border border-white/10 mb-8 overflow-x-auto no-scrollbar">
           {["all", "unread", "achievement", "streak", "system"].map((tab) => (
             <button
@@ -140,7 +158,7 @@ const NotificationsPage = () => {
           ))}
         </div>
 
-        {/* Notifications List */}
+        {/* List */}
         <div className="space-y-4">
           {filteredNotifications.length > 0 ? (
             filteredNotifications.map((n) => (
@@ -152,7 +170,6 @@ const NotificationsPage = () => {
                     : "bg-white/15 border-white/20 shadow-xl shadow-blue-900/20"
                 }`}
               >
-                {/* Status Indicator */}
                 {!n.isRead && (
                   <div className="absolute top-6 right-6">
                     <FaCircle
@@ -162,22 +179,16 @@ const NotificationsPage = () => {
                   </div>
                 )}
 
-                {/* Icon Box */}
-                <div
-                  className={`p-4 rounded-2xl bg-slate-900/50 border border-white/10 text-2xl`}
-                >
-                  {n.icon}
+                <div className="p-4 rounded-2xl bg-slate-900/50 border border-white/10 text-2xl">
+                  {getIcon(n.type)}
                 </div>
 
-                {/* Content */}
                 <div className="flex-1">
-                  <div className="flex justify-between items-start mb-1">
-                    <h3
-                      className={`font-bold text-lg ${n.isRead ? "text-blue-100/70" : "text-white"}`}
-                    >
-                      {n.title}
-                    </h3>
-                  </div>
+                  <h3
+                    className={`font-bold text-lg ${n.isRead ? "text-blue-100/70" : "text-white"}`}
+                  >
+                    {n.title}
+                  </h3>
                   <p className="text-blue-100/60 text-sm leading-relaxed mb-3">
                     {n.message}
                   </p>
@@ -186,12 +197,10 @@ const NotificationsPage = () => {
                   </span>
                 </div>
 
-                {/* Actions */}
                 <div className="flex items-center gap-2 self-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => deleteNotification(n.id)}
                     className="p-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors"
-                    title="Delete Notification"
                   >
                     <FaTrash size={14} />
                   </button>
@@ -200,14 +209,12 @@ const NotificationsPage = () => {
             ))
           ) : (
             <div className="flex flex-col items-center justify-center py-20 bg-white/5 rounded-[2rem] border border-dashed border-white/10">
-              <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
-                <FaBell size={32} className="text-blue-100/20" />
-              </div>
+              <FaBell size={32} className="text-blue-100/20 mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">
-                You're all caught up!
+                No notifications found
               </h3>
               <p className="text-blue-100/40 text-sm">
-                No new notifications to show right now.
+                You're all caught up for now!
               </p>
             </div>
           )}

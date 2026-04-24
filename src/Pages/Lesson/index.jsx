@@ -11,9 +11,10 @@ import {
   FaBook,
   FaLightbulb,
   FaExternalLinkAlt,
-  FaDownload,
   FaBullseye,
   FaTools,
+  FaQuestionCircle,
+  FaCode,
 } from "react-icons/fa";
 import { SiReact } from "react-icons/si";
 import Button from "../../Shared/Buttons";
@@ -201,7 +202,7 @@ const LessonPage = () => {
     (completedTopics.length / (lesson.subtopics?.length || 1)) * 100;
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br  from-blue-900 via-blue-700 to-indigo-900 pb-20 overflow-x-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 pb-20 overflow-x-hidden">
       <AnimatedBackground />
 
       {/* Navigation */}
@@ -379,6 +380,25 @@ const LessonPage = () => {
               </div>
             </section>
           )}
+        </div>
+
+        {/* ✅ ADDED BUTTONS SECTION */}
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6">
+          <Button
+            size="lg"
+            onClick={() => navigate(`/quiz/${courseKey}/${lessonId}`)}
+            className="w-full sm:w-auto flex items-center gap-2 !rounded-xl shadow-lg"
+          >
+            <FaQuestionCircle /> Take Lesson Quiz
+          </Button>
+
+          <Button
+            size="lg"
+            onClick={() => navigate("/editor")}
+            className="w-full sm:w-auto flex items-center gap-2 !bg-white !text-blue-900 hover:!bg-blue-50 !rounded-xl shadow-lg"
+          >
+            <FaCode /> Open Code Editor
+          </Button>
         </div>
       </main>
     </div>

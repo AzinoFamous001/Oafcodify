@@ -1,249 +1,206 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// All icons from react-icons
 import {
   FaUser,
   FaBell,
-  FaLock,
   FaPalette,
-  FaGlobe,
-  FaShieldAlt,
   FaArrowLeft,
-  FaCamera,
   FaCheck,
   FaCode,
-  FaCog,
-  FaDatabase,
-  FaServer,
-  FaFire,
   FaSignOutAlt,
   FaTrashAlt,
+  FaInfoCircle,
 } from "react-icons/fa";
 
-// --- ANIMATED BACKGROUND COMPONENT (Theme Consistency) ---
+// --- MINIMAL BACKGROUND ---
 const AnimatedBackground = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
-    <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite]">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
+    <div className="absolute top-[10%] left-[5%] animate-pulse">
       <FaCode size={120} className="text-white/20" />
     </div>
-    <div className="absolute top-[60%] right-[10%] animate-[spin_25s_linear_infinite_reverse]">
-      <FaCog size={100} className="text-blue-200/20" />
-    </div>
-    <div className="absolute bottom-[15%] left-[15%] animate-bounce duration-[5000ms]">
-      <FaDatabase size={80} className="text-white/10" />
-    </div>
-    <div className="absolute top-[20%] right-[20%] animate-[spin_30s_linear_infinite]">
-      <FaServer size={110} className="text-blue-100/10" />
-    </div>
-    <div className="absolute top-[40%] left-[40%] animate-pulse">
-      <FaGlobe size={150} className="text-white/5" />
+    <div className="absolute bottom-[10%] right-[5%] animate-pulse">
+      <FaCode size={80} className="text-white/10" />
     </div>
   </div>
 );
 
 const SettingsPage = () => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userId, setUserId] = useState(null);
 
-  // State for toggles
+  // Settings State
   const [settings, setSettings] = useState({
-    emailNotifications: true,
-    streakReminders: true,
-    publicProfile: false,
-    reducedMotion: false,
-    twoFactor: false,
+    notifications: true,
+    darkMode: true,
+    publicRank: true,
   });
+
+  // --- LOAD USER DATA ---
+  useEffect(() => {
+    const currentId = localStorage.getItem("currentUserId");
+    if (!currentId) {
+      navigate("/login");
+      return;
+    }
+    setUserId(currentId);
+    setUserName(localStorage.getItem("userName") || "Student");
+    setUserEmail(localStorage.getItem("userEmail") || "student@school.com");
+
+    // Load user-specific settings if they exist
+    const savedSettings = localStorage.getItem(`settings_${currentId}`);
+    if (savedSettings) {
+      setSettings(JSON.parse(savedSettings));
+    }
+  }, [navigate]);
+
+  const handleSave = () => {
+    // Save Profile Info
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("userEmail", userEmail);
+    // Save Toggles
+    localStorage.setItem(`settings_${userId}`, JSON.stringify(settings));
+
+    alert("Settings updated successfully!");
+  };
 
   const toggleSetting = (key) => {
     setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("currentUserId");
+    navigate("/login");
+  };
+
   return (
-    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-hidden">
+    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-hidden">
       <AnimatedBackground />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 pt-10">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 pt-10">
         {/* Header */}
-        <div className="flex items-center gap-6 mb-12">
+        <div className="flex items-center gap-6 mb-10">
           <button
             onClick={() => navigate(-1)}
-            className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl border border-white/10 transition-all"
+            className="p-3 bg-white/10 hover:bg-white/20 rounded-2xl transition-all"
           >
             <FaArrowLeft size={18} />
           </button>
-          <div>
-            <h1 className="text-4xl font-black text-white tracking-tight">
-              Settings
-            </h1>
-            <p className="text-blue-100/60 font-medium">
-              Manage your account and preferences
-            </p>
-          </div>
+          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
         </div>
 
-        <div className="space-y-8">
-          {/* 1. PROFILE SECTION */}
-          <section className="bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
-            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
-              <FaUser className="text-blue-400" /> Public Profile
+        <div className="space-y-6">
+          {/* 1. PERSONAL INFO */}
+          <section className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-blue-400">
+              <FaUser size={16} /> Account Profile
             </h3>
-
-            <div className="flex flex-col md:flex-row items-center gap-8 mb-8 pb-8 border-b border-white/10">
-              <div className="relative group">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden ring-4 ring-blue-200/30 flex-shrink-0">
-                  <img
-                    src="/Logo_.jpg"
-                    alt="Dev"
-                    className="w-full h-full object-cover"
-                    onError={(e) =>
-                      (e.target.src =
-                        "https://ui-avatars.com/api/?name=Dev&background=0D8ABC&color=fff")
-                    }
-                  />
-                </div>
-                <button className="absolute bottom-0 right-0 p-2 bg-blue-600 text-white rounded-full border-2 border-slate-900 group-hover:scale-110 transition-transform">
-                  <FaCamera size={14} />
-                </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-black tracking-widest text-white/40 ml-1">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-all"
+                />
               </div>
-
-              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                <div className="space-y-1">
-                  <label className="text-xs font-black uppercase tracking-widest text-blue-100/40 ml-1">
-                    Display Name
-                  </label>
-                  <input
-                    type="text"
-                    defaultValue="Developer Name"
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-black uppercase tracking-widest text-blue-100/40 ml-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    defaultValue="dev@codebay.com"
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  />
-                </div>
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-black tracking-widest text-white/40 ml-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-all"
+                />
               </div>
             </div>
-
-            <ToggleRow
-              icon={FaGlobe}
-              title="Public Profile"
-              desc="Allow others to see your achievements and rank."
-              active={settings.publicProfile}
-              onClick={() => toggleSetting("publicProfile")}
-            />
           </section>
 
-          {/* 2. NOTIFICATIONS SECTION */}
-          <section className="bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
-            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
-              <FaBell className="text-yellow-400" /> Notifications
+          {/* 2. APP PREFERENCES */}
+          <section className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-yellow-400">
+              <FaPalette size={16} /> Learning Preferences
             </h3>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <ToggleRow
-                icon={FaBell}
-                title="Email Notifications"
-                desc="Receive weekly progress reports and new course alerts."
-                active={settings.emailNotifications}
-                onClick={() => toggleSetting("emailNotifications")}
+                title="Enable Notifications"
+                desc="Get reminded about daily streaks and new tasks."
+                active={settings.notifications}
+                onClick={() => toggleSetting("notifications")}
               />
               <ToggleRow
-                icon={FaFire}
-                title="Streak Reminders"
-                desc="Get notified when your daily streak is about to expire."
-                active={settings.streakReminders}
-                onClick={() => toggleSetting("streakReminders")}
+                title="Public Leaderboard"
+                desc="Show your rank and XP to other students."
+                active={settings.publicRank}
+                onClick={() => toggleSetting("publicRank")}
               />
             </div>
           </section>
 
-          {/* 3. SECURITY & PRIVACY */}
-          <section className="bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
-            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
-              <FaShieldAlt className="text-green-400" /> Security
+          {/* 3. DANGER ZONE */}
+          <section className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+            <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-red-400">
+              <FaTrashAlt size={16} /> Danger Zone
             </h3>
-            <div className="space-y-6 mb-8">
-              <ToggleRow
-                icon={FaLock}
-                title="Two-Factor Authentication"
-                desc="Add an extra layer of security to your account."
-                active={settings.twoFactor}
-                onClick={() => toggleSetting("twoFactor")}
-              />
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold transition-all">
-                Change Password
-              </button>
-              <button className="px-6 py-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 rounded-xl font-bold transition-all flex items-center gap-2">
-                <FaTrashAlt size={14} /> Delete Account
-              </button>
-            </div>
+            <p className="text-sm text-white/40 mb-4">
+              Once you delete your data, it cannot be recovered.
+            </p>
+            <button
+              onClick={() => {
+                if (window.confirm("Reset all your progress?"))
+                  localStorage.clear();
+                navigate("/");
+              }}
+              className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold rounded-lg border border-red-500/20 transition-all"
+            >
+              Reset All Progress
+            </button>
           </section>
 
-          {/* 4. PREFERENCES */}
-          <section className="bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
-            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
-              <FaPalette className="text-purple-400" /> Preferences
-            </h3>
-            <ToggleRow
-              icon={FaCog}
-              title="Reduced Motion"
-              desc="Minimize background animations for better performance."
-              active={settings.reducedMotion}
-              onClick={() => toggleSetting("reducedMotion")}
-            />
-          </section>
-
-          {/* Save Button */}
-          <div className="flex justify-end pt-4">
-            <button className="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-[1.5rem] font-black uppercase tracking-widest shadow-xl shadow-blue-900/40 flex items-center gap-3 transition-all transform hover:-translate-y-1">
-              <FaCheck /> Save Changes
+          {/* SAVE BUTTON */}
+          <div className="flex justify-between items-center pt-6">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-white/30 hover:text-white text-sm font-bold transition-all"
+            >
+              <FaSignOutAlt /> Logout
+            </button>
+            <button
+              onClick={handleSave}
+              className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-blue-900/40 transition-all"
+            >
+              <FaCheck /> Save Settings
             </button>
           </div>
         </div>
 
-        {/* Logout Footer */}
-        <div className="mt-12 text-center">
-          <button
-            onClick={() => navigate("/login")}
-            className="inline-flex items-center gap-2 text-blue-100/40 hover:text-red-400 font-bold transition-colors"
-          >
-            <FaSignOutAlt /> Sign Out of CodeBay
-          </button>
-        </div>
+        <p className="text-center mt-10 text-[10px] text-white/20 uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+          <FaInfoCircle /> CodeBay School Edition v1.0
+        </p>
       </div>
     </main>
   );
 };
 
-// --- HELPER COMPONENT: TOGGLE ROW ---
-
-const ToggleRow = ({ icon: Icon, title, desc, active, onClick }) => (
-  <div className="flex items-center justify-between gap-4">
-    <div className="flex items-start gap-4">
-      <div className="p-3 bg-slate-900/50 rounded-xl border border-white/10 text-blue-400">
-        <Icon size={20} />
-      </div>
-      <div>
-        <h4 className="text-white font-bold">{title}</h4>
-        <p className="text-blue-100/40 text-sm max-w-md">{desc}</p>
-      </div>
+// --- MINIMAL TOGGLE ROW ---
+const ToggleRow = ({ title, desc, active, onClick }) => (
+  <div className="flex items-center justify-between py-2">
+    <div>
+      <h4 className="text-sm font-bold text-white">{title}</h4>
+      <p className="text-xs text-white/40">{desc}</p>
     </div>
     <button
       onClick={onClick}
-      className={`relative w-14 h-7 rounded-full transition-colors duration-300 outline-none ${
-        active ? "bg-blue-500" : "bg-slate-700"
-      }`}
+      className={`relative w-12 h-6 rounded-full transition-colors ${active ? "bg-blue-500" : "bg-white/10"}`}
     >
       <div
-        className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full transition-transform duration-300 ${
-          active ? "translate-x-7" : "translate-x-0"
-        }`}
+        className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${active ? "translate-x-6" : "translate-x-0"}`}
       />
     </button>
   </div>
