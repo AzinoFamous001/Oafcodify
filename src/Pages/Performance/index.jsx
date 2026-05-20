@@ -15,6 +15,9 @@ import {
   RadarChart,
   PolarGrid,
   PolarAngleAxis,
+  PieChart,
+  Pie,
+  Legend,
 } from "recharts";
 import {
   FaChartLine,
@@ -48,6 +51,7 @@ const PerformancePage = () => {
     quizzesCount: 0,
     chartData: [],
     skillRadar: [],
+    pieData: [],
   });
 
   useEffect(() => {
@@ -142,12 +146,22 @@ const PerformancePage = () => {
       })
       .reverse();
 
+    // 6. Pie Chart Data (Course Completion Distribution)
+    const LESSONS_PER_COURSE = 5;
+    const PIE_COLORS = ["#f97316", "#3b82f6", "#eab308", "#6366f1", "#06b6d4", "#22c55e"];
+    const pieData = courses.map((course, idx) => ({
+      name: course,
+      value: lessonStats[course] || 0,
+      fill: PIE_COLORS[idx % PIE_COLORS.length],
+    })).filter((d) => d.value > 0);
+
     setUserStats({
       avgAccuracy,
       totalXP,
       quizzesCount: userResults.length,
       chartData: last7Days,
       skillRadar,
+      pieData,
     });
   }, [navigate]);
 
@@ -287,8 +301,52 @@ const PerformancePage = () => {
             </div>
           </div>
 
+          {/* Course Completion Pie Chart */}
+          <div className="bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
+            <h3 className="text-xl font-bold mb-8">Course Completion</h3>
+            <div className="h-[300px] w-full">
+              {userStats.pieData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={userStats.pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={100}
+                      paddingAngle={4}
+                      dataKey="value"
+                      label={({ name, value }) => `${name}: ${value}`}
+                      labelLine={{ stroke: "rgba(255,255,255,0.3)" }}
+                    >
+                      {userStats.pieData.map((entry, index) => (
+                        <Cell key={`pie-${index}`} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#0f172a",
+                        border: "none",
+                        borderRadius: "12px",
+                        color: "#fff",
+                      }}
+                      formatter={(value, name) => [`${value} lessons`, name]}
+                    />
+                    <Legend
+                      wrapperStyle={{ color: "rgba(255,255,255,0.7)", fontSize: 12 }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex items-center justify-center h-full text-blue-100/40 text-sm">
+                  Complete lessons to see your course breakdown
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* XP Bar Chart */}
-          <div className="lg:col-span-3 bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
+          <div className="lg:col-span-2 bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
             <h3 className="text-xl font-bold mb-8">Daily XP Gains</h3>
             <div className="h-[180px] w-full">
               <ResponsiveContainer width="100%" height="100%">
