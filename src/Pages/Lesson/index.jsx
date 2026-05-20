@@ -48,6 +48,27 @@ const AnimatedBackground = () => {
   );
 };
 
+function addLessonNotification(title, message, type = "system") {
+  const userId = localStorage.getItem("currentUserId");
+  if (!userId) return;
+
+  const storageKey = `notifications_${userId}`;
+  const saved = localStorage.getItem(storageKey);
+  const notifications = saved ? JSON.parse(saved) : [];
+
+  notifications.unshift({
+    id: Date.now() + Math.floor(Math.random() * 1000),
+    type,
+    title,
+    message,
+    time: "Just now",
+    isRead: false,
+    iconType: type === "achievement" ? "trophy" : "info",
+  });
+
+  localStorage.setItem(storageKey, JSON.stringify(notifications));
+}
+
 const LessonPage = () => {
   const { lessonId, courseKey } = useParams();
   const navigate = useNavigate();
@@ -106,6 +127,32 @@ const LessonPage = () => {
       `${courseKey}_lesson_${lessonId}_completed`,
       JSON.stringify(updated),
     );
+
+    const totalTopics = lesson.subtopics?.length || 0;
+    const isNowFullyComplete =
+      totalTopics > 0 && updated.length === totalTopics;
+    const wasAlreadyComplete =
+      totalTopics > 0 && completedTopics.length === totalTopics;
+
+    if (isNowFullyComplete && !wasAlreadyComplete) {
+      const currentLessonNum = parseInt(lessonId, 10);
+      const maxLessons = 5;
+
+      addLessonNotification(
+        `Lesson ${currentLessonNum} Complete!`,
+        `Congratulations! You finished "${lesson.title}" in ${courseKey}. Great progress!`,
+        "achievement",
+      );
+
+      if (currentLessonNum < maxLessons) {
+        const nextLessonNum = currentLessonNum + 1;
+        addLessonNotification(
+          `New Lesson Unlocked: Lesson ${nextLessonNum}`,
+          `You've unlocked Lesson ${nextLessonNum} in ${courseKey}! Keep the momentum going and continue your learning journey.`,
+          "system",
+        );
+      }
+    }
   };
 
   const handleCopyCode = (code, identifier) => {
