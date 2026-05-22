@@ -1,0 +1,146 @@
+[
+  {
+    "id": 9,
+    "question": "Which function is the entry point of a C++ program?",
+    "options": [
+      "start()",
+      "main()",
+      "init()",
+      "begin()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The main() function is the entry point where program execution begins."
+  },
+  {
+    "id": 10,
+    "question": "What does the 'new' operator do in C++?",
+    "options": [
+      "Creates a new variable",
+      "Allocates dynamic memory",
+      "Creates a new function",
+      "Imports a new library"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'new' operator is used to allocate memory dynamically."
+  },
+  {
+    "id": 11,
+    "question": "Which symbol is used to access a member of an object through a pointer?",
+    "options": [
+      ".",
+      "->",
+      "::",
+      ":"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The -> operator is used to access members through a pointer."
+  },
+  {
+    "id": 12,
+    "question": "What is a pointer in C++?",
+    "options": [
+      "A variable that stores a value",
+      "A variable that stores a memory address",
+      "A function that returns an address",
+      "A constant value"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A pointer is a variable that stores the memory address of another variable."
+  },
+  {
+    "id": 13,
+    "question": "Which keyword is used for inheritance in C++?",
+    "options": [
+      "inherits",
+      "extends",
+      ":",
+      "super"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The : symbol is used for inheritance in C++."
+  },
+  {
+    "id": 14,
+    "question": "What is the purpose of the 'delete' operator?",
+    "options": [
+      "Remove a variable",
+      "Free dynamically allocated memory",
+      "Delete a file",
+      "Clear the screen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "delete frees dynamically allocated memory in C++."
+  },
+  {
+    "id": 15,
+    "question": "Which symbol is used for comments in C++?",
+    "options": [
+      "#",
+      "//",
+      "/*",
+      "--"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The // symbol is used for single-line comments in C++."
+  },
+  {
+    "id": 16,
+    "question": "Which keyword is used to define a constant in C++?",
+    "options": [
+      "constant",
+      "final",
+      "const",
+      "static"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'const' keyword is used to define constants in C++."
+  },
+  {
+    "id": 17,
+    "question": "What is the correct extension for C++ source files?",
+    "options": [
+      ".c",
+      ".cp",
+      ".cpp",
+      ".c++"
+    ],
+    "correctAnswer": 2,
+    "explanation": "C++ source files typically use the .cpp extension."
+  },
+  {
+    "id": 18,
+    "question": "Which operator is used for input in C++?",
+    "options": [
+      ">>",
+      "<<",
+      ">",
+      "<"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The >> operator is used with cin for input in C++."
+  },
+  {
+    "id": 19,
+    "question": "Which function is used to output text in C++?",
+    "options": [
+      "print()",
+      "cout",
+      "printf()",
+      "write()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "cout is used for output in C++."
+  },
+  {
+    "id": 20,
+    "question": "How do you declare an integer variable in C++?",
+    "options": [
+      "int x",
+      "integer x",
+      "var x",
+      "x = int"
+    ],
+    "correctAnswer": 0,
+    "explanation": "int x declares an integer variable in C++."
+  }
+]

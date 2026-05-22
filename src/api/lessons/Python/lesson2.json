@@ -1,0 +1,73 @@
+[
+  {
+    "id": "2",
+    "title": "Data Structures & Functions",
+    "description": "Learn about Python lists, dictionaries, and how to create reusable functions.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Work with lists and tuples",
+      "Create and use dictionaries",
+      "Define custom functions",
+      "Understand scope and parameters",
+      "Handle files and exceptions"
+    ],
+    "subtopics": [
+      {
+        "title": "Lists and Tuples",
+        "content": "Store multiple items in ordered collections.\n\n**Python Lists:**\n- Ordered, mutable collections\n- Can contain any data type\n- Created with square brackets: `[]`\n- Index starts from 0\n\n**Tuples:**\n- Ordered, immutable collections\n- Created with parentheses: `()`\n- Cannot be modified after creation\n\n**Examples:**\n```python\n# Lists\nfruits = ['apple', 'banana', 'orange']\nfruits.append('grape')  # Add item\nprint(fruits[0])           # 'apple'\n\n# Tuples\ncoordinates = (10, 20)\nx, y = coordinates\nprint(f'X: {x}, Y: {y}')  # 'X: 10, Y: 20'\n```\n\n**Common Operations:**\n- `len(list)` - Get length\n- `list.append(item)` - Add item\n- `list.remove(item)` - Remove item\n- `list.sort()` - Sort list\n- `list[index]` - Access item"
+      },
+      {
+        "title": "Dictionaries",
+        "content": "Store key-value pairs for structured data.\n\n**Python Dictionaries:**\n- Unordered collections of key-value pairs\n- Created with curly braces: `{}`\n- Keys are unique\n- Values can be any data type\n- Fast lookups by key\n\n**Examples:**\n```python\n# Creating dictionaries\nstudent = {\n    'name': 'Alice',\n    'age': 20,\n    'grades': [85, 92, 78]\n}\n\n# Accessing values\nprint(student['name'])     # 'Alice'\nprint(student.get('age'))  # '20'\n\n# Adding/updating\nstudent['major'] = 'Computer Science'\nstudent['grades'].append(88)  # Now [85, 92, 78, 88]\n```\n\n**Common Operations:**\n- `dict[key]` - Get value\n- `dict[key] = value` - Set value\n- `dict.keys()` - Get all keys\n- `dict.values()` - Get all values\n- `dict.items()` - Get key-value pairs"
+      },
+      {
+        "title": "Functions",
+        "content": "Reusable blocks of code that perform specific tasks.\n\n**Function Definition:**\n```python\ndef function_name(parameter1, parameter2):\n    \"\"\"Docstring explaining function\"\"\"\n    # Function body\n    return result\n```\n\n**Example:**\n```python\ndef add_numbers(a, b):\n    \"\"\"Return the sum of two numbers\"\"\"\n    return a + b\n\n# Using the function\nresult = add_numbers(5, 3)\nprint(result)  # 8\n```\n\n**Parameters:**\n- Positional arguments: required\n- Keyword arguments: optional with defaults\n- `*args` for variable number\n- `**kwargs` for keyword arguments\n\n**Return Values:**\n- Use `return` to send back results\n- Can return any data type\n- Function ends when `return` is reached"
+      },
+      {
+        "title": "File Handling",
+        "content": "Read from and write to files.\n\n**Reading Files:**\n```python\n# Reading entire file\nwith open('filename.txt', 'r') as file:\n    content = file.read()\n    print(content)\n\n# Reading line by line\nwith open('data.csv', 'r') as file:\n    for line in file:\n        print(line.strip())\n```\n\n**Writing Files:**\n```python\n# Writing text\nwith open('output.txt', 'w') as file:\n    file.write('Hello, World!')\n\n# Writing multiple lines\nwith open('data.txt', 'w') as file:\n    file.write('Line 1\\n')\n    file.write('Line 2\\n')\n```\n\n**Best Practices:**\n- Use `with` statement for automatic file closing\n- Handle file exceptions with try/except\n- Use appropriate file modes ('r', 'w', 'a')"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/python-data-structures-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Jupyter Notebook",
+          "url": "https://jupyter.org/",
+          "free": true,
+          "reason": "Interactive Python development environment"
+        },
+        {
+          "name": "Python Tutor",
+          "url": "https://www.pythontutor.com/",
+          "free": true,
+          "reason": "Practice Python with guided exercises"
+        }
+      ],
+      "furtherReading": [
+        "Python Cookbook",
+        "Real Python recipes for common problems"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "List",
+        "definition": "An ordered, mutable collection of items in Python."
+      },
+      {
+        "term": "Dictionary",
+        "definition": "An unordered collection of key-value pairs in Python."
+      },
+      {
+        "term": "Function",
+        "definition": "A named block of code that performs a specific task."
+      },
+      {
+        "term": "Exception",
+        "definition": "An error condition that disrupts normal program flow."
+      }
+    ]
+  }
+]

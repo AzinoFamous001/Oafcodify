@@ -1,0 +1,112 @@
+[
+  {
+    "id": "2",
+    "title": "CSS Colors, Backgrounds, and Borders",
+    "description": "Master CSS color systems, background styling, and border properties. Learn to create visually appealing web pages with proper color schemes, background images, and decorative borders.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Understand different CSS color formats (HEX, RGB, HSL, named colors)",
+      "Apply background colors and images to elements",
+      "Control background positioning, repetition, and attachment",
+      "Style borders with various styles, widths, and colors",
+      "Create rounded corners with border-radius"
+    ],
+    "subtopics": [
+      {
+        "title": "CSS Colors",
+        "content": "CSS provides multiple ways to specify colors for text, backgrounds, borders, and other elements.\n\n**Named Colors:**\nCSS has 140 named colors.\n```css\nh1 {\n  color: red;\n}\np {\n  color: blue;\n}\n```\n\n**HEX Colors:**\nHexadecimal color notation (#RRGGBB).\n```css\np {\n  color: #ff0000; /* red */\n  color: #00ff00; /* green */\n  color: #0000ff; /* blue */\n}\n```\n\n**RGB Colors:**\nRed, Green, Blue values (0-255).\n```css\np {\n  color: rgb(255, 0, 0); /* red */\n  color: rgb(0, 255, 0); /* green */\n  color: rgb(0, 0, 255); /* blue */\n}\n```\n\n**RGBA Colors (with transparency):**\n```css\np {\n  color: rgba(255, 0, 0, 0.5); /* 50% transparent red */\n}\n```\n\n**HSL Colors:**\nHue, Saturation, Lightness.\n```css\np {\n  color: hsl(0, 100%, 50%); /* red */\n  color: hsl(120, 100%, 50%); /* green */\n  color: hsl(240, 100%, 50%); /* blue */\n}\n```\n\n**HSLA Colors (with transparency):**\n```css\np {\n  color: hsla(0, 100%, 50%, 0.5);\n}\n```\n\n**Common Color Properties:**\n- `color` - Text color\n- `background-color` - Element background\n- `border-color` - Border color"
+      },
+      {
+        "title": "Background Colors",
+        "content": "The background-color property sets the background color of an element.\n\n**Basic Usage:**\n```css\nbody {\n  background-color: lightblue;\n}\n\ndiv {\n  background-color: #ff0000;\n}\n```\n\n**With Text Color:**\n```css\nh1 {\n  background-color: black;\n  color: white;\n}\n```\n\n**Transparency:**\n```css\ndiv {\n  background-color: rgba(255, 0, 0, 0.3);\n}\n```\n\n**Best Practices:**\n- Ensure good contrast between text and background\n- Use lighter backgrounds with dark text\n- Use darker backgrounds with light text\n- Test color combinations for accessibility"
+      },
+      {
+        "title": "Background Images",
+        "content": "The background-image property sets an image as the background of an element.\n\n**Basic Usage:**\n```css\nbody {\n  background-image: url('paper.gif');\n}\n```\n\n**Multiple Backgrounds:**\n```css\nbody {\n  background-image: url('bg1.png'), url('bg2.png');\n}\n```\n\n**Background Repeat:**\nControls how the image repeats.\n```css\nbody {\n  background-image: url('gradient.png');\n  background-repeat: repeat-x; /* repeat horizontally */\n  background-repeat: repeat-y; /* repeat vertically */\n  background-repeat: no-repeat; /* don't repeat */\n}\n```\n\n**Background Position:**\nSets the starting position of the background image.\n```css\nbody {\n  background-image: url('img_tree.png');\n  background-repeat: no-repeat;\n  background-position: right top;\n}\n```\n\n**Common Positions:**\n- `left top`, `left center`, `left bottom`\n- `center top`, `center center`, `center bottom`\n- `right top`, `right center`, `right bottom`\n- `x% y%` - Percentage positions\n- `xpos ypos` - Pixel positions"
+      },
+      {
+        "title": "Background Shorthand",
+        "content": "The background property is a shorthand for all background properties.\n\n**Syntax:**\n```css\nbackground: bg-color bg-image position/bg-size bg-repeat bg-origin bg-clip bg-attachment initial|inherit;\n```\n\n**Common Usage:**\n```css\nbody {\n  background: lightblue url('img_tree.png') no-repeat fixed center;\n}\n```\n\n**Breakdown:**\n- `lightblue` - background color\n- `url('img_tree.png')` - background image\n- `no-repeat` - background repeat\n- `fixed` - background attachment\n- `center` - background position\n\n**Background Size:**\n```css\ndiv {\n  background: url('img.jpg');\n  background-size: cover; /* covers entire element */\n  background-size: contain; /* fits image within element */\n  background-size: 100% 100%; /* stretch to fit */\n}\n```\n\n**Background Attachment:**\n```css\nbody {\n  background-attachment: fixed; /* image stays fixed when scrolling */\n  background-attachment: scroll; /* image scrolls with page */\n}"
+      },
+      {
+        "title": "CSS Borders",
+        "content": "CSS borders allow you to add decorative borders around elements.\n\n**Border Style:**\nRequired property for borders to show.\n```css\np {\n  border-style: solid;\n}\n```\n\n**Border Styles:**\n- `dotted` - Dotted border\n- `dashed` - Dashed border\n- `solid` - Solid border\n- `double` - Double border\n- `groove` - 3D grooved border\n- `ridge` - 3D ridged border\n- `inset` - 3D inset border\n- `outset` - 3D outset border\n- `none` - No border\n- `hidden` - Hidden border\n\n**Border Width:**\n```css\np {\n  border-style: solid;\n  border-width: 5px;\n}\n```\n\n**Border Color:**\n```css\np {\n  border-style: solid;\n  border-color: red;\n}\n```\n\n**Border Shorthand:**\n```css\np {\n  border: 5px solid red;\n}\n```\n\n**Individual Sides:**\n```css\np {\n  border-top: 5px solid red;\n  border-right: 5px solid blue;\n  border-bottom: 5px solid green;\n  border-left: 5px solid yellow;\n}"
+      },
+      {
+        "title": "Border Radius",
+        "content": "The border-radius property rounds the corners of an element.\n\n**Basic Usage:**\n```css\ndiv {\n  border: 2px solid red;\n  border-radius: 10px;\n}\n```\n\n**Circular Elements:**\n```css\ndiv {\n  border-radius: 50%; /* makes element circular */\n}\n```\n\n**Individual Corners:**\n```css\ndiv {\n  border-radius: 15px 50px 30px 5px;\n  /* top-left, top-right, bottom-right, bottom-left */\n}\n```\n\n**Shorthand:**\n```css\ndiv {\n  border-radius: 15px 50px; /* top-left/bottom-right, top-right/bottom-left */\n}\n```\n\n**Elliptical Corners:**\n```css\ndiv {\n  border-radius: 50px / 15px; /* horizontal radius / vertical radius */\n}\n```\n\n**Common Uses:**\n- Creating circular profile images\n- Making card components with rounded corners\n- Creating buttons with rounded edges\n- Designing modern UI elements"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/css-colors-borders-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Color Picker",
+          "url": "https://www.w3schools.com/colors/colors_picker.asp",
+          "free": true,
+          "reason": "Interactive tool to pick and convert colors"
+        },
+        {
+          "name": "CSS Gradient Generator",
+          "url": "https://cssgradient.io/",
+          "free": true,
+          "reason": "Create beautiful CSS gradients"
+        },
+        {
+          "name": "Border Radius Generator",
+          "url": "https://border-radius.com/",
+          "free": true,
+          "reason": "Visual tool for creating border-radius values"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools CSS Colors",
+        "W3Schools CSS Backgrounds",
+        "W3Schools CSS Borders"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "HEX Color",
+        "definition": "Hexadecimal color notation using #RRGGBB format for specifying colors."
+      },
+      {
+        "term": "RGB Color",
+        "definition": "Color specification using Red, Green, and Blue values (0-255)."
+      },
+      {
+        "term": "HSL Color",
+        "definition": "Color specification using Hue, Saturation, and Lightness values."
+      },
+      {
+        "term": "RGBA",
+        "definition": "RGB color with an Alpha (transparency) channel."
+      },
+      {
+        "term": "Background Image",
+        "definition": "An image set as the background of an HTML element."
+      },
+      {
+        "term": "Border Style",
+        "definition": "The appearance of a border (solid, dashed, dotted, etc.)."
+      },
+      {
+        "term": "Border Radius",
+        "definition": "Property that rounds the corners of an element."
+      },
+      {
+        "term": "Background Attachment",
+        "definition": "Determines whether background image scrolls with the page or stays fixed."
+      },
+      {
+        "term": "Background Position",
+        "definition": "Sets the starting position of a background image."
+      },
+      {
+        "term": "Background Repeat",
+        "definition": "Controls how a background image repeats (horizontally, vertically, or not at all)."
+      }
+    ]
+  }
+]

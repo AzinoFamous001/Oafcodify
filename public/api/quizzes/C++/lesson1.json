@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "Which symbol is used for single-line comments in C++?",
+    "options": [
+      "#",
+      "//",
+      "/*",
+      "--"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The // symbol is used for single-line comments in C++."
+  },
+  {
+    "id": 2,
+    "question": "Which keyword is used to define a constant in C++?",
+    "options": [
+      "constant",
+      "final",
+      "const",
+      "static"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'const' keyword is used to define constants in C++."
+  },
+  {
+    "id": 3,
+    "question": "What is the correct extension for C++ source files?",
+    "options": [
+      ".c",
+      ".cp",
+      ".cpp",
+      ".c++"
+    ],
+    "correctAnswer": 2,
+    "explanation": "C++ source files typically use the .cpp extension."
+  },
+  {
+    "id": 4,
+    "question": "Which operator is used for input in C++?",
+    "options": [
+      ">>",
+      "<<",
+      ">",
+      "<"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The >> operator is used with cin for input in C++."
+  },
+  {
+    "id": 5,
+    "question": "Which stream object is used for output in C++?",
+    "options": [
+      "print()",
+      "cout",
+      "printf()",
+      "write()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "cout is the standard output stream object in C++."
+  },
+  {
+    "id": 6,
+    "question": "How do you declare an integer variable in C++?",
+    "options": [
+      "int x",
+      "integer x",
+      "var x",
+      "x = int"
+    ],
+    "correctAnswer": 0,
+    "explanation": "int x declares an integer variable in C++."
+  },
+  {
+    "id": 7,
+    "question": "Which symbol ends a C++ statement?",
+    "options": [
+      ":",
+      ";",
+      ".",
+      ","
+    ],
+    "correctAnswer": 1,
+    "explanation": "C++ statements end with a semicolon (;)."
+  },
+  {
+    "id": 8,
+    "question": "What is the correct way to include the iostream library in C++?",
+    "options": [
+      "include <iostream>",
+      "#include <iostream>",
+      "using <iostream>",
+      "import <iostream>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "#include <iostream> is the correct way to include a library."
+  },
+  {
+    "id": 9,
+    "question": "Which data type stores decimal numbers in C++?",
+    "options": [
+      "int",
+      "float",
+      "char",
+      "bool"
+    ],
+    "correctAnswer": 1,
+    "explanation": "float and double are used for decimal numbers in C++."
+  },
+  {
+    "id": 10,
+    "question": "How do you create a string variable in C++?",
+    "options": [
+      "string s",
+      "str s",
+      "text s",
+      "char s"
+    ],
+    "correctAnswer": 0,
+    "explanation": "string s creates a string variable in C++ (requires #include <string>)."
+  },
+  {
+    "id": 11,
+    "question": "What is the main function's return type in C++?",
+    "options": [
+      "void",
+      "int",
+      "string",
+      "float"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The main function returns int in C++."
+  },
+  {
+    "id": 12,
+    "question": "Which operator is used for equality comparison in C++?",
+    "options": [
+      "=",
+      "==",
+      "===",
+      "equals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "== is used for equality comparison in C++."
+  },
+  {
+    "id": 13,
+    "question": "What is the result of 10 / 3 in C++ with integer division?",
+    "options": [
+      "3.33",
+      "3",
+      "4",
+      "3.0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Integer division in C++ truncates the decimal, so 10 / 3 = 3."
+  },
+  {
+    "id": 14,
+    "question": "Which operator is used for the modulo operation in C++?",
+    "options": [
+      "%",
+      "mod",
+      "//",
+      "%%"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The % operator is used for modulo (remainder) in C++."
+  },
+  {
+    "id": 15,
+    "question": "What is the purpose of the 'using namespace std;' statement?",
+    "options": [
+      "To create a new namespace",
+      "To avoid typing std:: before standard library elements",
+      "To delete a namespace",
+      "To define a variable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "using namespace std; allows you to use cout, cin, etc. without the std:: prefix."
+  },
+  {
+    "id": 16,
+    "question": "Which data type stores a single character in C++?",
+    "options": [
+      "string",
+      "char",
+      "text",
+      "character"
+    ],
+    "correctAnswer": 1,
+    "explanation": "char is used to store single characters in C++."
+  },
+  {
+    "id": 17,
+    "question": "What is the correct way to declare a boolean variable in C++?",
+    "options": [
+      "bool x = true",
+      "boolean x = true",
+      "logical x = true",
+      "x = true"
+    ],
+    "correctAnswer": 0,
+    "explanation": "bool is the data type for boolean values in C++."
+  },
+  {
+    "id": 18,
+    "question": "Which operator is used for increment in C++?",
+    "options": [
+      "++",
+      "+=",
+      "inc",
+      "add"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The ++ operator is used for increment in C++."
+  },
+  {
+    "id": 19,
+    "question": "What does the getline() function do in C++?",
+    "options": [
+      "Gets a single character",
+      "Reads an entire line of input",
+      "Gets a number",
+      "Gets a word"
+    ],
+    "correctAnswer": 1,
+    "explanation": "getline() reads an entire line of input including spaces."
+  },
+  {
+    "id": 20,
+    "question": "What is the purpose of the return 0; statement in main()?",
+    "options": [
+      "To exit the program immediately",
+      "To indicate successful program execution",
+      "To return a value to the user",
+      "To print 0 to the screen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "return 0; indicates successful program execution in the main function."
+  }
+]

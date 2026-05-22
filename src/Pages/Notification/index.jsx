@@ -14,11 +14,12 @@ import {
   FaArrowLeft,
   FaCircle,
   FaInfoCircle,
+  FaRedo,
 } from "react-icons/fa";
 
 // --- ANIMATED BACKGROUND ---
 const AnimatedBackground = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
     <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite]">
       <FaCode size={120} className="text-white/20" />
     </div>
@@ -63,7 +64,7 @@ const NotificationsPage = () => {
         {
           id: Date.now(),
           type: "system",
-          title: "Welcome to CodeBay!",
+          title: "Welcome to Oafcodify!",
           message:
             "Start your journey by completing your first lesson in HTML or JavaScript.",
           time: "Just now",
@@ -103,8 +104,23 @@ const NotificationsPage = () => {
         return <FaFire className="text-orange-500" />;
       case "system":
         return <FaInfoCircle className="text-blue-400" />;
+      case "recommendation":
+        return <FaRedo className="text-purple-400" />;
       default:
         return <FaBell className="text-blue-400" />;
+    }
+  };
+
+  const handleNotificationClick = (n) => {
+    // Mark as read
+    const updated = notifications.map((notif) => 
+      notif.id === n.id ? { ...notif, isRead: true } : notif
+    );
+    saveToStorage(updated);
+
+    // Navigate to quiz if it's a recommendation
+    if (n.type === 'recommendation' && n.lessonId && n.courseKey) {
+      navigate(`/quiz/${n.courseKey}/${n.lessonId}`);
     }
   };
 
@@ -143,7 +159,7 @@ const NotificationsPage = () => {
 
         {/* Filters */}
         <div className="flex p-1.5 bg-slate-900/40 backdrop-blur-md rounded-2xl border border-white/10 mb-8 overflow-x-auto no-scrollbar">
-          {["all", "unread", "achievement", "streak", "system"].map((tab) => (
+          {["all", "unread", "recommendation", "achievement", "streak", "system"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -164,11 +180,12 @@ const NotificationsPage = () => {
             filteredNotifications.map((n) => (
               <div
                 key={n.id}
-                className={`group relative flex items-start gap-5 p-6 rounded-[2rem] border transition-all duration-300 ${
+                onClick={() => handleNotificationClick(n)}
+                className={`group relative flex items-start gap-5 p-6 rounded-[2rem] border transition-all duration-300 cursor-pointer ${
                   n.isRead
                     ? "bg-white/5 border-white/5 opacity-80"
                     : "bg-white/15 border-white/20 shadow-xl shadow-blue-900/20"
-                }`}
+                } ${n.type === 'recommendation' ? 'hover:bg-purple-500/10' : 'hover:bg-white/20'}`}
               >
                 {!n.isRead && (
                   <div className="absolute top-6 right-6">
@@ -199,7 +216,10 @@ const NotificationsPage = () => {
 
                 <div className="flex items-center gap-2 self-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
-                    onClick={() => deleteNotification(n.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteNotification(n.id);
+                    }}
                     className="p-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors"
                   >
                     <FaTrash size={14} />

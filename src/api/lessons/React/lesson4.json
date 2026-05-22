@@ -1,0 +1,86 @@
+[
+  {
+    "id": "4",
+    "title": "React Events and Forms",
+    "description": "Learn how to handle events and forms in React applications for interactive user interfaces.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Understand React event handling",
+      "Handle different types of events",
+      "Create controlled form components",
+      "Validate form input",
+      "Handle form submission"
+    ],
+    "subtopics": [
+      {
+        "title": "Event Handling Basics",
+        "content": "React events are named using camelCase and pass functions as event handlers.\n\n**Basic Event Handler:**\n```jsx\nfunction Button() {\n  const handleClick = () => {\n    console.log('Button clicked!');\n  };\n  \n  return <button onClick={handleClick}>Click me</button>;\n}\n```\n\n**Event Object:**\n```jsx\nfunction Form() {\n  const handleSubmit = (event) => {\n    event.preventDefault(); // Prevent default form submission\n    console.log('Form submitted');\n  };\n  \n  return <form onSubmit={handleSubmit}>...</form>;\n}\n```\n\n**Passing Arguments:**\n```jsx\nfunction Button() {\n  const handleClick = (name) => {\n    console.log(`Hello, ${name}!`);\n  };\n  \n  return <button onClick={() => handleClick('John')}>Click me</button>;\n}\n```\n\n**Common Events:**\n```jsxn// Click events\n<button onClick={handleClick}>Click</button>\n\n// Change events\n<input onChange={handleChange} />\n\n// Submit events\n<form onSubmit={handleSubmit}>...</form>\n\n// Focus events\n<input onFocus={handleFocus} onBlur={handleBlur} />\n\n// Mouse events\n<div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />\n```\n\n**Event Differences from HTML:**\n- React events are named with camelCase\n- React events prevent default behavior differently\n- React events are synthetic (cross-browser)"
+      },
+      {
+        "title": "Synthetic Events",
+        "content": "React wraps native browser events into synthetic events for cross-browser compatibility.\n\n**Event Properties:**\n```jsx\nfunction handleClick(event) {\n  console.log('Event type:', event.type);\n  console.log('Target:', event.target);\n  console.log('Current target:', event.currentTarget);\n  console.log('Client coordinates:', event.clientX, event.clientY);\n  console.log('Key pressed:', event.key);\n}\n```\n\n**Common Event Methods:**\n```jsx\nfunction Form() {\n  const handleSubmit = (event) => {\n    event.preventDefault(); // Prevent default behavior\n    event.stopPropagation(); // Stop event bubbling\n  };\n  \n  return <form onSubmit={handleSubmit}>...</form>;\n}\n```\n\n**Event Bubbling:**\n```jsxnfunction Parent() {\n  const handleParentClick = () => {\n    console.log('Parent clicked');\n  };\n  \n  const handleChildClick = (event) => {\n    event.stopPropagation(); // Stop bubbling to parent\n    console.log('Child clicked');\n  };\n  \n  return (\n    <div onClick={handleParentClick}>\n      <button onClick={handleChildClick}>Click me</button>\n    </div>\n  );\n}\n```\n\n**Keyboard Events:**\n```jsxnfunction Input() {\n  const handleKeyDown = (event) => {\n    if (event.key === 'Enter') {\n      console.log('Enter key pressed');\n    }\n  };\n  \n  return <input onKeyDown={handleKeyDown} />;\n}\n```"
+      },
+      {
+        "title": "Controlled Components",
+        "content": "Controlled components have their form data controlled by React state.\n\n**Text Input:**\n```jsx\nfunction TextInput() {\n  const [value, setValue] = useState('');\n  \n  const handleChange = (event) => {\n    setValue(event.target.value);\n  };\n  \n  return (\n    <input\n      type=\"text\"\n      value={value}\n      onChange={handleChange}\n      placeholder=\"Enter text\"\n    />\n  );\n}\n```\n\n**Textarea:**\n```jsx\nfunction TextArea() {\n  const [value, setValue] = useState('');\n  \n  const handleChange = (event) => {\n    setValue(event.target.value);\n  };\n  \n  return (\n    <textarea\n      value={value}\n      onChange={handleChange}\n      placeholder=\"Enter message\"\n    />\n  );\n}\n```\n\n**Select Dropdown:**\n```jsx\nfunction Select() {\n  const [value, setValue] = useState('');\n  \n  const handleChange = (event) => {\n    setValue(event.target.value);\n  };\n  \n  return (\n    <select value={value} onChange={handleChange}>\n      <option value=\"\">Choose an option</option>\n      <option value=\"option1\">Option 1</option>\n      <option value=\"option2\">Option 2</option>\n    </select>\n  );\n}\n```\n\n**Checkbox:**\n```jsx\nfunction Checkbox() {\n  const [checked, setChecked] = useState(false);\n  \n  const handleChange = (event) => {\n    setChecked(event.target.checked);\n  };\n  \n  return (\n    <label>\n      <input\n        type=\"checkbox\"\n        checked={checked}\n        onChange={handleChange}\n      />\n      Accept terms\n    </label>\n  );\n}\n```\n\n**Radio Buttons:**\n```jsx\nfunction RadioGroup() {\n  const [selected, setSelected] = useState('option1');\n  \n  const handleChange = (event) => {\n    setSelected(event.target.value);\n  };\n  \n  return (\n    <div>\n      <label>\n        <input\n          type=\"radio\"\n          value=\"option1\"\n          checked={selected === 'option1'}\n          onChange={handleChange}\n        />\n        Option 1\n      </label>\n      <label>\n        <input\n          type=\"radio\"\n          value=\"option2\"\n          checked={selected === 'option2'}\n          onChange={handleChange}\n        />\n        Option 2\n      </label>\n    </div>\n  );\n}\n```"
+      },
+      {
+        "title": "Form Validation",
+        "content": "Validate form input to ensure data quality and user experience.\n```jsx\nfunction LoginForm() {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [errors, setErrors] = useState({});\n  \n  const validate = () => {\n    const newErrors = {};\n    \n    if (!email) {\n      newErrors.email = 'Email is required';\n    } else if (!/\\S+@\\S+\\.\\S+/.test(email)) {\n      newErrors.email = 'Email is invalid';\n    }\n    \n    if (!password) {\n      newErrors.password = 'Password is required';\n    } else if (password.length < 6) {\n      newErrors.password = 'Password must be at least 6 characters';\n    }\n    \n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  };\n  \n  const handleSubmit = (event) => {\n    event.preventDefault();\n    \n    if (validate()) {\n      console.log('Form is valid');\n      // Submit form\n    }\n  };\n  \n  return (\n    <form onSubmit={handleSubmit}>\n      <div>\n        <input\n          type=\"email\"\n          value={email}\n          onChange={(e) => setEmail(e.target.value)}\n        />\n        {errors.email && <span className=\"error\">{errors.email}</span>}\n      </div>\n      <div>\n        <input\n          type=\"password\"\n          value={password}\n          onChange={(e) => setPassword(e.target.value)}\n        />\n        {errors.password && <span className=\"error\">{errors.password}</span>}\n      </div>\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}\n```\n\n**Real-time Validation:**\n```jsx\nfunction InputWithValidation() {\n  const [value, setValue] = useState('');\n  const [error, setError] = useState('');\n  \n  const handleChange = (event) => {\n    const newValue = event.target.value;\n    setValue(newValue);\n    \n    if (newValue.length < 3) {\n      setError('Must be at least 3 characters');\n    } else {\n      setError('');\n    }\n  };\n  \n  return (\n    <div>\n      <input value={value} onChange={handleChange} />\n      {error && <span className=\"error\">{error}</span>}\n    </div>\n  );\n}\n```"
+      },
+      {
+        "title": "Form Libraries",
+        "content": "Popular libraries for handling forms in React.\n\n**Formik (Popular Choice):**\n```jsx\nimport { Formik, Form, Field, ErrorMessage } from 'formik';\n\nfunction MyForm() {\n  return (\n    <Formik\n      initialValues={{ email: '', password: '' }}\n      validate={values => {\n        const errors = {};\n        if (!values.email) errors.email = 'Required';\n        return errors;\n      }}\n      onSubmit={(values, { setSubmitting }) => {\n        console.log(values);\n        setSubmitting(false);\n      }}\n    >\n      <Form>\n        <Field type=\"email\" name=\"email\" />\n        <ErrorMessage name=\"email\" component=\"div\" />\n        <Field type=\"password\" name=\"password\" />\n        <ErrorMessage name=\"password\" component=\"div\" />\n        <button type=\"submit\">Submit</button>\n      </Form>\n    </Formik>\n  );\n}\n```\n\n**React Hook Form (Performance):**\n```jsx\nimport { useForm } from 'react-hook-form';\n\nfunction MyForm() {\n  const { register, handleSubmit, formState: { errors } } = useForm();\n  \n  const onSubmit = data => console.log(data);\n  \n  return (\n    <form onSubmit={handleSubmit(onSubmit)}>\n      <input {...register('email', { required: true })} />\n      {errors.email && <span>This field is required</span>}\n      <input type=\"password\" {...register('password', { required: true })} />\n      {errors.password && <span>This field is required</span>}\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}\n```\n\n**When to Use Libraries:**\n- Complex forms with many fields\n- Need for validation\n- Performance requirements\n- Team familiarity"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/react-events-forms-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Formik",
+          "url": "https://formik.org/",
+          "free": true,
+          "reason": "Popular form library for React"
+        },
+        {
+          "name": "React Hook Form",
+          "url": "https://react-hook-form.com/",
+          "free": true,
+          "reason": "High-performance form library"
+        }
+      ],
+      "furtherReading": [
+        "React Documentation - Events",
+        "React Documentation - Forms",
+        "Formik Documentation"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Event Handler",
+        "definition": "A function that executes in response to a specific event."
+      },
+      {
+        "term": "Synthetic Event",
+        "definition": "React's cross-browser wrapper around native browser events."
+      },
+      {
+        "term": "Controlled Component",
+        "definition": "Form elements whose value is controlled by React state."
+      },
+      {
+        "term": "Event Bubbling",
+        "definition": "The process where events propagate from child to parent elements."
+      },
+      {
+        "term": "Form Validation",
+        "definition": "The process of ensuring user input meets specified requirements."
+      },
+      {
+        "term": "preventDefault",
+        "definition": "A method that prevents the default browser behavior for an event."
+      }
+    ]
+  }
+]

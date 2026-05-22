@@ -9,17 +9,56 @@ import {
   LogOut,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import SearchModal from "../../Components/shared/SearchModal";
+import NotificationDropdown from "../../Components/shared/NotificationDropdown";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [userAvatar, setUserAvatar] = useState("");
   const dropdownRef = useRef(null);
+  const notificationRef = useRef(null);
   const navigate = useNavigate();
+
+  // Generate cartoon avatar (deterministic based on username)
+  const generateCartoonAvatar = (userName) => {
+    const avatarStyles = [
+      'adventurer', 'adventurer-neutral', 'avataaars', 'bottts',
+      'fun-emoji', 'lorelei', 'micah', 'notionists', 'open-peeps', 'personas'
+    ];
+    // Use a simple hash of the username to always select the same style for the same user
+    let hash = 0;
+    for (let i = 0; i < userName.length; i++) {
+      hash = userName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const styleIndex = Math.abs(hash) % avatarStyles.length;
+    const randomStyle = avatarStyles[styleIndex];
+    const seed = userName || Math.random().toString(36).substring(7);
+    return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
+  };
+
+  // Load user avatar on mount
+  useEffect(() => {
+    const savedAvatar = localStorage.getItem("userAvatar");
+    const userName = localStorage.getItem("userName");
+    if (savedAvatar && savedAvatar.startsWith("https://api.dicebear.com")) {
+      setUserAvatar(savedAvatar);
+    } else if (userName) {
+      const newAvatar = generateCartoonAvatar(userName);
+      setUserAvatar(newAvatar);
+      localStorage.setItem("userAvatar", newAvatar);
+    }
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
+      }
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setIsNotificationOpen(false);
       }
     };
 
@@ -52,32 +91,47 @@ const Navbar = () => {
         <div className="bg-blue-600 p-1.5 rounded-lg">
           <img src="/Logo_4.png" alt="C" className="h-10" />
         </div>
-        <span className="text-2xl font-bold text-gray-800">CodeBay</span>
+        <span className="text-2xl font-bold text-gray-800">Oafcodify</span>
       </NavLink>
 
       {/* Right */}
       <div className="flex items-center gap-2 md:gap-4">
-        <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
+        <button
+          onClick={() => setIsSearchOpen(true)}
+          className="p-2 text-gray-500 hover:bg-gray-100 rounded-full"
+        >
           <Search size={20} />
         </button>
 
-        <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full relative">
-          <Bell size={20} />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-        </button>
+        <div className="relative" ref={notificationRef}>
+          <button
+            onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+            className="p-2 text-gray-500 hover:bg-gray-100 rounded-full relative"
+          >
+            <Bell size={20} />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+          </button>
+          <NotificationDropdown isOpen={isNotificationOpen} onClose={() => setIsNotificationOpen(false)} />
+        </div>
 
         {/* Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+            className="flex items-center gap-2 p-1 text-gray-600 hover:bg-gray-100 rounded-lg"
           >
-            <Menu size={24} />
+           
+            <Menu size={20} />
           </button>
 
           {isDropdownOpen && (
-            <div className="absolute right-0 top-[50px] w-56 bg-white border border-gray-100 rounded-2xl shadow-xl z-50 overflow-hidden">
-              <div className="py-2">
+            <>
+              <div 
+                className="fixed inset-0 bg-black/20 z-40 md:hidden"
+                onClick={() => setIsDropdownOpen(false)}
+              />
+              <div className="absolute right-0 top-[50px] w-56 bg-white border border-gray-100 rounded-2xl shadow-xl z-50 overflow-hidden">
+                <div className="py-2">
                 <DropdownItem
                   icon={<User size={18} />}
                   label="Profile"
@@ -114,9 +168,13 @@ const Navbar = () => {
                 </button>
               </div>
             </div>
+            </>
           )}
         </div>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </nav>
   );
 };

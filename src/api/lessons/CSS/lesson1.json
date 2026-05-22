@@ -1,0 +1,108 @@
+[
+  {
+    "id": "1",
+    "title": "CSS Introduction and Syntax",
+    "description": "Learn the fundamentals of CSS (Cascading Style Sheets), including what CSS is, how it works, and the basic syntax for styling HTML elements. This lesson covers the essential foundation for all CSS styling.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Understand what CSS is and its purpose in web development",
+      "Learn CSS syntax structure: selectors, properties, and values",
+      "Know different ways to add CSS to HTML (inline, internal, external)",
+      "Write basic CSS rules to style HTML elements",
+      "Understand the CSS cascade and specificity basics"
+    ],
+    "subtopics": [
+      {
+        "title": "What is CSS?",
+        "content": "CSS stands for Cascading Style Sheets. It is a stylesheet language used to describe the presentation and styling of a document written in HTML.\n\n**Key Points:**\n- CSS controls the layout, colors, fonts, and overall appearance of web pages\n- It separates content (HTML) from presentation (CSS)\n- CSS makes websites responsive and visually appealing\n- It saves time by styling multiple pages at once\n\n**Why Use CSS?**\n- **Consistency**: Apply the same styles across multiple pages\n- **Maintenance**: Change styles in one place to update entire site\n- **Flexibility**: Create different layouts for different devices\n- **Accessibility**: Improve readability and user experience\n\n**CSS Version History:**\n- CSS1 (1996) - Basic styling\n- CSS2 (1998) - Positioning and media types\n- CSS3 (2011) - Animations, flexbox, grid, gradients\n- CSS4 (Ongoing) - New features and enhancements"
+      },
+      {
+        "title": "CSS Syntax",
+        "content": "A CSS rule consists of a selector and a declaration block. The selector points to the HTML element you want to style, and the declaration block contains one or more declarations.\n\n**Basic Syntax Structure:**\n```css\nselector {\n  property: value;\n}\n```\n\n**Example:**\n```css\np {\n  color: blue;\n  font-size: 16px;\n}\n```\n\n**Breakdown:**\n- **Selector**: `p` - Selects all paragraph elements\n- **Property**: `color` - The CSS property to style\n- **Value**: `blue` - The value for the property\n- **Declaration**: `color: blue;` - Property and value pair\n- **Declaration Block**: `{ color: blue; font-size: 16px; }` - All declarations\n\n**Multiple Declarations:**\n```css\nh1 {\n  color: red;\n  font-size: 32px;\n  text-align: center;\n  background-color: yellow;\n}\n```\n\n**Important Rules:**\n- Each declaration ends with a semicolon (;)\n- Declaration blocks are surrounded by curly braces ({})\n- Properties and values are separated by a colon (:)\n- Multiple declarations are separated by semicolons"
+      },
+      {
+        "title": "CSS Selectors",
+        "content": "CSS selectors are used to select HTML elements you want to style. There are several types of selectors.\n\n**Element Selector:**\nSelects all elements with a specific tag name.\n```css\np {\n  color: blue;\n}\n```\n\n**ID Selector:**\nSelects the element with a specific id (uses #).\n```css\n#myHeader {\n  color: red;\n}\n```\n\n**Class Selector:**\nSelects all elements with a specific class (uses .).\n```css\n.myClass {\n  color: green;\n}\n```\n\n**Universal Selector:**\nSelects all elements (uses *).\n```css\n* {\n  margin: 0;\n  padding: 0;\n}\n```\n\n**Grouping Selector:**\nSelects multiple elements with the same styles.\n```css\nh1, h2, p {\n  color: blue;\n}\n```\n\n**Selector Specificity:**\n- ID selectors have highest specificity\n- Class selectors have medium specificity\n- Element selectors have lowest specificity\n- More specific selectors override less specific ones"
+      },
+      {
+        "title": "Ways to Add CSS",
+        "content": "There are three ways to add CSS to HTML documents.\n\n**1. Inline CSS (Not Recommended)**\nCSS applied directly to elements using the style attribute.\n```html\n<p style=\"color: red; font-size: 20px;\">This is red text</p>\n```\n- **Pros**: Quick for testing\n- **Cons**: Hard to maintain, mixes content with style\n\n**2. Internal CSS**\nCSS defined in the <style> tag within the <head> section.\n```html\n<head>\n  <style>\n    body {\n      background-color: lightblue;\n    }\n    h1 {\n      color: white;\n    }\n  </style>\n</head>\n```\n- **Pros**: Good for single-page websites\n- **Cons**: Not reusable across pages\n\n**3. External CSS (Best Practice)**\nCSS defined in a separate .css file and linked using <link>.\n```html\n<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n```\n\n**styles.css file:**\n```css\nbody {\n  background-color: lightblue;\n}\n\nh1 {\n  color: white;\n}\n```\n- **Pros**: Reusable, maintainable, separates concerns\n- **Cons**: Requires additional file\n\n**Best Practice:** Always use external CSS for production websites."
+      },
+      {
+        "title": "CSS Comments",
+        "content": "CSS comments are used to explain your code and make it more readable. Comments are ignored by browsers.\n\n**Syntax:**\n```css\n/* This is a comment */\n```\n\n**Single-line Comment:**\n```css\n/* This is a single-line comment */\np {\n  color: blue;\n}\n```\n\n**Multi-line Comment:**\n```css\n/*\n  This is a\n  multi-line comment\n  It can span multiple lines\n*/\nh1 {\n  color: red;\n}\n```\n\n**Commenting Out Code:**\n```css\n/* p {\n  color: blue;\n} */\n```\n\n**Best Practices:**\n- Use comments to explain complex CSS\n- Comment sections of your stylesheet\n- Comment out code for debugging instead of deleting\n- Keep comments concise and relevant"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/css-basics-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "W3Schools CSS Tutorial",
+          "url": "https://www.w3schools.com/css/",
+          "free": true,
+          "reason": "Comprehensive CSS reference and tutorials"
+        },
+        {
+          "name": "MDN Web Docs - CSS",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "free": true,
+          "reason": "Detailed CSS documentation from Mozilla"
+        },
+        {
+          "name": "CSS Tricks",
+          "url": "https://css-tricks.com/",
+          "free": true,
+          "reason": "Advanced CSS techniques and articles"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools CSS Introduction",
+        "MDN CSS Getting Started",
+        "CSS: The Definitive Guide by Eric Meyer"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "CSS",
+        "definition": "Cascading Style Sheets - A stylesheet language used to describe the presentation of HTML documents."
+      },
+      {
+        "term": "Selector",
+        "definition": "The part of a CSS rule that selects which HTML elements to style."
+      },
+      {
+        "term": "Property",
+        "definition": "The characteristic of an element that you want to style (e.g., color, font-size)."
+      },
+      {
+        "term": "Value",
+        "definition": "The setting you apply to a CSS property (e.g., blue, 16px)."
+      },
+      {
+        "term": "Declaration",
+        "definition": "A property-value pair in CSS (e.g., color: blue;)."
+      },
+      {
+        "term": "Declaration Block",
+        "definition": "The part of a CSS rule that contains one or more declarations, surrounded by curly braces."
+      },
+      {
+        "term": "Inline CSS",
+        "definition": "CSS applied directly to HTML elements using the style attribute."
+      },
+      {
+        "term": "Internal CSS",
+        "definition": "CSS defined in the <style> tag within the HTML head section."
+      },
+      {
+        "term": "External CSS",
+        "definition": "CSS defined in a separate .css file and linked to HTML using the <link> tag."
+      },
+      {
+        "term": "Specificity",
+        "definition": "The rules that determine which CSS styles are applied when there are conflicting styles."
+      }
+    ]
+  }
+]

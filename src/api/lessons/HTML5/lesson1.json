@@ -1,0 +1,168 @@
+[
+  {
+    "id": "1",
+    "title": "HTML5 Introduction & Basics",
+    "description": "Master the fundamentals of HTML5 - the building block of every webpage. Learn what HTML is, how it works, and create your first webpage from scratch using essential elements, attributes, headings, paragraphs, and styles.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Understand what HTML5 is and why it's essential for web development",
+      "Learn the basic structure of an HTML document and its essential components",
+      "Identify and use HTML elements, tags, and attributes correctly",
+      "Create properly structured headings and paragraphs for content hierarchy",
+      "Apply basic inline styles to change the appearance of HTML elements"
+    ],
+    "subtopics": [
+      {
+        "title": "What is HTML5? Introduction to the Web's Building Block",
+        "content": "HTML stands for HyperText Markup Language. It is the standard language for creating web pages. HTML5 is the latest version, released in 2014, with new features that make it easier to create modern, interactive websites.\n\n**HTML is NOT a programming language** - it's a markup language. This means it uses tags to mark up text and tell browsers how to display content. Think of HTML as the skeleton of a webpage, while CSS provides the styling and JavaScript adds interactivity.\n\n**What HTML does:**\n- Defines the structure and content of web pages\n- Uses tags to label elements like headings, paragraphs, and links\n- Works with CSS (styling) and JavaScript (interactivity)\n- Is interpreted by web browsers to display webpages\n\n**A simple HTML document:**\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>My First Webpage</title>\n</head>\n<body>\n  <h1>Welcome to HTML!</h1>\n  <p>This is my first paragraph.</p>\n</body>\n</html>\n```\n\n**Why HTML5 matters:**\n- Native support for audio and video (no plugins needed)\n- Better semantic elements for improved accessibility\n- Mobile-friendly with responsive design features\n- Cross-browser compatibility\n- Simplified doctype declaration",
+        "imageUrl": "/images/html5-introduction.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "HTML is NOT a programming language - you cannot write logic, loops, or calculations in HTML alone.",
+          "HTML5 is backward compatible - older HTML code still works in HTML5 browsers.",
+          "You don't need special software to write HTML - a simple text editor works fine."
+        ],
+        "realWorldAnalogy": "HTML is like the blueprint of a house. It defines where the walls, doors, and windows go, but doesn't specify the paint color or furniture. CSS is like the interior designer that adds colors and styles, while JavaScript is like the electrical system that makes things interactive."
+      },
+      {
+        "title": "HTML Document Structure - The Anatomy of a Webpage",
+        "content": "Every HTML document follows a standard structure. Understanding this structure is fundamental to creating web pages that work correctly across all browsers.\n\n**The Basic HTML Structure:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Page Title</title>\n</head>\n<body>\n  <!-- Your content goes here -->\n</body>\n</html>\n```\n\n**Breaking Down the Structure:**\n\n**1. `<!DOCTYPE html>`**\n- Tells the browser this is an HTML5 document\n- Must be the very first line in your HTML file\n- Not case-sensitive, but uppercase is traditional\n\n**2. `<html>`**\n- The root element that wraps all content\n- The `lang=\"en\"` attribute specifies the language (important for accessibility and search engines)\n- All other elements must be nested inside this tag\n\n**3. `<head>`**\n- Contains metadata (information about the document)\n- Not visible on the webpage itself\n- Includes title, meta tags, links to CSS, and more\n\n**4. `<body>`\n- Contains all visible content on the webpage\n- Everything users see (text, images, links) goes here\n- This is where most of your HTML coding happens\n\n**5. `<title>`**\n- Sets the text shown in the browser tab\n- Important for SEO (search engine optimization)\n- Should be descriptive and unique for each page\n\n**Essential Meta Tags:**\n```html\n<meta charset=\"UTF-8\">  <!-- Character encoding -->\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">  <!-- Responsive design -->\n```",
+        "imageUrl": "/images/html-structure.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "The <head> section is NOT visible on the webpage - it's for metadata only.",
+          "You can have multiple <body> tags in one HTML document - FALSE, only one body tag is allowed.",
+          "The <!DOCTYPE> declaration is optional in HTML5 - while browsers may render without it, always include it for proper rendering."
+        ],
+        "realWorldAnalogy": "An HTML document is like a letter. The <!DOCTYPE> is the letterhead format, <html> is the envelope, <head> is the return address and stamp (metadata), <body> is the actual letter content, and <title> is what's written on the envelope's front."
+      },
+      {
+        "title": "HTML Elements and Tags - The Building Blocks",
+        "content": "HTML elements are the building blocks of web pages. Each element is defined by a tag, which tells the browser what type of content it is and how to display it.\n\n**Tags vs Elements:**\n- **Tag**: The keyword enclosed in angle brackets (e.g., `<p>`)\n- **Element**: The complete tag plus its content (e.g., `<p>Hello</p>`)\n\n**Types of HTML Tags:**\n\n**1. Paired Tags (Opening and Closing)**\nMost HTML elements have both an opening and closing tag:\n```html\n<p>This is a paragraph.</p>\n<h1>This is a heading.</h1>\n<div>This is a division.</div>\n```\n\n**2. Self-Closing Tags (Empty Elements)**\nSome elements don't need closing tags because they don't contain content:\n```html\n<br>  <!-- Line break -->\n<img src=\"image.jpg\" alt=\"Description\">  <!-- Image -->\n<input type=\"text\">  <!-- Input field -->\n<hr>  <!-- Horizontal rule -->\n```\n\n**3. Nested Elements**\nElements can be nested inside other elements:\n```html\n<div>\n  <h1>Main Heading</h1>\n  <p>This paragraph is inside the div.</p>\n</div>\n```\n\n**Important Rules:**\n- Always close your tags (except self-closing ones)\n- Nest elements properly (close inner tags before outer tags)\n- Use lowercase for tag names (HTML5 standard)\n- Tags must be properly nested - no overlapping allowed\n\n**Common HTML Elements:**\n```html\n<h1> to <h6>  <!-- Headings -->\n<p>  <!-- Paragraph -->\n<div>  <!-- Division/container -->\n<span>  <!-- Inline container -->\n<a>  <!-- Link -->\n<img>  <!-- Image -->\n<ul>, <ol>  <!-- Lists -->\n<li>  <!-- List item -->\n```",
+        "imageUrl": "/images/html-elements-tags.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Self-closing tags don't need a closing slash in HTML5 (e.g., <br> works the same as <br />)",
+          "You can nest elements in any order - FALSE, they must be properly nested like parentheses",
+          "HTML is case-sensitive - FALSE, HTML tags are case-insensitive, but lowercase is the standard"
+        ],
+        "realWorldAnalogy": "HTML tags are like punctuation marks in writing. Just as periods, commas, and quotation marks give structure and meaning to sentences, HTML tags give structure and meaning to web content. Paired tags are like quotation marks (opening and closing), while self-closing tags are like periods or commas."
+      },
+      {
+        "title": "HTML Attributes - Adding Extra Information",
+        "content": "Attributes provide additional information about HTML elements. They are always specified in the opening tag and usually come in name=\"value\" pairs.\n\n**Attribute Syntax:**\n```html\nelement attribute=\"value\"\n```\n\n**Common HTML Attributes:**\n\n**1. The `id` Attribute**\nSpecifies a unique identifier for an element (must be unique within the page):\n```html\n<p id=\"intro\">This paragraph has a unique ID.</p>\n<div id=\"main-content\">Main content area</div>\n```\n\n**2. The `class` Attribute**\nSpecifies one or more class names for an element (used for CSS styling):\n```html\n<p class=\"highlight\">This text is highlighted.</p>\n<div class=\"container box\">Multiple classes</div>\n```\n\n**3. The `style` Attribute**\nAdds inline CSS styling to an element:\n```html\n<p style=\"color: red; font-size: 20px;\">Styled paragraph</p>\n```\n\n**4. The `title` Attribute**\nProvides extra information shown as a tooltip when you hover over the element:\n```html\n<p title=\"This is a tooltip\">Hover over this text</p>\n```\n\n**5. The `href` Attribute (for links)**\nSpecifies the URL of the page the link goes to:\n```html\n<a href=\"https://www.example.com\">Visit Example</a>\n```\n\n**6. The `src` Attribute (for images)**\nSpecifies the path to the image file:\n```html\n<img src=\"logo.jpg\" alt=\"Company Logo\">\n```\n\n**7. The `alt` Attribute (for images)**\nProvides alternative text for screen readers and when images fail to load:\n```html\n<img src=\"photo.jpg\" alt=\"A beautiful sunset over the ocean\">\n```\n\n**Attribute Rules:**\n- Attributes are always specified in the opening tag\n- Use quotes around attribute values (single or double quotes both work)\n- Some attributes have no values (boolean attributes like `disabled`, `checked`)\n- You can add multiple attributes to one element\n\n**Example with Multiple Attributes:**\n```html\n<a href=\"https://example.com\" target=\"_blank\" title=\"Opens in new tab\" class=\"external-link\">\n  Visit Example Site\n</a>\n```",
+        "imageUrl": "/images/html-attributes.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Attribute values must always be in double quotes - FALSE, single quotes also work, and sometimes no quotes are needed for simple values",
+          "The order of attributes matters - FALSE, attributes can be in any order",
+          "All attributes require values - FALSE, some are boolean (like disabled, checked) and don't need values"
+        ],
+        "realWorldAnalogy": "HTML attributes are like adjectives describing a noun. Just as 'red', 'large', and 'wooden' describe a table, attributes like 'class=\"red\"', 'style=\"font-size: large\"', and 'id=\"wooden-table\"' describe an HTML element."
+      },
+      {
+        "title": "HTML Headings and Paragraphs - Structuring Your Content",
+        "content": "Headings and paragraphs are the most fundamental elements for structuring text content on web pages. They create hierarchy and make content readable and organized.\n\n**HTML Headings (`<h1>` to `<h6>`)**\nHTML provides six levels of headings, from most important (`<h1>`) to least important (`<h6>`):\n\n```html\n<h1>Main Page Title</h1>\n<h2>Section Heading</h2>\n<h3>Subsection Heading</h3>\n<h4>Sub-subsection Heading</h4>\n<h5>Minor Heading</h5>\n<h6>Smallest Heading</h6>\n```\n\n**Heading Best Practices:**\n- Use only ONE `<h1>` per page (this is crucial for SEO)\n- Don't skip heading levels (don't jump from `<h1>` to `<h3>`)\n- Use headings to create a logical outline of your content\n- Headings should describe the content that follows\n- Search engines use headings to understand page structure\n\n**HTML Paragraphs (`<p>`)**\nParagraphs are used to group related text together:\n\n```html\n<p>This is the first paragraph. It contains some text that explains a concept.</p>\n\n<p>This is the second paragraph. Browsers automatically add space between paragraphs.</p>\n```\n\n**Paragraph Characteristics:**\n- Browsers add margin above and below paragraphs\n- Multiple spaces in HTML are collapsed into a single space\n- Line breaks in HTML code don't create line breaks on the webpage\n\n**Line Breaks (`<br>`)**\nTo force a line break within a paragraph:\n```html\n<p>This is line one.<br>This is line two.</p>\n```\n\n**Horizontal Rules (`<hr>`)**\nTo create a thematic break (horizontal line):\n```html\n<p>Section one content</p>\n<hr>\n<p>Section two content</p>\n```\n\n**Complete Example:**\n```html\n<h1>Welcome to My Blog</h1>\n<p>This is an introduction paragraph that explains what this blog is about.</p>\n\n<h2>About HTML</h2>\n<p>HTML is the foundation of web development. It's easy to learn and powerful.</p>\n\n<h3>Why Learn HTML?</h3>\n<p>Learning HTML opens up endless possibilities for creating websites and applications.</p>\n```",
+        "imageUrl": "/images/html-headings-paragraphs.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Headings are just for making text larger - FALSE, they create semantic structure important for SEO and accessibility",
+          "You can use multiple <h1> tags on a page - technically you can, but it's bad practice for SEO",
+          "Pressing Enter in your HTML code creates a new paragraph - FALSE, HTML ignores line breaks, use <p> tags instead"
+        ],
+        "realWorldAnalogy": "HTML headings are like chapter titles and section headers in a book. <h1> is the book title, <h2> is chapter titles, <h3> is section titles within chapters, and so on. Paragraphs are like the actual text content within those sections."
+      },
+      {
+        "title": "HTML Styles - Adding Visual Appeal",
+        "content": "While CSS is the proper way to style web pages, you can add basic inline styles directly to HTML elements using the `style` attribute. This is useful for quick testing and understanding how styling works.\n\n**The `style` Attribute**\nThe `style` attribute accepts CSS properties and values:\n\n```html\nelement style=\"property: value; property: value;\"\n```\n\n**Common Style Properties:**\n\n**1. Text Color**\n```html\n<p style=\"color: red;\">This text is red.</p>\n<p style=\"color: #0066cc;\">This text is blue (hex code).</p>\n<p style=\"color: rgb(255, 0, 0);\">This text is red (RGB).</p>\n```\n\n**2. Background Color**\n```html\n<p style=\"background-color: yellow;\">Yellow background</p>\n<div style=\"background-color: lightgray; padding: 10px;\">\n  Gray background div\n</div>\n```\n\n**3. Font Size**\n```html\n<p style=\"font-size: 16px;\">Normal size (16 pixels)</p>\n<p style=\"font-size: 24px;\">Larger text (24 pixels)</p>\n<p style=\"font-size: 1.5em;\">1.5 times larger (em units)</p>\n```\n\n**4. Font Family**\n```html\n<p style=\"font-family: Arial, sans-serif;\">Arial font</p>\n<p style=\"font-family: 'Times New Roman', serif;\">Times New Roman</p>\n<p style=\"font-family: 'Courier New', monospace;\">Monospace font</p>\n```\n\n**5. Text Alignment**\n```html\n<p style=\"text-align: left;\">Left aligned (default)</p>\n<p style=\"text-align: center;\">Center aligned</p>\n<p style=\"text-align: right;\">Right aligned</p>\n```\n\n**6. Font Weight (Bold)**\n```html\n<p style=\"font-weight: normal;\">Normal weight</p>\n<p style=\"font-weight: bold;\">Bold text</p>\n```\n\n**7. Text Decoration**\n```html\n<p style=\"text-decoration: underline;\">Underlined text</p>\n<p style=\"text-decoration: line-through;\">Strikethrough text</p>\n<p style=\"text-decoration: none;\">No decoration (useful for links)</p>\n```\n\n**8. Combining Multiple Styles**\n```html\n<p style=\"color: white; background-color: blue; font-size: 20px; padding: 10px; text-align: center;\">\n  This paragraph has multiple styles applied!\n</p>\n```\n\n**Important Notes:**\n- Separate multiple style properties with semicolons (;)\n- Use hyphens for multi-word properties (background-color, not backgroundColor)\n- Inline styles override external CSS (use sparingly in production)\n- For larger projects, use external CSS files instead of inline styles\n\n**Complete Styled Example:**\n```html\n<h1 style=\"color: navy; text-align: center;\">Styled Heading</h1>\n<p style=\"font-size: 18px; line-height: 1.6; color: #333;\">\n  This is a styled paragraph with readable font size and line height.\n</p>\n<div style=\"background-color: #f0f0f0; padding: 20px; border-radius: 5px;\">\n  <p style=\"margin: 0;\">Content in a styled container</p>\n</div>\n```",
+        "imageUrl": "/images/html-styles.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Inline styles are the best way to style websites - FALSE, use external CSS files for maintainability",
+          "You can use camelCase for property names (fontSize) - FALSE, use hyphens (font-size) in HTML",
+          "The order of style properties matters - FALSE, properties can be in any order"
+        ],
+        "realWorldAnalogy": "Inline HTML styles are like putting on makeup directly on your face in the morning. It works for a quick fix, but for a consistent, professional look, you'd use a dedicated styling routine (external CSS)."
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/html5-basics-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Visual Studio Code",
+          "url": "https://code.visualstudio.com/",
+          "free": true,
+          "reason": "Best free code editor with excellent HTML support and extensions"
+        },
+        {
+          "name": "W3Schools HTML Editor",
+          "url": "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic",
+          "free": true,
+          "reason": "Online editor to practice HTML instantly in your browser"
+        },
+        {
+          "name": "Chrome Developer Tools",
+          "url": "https://developer.chrome.com/docs/devtools/",
+          "free": true,
+          "reason": "Built into Chrome - inspect and edit any webpage's HTML in real-time"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools HTML Tutorial (free, beginner-friendly)",
+        "MDN Web Docs: Getting started with HTML (free, comprehensive)",
+        "HTML.com: HTML for Beginners (free, easy to follow)"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "HTML",
+        "definition": "HyperText Markup Language - the standard language for creating web pages and web applications."
+      },
+      {
+        "term": "HTML5",
+        "definition": "The latest version of HTML, released in 2014, with new semantic elements, native multimedia support, and improved APIs."
+      },
+      {
+        "term": "Tag",
+        "definition": "A keyword enclosed in angle brackets (like <p>) that tells the browser how to display content."
+      },
+      {
+        "term": "Element",
+        "definition": "The combination of an opening tag, content, and closing tag (e.g., <p>Hello</p> is a paragraph element)."
+      },
+      {
+        "term": "Attribute",
+        "definition": "Additional information added to an opening tag (like href in <a href='url'>) that provides extra details about the element."
+      },
+      {
+        "term": "DOCTYPE",
+        "definition": "A declaration at the top of an HTML file that tells the browser which version of HTML is being used."
+      },
+      {
+        "term": "Head",
+        "definition": "The <head> section contains metadata about the document, including the title, meta tags, and links to external resources."
+      },
+      {
+        "term": "Body",
+        "definition": "The <body> section contains all visible content that appears on the webpage, including text, images, and links."
+      },
+      {
+        "term": "Semantic HTML",
+        "definition": "Using HTML tags that describe their meaning (like <article>, <nav>, <header>) rather than just their visual appearance."
+      },
+      {
+        "term": "Inline Style",
+        "definition": "CSS styling applied directly to an HTML element using the style attribute, useful for quick testing but not recommended for production."
+      },
+      {
+        "term": "Hex Color Code",
+        "definition": "A six-digit code (like #FF0000 for red) used to specify colors in HTML and CSS, representing RGB values in hexadecimal."
+      },
+      {
+        "term": "Viewport",
+        "definition": "The visible area of a webpage on a device. The viewport meta tag ensures proper rendering on mobile devices."
+      }
+    ]
+  }
+]

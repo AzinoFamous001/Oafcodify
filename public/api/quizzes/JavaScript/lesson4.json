@@ -1,0 +1,242 @@
+[
+  {
+    "id": 13,
+    "question": "How do you round the number 7.25 to the nearest integer?",
+    "options": [
+      "Math.round(7.25)",
+      "Math.rnd(7.25)",
+      "round(7.25)",
+      "Math.random(7.25)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Math.round() rounds a number to the nearest integer."
+  },
+  {
+    "id": 14,
+    "question": "How do you find the largest number of 2 and 8?",
+    "options": [
+      "Math.max(2, 8)",
+      "Math.ceil(2, 8)",
+      "Math.large(2, 8)",
+      "Math.highest(2, 8)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Math.max() returns the largest of the numbers provided."
+  },
+  {
+    "id": 15,
+    "question": "What is the correct way to write a JavaScript array?",
+    "options": [
+      "var colors = 'red', 'green', 'blue'",
+      "var colors = ['red', 'green', 'blue']",
+      "var colors = (1:'red', 2:'green', 3:'blue')",
+      "var colors = 1=('red'), 2=('green'), 3=('blue')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JavaScript arrays use square brackets and comma-separated values."
+  },
+  {
+    "id": 16,
+    "question": "Which built-in method reverses the order of the elements of an array?",
+    "options": [
+      "changeOrder(order)",
+      "reverse()",
+      "sort(order)",
+      "shift()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The reverse() method reverses the order of elements in an array."
+  },
+  {
+    "id": 17,
+    "question": "Which built-in method returns the string representation of an array?",
+    "options": [
+      "toString()",
+      "toValue()",
+      "valueOf()",
+      "string()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The toString() method converts an array to a string."
+  },
+  {
+    "id": 18,
+    "question": "Which built-in method sorts the elements of an array?",
+    "options": [
+      "order()",
+      "sort()",
+      "changeOrder()",
+      "arrange()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The sort() method sorts the elements of an array."
+  },
+  {
+    "id": 19,
+    "question": "How do you select the first element of an array?",
+    "options": [
+      "array[0]",
+      "array[1]",
+      "array.first",
+      "array.first()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Array indices start at 0, so the first element is at index 0."
+  },
+  {
+    "id": 20,
+    "question": "Which built-in method removes the last element of an array?",
+    "options": [
+      "last()",
+      "pop()",
+      "shift()",
+      "remove()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The pop() method removes the last element of an array."
+  },
+  {
+    "id": 21,
+    "question": "Which built-in method adds a new element to the beginning of an array?",
+    "options": [
+      "unshift()",
+      "push()",
+      "shift()",
+      "add()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The unshift() method adds a new element to the beginning of an array."
+  },
+  {
+    "id": 22,
+    "question": "Which built-in method removes the first element of an array?",
+    "options": [
+      "pop()",
+      "shift()",
+      "unshift()",
+      "remove()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The shift() method removes the first element of an array."
+  },
+  {
+    "id": 23,
+    "question": "How do you create a new array in JavaScript?",
+    "options": [
+      "var arr = new Array()",
+      "var arr = []",
+      "var arr = array()",
+      "Both A and B"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Both new Array() and [] can create arrays in JavaScript."
+  },
+  {
+    "id": 24,
+    "question": "Which method joins all elements of an array into a string?",
+    "options": [
+      "join()",
+      "concat()",
+      "merge()",
+      "combine()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The join() method joins all array elements into a string."
+  },
+  {
+    "id": 25,
+    "question": "How do you check if a variable is an array?",
+    "options": [
+      "typeof variable === 'array'",
+      "Array.isArray(variable)",
+      "variable instanceof Array",
+      "Both B and C"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Both Array.isArray() and instanceof Array can check for arrays."
+  },
+  {
+    "id": 26,
+    "question": "Which method removes elements from an array and returns them?",
+    "options": [
+      "slice()",
+      "splice()",
+      "remove()",
+      "extract()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The splice() method removes elements from an array and returns them."
+  },
+  {
+    "id": 27,
+    "question": "How do you get the length of an array?",
+    "options": [
+      "array.length",
+      "array.size",
+      "array.count",
+      "len(array)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The length property returns the number of elements in an array."
+  },
+  {
+    "id": 28,
+    "question": "Which method creates a new array by applying a function to every element?",
+    "options": [
+      "forEach()",
+      "map()",
+      "filter()",
+      "reduce()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The map() method creates a new array by applying a function to each element."
+  },
+  {
+    "id": 29,
+    "question": "Which method filters elements based on a condition?",
+    "options": [
+      "map()",
+      "filter()",
+      "find()",
+      "select()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The filter() method creates an array with elements that pass a test."
+  },
+  {
+    "id": 30,
+    "question": "How do you find the index of an element in an array?",
+    "options": [
+      "array.indexOf(element)",
+      "array.findIndex(element)",
+      "array.index(element)",
+      "array.position(element)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The indexOf() method returns the first index of an element."
+  },
+  {
+    "id": 31,
+    "question": "Which method executes a function once for each array element?",
+    "options": [
+      "map()",
+      "forEach()",
+      "each()",
+      "loop()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The forEach() method executes a function once for each array element."
+  },
+  {
+    "id": 32,
+    "question": "How do you combine two arrays?",
+    "options": [
+      "array1 + array2",
+      "array1.concat(array2)",
+      "array1.merge(array2)",
+      "array1.join(array2)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The concat() method combines two or more arrays."
+  }
+]

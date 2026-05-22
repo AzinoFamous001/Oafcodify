@@ -1,0 +1,90 @@
+[
+  {
+    "id": "3",
+    "title": "Functions and Arrays",
+    "description": "Learn how to create reusable functions and work with arrays in C++ for efficient data storage and manipulation.",
+    "level": "Beginner",
+    "duration": "55 minutes",
+    "learningObjectives": [
+      "Define and use functions in C++",
+      "Understand function parameters and return values",
+      "Work with arrays for storing multiple values",
+      "Pass arrays to functions",
+      "Apply functions and arrays in practical scenarios"
+    ],
+    "subtopics": [
+      {
+        "title": "Functions",
+        "content": "Functions are reusable blocks of code that perform specific tasks.\n\n**Function Definition:**\n```cpp\nreturn_type function_name(parameters) {\n  // Function body\n  return value;\n}\n```\n\n**Example Function:**\n```cpp\nint add(int a, int b) {\n  return a + b;\n}\n\nint main() {\n  int result = add(5, 3);\n  cout << \"Sum: \" << result << endl; // Sum: 8\n  return 0;\n}\n```\n\n**Void Function (No Return):**\n```cpp\nvoid greet(string name) {\n  cout << \"Hello, \" << name << \"!\" << endl;\n}\n\nint main() {\n  greet(\"Alice\"); // Hello, Alice!\n  return 0;\n}\n```\n\n**Default Parameters:**\n```cpp\nint power(int base, int exponent = 2) {\n  int result = 1;\n  for (int i = 0; i < exponent; i++) {\n    result *= base;\n  }\n  return result;\n}\n\npower(3);    // 9 (3^2)\npower(3, 3); // 27 (3^3)\n```"
+      },
+      {
+        "title": "Function Overloading",
+        "content": "C++ allows multiple functions with the same name but different parameters.\n```cpp\nint add(int a, int b) {\n  return a + b;\n}\n\ndouble add(double a, double b) {\n  return a + b;\n}\n\nint main() {\n  cout << add(5, 3) << endl;       // 8 (int version)\n  cout << add(5.5, 3.2) << endl;   // 8.7 (double version)\n  return 0;\n}\n```\n\n**Rules:**\n- Same function name\n- Different parameter list (type, number, or order)\n- Return type alone is not enough for overloading"
+      },
+      {
+        "title": "Arrays",
+        "content": "Arrays store multiple values of the same type in contiguous memory.\n\n**Declaring Arrays:**\n```cpp\nint numbers[5];              // Array of 5 integers\nint scores[] = {90, 85, 95}; // Size determined by initializer\nint ages[3] = {25, 30, 35};  // Array of 3 integers\n```\n\n**Accessing Elements:**\n```cpp\nint arr[5] = {10, 20, 30, 40, 50};\n\ncout << arr[0] << endl; // 10 (first element)\ncout << arr[4] << endl; // 50 (last element)\narr[2] = 100;           // Modify third element\n```\n\n**Array Size:**\n```cpp\nint arr[] = {1, 2, 3, 4, 5};\nint size = sizeof(arr) / sizeof(arr[0]); // 5\n```\n\n**Looping Through Arrays:**\n```cpp\nint numbers[5] = {10, 20, 30, 40, 50};\n\nfor (int i = 0; i < 5; i++) {\n  cout << numbers[i] << \" \";\n}\n\n// Range-based for loop (C++11)\nfor (int num : numbers) {\n  cout << num << \" \";\n}\n```"
+      },
+      {
+        "title": "Multidimensional Arrays",
+        "content": "Arrays can have multiple dimensions for storing complex data.\n\n**2D Arrays:**\n```cpp\nint matrix[3][3] = {\n  {1, 2, 3},\n  {4, 5, 6},\n  {7, 8, 9}\n};\n```\n\n**Accessing 2D Arrays:**\n```cpp\ncout << matrix[0][0] << endl; // 1\ncout << matrix[1][2] << endl; // 6\n```\n\n**Looping Through 2D Arrays:**\n```cppnfor (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 3; j++) {\n    cout << matrix[i][j] << \" \";\n  }\n  cout << endl;\n}\n```\n\n**3D Arrays:**\n```cpp\nint cube[2][2][2] = {\n  {{1, 2}, {3, 4}},\n  {{5, 6}, {7, 8}}\n};\n```"
+      },
+      {
+        "title": "Passing Arrays to Functions",
+        "content": "Arrays can be passed to functions for processing.\n\n**Passing Array to Function:**\n```cpp\nvoid printArray(int arr[], int size) {\n  for (int i = 0; i < size; i++) {\n    cout << arr[i] << \" \";\n  }\n  cout << endl;\n}\n\nint main() {\n  int numbers[5] = {10, 20, 30, 40, 50};\n  printArray(numbers, 5);\n  return 0;\n}\n```\n\n**Modifying Array in Function:**\n```cpp\nvoid doubleArray(int arr[], int size) {\n  for (int i = 0; i < size; i++) {\n    arr[i] *= 2;\n  }\n}\n\nint main() {\n  int numbers[3] = {1, 2, 3};\n  doubleArray(numbers, 3);\n  // numbers is now {2, 4, 6}\n  return 0;\n}\n```\n\n**Note:** Arrays are passed by reference in C++, so modifications affect the original array."
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/cpp-functions-arrays-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "C++ Reference",
+          "url": "https://en.cppreference.com/w/cpp/language",
+          "free": true,
+          "reason": "Comprehensive C++ language reference"
+        },
+        {
+          "name": "Debugger",
+          "url": "https://www.onlinegdb.com/online_c++_debugger",
+          "free": true,
+          "reason": "Online C++ debugger for testing code"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools C++ Functions",
+        "W3Schools C++ Arrays",
+        "C++ Primer: Functions and Arrays"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Function",
+        "definition": "A reusable block of code that performs a specific task."
+      },
+      {
+        "term": "Parameter",
+        "definition": "A variable in a function definition that receives a value when the function is called."
+      },
+      {
+        "term": "Return Type",
+        "definition": "The type of value a function returns."
+      },
+      {
+        "term": "Function Overloading",
+        "definition": "Creating multiple functions with the same name but different parameters."
+      },
+      {
+        "term": "Array",
+        "definition": "A collection of elements of the same type stored in contiguous memory."
+      },
+      {
+        "term": "Index",
+        "definition": "A number used to access an element in an array (starts at 0)."
+      },
+      {
+        "term": "Multidimensional Array",
+        "definition": "An array with more than one dimension, like a matrix."
+      }
+    ]
+  }
+]

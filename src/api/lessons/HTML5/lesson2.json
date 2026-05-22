@@ -1,0 +1,168 @@
+[
+  {
+    "id": "2",
+    "title": "HTML Formatting, Quotations, Comments, Colors & CSS",
+    "description": "Enhance your webpages with text formatting, proper quotations, helpful comments, beautiful colors, and CSS styling. Learn how to make text bold or italic, add quotes and citations, write code comments, work with colors, and apply CSS to create visually stunning web pages.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Use HTML formatting tags to emphasize and style text",
+      "Add quotations and citations properly using semantic HTML",
+      "Write comments in HTML code for documentation and debugging",
+      "Understand and use different color formats in HTML",
+      "Apply CSS styling to HTML elements for better presentation"
+    ],
+    "subtopics": [
+      {
+        "title": "HTML Formatting - Emphasizing and Styling Text",
+        "content": "HTML provides several formatting tags to change how text appears on your webpage. These tags help you emphasize important information and improve readability.\n\n**Bold and Strong Text**\nThere are two ways to make text bold:\n```html\n<b>This text is bold (visual only)</b>\n<strong>This text is strong (semantic importance)</strong>\n```\n- `<b>` makes text visually bold but adds no meaning\n- `<strong>` makes text bold AND indicates importance (better for SEO and accessibility)\n\n**Italic and Emphasized Text**\n```html\n<i>This text is italic (visual only)</i>\n<em>This text is emphasized (semantic importance)</em>\n```\n- `<i>` makes text visually italic but adds no meaning\n- `<em>` makes text italic AND indicates emphasis (better for accessibility)\n\n**Marked and Highlighted Text**\n```html\n<mark>This text is highlighted</mark>\n```\nUsed to mark or highlight text for reference purposes.\n\n**Smaller and Deleted Text**\n```html\n<small>This text is smaller</small>\n<del>This text is deleted</del>\n<ins>This text is inserted</ins>\n```\n- `<small>` displays smaller text\n- `<del>` shows text with a strikethrough (deleted)\n- `<ins>` shows underlined text (inserted)\n\n**Subscript and Superscript**\n```html\n<p>H<sub>2</sub>O is water</p>\n<p>E = mc<sup>2</sup></p>\n```\n- `<sub>` displays subscript text (below the line)\n- `<sup>` displays superscript text (above the line)\n\n**Complete Example:**\n```html\n<h1><strong>Important Notice</strong></h1>\n<p>Please <em>read carefully</em> before proceeding.</p>\n<p><mark>Key point:</mark> Always use semantic tags when possible.</p>\n<p><small>Terms and conditions apply.</small></p>\n```",
+        "imageUrl": "/images/html-formatting.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "<b> and <strong> do the same thing - FALSE, <strong> adds semantic meaning while <b> is only visual",
+          "<i> and <em> are interchangeable - FALSE, <em> indicates emphasis which is important for screen readers",
+          "Formatting tags are deprecated - FALSE, formatting tags are still valid, but semantic tags are preferred"
+        ],
+        "realWorldAnalogy": "HTML formatting tags are like highlighters and pens when studying. You use different colors and styles to mark important information, just as formatting tags emphasize different parts of your content."
+      },
+      {
+        "title": "HTML Quotations - Adding Quotes and Citations",
+        "content": "HTML provides specific tags for quotations and citations, making your content more semantic and accessible.\n\n**Blockquotes**\nFor long quotations that span multiple lines:\n```html\n<blockquote cite=\"https://example.com/quote\">\n  <p>The only way to do great work is to love what you do.</p>\n  <footer>— Steve Jobs</footer>\n</blockquote>\n```\n- `<blockquote>` is for longer quotes (usually indented)\n- The `cite` attribute contains the URL of the source\n- Browsers typically indent blockquotes\n\n**Inline Quotations**\nFor short quotes within a sentence:\n```html\n<p>As Einstein said, <q>Imagination is more important than knowledge.</q></p>\n```\n- `<q>` is for short inline quotes\n- Most browsers add quotation marks automatically\n\n**Citations**\nTo cite the source of a quotation:\n```html\n<p><cite>The Great Gatsby</cite> is a famous novel by F. Scott Fitzgerald.</p>\n```\n- `<cite>` indicates the title of a creative work\n- Typically displayed in italic by browsers\n\n**Abbreviations**\nTo define abbreviations with a tooltip:\n```html\n<p>The <abbr title=\"World Wide Web\">WWW</abbr> was invented in 1989.</p>\n```\n- The `title` attribute shows the full text on hover\n- Useful for accessibility and SEO\n\n**Contact Information**\nTo mark contact details:\n```html\n<address>\n  Written by <a href=\"mailto:john@example.com\">John Doe</a>.<br>\n  Visit us at: 123 Main Street, City<br>\n  USA\n</address>\n```\n- `<address>` displays contact information\n- Usually displayed in italic\n\n**Bidi Override**\nTo override text direction:\n```html\n<p>This is <bdo dir=\"rtl\">right-to-left</bdo> text.</p>\n```\n- `<bdo>` overrides the default text direction\n- Useful for languages that read right-to-left (Arabic, Hebrew)\n\n**Best Practices:**\n- Use `<blockquote>` for long quotes, `<q>` for short quotes\n- Always include the `cite` attribute when possible\n- Use `<cite>` for titles of works, not people's names\n- Use `<abbr>` for abbreviations to improve accessibility",
+        "imageUrl": "/images/html-quotations.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Blockquotes are just for styling - FALSE, they have semantic meaning for screen readers",
+          "You need to add quotation marks manually with <q> - FALSE, browsers add them automatically",
+          "<cite> is for citing people - FALSE, it's for citing the title of creative works"
+        ],
+        "realWorldAnalogy": "HTML quotation tags are like proper citation in academic writing. Just as you use quotation marks, footnotes, and bibliographies to credit sources properly, HTML quotation tags help you attribute quotes and references correctly."
+      },
+      {
+        "title": "HTML Comments - Documenting Your Code",
+        "content": "Comments are notes in your HTML code that are not displayed in the browser. They help you and other developers understand your code, and are useful for debugging.\n\n**Basic Syntax**\n```html\n<!-- This is a comment -->\n```\n- Comments start with `<!--` and end with `-->`\n- Everything between them is ignored by the browser\n- Comments can span multiple lines\n\n**Single-Line Comment**\n```html\n<p>This is visible text.</p>\n<!-- This is a comment explaining the paragraph -->\n<p>This is more visible text.</p>\n```\n\n**Multi-Line Comment**\n```html\n<!--\n  This is a multi-line comment.\n  It can span several lines.\n  Useful for longer explanations.\n-->\n```\n\n**Commenting Out Code**\nTemporarily disable code without deleting it:\n```html\n<!-- <p>This paragraph is temporarily hidden</p> -->\n<p>This paragraph is visible</p>\n<!--\n<div class=\"old-section\">\n  <p>Old content that might be needed later</p>\n</div>\n-->\n```\n\n**Conditional Comments (Internet Explorer)**\n```html\n<!--[if IE 8]>\n  <p>You are using Internet Explorer 8.</p>\n<![endif]-->\n```\n- Only supported in older Internet Explorer\n- Mostly obsolete with modern browsers\n\n**Best Practices for Comments:**\n- Write clear, concise comments that explain WHY, not WHAT\n- Comment complex logic or non-obvious code\n- Keep comments up to date with code changes\n- Don't over-comment obvious code\n- Use comments to mark sections of your document\n\n**Section Markers**\n```html\n<!-- ================= HEADER ================= -->\n<header>...</header>\n\n<!-- ================= NAVIGATION ================= -->\n<nav>...</nav>\n\n<!-- ================= MAIN CONTENT ================= -->\n<main>...</main>\n```\n\n**Important Notes:**\n- Comments are NOT visible to users viewing the page\n- Comments ARE visible in the page source code\n- Don't put sensitive information in comments (passwords, API keys)\n- Comments do increase file size slightly\n\n**Example with Comments:**\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>My Page</title>\n  <!-- Meta tags for SEO -->\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n</head>\n<body>\n  <!-- Main heading -->\n  <h1>Welcome to My Website</h1>\n  \n  <!-- Introduction paragraph -->\n  <p>This is the introduction text.</p>\n  \n  <!-- TODO: Add contact form here -->\n</body>\n</html>\n```",
+        "imageUrl": "/images/html-comments.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Comments slow down webpage loading - FALSE, comments are ignored by browsers and don't affect performance",
+          "Comments are visible to website visitors - FALSE, only visible in source code, not on the rendered page",
+          "You can nest comments inside comments - FALSE, HTML does not support nested comments"
+        ],
+        "realWorldAnalogy": "HTML comments are like sticky notes in a cookbook. They don't change the recipe (the webpage), but they help you remember why you added certain ingredients or explain tricky steps to other cooks (developers)."
+      },
+      {
+        "title": "HTML Colors - Adding Color to Your Webpage",
+        "content": "Colors make your webpage visually appealing and help convey meaning. HTML supports multiple color formats, and you can apply colors to text, backgrounds, borders, and more.\n\n**Color Formats in HTML**\n\n**1. Color Names**\nHTML supports 140 standard color names:\n```html\n<p style=\"color: red;\">Red text</p>\n<p style=\"color: blue;\">Blue text</p>\n<p style=\"color: green;\">Green text</p>\n<p style=\"color: tomato;\">Tomato color</p>\n<p style=\"color: steelblue;\">Steel blue</p>\n```\nCommon color names: red, blue, green, yellow, orange, purple, pink, black, white, gray, etc.\n\n**2. Hexadecimal (Hex) Colors**\nMost popular format - 6-digit code:\n```html\n<p style=\"color: #FF0000;\">Red (#FF0000)</p>\n<p style=\"color: #00FF00;\">Green (#00FF00)</p>\n<p style=\"color: #0000FF;\">Blue (#0000FF)</p>\n<p style=\"color: #FFA500;\">Orange (#FFA500)</p>\n<p style=\"color: #808080;\">Gray (#808080)</p>\n```\nFormat: #RRGGBB\n- RR = Red (00-FF)\n- GG = Green (00-FF)\n- BB = Blue (00-FF)\n\n**3. RGB Colors**\nRed, Green, Blue values (0-255):\n```html\n<p style=\"color: rgb(255, 0, 0);\">Red</p>\n<p style=\"color: rgb(0, 255, 0);\">Green</p>\n<p style=\"color: rgb(0, 0, 255);\">Blue</p>\n<p style=\"color: rgb(255, 165, 0);\">Orange</p>\n```\nFormat: rgb(red, green, blue)\n- Each value ranges from 0 to 255\n\n**4. RGBA Colors**\nRGB with Alpha (transparency):\n```html\n<p style=\"color: rgba(255, 0, 0, 0.5);\">50% transparent red</p>\n<p style=\"color: rgba(0, 0, 255, 0.3);\">30% transparent blue</p>\n```\nFormat: rgba(red, green, blue, alpha)\n- Alpha ranges from 0.0 (transparent) to 1.0 (opaque)\n\n**5. HSL Colors**\nHue, Saturation, Lightness:\n```html\n<p style=\"color: hsl(0, 100%, 50%);\">Red</p>\n<p style=\"color: hsl(120, 100%, 50%);\">Green</p>\n<p style=\"color: hsl(240, 100%, 50%);\">Blue</p>\n```\nFormat: hsl(hue, saturation%, lightness%)\n- Hue: 0-360 (color wheel)\n- Saturation: 0-100%\n- Lightness: 0-100%\n\n**Applying Colors**\n\n**Text Color**\n```html\n<p style=\"color: #FF5733;\">Colored text</p>\n<h1 style=\"color: navy;\">Colored heading</h1>\n```\n\n**Background Color**\n```html\n<p style=\"background-color: lightblue;\">Blue background</p>\n<div style=\"background-color: #F0F0F0; padding: 20px;\">\n  Gray background div\n</div>\n```\n\n**Border Color**\n```html\n<p style=\"border: 2px solid red;\">Red border</p>\n<div style=\"border: 3px dashed #00FF00; padding: 10px;\">\n  Green dashed border\n</div>\n```\n\n**Color Picker Tools**\n- Online: color-hex.com, htmlcolorcodes.com\n- Browser DevTools: Inspect element → Color picker\n- VS Code: Color picker extension\n\n**Best Practices:**\n- Use hex codes for consistency and precision\n- Ensure good contrast between text and background\n- Consider color blindness when choosing colors\n- Use a limited color palette for professional look\n- Test colors on different devices and screens\n\n**Complete Example:**\n```html\n<div style=\"background-color: #2C3E50; padding: 30px; border-radius: 10px;\">\n  <h1 style=\"color: #ECF0F1; text-align: center;\">Color Example</h1>\n  <p style=\"color: #3498DB; font-size: 18px;\">\n    This text uses a beautiful blue color.\n  </p>\n  <p style=\"color: rgba(255, 255, 255, 0.7);\">\n    This text is semi-transparent white.\n  </p>\n</div>\n```",
+        "imageUrl": "/images/html-colors.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Color names are the best way to specify colors - FALSE, hex codes offer more precision and consistency",
+          "RGB and hex codes are different - FALSE, they represent the same colors in different formats",
+          "You can use any color name - FALSE, only 140 standard color names are supported"
+        ],
+        "realWorldAnalogy": "HTML colors are like paint colors for an artist. Just as an artist chooses specific paint colors from a palette to create a painting, you choose color codes to create your webpage's visual design."
+      },
+      {
+        "title": "HTML CSS - Styling Your Webpage",
+        "content": "CSS (Cascading Style Sheets) is the language used to style HTML elements. While you learned inline styles in Lesson 1, CSS offers more powerful and maintainable ways to style your webpages.\n\n**Three Ways to Add CSS**\n\n**1. Inline CSS (style attribute)**\nDirectly on the element:\n```html\n<p style=\"color: red; font-size: 20px;\">Styled text</p>\n```\nPros: Quick for testing\nCons: Hard to maintain, mixes content with style\n\n**2. Internal CSS (style tag in head)**\nInside the `<head>` section:\n```html\n<head>\n  <style>\n    p {\n      color: blue;\n      font-size: 18px;\n    }\n    .highlight {\n      background-color: yellow;\n    }\n  </style>\n</head>\n```\nPros: Good for single-page websites\nCons: Not reusable across multiple pages\n\n**3. External CSS (separate .css file)**\nBest practice for production:\n```html\n<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n```\nstyles.css file:\n```css\np {\n  color: blue;\n  font-size: 18px;\n}\n.highlight {\n  background-color: yellow;\n}\n```\nPros: Reusable, maintainable, separates concerns\nCons: Requires additional file\n\n**CSS Syntax**\n```css\nselector {\n  property: value;\n  property: value;\n}\n```\n\n**CSS Selectors**\n\n**Element Selector**\n```css\np {\n  color: red;\n}\nh1 {\n  color: blue;\n}\n```\n\n**Class Selector**\n```css\n.intro {\n  color: green;\n}\n<p class=\"intro\">This text is green</p>\n```\n\n**ID Selector**\n```css\n#header {\n  background-color: black;\n}\n<div id=\"header\">Header content</div>\n```\n\n**Universal Selector**\n```css\n* {\n  margin: 0;\n  padding: 0;\n}\n```\n\n**Grouping Selectors**\n```css\nh1, h2, h3 {\n  color: navy;\n}\n```\n\n**Common CSS Properties**\n\n**Text Properties**\n```css\ncolor: red;\nfont-size: 16px;\nfont-family: Arial, sans-serif;\ntext-align: center;\ntext-decoration: underline;\nline-height: 1.6;\n```\n\n**Background Properties**\n```css\nbackground-color: #f0f0f0;\nbackground-image: url('bg.jpg');\nbackground-repeat: no-repeat;\nbackground-position: center;\n```\n\n**Box Model Properties**\n```css\npadding: 20px;           /* Space inside element */\nmargin: 10px;            /* Space outside element */\nborder: 2px solid black; /* Border around element */\nwidth: 100%;\nheight: 200px;\n```\n\n**Display Properties**\n```css\ndisplay: block;          /* Full width, new line */\ndisplay: inline;         /* Only content width, same line */\ndisplay: inline-block;   /* Combination */\ndisplay: none;           /* Hide element */\n```\n\n**Position Properties**\n```css\nposition: static;       /* Default */\nposition: relative;      /* Relative to normal position */\nposition: absolute;      /* Relative to parent */\nposition: fixed;         /* Fixed to viewport */\n```\n\n**Complete Example with Internal CSS**\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>CSS Example</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #f4f4f4;\n      margin: 0;\n      padding: 20px;\n    }\n    .container {\n      max-width: 800px;\n      margin: 0 auto;\n      background-color: white;\n      padding: 30px;\n      border-radius: 10px;\n      box-shadow: 0 2px 10px rgba(0,0,0,0.1);\n    }\n    h1 {\n      color: #333;\n      text-align: center;\n      border-bottom: 2px solid #007bff;\n      padding-bottom: 10px;\n    }\n    .highlight {\n      background-color: #fff3cd;\n      padding: 10px;\n      border-left: 4px solid #ffc107;\n    }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Welcome to CSS</h1>\n    <p>This page uses internal CSS for styling.</p>\n    <p class=\"highlight\">This paragraph has a special highlight class.</p>\n  </div>\n</body>\n</html>\n```\n\n**Best Practices:**\n- Use external CSS for production websites\n- Use meaningful class and ID names\n- Group related styles together\n- Use comments to organize your CSS\n- Keep CSS selectors simple and efficient\n- Use CSS reset or normalize for consistency\n\n**CSS Frameworks**\nPopular CSS frameworks to speed up development:\n- Bootstrap\n- Tailwind CSS\n- Bulma\n- Foundation",
+        "imageUrl": "/images/html-css.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Inline CSS is the best approach - FALSE, external CSS is better for maintainability and performance",
+          "CSS is only for colors - FALSE, CSS controls layout, spacing, typography, animations, and more",
+          "You need to learn all CSS properties - FALSE, learn the essentials first, expand as needed"
+        ],
+        "realWorldAnalogy": "CSS is like the interior design of a house. HTML provides the structure (walls, rooms, doors), while CSS provides the styling (paint colors, furniture arrangement, lighting). Just as a house can have the same structure but completely different looks, HTML can have the same content but completely different styles with CSS."
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/html-formatting-css-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "HTML Color Picker",
+          "url": "https://htmlcolorcodes.com/color-picker/",
+          "free": true,
+          "reason": "Interactive tool to pick colors and get hex, RGB, and HSL codes"
+        },
+        {
+          "name": "CSS Gradient Generator",
+          "url": "https://cssgradient.io/",
+          "free": true,
+          "reason": "Create beautiful CSS gradients with visual preview"
+        },
+        {
+          "name": "Canva Color Palette Generator",
+          "url": "https://www.canva.com/colors/color-palette-generator/",
+          "free": true,
+          "reason": "Generate harmonious color palettes for your website"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools HTML Styles (free, comprehensive CSS guide)",
+        "MDN Web Docs: CSS Basics (free, authoritative resource)",
+        "CSS-Tricks: A Complete Guide to CSS (free, detailed reference)"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Formatting Tags",
+        "definition": "HTML tags like <b>, <i>, <strong>, <em> that change the visual appearance of text."
+      },
+      {
+        "term": "Semantic Tags",
+        "definition": "Tags that add meaning to content (like <strong> for importance) rather than just visual styling."
+      },
+      {
+        "term": "Blockquote",
+        "definition": "The <blockquote> tag used for long quotations that are typically displayed as indented blocks."
+      },
+      {
+        "term": "Citation",
+        "definition": "The <cite> tag used to reference the title of a creative work like a book, movie, or song."
+      },
+      {
+        "term": "HTML Comment",
+        "definition": "Text between <!-- and --> that is ignored by browsers, used for documentation and debugging."
+      },
+      {
+        "term": "Hex Color Code",
+        "definition": "A six-digit code (like #FF0000) representing RGB values in hexadecimal format for specifying colors."
+      },
+      {
+        "term": "RGB Color",
+        "definition": "Color specified using rgb(red, green, blue) where each value ranges from 0 to 255."
+      },
+      {
+        "term": "RGBA Color",
+        "definition": "RGB color with an alpha channel for transparency: rgba(red, green, blue, opacity)."
+      },
+      {
+        "term": "HSL Color",
+        "definition": "Color specified using hue, saturation, and lightness: hsl(hue, saturation%, lightness%)."
+      },
+      {
+        "term": "CSS",
+        "definition": "Cascading Style Sheets - the language used to style and layout HTML elements."
+      },
+      {
+        "term": "Inline CSS",
+        "definition": "CSS applied directly to HTML elements using the style attribute."
+      },
+      {
+        "term": "Internal CSS",
+        "definition": "CSS defined within a <style> tag in the HTML head section."
+      },
+      {
+        "term": "External CSS",
+        "definition": "CSS defined in a separate .css file and linked to HTML using the <link> tag."
+      },
+      {
+        "term": "CSS Selector",
+        "definition": "The pattern used to select HTML elements to style (element, class, ID, etc.)."
+      },
+      {
+        "term": "Box Model",
+        "definition": "The CSS model that treats every HTML element as a rectangular box with content, padding, border, and margin."
+      }
+    ]
+  }
+]

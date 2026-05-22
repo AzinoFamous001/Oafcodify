@@ -1,0 +1,80 @@
+[
+  {
+    "id": "5",
+    "title": "Python Best Practices",
+    "description": "Learn Python best practices, code organization, and how to write clean, maintainable code.",
+    "level": "Beginner",
+    "duration": "35 minutes",
+    "learningObjectives": [
+      "Write clean and readable code",
+      "Follow Python naming conventions",
+      "Use comments effectively",
+      "Organize code with functions and modules",
+      "Handle edge cases and errors"
+    ],
+    "subtopics": [
+      {
+        "title": "Code Style & Conventions",
+        "content": "Write Python code that others can understand.\n\n**Naming Conventions:**\n- Use snake_case for variables: `user_name`, not `userName`\n- Use descriptive names: `calculate_total`, not `x`\n- Constants in UPPER_CASE: `MAX_ATTEMPTS`\n- Functions in snake_case: `calculate_average()`\n\n**Code Formatting:**\n- Use 4 spaces for indentation\n- Limit lines to 79 characters\n- Use blank lines to separate logical sections\n\n**Example:**\n```python\n# Good naming\nuser_age = 25\nmax_login_attempts = 3\n\n# Good function naming\ndef calculate_average(scores):\n    return sum(scores) / len(scores)\n```\n\n**Best Practices:**\n- Follow PEP 8 style guide\n- Use meaningful comments\n- Keep functions small and focused"
+      },
+      {
+        "title": "Documentation & Comments",
+        "content": "Make your code self-documenting.\n\n**Comment Types:**\n```python\n# Single line comment\nuser_input = input('Enter value: ')  # Get user input\n\n# Multi-line comment\n'''This is a docstring.\nIt explains what the function does.\nCan span multiple lines.\n'''\n\n# Docstring example\ndef calculate_area(radius):\n    \"\"\"Calculate the area of a circle.\n    \n    Args:\n        radius (float): The radius of the circle\n    Returns:\n        float: The area of the circle\n    \"\"\"\n    return 3.14159 * radius ** 2\n```\n\n**Best Practices:**\n- Docstrings for all functions\n- Comments for complex logic\n- Update comments when code changes"
+      },
+      {
+        "title": "Error Handling & Validation",
+        "content": "Write robust code that handles unexpected situations.\n\n**Input Validation:**\n```python\ndef get_age():\n    while True:\n        try:\n            age = int(input('Enter your age: '))\n            if age >= 0 and age <= 120:\n                return age\n            print('Please enter a valid age (0-120)')\n        except ValueError:\n            print('Please enter a valid number')\n```\n\n**Early Returns:**\n```python\ndef find_user(user_id):\n    user = get_user_from_database(user_id)\n    if not user:\n        return None  # Explicit None\n    return user\n```\n\n**Assertions:**\n```python\ndef calculate_discount(price, age):\n    assert price > 0, 'Price must be positive'\n    assert age >= 0, 'Age must be positive'\n    \n    if age < 18:\n        return price  # No discount\n    elif age < 65:\n        return price * 0.9  # 10% discount\n    else:\n        return price * 0.8  # 20% discount\n```\n\n**Best Practices:**\n- Validate inputs early\n- Use assertions for development\n- Provide clear error messages"
+      },
+      {
+        "title": "Performance & Optimization",
+        "content": "Write efficient Python code.\n\n**Performance Tips:**\n```python\n# Use built-in functions (faster than custom)\nresult = sum([1, 2, 3])  # Built-in\n\n# Avoid unnecessary loops\nsquares = [x**2 for x in range(1000)]  # List comprehension\n\n# Use generators for large datasets\nfor item in large_dataset():\n    yield process(item)  # Memory efficient\n```\n\n**Memory Management:**\n- Use generators instead of lists for large data\n- Close files and connections properly\n- Use `with` statements for resource management"
+      },
+      {
+        "title": "Testing & Debugging",
+        "content": "Ensure your code works correctly.\n\n**Testing Framework:**\n```python\nimport unittest\n\nclass TestMathFunctions(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(add(2, 3), 5)\n    \nif __name__ == '__main__':\n    unittest.main()\n```\n\n**Debugging Tips:**\n- Test with small datasets first\n- Use print statements for debugging\n- Test edge cases thoroughly\n- Use debugger for complex issues"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/python-best-practices-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Python Testing Framework",
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "free": true,
+          "reason": "Built-in testing framework"
+        },
+        {
+          "name": "Black Code Formatter",
+          "url": "https://black.readthedocs.io/",
+          "free": true,
+          "reason": "Auto-format Python code to PEP 8"
+        },
+        {
+          "name": "PyLint",
+          "url": "https://pylint.pycqa.org/",
+          "free": true,
+          "reason": "Code quality and style checker"
+        }
+      ],
+      "furtherReading": [
+        "PEP 8 Style Guide",
+        "Python Enhancement Proposal",
+        "Clean Code in Python"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "PEP 8",
+        "definition": "Python Enhancement Proposal - Style guide for Python code."
+      },
+      {
+        "term": "Refactoring",
+        "definition": "Improving code structure without changing functionality."
+      },
+      {
+        "term": "Code Smell",
+        "definition": "A symptom in code that indicates deeper problems."
+      }
+    ]
+  }
+]

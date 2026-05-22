@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "What does HTML stand for?",
+    "options": [
+      "Hyper Text Markup Language",
+      "High Tech Modern Language",
+      "Home Tool Markup Language",
+      "Hyper Tool Multi Language"
+    ],
+    "correctAnswer": 0,
+    "explanation": "HTML means Hyper Text Markup Language, which is used to structure web pages."
+  },
+  {
+    "id": 2,
+    "question": "Which tag creates the largest heading in HTML?",
+    "options": [
+      "<h6>",
+      "<head>",
+      "<h1>",
+      "<heading>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<h1> creates the largest heading, while <h6> creates the smallest."
+  },
+  {
+    "id": 3,
+    "question": "What is the purpose of the DOCTYPE declaration?",
+    "options": [
+      "To style the page",
+      "To tell the browser which version of HTML is being used",
+      "To add JavaScript to the page",
+      "To create links"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The DOCTYPE declaration tells the browser which version of HTML the page is written in."
+  },
+  {
+    "id": 4,
+    "question": "Which section contains metadata about the page?",
+    "options": [
+      "<body>",
+      "<head>",
+      "<footer>",
+      "<main>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <head> section contains metadata like title, charset, and viewport settings."
+  },
+  {
+    "id": 5,
+    "question": "How do you write a comment in HTML?",
+    "options": [
+      "// This is a comment",
+      "/* This is a comment */",
+      "<!-- This is a comment -->",
+      "# This is a comment"
+    ],
+    "correctAnswer": 2,
+    "explanation": "HTML comments are written using <!-- --> syntax."
+  },
+  {
+    "id": 6,
+    "question": "Which tag is used to create a paragraph in HTML?",
+    "options": [
+      "<para>",
+      "<p>",
+      "<paragraph>",
+      "<text>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <p> tag is used to create paragraphs in HTML."
+  },
+  {
+    "id": 7,
+    "question": "What is the correct HTML for creating a hyperlink?",
+    "options": [
+      "<a href='url'>link</a>",
+      "<link href='url'>link</link>",
+      "<a>url</a>",
+      "<href>link</href>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <a> tag with href attribute creates hyperlinks."
+  },
+  {
+    "id": 8,
+    "question": "Which HTML element is used to display an image?",
+    "options": [
+      "<image>",
+      "<img>",
+      "<pic>",
+      "<media>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <img> tag is used to display images with the src attribute."
+  },
+  {
+    "id": 9,
+    "question": "What attribute specifies the alternate text for an image?",
+    "options": [
+      "title",
+      "alt",
+      "desc",
+      "text"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The alt attribute provides alternate text for images for accessibility."
+  },
+  {
+    "id": 10,
+    "question": "Which tag creates an unordered list?",
+    "options": [
+      "<ol>",
+      "<ul>",
+      "<list>",
+      "<li>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <ul> tag creates an unordered (bulleted) list."
+  },
+  {
+    "id": 11,
+    "question": "What is the correct HTML for creating a link to an external CSS file?",
+    "options": [
+      "<style src='style.css'>",
+      "<link rel='stylesheet' href='style.css'>",
+      "<css src='style.css'>",
+      "<stylesheet href='style.css'>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <link> tag with rel='stylesheet' is used to link external CSS files."
+  },
+  {
+    "id": 12,
+    "question": "Which tag is used to define the main content of a document?",
+    "options": [
+      "<main>",
+      "<content>",
+      "<body>",
+      "<section>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <main> tag specifies the main content of a document."
+  },
+  {
+    "id": 13,
+    "question": "What is the purpose of the lang attribute in the html tag?",
+    "options": [
+      "To specify the programming language",
+      "To declare the language of the page",
+      "To add styling",
+      "To create links"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The lang attribute declares the language of the page for accessibility and SEO."
+  },
+  {
+    "id": 14,
+    "question": "Which tag creates a line break?",
+    "options": [
+      "<lb>",
+      "<break>",
+      "<br>",
+      "<newline>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The <br> tag creates a line break in HTML."
+  },
+  {
+    "id": 15,
+    "question": "What is the correct HTML for creating a horizontal rule?",
+    "options": [
+      "<hr>",
+      "<rule>",
+      "<line>",
+      "<divider>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <hr> tag creates a horizontal rule (line) in HTML."
+  },
+  {
+    "id": 16,
+    "question": "Which tag is used to emphasize text?",
+    "options": [
+      "<bold>",
+      "<strong>",
+      "<em>",
+      "<italic>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The <em> tag is used to emphasize text, typically displayed in italics."
+  },
+  {
+    "id": 17,
+    "question": "What attribute specifies the URL for an image?",
+    "options": [
+      "href",
+      "src",
+      "link",
+      "url"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The src attribute specifies the URL of the image file."
+  },
+  {
+    "id": 18,
+    "question": "Which tag creates a subscript text?",
+    "options": [
+      "<sub>",
+      "<sup>",
+      "<low>",
+      "<down>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <sub> tag creates subscript text."
+  },
+  {
+    "id": 19,
+    "question": "What is the purpose of the meta tag?",
+    "options": [
+      "To create metadata about the document",
+      "To add images",
+      "To create links",
+      "To add styling"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <meta> tag provides metadata about the HTML document."
+  },
+  {
+    "id": 20,
+    "question": "Which tag creates a superscript text?",
+    "options": [
+      "<sub>",
+      "<sup>",
+      "<high>",
+      "<up>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <sup> tag creates superscript text."
+  }
+]

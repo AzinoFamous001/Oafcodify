@@ -1,0 +1,90 @@
+[
+  {
+    "id": "3",
+    "title": "React Hooks",
+    "description": "Master React hooks for adding state, side effects, and other features to functional components.",
+    "level": "Intermediate",
+    "duration": "60 minutes",
+    "learningObjectives": [
+      "Understand what hooks are and why they're used",
+      "Use useState for component state",
+      "Use useEffect for side effects",
+      "Use useContext for global state",
+      "Apply custom hooks for reusable logic"
+    ],
+    "subtopics": [
+      {
+        "title": "Introduction to Hooks",
+        "content": "Hooks are functions that let you use state and other React features in functional components.\n\n**What are Hooks?**\n- Functions that start with \"use\"\n- Can only be called at the top level\n- Can only be called from React functions\n- Enable state and lifecycle features in functional components\n\n**Why Hooks?**\n- Reuse stateful logic between components\n- Organize code by feature rather than lifecycle\n- No need for class components\n- Better code organization\n\n**Rules of Hooks:**\n```jsx\n// Only call hooks at the top level\nfunction Component() {\n  const [count, setCount] = useState(0); // OK\n  \n  if (condition) {\n    const [name, setName] = useState(''); // WRONG - inside condition\n  }\n  \n  useEffect(() => { // OK\n    // effect\n  });\n}\n\n// Only call hooks from React functions\nfunction Component() {\n  useEffect(() => {}); // OK\n}\n\nfunction regularFunction() {\n  useEffect(() => {}); // WRONG - not a React function\n}\n```\n\n**Built-in Hooks:**\n- useState - State management\n- useEffect - Side effects\n- useContext - Context API\n- useReducer - Complex state logic\n- useCallback - Memoized callbacks\n- useMemo - Memoized values\n- useRef - Persistent values\n- useLayoutEffect - Synchronous effects"
+      },
+      {
+        "title": "useEffect Hook",
+        "content": "useEffect lets you perform side effects in functional components.\n\n**Basic useEffect:**\n```jsx\nimport { useEffect, useState } from 'react';\n\nfunction Timer() {\n  const [count, setCount] = useState(0);\n  \n  useEffect(() => {\n    // Runs after every render\n    document.title = `Count: ${count}`;\n  });\n  \n  return <p>Count: {count}</p>;\n}\n```\n\n**With Dependency Array:**\n```jsx\nuseEffect(() => {\n  // Runs only when count changes\n  document.title = `Count: ${count}`;\n}, [count]);\n```\n\n**Empty Dependency Array:**\n```jsx\nuseEffect(() => {\n  // Runs only once on mount\n  console.log('Component mounted');\n}, []);\n```\n\n**Cleanup Function:**\n```jsx\nuseEffect(() => {\n  const timer = setInterval(() => {\n    console.log('Timer tick');\n  }, 1000);\n  \n  // Cleanup function\n  return () => {\n    clearInterval(timer);\n  };\n}, []);\n```\n\n**Common Use Cases:**\n```jsx\n// Data fetching\nuseEffect(() => {\n  fetch('/api/data')\n    .then(res => res.json())\n    .then(data => setData(data));\n}, []);\n\n// Event listeners\nuseEffect(() => {\n  const handleResize = () => setWidth(window.innerWidth);\n  window.addEventListener('resize', handleResize);\n  return () => window.removeEventListener('resize', handleResize);\n}, []);\n```"
+      },
+      {
+        "title": "useContext Hook",
+        "content": "useContext allows you to consume context values without nesting.\n\n**Creating Context:**\n```jsx\nimport { createContext, useContext } from 'react';\n\nconst ThemeContext = createContext('light');\n\nfunction App() {\n  return (\n    <ThemeContext.Provider value=\"dark\">\n      <Toolbar />\n    </ThemeContext.Provider>\n  );\n}\n```\n\n**Consuming Context:**\n```jsx\nfunction Toolbar() {\n  const theme = useContext(ThemeContext);\n  \n  return (\n    <div className={theme}>\n      <ThemedButton />\n    </div>\n  );\n}\n```\n\n**Multiple Contexts:**\n```jsx\nconst ThemeContext = createContext('light');\nconst UserContext = createContext(null);\n\nfunction App() {\n  return (\n    <ThemeContext.Provider value=\"dark\">\n      <UserContext.Provider value={{ name: 'John' }}>\n        <Component />\n      </UserContext.Provider>\n    </ThemeContext.Provider>\n  );\n}\n\nfunction Component() {\n  const theme = useContext(ThemeContext);\n  const user = useContext(UserContext);\n  \n  return <div className={theme}>Hello, {user.name}</div>;\n}\n```\n\n**Default Values:**\n```jsx\nconst ThemeContext = createContext('light'); // Default value\n\nfunction Component() {\n  const theme = useContext(ThemeContext);\n  // Returns 'light' if no provider\n}\n```"
+      },
+      {
+        "title": "useRef Hook",
+        "content": "useRef returns a mutable ref object that persists for the lifetime of the component.\n\n**Basic useRef:**\n```jsx\nimport { useRef } from 'react';\n\nfunction TextInput() {\n  const inputRef = useRef(null);\n  \n  const focusInput = () => {\n    inputRef.current.focus();\n  };\n  \n  return (\n    <div>\n      <input ref={inputRef} />\n      <button onClick={focusInput}>Focus Input</button>\n    </div>\n  );\n}\n```\n\n**Persisting Values:**\n```jsx\nfunction Timer() {\n  const [count, setCount] = useState(0);\n  const timerRef = useRef(null);\n  \n  const startTimer = () => {\n    timerRef.current = setInterval(() => {\n      setCount(c => c + 1);\n    }, 1000);\n  };\n  \n  const stopTimer = () => {\n    clearInterval(timerRef.current);\n  };\n  \n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={startTimer}>Start</button>\n      <button onClick={stopTimer}>Stop</button>\n    </div>\n  );\n}\n```\n\n**Previous Value:**\n```jsx\nfunction Counter() {\n  const [count, setCount] = useState(0);\n  const prevCountRef = useRef(count);\n  \n  useEffect(() => {\n    prevCountRef.current = count;\n  }, [count]);\n  \n  const prevCount = prevCountRef.current;\n  \n  return (\n    <div>\n      <p>Current: {count}</p>\n      <p>Previous: {prevCount}</p>\n    </div>\n  );\n}\n```"
+      },
+      {
+        "title": "Custom Hooks",
+        "content": "Create your own hooks to reuse stateful logic between components.\n\n**Creating a Custom Hook:**\n```jsx\nimport { useState, useEffect } from 'react';\n\nfunction useWindowSize() {\n  const [size, setSize] = useState({\n    width: window.innerWidth,\n    height: window.innerHeight\n  });\n  \n  useEffect(() => {\n    const handleResize = () => {\n      setSize({\n        width: window.innerWidth,\n        height: window.innerHeight\n      });\n    };\n    \n    window.addEventListener('resize', handleResize);\n    return () => window.removeEventListener('resize', handleResize);\n  }, []);\n  \n  return size;\n}\n```\n\n**Using Custom Hook:**\n```jsx\nfunction Component() {\n  const { width, height } = useWindowSize();\n  \n  return (\n    <div>\n      <p>Width: {width}</p>\n      <p>Height: {height}</p>\n    </div>\n  );\n}\n```\n\n**Another Example - useFetch:**\n```jsx\nfunction useFetch(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n  \n  useEffect(() => {\n    fetch(url)\n      .then(res => res.json())\n      .then(data => {\n        setData(data);\n        setLoading(false);\n      })\n      .catch(err => {\n        setError(err);\n        setLoading(false);\n      });\n  }, [url]);\n  \n  return { data, loading, error };\n}\n\nfunction Users() {\n  const { data, loading, error } = useFetch('/api/users');\n  \n  if (loading) return <p>Loading...</p>;\n  if (error) return <p>Error: {error.message}</p>;\n  \n  return <ul>{data.map(user => <li key={user.id}>{user.name}</li>)}</ul>;\n}\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/react-hooks-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "React Hooks Reference",
+          "url": "https://react.dev/reference/react",
+          "free": true,
+          "reason": "Complete reference for all React hooks"
+        },
+        {
+          "name": "UseHooks.com",
+          "url": "https://usehooks.com/",
+          "free": true,
+          "reason": "Collection of reusable React hooks"
+        }
+      ],
+      "furtherReading": [
+        "React Documentation - Hooks",
+        "React Hooks FAQ",
+        "Building Your Own Hooks"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Hook",
+        "definition": "A function that lets you use state and other React features in functional components."
+      },
+      {
+        "term": "useEffect",
+        "definition": "A React hook for performing side effects in functional components."
+      },
+      {
+        "term": "useContext",
+        "definition": "A React hook for consuming context values without nesting."
+      },
+      {
+        "term": "useRef",
+        "definition": "A React hook for creating a mutable ref object that persists across renders."
+      },
+      {
+        "term": "Custom Hook",
+        "definition": "A user-defined hook that extracts and reuses stateful logic."
+      },
+      {
+        "term": "Side Effect",
+        "definition": "Operations that affect something outside the component, like data fetching or subscriptions."
+      },
+      {
+        "term": "Dependency Array",
+        "definition": "An array passed to useEffect that specifies when the effect should re-run."
+      }
+    ]
+  }
+]

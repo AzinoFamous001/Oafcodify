@@ -1,0 +1,242 @@
+[
+  {
+    "id": 13,
+    "question": "Which CSS unit is relative to the font-size of the root element?",
+    "options": [
+      "em",
+      "px",
+      "rem",
+      "vh"
+    ],
+    "correctAnswer": 2,
+    "explanation": "rem is relative to the font-size of the root (html) element."
+  },
+  {
+    "id": 14,
+    "question": "Which property is used to create rounded corners?",
+    "options": [
+      "border-round",
+      "corner-radius",
+      "border-radius",
+      "round-corners"
+    ],
+    "correctAnswer": 2,
+    "explanation": "border-radius is used to create rounded corners on elements."
+  },
+  {
+    "id": 15,
+    "question": "Which flexbox property aligns items along the main axis?",
+    "options": [
+      "align-items",
+      "justify-content",
+      "align-content",
+      "flex-direction"
+    ],
+    "correctAnswer": 1,
+    "explanation": "justify-content aligns flex items along the main axis."
+  },
+  {
+    "id": 16,
+    "question": "What does the z-index property control?",
+    "options": [
+      "Zoom level",
+      "Stacking order of positioned elements",
+      "Z-axis rotation",
+      "Element width"
+    ],
+    "correctAnswer": 1,
+    "explanation": "z-index controls the stacking order of positioned elements."
+  },
+  {
+    "id": 17,
+    "question": "Which CSS grid property defines the columns?",
+    "options": [
+      "grid-columns",
+      "grid-template-columns",
+      "grid-column-template",
+      "columns"
+    ],
+    "correctAnswer": 1,
+    "explanation": "grid-template-columns defines the columns in a CSS grid layout."
+  },
+  {
+    "id": 18,
+    "question": "Which selector has the highest specificity?",
+    "options": [
+      "Class selector",
+      "ID selector",
+      "Element selector",
+      "Universal selector"
+    ],
+    "correctAnswer": 1,
+    "explanation": "ID selectors have the highest specificity among common selectors."
+  },
+  {
+    "id": 19,
+    "question": "Which property is used to add a shadow to text?",
+    "options": [
+      "box-shadow",
+      "text-shadow",
+      "font-shadow",
+      "shadow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "text-shadow adds a shadow effect to text."
+  },
+  {
+    "id": 20,
+    "question": "What is the purpose of the box-sizing: border-box property?",
+    "options": [
+      "Adds a border to the box",
+      "Includes padding and border in the element's width and height",
+      "Removes the border from the box",
+      "Changes the box to a square shape"
+    ],
+    "correctAnswer": 1,
+    "explanation": "border-box includes padding and border in the element's total width and height."
+  },
+  {
+    "id": 21,
+    "question": "What does CSS stand for?",
+    "options": [
+      "Computer Style Sheets",
+      "Cascading Style Sheets",
+      "Creative Style Sheets",
+      "Colorful Style Sheets"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSS stands for Cascading Style Sheets, which is used to style HTML documents."
+  },
+  {
+    "id": 22,
+    "question": "Which property is used to change the background color?",
+    "options": [
+      "color",
+      "bgcolor",
+      "background-color",
+      "background"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The background-color property is used to set the background color of an element."
+  },
+  {
+    "id": 23,
+    "question": "How do you select an element with id 'demo'?",
+    "options": [
+      ".demo",
+      "#demo",
+      "demo",
+      "*demo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The # symbol is used to select elements by their id attribute."
+  },
+  {
+    "id": 24,
+    "question": "Which CSS property controls the text size?",
+    "options": [
+      "font-style",
+      "text-size",
+      "font-size",
+      "text-style"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The font-size property controls the size of text in an element."
+  },
+  {
+    "id": 25,
+    "question": "Which property is used to change the font of an element?",
+    "options": [
+      "font-family",
+      "font-style",
+      "text-style",
+      "font-weight"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The font-family property specifies the font for an element."
+  },
+  {
+    "id": 26,
+    "question": "How do you make each word in a text start with a capital letter?",
+    "options": [
+      "text-transform: capitalize",
+      "text-transform: uppercase",
+      "text-transform: lowercase",
+      "text-style: capitalize"
+    ],
+    "correctAnswer": 0,
+    "explanation": "text-transform: capitalize makes the first letter of each word uppercase."
+  },
+  {
+    "id": 27,
+    "question": "Which property is used to change the left margin of an element?",
+    "options": [
+      "padding-left",
+      "margin-left",
+      "indent",
+      "left-margin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The margin-left property sets the left margin of an element."
+  },
+  {
+    "id": 28,
+    "question": "Which CSS property is used to make the text bold?",
+    "options": [
+      "font-weight: bold",
+      "font-style: bold",
+      "text-weight: bold",
+      "font: bold"
+    ],
+    "correctAnswer": 0,
+    "explanation": "font-weight: bold makes text appear bold."
+  },
+  {
+    "id": 29,
+    "question": "Which property is used to align text to the center?",
+    "options": [
+      "text-align: center",
+      "align: center",
+      "text-center: true",
+      "horizontal-align: center"
+    ],
+    "correctAnswer": 0,
+    "explanation": "text-align: center aligns text to the center of its container."
+  },
+  {
+    "id": 30,
+    "question": "What is the default value of the position property?",
+    "options": [
+      "relative",
+      "absolute",
+      "fixed",
+      "static"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The default value of the position property is static."
+  },
+  {
+    "id": 31,
+    "question": "Which display value makes an element invisible but takes up space?",
+    "options": [
+      "display: none",
+      "visibility: hidden",
+      "display: hidden",
+      "opacity: 0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "visibility: hidden makes an element invisible but it still takes up space in the layout."
+  },
+  {
+    "id": 32,
+    "question": "Which property is used to add space between the border and content?",
+    "options": [
+      "margin",
+      "padding",
+      "spacing",
+      "border-spacing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Padding adds space between the content and the border of an element."
+  }
+]

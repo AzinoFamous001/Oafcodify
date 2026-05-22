@@ -15,6 +15,7 @@ import {
   FaCheckDouble,
 } from "react-icons/fa";
 import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
+import { updateLoginStreak, getCurrentStreak, checkDailyLessonReminder } from "../../Shared/streakUtils";
 
 const AnimatedBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
@@ -33,10 +34,29 @@ const ProfilePage = () => {
   const [completedLessonsCount, setCompletedLessonsCount] = useState(0);
   const [currentStreak, setCurrentStreak] = useState(0);
   const [activeTab, setActiveTab] = useState("overview");
+  const [cartoonAvatar, setCartoonAvatar] = useState("");
+  const [userId, setUserId] = useState(null);
 
   const navigate = useNavigate();
 
-  // --- REFINED DAILY STREAK LOGIC ---
+  // Generate cartoon avatar (deterministic based on username)
+  const generateCartoonAvatar = (userName) => {
+    const avatarStyles = [
+      'adventurer', 'adventurer-neutral', 'avataaars', 'bottts', 
+      'fun-emoji', 'lorelei', 'micah', 'notionists', 'open-peeps', 'personas'
+    ];
+    // Use a simple hash of the username to always select the same style for the same user
+    let hash = 0;
+    for (let i = 0; i < userName.length; i++) {
+      hash = userName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const styleIndex = Math.abs(hash) % avatarStyles.length;
+    const randomStyle = avatarStyles[styleIndex];
+    const seed = userName || Math.random().toString(36).substring(7);
+    return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
+  };
+
+  // --- FIXED DAILY STREAK LOGIC ---
   const updateLoginStreak = useCallback((userId) => {
     const streakKey = `streak_${userId}`;
     const lastLoginKey = `lastLogin_${userId}`;
@@ -46,80 +66,199 @@ const ProfilePage = () => {
     const todayStr = today.toISOString().split("T")[0];
 
     const lastLoginStr = localStorage.getItem(lastLoginKey);
-    let streak = parseInt(localStorage.getItem(streakKey) || "0");
+
+    console.log('Streak Debug - userId:', userId);
+    console.log('Streak Debug - todayStr:', todayStr);
+    console.log('Streak Debug - lastLoginStr:', lastLoginStr);
+
+    // Validate and initialize streak
+    let streak = 0;
+    const savedStreak = localStorage.getItem(streakKey);
+    if (savedStreak && !isNaN(savedStreak)) {
+      streak = Math.max(0, parseInt(savedStreak));
+    }
+    console.log('Streak Debug - savedStreak:', savedStreak, 'current streak:', streak);
 
     // Case 1: First time login ever
     if (!lastLoginStr) {
       streak = 1;
+      localStorage.setItem(lastLoginKey, todayStr);
+      localStorage.setItem(streakKey, streak.toString());
+      console.log('Streak Debug - First time login, set streak to 1');
     } else {
+      // Check if already logged in today
+      if (lastLoginStr === todayStr) {
+        // Already logged in today - return current streak without changes
+        console.log('Streak Debug - Already logged in today, returning streak:', streak);
+        return streak;
+      }
+
       const lastLoginDate = new Date(lastLoginStr);
       lastLoginDate.setHours(0, 0, 0, 0);
 
-      // Calculate difference in days
+      // Calculate difference in days using Math.floor for accurate day counting
       const diffTime = today - lastLoginDate;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      console.log('Streak Debug - diffDays:', diffDays);
 
       if (diffDays === 1) {
         // Case 2: Consecutive day login
         streak += 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+        console.log('Streak Debug - Consecutive day, incremented streak to:', streak);
       } else if (diffDays > 1) {
         // Case 3: Missed a day - Reset
         streak = 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+        console.log('Streak Debug - Missed day, reset streak to 1');
       }
-      // Case 4: diffDays === 0 (Same day login) -> Streak remains unchanged
+      // Case 4: diffDays < 0 (Future date due to timezone issues) -> Reset to 1
+      else if (diffDays < 0) {
+        streak = 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+        console.log('Streak Debug - Future date, reset streak to 1');
+      } else {
+        // diffDays === 0, same day but different string format
+        console.log('Streak Debug - Same day (diffDays 0), returning streak:', streak);
+        return streak;
+      }
     }
 
-    // Save back to storage
-    localStorage.setItem(lastLoginKey, todayStr);
-    localStorage.setItem(streakKey, streak.toString());
-    return streak;
+    console.log('Streak Debug - Final streak:', streak);
+    return Math.max(0, streak);
   }, []);
 
   useEffect(() => {
-    const userId = localStorage.getItem("currentUserId");
-    if (!userId) {
+    const currentUserId = localStorage.getItem("currentUserId");
+    console.log('Profile - currentUserId:', currentUserId);
+    if (!currentUserId) {
       navigate("/login");
       return;
     }
+    setUserId(currentUserId);
 
+    const userName = localStorage.getItem("userName") || "Developer";
     setCurrentUser({
-      name: localStorage.getItem("userName") || "Developer",
-      email: localStorage.getItem("userEmail") || "dev@codebay.com",
+      name: userName,
+      email: localStorage.getItem("userEmail") || "dev@oafcodify.com",
     });
+
+    // Generate or retrieve cartoon avatar
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar && savedAvatar.startsWith("https://api.dicebear.com")) {
+      setCartoonAvatar(savedAvatar);
+    } else {
+      const newAvatar = generateCartoonAvatar(userName);
+      setCartoonAvatar(newAvatar);
+      localStorage.setItem("userAvatar", newAvatar);
+    }
 
     // Quiz Results - Fresh for new user
     const savedResults = localStorage.getItem("quizResults");
     const allResults = savedResults ? JSON.parse(savedResults) : [];
-    const userSpecificResults = allResults.filter((r) => r.userId === userId);
+    const userSpecificResults = allResults.filter((r) => r.userId === currentUserId);
     setResults(
       userSpecificResults.sort((a, b) => new Date(b.date) - new Date(a.date)),
     );
 
     // Lessons - Fresh for new user
     let lessonCount = 0;
+    const courses = ["HTML5", "CSS3", "JavaScript", "Python", "C++", "React"];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key.startsWith(`${userId}_lesson_`) && key.includes("_completed")) {
+      // Check for keys like: "userId_courseKey_lesson_lessonId_completed"
+      const courseMatch = courses.find(course => key.startsWith(`${currentUserId}_${course}_lesson_`));
+      if (courseMatch && key.includes("_completed")) {
         const data = JSON.parse(localStorage.getItem(key));
         if (Array.isArray(data) && data.length > 0) lessonCount++;
       }
     }
     setCompletedLessonsCount(lessonCount);
 
-    // Calculate Streak
-    setCurrentStreak(updateLoginStreak(userId));
-  }, [navigate, updateLoginStreak]);
+    // Update streak on profile visit
+    const updatedStreak = updateLoginStreak(currentUserId);
+    setCurrentStreak(updatedStreak);
+    
+    // Check for daily lesson reminder
+    checkDailyLessonReminder(currentUserId);
+  }, [navigate]);
 
   const hasQuizzes = results.length > 0;
+  
+  // Calculate detailed quiz statistics
+  const calculateQuizStats = () => {
+    if (!hasQuizzes) {
+      return {
+        totalQuizzes: 0,
+        avgScore: 0,
+        bestScore: 0,
+        worstScore: 0,
+        recentScores: [],
+        courseProgress: {},
+        totalPoints: 0,
+        improvement: 0
+      };
+    }
+
+    const scores = results.map(r => r.percentage);
+    const totalQuizzes = results.length;
+    const avgScore = Math.round(scores.reduce((sum, score) => sum + score, 0) / totalQuizzes);
+    const bestScore = Math.max(...scores);
+    const worstScore = Math.min(...scores);
+    const recentScores = results.slice(-5).map(r => r.percentage).reverse();
+    
+    // Calculate course progress
+    const courseProgress = {};
+    results.forEach(result => {
+      if (!courseProgress[result.courseKey]) {
+        courseProgress[result.courseKey] = {
+          quizzes: 0,
+          avgScore: 0,
+          bestScore: 0,
+          lessons: new Set()
+        };
+      }
+      courseProgress[result.courseKey].quizzes++;
+      courseProgress[result.courseKey].avgScore += result.percentage;
+      courseProgress[result.courseKey].bestScore = Math.max(courseProgress[result.courseKey].bestScore, result.percentage);
+      courseProgress[result.courseKey].lessons.add(result.lessonId);
+    });
+    
+    // Calculate averages for each course
+    Object.keys(courseProgress).forEach(course => {
+      courseProgress[course].avgScore = Math.round(courseProgress[course].avgScore / courseProgress[course].quizzes);
+    });
+
+    // Calculate improvement (compare first 3 quizzes with last 3 quizzes)
+    const firstThree = results.slice(0, 3).map(r => r.percentage);
+    const lastThree = results.slice(-3).map(r => r.percentage);
+    const firstAvg = firstThree.length > 0 ? Math.round(firstThree.reduce((sum, score) => sum + score, 0) / firstThree.length) : 0;
+    const lastAvg = lastThree.length > 0 ? Math.round(lastThree.reduce((sum, score) => sum + score, 0) / lastThree.length) : 0;
+    const improvement = lastAvg - firstAvg;
+
+    return {
+      totalQuizzes,
+      avgScore,
+      bestScore,
+      worstScore,
+      recentScores,
+      courseProgress,
+      totalPoints: results.reduce((sum, r) => sum + r.score * 10, 0),
+      improvement
+    };
+  };
+
+  const quizStats = calculateQuizStats();
+
   const stats = {
     quizzesTaken: results.length || 0,
     lessonsCompleted: completedLessonsCount || 0,
-    avgScore: hasQuizzes
-      ? Math.round(
-          results.reduce((sum, r) => sum + r.percentage, 0) / results.length,
-        )
-      : 0,
-    points: hasQuizzes ? results.reduce((sum, r) => sum + r.score * 10, 0) : 0,
+    avgScore: quizStats.avgScore,
+    points: quizStats.totalPoints,
     correct: hasQuizzes ? results.reduce((sum, r) => sum + r.score, 0) : 0,
     rank:
       results.length >= 20
@@ -128,6 +267,98 @@ const ProfilePage = () => {
           ? "Silver"
           : "Bronze",
   };
+
+  // Helper function to add notification
+  const addNotification = (notification, userId) => {
+    if (!userId) return;
+    const storageKey = `notifications_${userId}`;
+    const savedNotifications = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    
+    // Check if notification already exists to avoid duplicates
+    const exists = savedNotifications.some(n => 
+      n.type === notification.type && 
+      n.title === notification.title &&
+      n.message === notification.message
+    );
+    
+    if (!exists) {
+      savedNotifications.unshift(notification);
+      localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+    }
+  };
+
+  // Check for newly earned achievements and send notifications
+  // useEffect(() => {
+  //   if (!userId) return;
+
+  //   const earnedAchievements = [];
+    
+  //   if (stats.quizzesTaken >= 1) {
+  //     earnedAchievements.push({
+  //       id: 1,
+  //       title: "First Quiz",
+  //       desc: "Complete 1 quiz",
+  //       icon: FaTrophy,
+  //       gradient: "from-yellow-400 to-orange-500",
+  //     });
+  //   }
+    
+  //   if (results.some((r) => r.percentage === 100)) {
+  //     earnedAchievements.push({
+  //       id: 2,
+  //       title: "Perfect Score",
+  //       desc: "Get 100% on a quiz",
+  //       icon: FaAward,
+  //       gradient: "from-blue-400 to-indigo-600",
+  //     });
+  //   }
+    
+  //   if (currentStreak >= 3) {
+  //     earnedAchievements.push({
+  //       id: 3,
+  //       title: "Fire Starter",
+  //       desc: "3 Day login streak",
+  //       icon: FaFire,
+  //       gradient: "from-red-500 to-orange-600",
+  //     });
+  //   }
+    
+  //   if (stats.lessonsCompleted >= 5) {
+  //     earnedAchievements.push({
+  //       id: 4,
+  //       title: "Scholar",
+  //       desc: "Complete 5 lessons",
+  //       icon: FaCheckDouble,
+  //       gradient: "from-green-500 to-teal-500",
+  //     });
+  //   }
+
+  //   // Get previously earned achievements
+  //   const earnedKey = `earnedAchievements_${userId}`;
+  //   const previouslyEarned = JSON.parse(localStorage.getItem(earnedKey) || '[]');
+    
+  //   // Find newly earned achievements
+  //   const newlyEarned = earnedAchievements.filter(ach => 
+  //     !previouslyEarned.includes(ach.id)
+  //   );
+
+  //   // Send notifications for newly earned achievements
+  //   newlyEarned.forEach(ach => {
+  //     addNotification({
+  //       id: Date.now() + ach.id,
+  //       type: 'achievement',
+  //       title: `🏆 Achievement Unlocked: ${ach.title}!`,
+  //       message: `Congratulations! You've earned the "${ach.title}" achievement: ${ach.desc}`,
+  //       time: 'Just now',
+  //       isRead: false,
+  //       iconType: 'achievement'
+  //     }, userId);
+  //   });
+
+  //   // Update earned achievements list
+  //   const allEarnedIds = earnedAchievements.map(ach => ach.id);
+  //   localStorage.setItem(earnedKey, JSON.stringify(allEarnedIds));
+  // }, [userId, stats.quizzesTaken, results, currentStreak, stats.lessonsCompleted]);
 
   const achievements = [
     {
@@ -174,9 +405,9 @@ const ProfilePage = () => {
         <header className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative">
-              <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden shadow-2xl">
+              <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden shadow-2xl bg-white">
                 <img
-                  src="/Logo_.jpg"
+                  src={cartoonAvatar}
                   alt="User"
                   className="w-full h-full object-cover"
                   onError={(e) =>
@@ -271,49 +502,125 @@ const ProfilePage = () => {
 
         <div className="min-h-[300px]">
           {activeTab === "overview" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <FaBullseye className="text-blue-400" /> Progress Tracker
-                </h3>
-                <div className="space-y-6">
-                  <ProgressItem
-                    label="Overall Quiz Score"
-                    percent={stats.avgScore}
-                    gradient="from-purple-400 to-blue-500"
-                  />
-                  <ProgressItem
-                    label="Lesson Engagement"
-                    percent={Math.min(stats.lessonsCompleted * 10, 100)}
-                    gradient="from-green-400 to-teal-500"
-                  />
+            <div className="space-y-8">
+              {/* Detailed Quiz Statistics */}
+              {hasQuizzes && (
+                <div className="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                  <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <FaTrophy className="text-yellow-400" /> Quiz Performance
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div className="text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                      <div className="text-3xl font-black text-yellow-400 mb-2">{quizStats.totalQuizzes}</div>
+                      <div className="text-sm text-blue-100/60">Total Quizzes</div>
+                    </div>
+                    <div className="text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                      <div className="text-3xl font-black text-green-400 mb-2">{quizStats.avgScore}%</div>
+                      <div className="text-sm text-blue-100/60">Average Score</div>
+                    </div>
+                    <div className="text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                      <div className="text-3xl font-black text-blue-400 mb-2">{quizStats.bestScore}%</div>
+                      <div className="text-sm text-blue-100/60">Best Score</div>
+                    </div>
+                    <div className="text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                      <div className={`text-3xl font-black mb-2 ${quizStats.improvement >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                        {quizStats.improvement >= 0 ? '+' : ''}{quizStats.improvement}%
+                      </div>
+                      <div className="text-sm text-blue-100/60">Improvement</div>
+                    </div>
+                  </div>
+
+                  {/* Recent Scores */}
+                  <div className="mb-8">
+                    <h4 className="text-xl font-bold text-white mb-4">Recent Scores</h4>
+                    <div className="flex gap-3">
+                      {quizStats.recentScores.map((score, index) => (
+                        <div key={index} className="flex-1 text-center p-3 bg-white/5 rounded-xl border border-white/10">
+                          <div className="text-lg font-bold text-white">{score}%</div>
+                          <div className="text-xs text-blue-100/60">Quiz {quizStats.totalQuizzes - index}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Course Progress */}
+                  {Object.keys(quizStats.courseProgress).length > 0 && (
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-4">Course Progress</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {Object.entries(quizStats.courseProgress).map(([course, data]) => (
+                          <div key={course} className="bg-white/5 p-4 rounded-xl border border-white/10">
+                            <div className="flex justify-between items-center mb-2">
+                              <h5 className="font-bold text-white">{course}</h5>
+                              <span className="text-sm text-blue-100/60">{data.lessons.size} lessons</span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex justify-between text-sm">
+                                <span className="text-blue-100/60">Quizzes:</span>
+                                <span className="text-white font-bold">{data.quizzes}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-blue-100/60">Average:</span>
+                                <span className="text-white font-bold">{data.avgScore}%</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-blue-100/60">Best:</span>
+                                <span className="text-green-400 font-bold">{data.bestScore}%</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 flex flex-col items-center justify-center text-center">
-                {!hasQuizzes ? (
-                  <div className="opacity-40">
-                    <FaLock size={48} className="text-white mb-4 mx-auto" />
-                    <h3 className="text-xl font-bold text-white">
-                      Stats Locked
-                    </h3>
-                    <p className="text-blue-100/60 mt-2">
-                      Take your first quiz to unlock analysis!
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <FaTrophy
-                      size={64}
-                      className="text-yellow-400 mb-4 animate-bounce mx-auto"
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <FaBullseye className="text-blue-400" /> Progress Tracker
+                  </h3>
+                  <div className="space-y-6">
+                    <ProgressItem
+                      label="Overall Quiz Score"
+                      percent={stats.avgScore}
+                      gradient="from-purple-400 to-blue-500"
                     />
-                    <h3 className="text-2xl font-bold text-white">
-                      Progressing Well!
-                    </h3>
-                    <p className="text-blue-100/60 mt-2">
-                      You have accumulated {stats.points} total points.
-                    </p>
+                    <ProgressItem
+                      label="Lesson Engagement"
+                      percent={Math.min(stats.lessonsCompleted * 10, 100)}
+                      gradient="from-green-400 to-teal-500"
+                    />
                   </div>
-                )}
+                </div>
+                <div className="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 flex flex-col items-center justify-center text-center">
+                  {!hasQuizzes ? (
+                    <div className="opacity-40">
+                      <FaLock size={48} className="text-white mb-4 mx-auto" />
+                      <h3 className="text-xl font-bold text-white">
+                        Stats Locked
+                      </h3>
+                      <p className="text-blue-100/60 mt-2">
+                        Take your first quiz to unlock analysis!
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <FaTrophy
+                        size={64}
+                        className="text-yellow-400 mb-4 animate-bounce mx-auto"
+                      />
+                      <h3 className="text-2xl font-bold text-white">
+                        Progressing Well!
+                      </h3>
+                      <p className="text-blue-100/60 mt-2">
+                        You have accumulated {stats.points} total points.
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}

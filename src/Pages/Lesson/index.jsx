@@ -20,11 +20,37 @@ import { SiReact } from "react-icons/si";
 import Button from "../../Shared/Buttons";
 
 // ✅ Ensure this path matches your file structure
-import lesson1 from "../../../public/api/lessons/HTML5/lesson1.json";
-import lesson2 from "../../../public/api/lessons/HTML5/lesson2.json";
-import lesson3 from "../../../public/api/lessons/HTML5/lesson3.json";
-import lesson4 from "../../../public/api/lessons/HTML5/lesson4.json";
-import lesson5 from "../../../public/api/lessons/HTML5/lesson5.json";
+import lesson1 from "../../api/lessons/HTML5/lesson1.json";
+import lesson2 from "../../api/lessons/HTML5/lesson2.json";
+import lesson3 from "../../api/lessons/HTML5/lesson3.json";
+import lesson4 from "../../api/lessons/HTML5/lesson4.json";
+import lesson5 from "../../api/lessons/HTML5/lesson5.json";
+import jsLesson1 from "../../api/lessons/JavaScript/lesson1.json";
+import jsLesson2 from "../../api/lessons/JavaScript/lesson2.json";
+import jsLesson3   from "../../api/lessons/JavaScript/lesson3.json";
+import jsLesson4 from "../../api/lessons/JavaScript/lesson4.json";
+import jsLesson5 from "../../api/lessons/JavaScript/lesson5.json";
+import pyLesson1 from "../../api/lessons/Python/lesson1.json";
+import pyLesson2 from "../../api/lessons/Python/lesson2.json";
+import pyLesson3 from "../../api/lessons/Python/lesson3.json";
+import pyLesson4 from "../../api/lessons/Python/lesson4.json";
+import pyLesson5 from "../../api/lessons/Python/lesson5.json";
+import csLesson1 from "../../api/lessons/CSS/lesson1.json";
+import csLesson2 from "../../api/lessons/CSS/lesson2.json";
+import csLesson3 from "../../api/lessons/CSS/lesson3.json";
+import csLesson4 from "../../api/lessons/CSS/lesson4.json";
+import csLesson5 from "../../api/lessons/CSS/lesson5.json";
+import cppLesson1 from "../../api/lessons/C++/lesson1.json";
+import cppLesson2 from "../../api/lessons/C++/lesson2.json";
+import cppLesson3 from "../../api/lessons/C++/lesson3.json";
+import cppLesson4 from "../../api/lessons/C++/lesson4.json";
+import cppLesson5 from "../../api/lessons/C++/lesson5.json";
+import reactlesson1 from "../../api/lessons/React/lesson1.json";
+import reactlesson2 from "../../api/lessons/React/lesson2.json";
+import reactlesson3 from "../../api/lessons/React/lesson3.json";
+import reactlesson4 from "../../api/lessons/React/lesson4.json";
+import reactlesson5 from "../../api/lessons/React/lesson5.json";
+
 
 const AnimatedBackground = () => {
   return (
@@ -48,6 +74,37 @@ const AnimatedBackground = () => {
   );
 };
 
+// Helper function to check if a lesson is unlocked
+const isLessonUnlocked = (courseKey, lessonId) => {
+  // Lesson 1 is always unlocked
+  if (parseInt(lessonId) === 1) return true;
+
+  const userId = localStorage.getItem('currentUserId');
+  if (!userId) return false;
+
+  // Check if this specific lesson has been explicitly unlocked
+  const unlockKey = `${userId}_${courseKey}_lesson_${lessonId}_unlocked`;
+  const isExplicitlyUnlocked = localStorage.getItem(unlockKey) === 'true';
+  if (isExplicitlyUnlocked) return true;
+
+  const prevLessonNumber = parseInt(lessonId) - 1;
+
+  // Check if previous lesson is completed
+  const lessonKey = `${userId}_${courseKey}_lesson_${prevLessonNumber}_completed`;
+  const lessonCompleted = localStorage.getItem(lessonKey);
+
+  // Check if previous quiz is completed with 60%+ score
+  const quizResultsKey = "quizResults";
+  const quizResults = JSON.parse(localStorage.getItem(quizResultsKey) || '[]');
+  const prevQuizResult = quizResults.find(
+    r => r.userId === userId && r.courseKey === courseKey && r.lessonId === prevLessonNumber
+  );
+
+  const quizPassed = prevQuizResult && prevQuizResult.percentage >= 60;
+
+  return lessonCompleted && quizPassed;
+};
+
 const LessonPage = () => {
   const { lessonId, courseKey } = useParams();
   const navigate = useNavigate();
@@ -56,6 +113,7 @@ const LessonPage = () => {
   const [loading, setLoading] = useState(true);
   const [completedTopics, setCompletedTopics] = useState([]);
   const [copiedCode, setCopiedCode] = useState(null);
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -71,6 +129,48 @@ const LessonPage = () => {
         ...lesson4,
         ...lesson5,
       ];
+    } else if (courseKey === "JavaScript") {
+      lessonsData = [
+        ...jsLesson1,
+        ...jsLesson2,
+        ...jsLesson3,
+        ...jsLesson4,
+        ...jsLesson5,
+      ];
+    } else if (courseKey === "Python") {
+      lessonsData = [
+        ...pyLesson1,
+        ...pyLesson2,
+        ...pyLesson3,
+        ...pyLesson4,
+        ...pyLesson5,
+      ];
+     
+    }
+    else if (courseKey === "CSS3") {
+     lessonsData = [
+        ...csLesson1,
+        ...csLesson2,
+        ...csLesson3,
+        ...csLesson4,
+        ...csLesson5,
+     ];
+    } else if (courseKey === "C++") {
+      lessonsData = [
+         ...cppLesson1,
+        ...cppLesson2,
+        ...cppLesson3,
+        ...cppLesson4,
+        ...cppLesson5,
+      ];
+    } else if (courseKey === "React") {
+      lessonsData = [
+         ...reactlesson1,
+        ...reactlesson2,
+        ...reactlesson3,
+        ...reactlesson4,
+        ...reactlesson5,
+      ];
     }
 
     const found = lessonsData.find((l) => String(l.id) === String(lessonId));
@@ -78,8 +178,9 @@ const LessonPage = () => {
     if (found) {
       setLesson(found);
 
+      const userId = localStorage.getItem('currentUserId');
       const saved = localStorage.getItem(
-        `${courseKey}_lesson_${lessonId}_completed`,
+        `${userId}_${courseKey}_lesson_${lessonId}_completed`,
       );
 
       if (saved) {
@@ -94,19 +195,12 @@ const LessonPage = () => {
     setLoading(false);
   }, [lessonId, courseKey]);
 
-  const handleMarkComplete = (topicIndex) => {
-    let updated = [...completedTopics];
-    if (completedTopics.includes(topicIndex)) {
-      updated = updated.filter((i) => i !== topicIndex);
-    } else {
-      updated.push(topicIndex);
+  // Check if lesson is locked
+  useEffect(() => {
+    if (lessonId && courseKey) {
+      setIsLocked(!isLessonUnlocked(courseKey, lessonId));
     }
-    setCompletedTopics(updated);
-    localStorage.setItem(
-      `${courseKey}_lesson_${lessonId}_completed`,
-      JSON.stringify(updated),
-    );
-  };
+  }, [lessonId, courseKey]);
 
   const handleCopyCode = (code, identifier) => {
     navigator.clipboard.writeText(code);
@@ -198,6 +292,31 @@ const LessonPage = () => {
       <div className="text-white text-center mt-20">Lesson not found.</div>
     );
 
+  // Show locked state if lesson is locked
+  if (isLocked) {
+    return (
+      <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 flex items-center justify-center">
+        <AnimatedBackground />
+        <div className="relative z-10 max-w-md mx-auto px-4 text-center">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-10">
+            <div className="text-6xl mb-6">🔒</div>
+            <h1 className="text-3xl font-black text-white mb-4">Lesson Locked</h1>
+            <p className="text-blue-100 mb-6 leading-relaxed">
+              You need to score at least 60% on the previous lesson's quiz to unlock this lesson.
+            </p>
+            <Button
+              size="lg"
+              onClick={() => navigate(`/quiz/${courseKey}/${parseInt(lessonId) - 1}`)}
+              className="w-full flex items-center justify-center gap-2"
+            >
+              <FaQuestionCircle /> Take Previous Lesson Quiz
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const progress =
     (completedTopics.length / (lesson.subtopics?.length || 1)) * 100;
 
@@ -281,26 +400,19 @@ const LessonPage = () => {
               key={index}
               className="bg-blue-950/80 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl"
             >
-              <div className="bg-white/5 px-8 py-6 flex items-start justify-between border-b border-white/10 gap-4">
+              <div className="bg-white/5 px-8 py-6 flex items-start border-b border-white/10 gap-4">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-4">
                   <span className="text-blue-300 text-3xl font-black">
                     {index + 1}.
                   </span>
                   {topic.title}
                 </h2>
-                <button
-                  onClick={() => handleMarkComplete(index)}
-                  className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl transition-all font-bold ${
-                    completedTopics.includes(index)
-                      ? "bg-green-500 text-white shadow-lg"
-                      : "bg-white/10 text-white hover:bg-white/20"
-                  }`}
-                >
-                  <FaCheckCircle />
-                  <span className="text-sm">
-                    {completedTopics.includes(index) ? "Done" : "Complete"}
-                  </span>
-                </button>
+                {completedTopics.includes(index) && (
+                  <div className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500 text-white shadow-lg font-bold">
+                    <FaCheckCircle />
+                    <span className="text-sm">Completed</span>
+                  </div>
+                )}
               </div>
               <div className="p-8 md:p-12">
                 {renderContent(topic.content, index)}

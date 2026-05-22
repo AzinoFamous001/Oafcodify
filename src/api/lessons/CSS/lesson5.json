@@ -1,0 +1,104 @@
+[
+  {
+    "id": "5",
+    "title": "CSS Flexbox and Grid Layout",
+    "description": "Master modern CSS layout techniques with Flexbox and Grid. Learn to create responsive, flexible layouts that work across all devices and screen sizes.",
+    "level": "Intermediate",
+    "duration": "60 minutes",
+    "learningObjectives": [
+      "Use Flexbox for one-dimensional layouts",
+      "Create flexible and responsive designs",
+      "Use CSS Grid for two-dimensional layouts",
+      "Combine Flexbox and Grid effectively",
+      "Build complex layouts with modern CSS"
+    ],
+    "subtopics": [
+      {
+        "title": "Flexbox Basics",
+        "content": "Flexbox is a one-dimensional layout method for arranging items in rows or columns.\n\n**Enabling Flexbox:**\n```css\n.container {\n  display: flex;\n}\n```\n\n**Flex Container Properties:**\n```css\n.container {\n  display: flex;\n  flex-direction: row; /* row, column, row-reverse, column-reverse */\n  flex-wrap: nowrap; /* nowrap, wrap, wrap-reverse */\n  justify-content: flex-start; /* flex-start, flex-end, center, space-between, space-around, space-evenly */\n  align-items: stretch; /* stretch, flex-start, flex-end, center, baseline */\n  align-content: stretch; /* stretch, flex-start, flex-end, center, space-between, space-around */\n}\n```\n\n**Flex Item Properties:**\n```css\n.item {\n  flex-grow: 0; /* How much to grow */\n  flex-shrink: 1; /* How much to shrink */\n  flex-basis: auto; /* Initial size */\n  flex: 0 1 auto; /* Shorthand */\n  align-self: auto; /* Override align-items */\n}\n```"
+      },
+      {
+        "title": "Flexbox Layout Examples",
+        "content": "Common Flexbox layout patterns.\n\n**Center Content:**\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n```\n\n**Equal Width Columns:**\n```css\n.container {\n  display: flex;\n}\n.item {\n  flex: 1; /* All items equal width */\n}\n```\n\n**Navigation Bar:**\n```css\n.nav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n```\n\n**Card Layout:**\n```css\n.card-container {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 20px;\n}\n.card {\n  flex: 1 1 300px; /* Grow, shrink, basis */\n}\n```"
+      },
+      {
+        "title": "CSS Grid Basics",
+        "content": "CSS Grid is a two-dimensional layout system for rows and columns.\n\n**Enabling Grid:**\n```css\n.container {\n  display: grid;\n}\n```\n\n**Grid Template:**\n```css\n.container {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */\n  grid-template-rows: 100px 200px; /* 2 rows */\n  gap: 20px; /* Gap between items */\n}\n```\n\n**Grid Shorthand:**\n```css\n.container {\n  grid-template: \n    'header header header'\n    'sidebar main main'\n    'footer footer footer';\n}\n```"
+      },
+      {
+        "title": "Grid Placement",
+        "content": "Control where items are placed in the grid.\n\n**Grid Lines:**\n```css\n.item {\n  grid-column-start: 1;\n  grid-column-end: 3;\n  grid-row-start: 1;\n  grid-row-end: 2;\n}\n\n/* Shorthand */\n.item {\n  grid-column: 1 / 3;\n  grid-row: 1 / 2;\n}\n\n/* Span */\n.item {\n  grid-column: span 2; /* Span 2 columns */\n  grid-row: span 1;\n}\n```\n\n**Grid Areas:**\n```css\n.container {\n  display: grid;\n  grid-template-areas:\n    'header header header'\n    'sidebar main main'\n    'footer footer footer';\n}\n\n.header { grid-area: header; }\n.sidebar { grid-area: sidebar; }\n.main { grid-area: main; }\n.footer { grid-area: footer; }\n```"
+      },
+      {
+        "title": "Responsive Design with Flexbox and Grid",
+        "content": "Create responsive layouts that adapt to screen sizes.\n\n**Responsive Flexbox:**\n```css\n.container {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.item {\n  flex: 1 1 300px; /* Basis 300px, can grow/shrink */\n}\n\n/* Media query */\n@media (max-width: 768px) {\n  .container {\n    flex-direction: column;\n  }\n}\n```\n\n**Responsive Grid:**\n```css\n.container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 20px;\n}\n\n/* Alternative approach */\n.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n@media (max-width: 768px) {\n  .container {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n\n@media (max-width: 480px) {\n  .container {\n    grid-template-columns: 1fr;\n  }\n}\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/css-flexgrid-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Flexbox Generator",
+          "url": "https://flexboxgenerator.com/",
+          "free": true,
+          "reason": "Visual tool to generate Flexbox code"
+        },
+        {
+          "name": "Grid Generator",
+          "url": "https://cssgrid-generator.netlify.app/",
+          "free": true,
+          "reason": "Interactive tool to create CSS Grid layouts"
+        },
+        {
+          "name": "Can I Use",
+          "url": "https://caniuse.com/",
+          "free": true,
+          "reason": "Check browser support for CSS features"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools CSS Flexbox",
+        "W3Schools CSS Grid",
+        "A Complete Guide to Flexbox (CSS-Tricks)"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Flexbox",
+        "definition": "A one-dimensional layout method for arranging items in rows or columns."
+      },
+      {
+        "term": "Flex Container",
+        "definition": "The parent element with display: flex that contains flex items."
+      },
+      {
+        "term": "Flex Item",
+        "definition": "A direct child element of a flex container."
+      },
+      {
+        "term": "CSS Grid",
+        "definition": "A two-dimensional layout system for working with rows and columns."
+      },
+      {
+        "term": "Grid Template",
+        "definition": "Defines the structure of grid columns and rows."
+      },
+      {
+        "term": "Grid Area",
+        "definition": "A rectangular area on the grid that can contain one or more grid items."
+      },
+      {
+        "term": "Gap",
+        "definition": "The space between grid items or flex items."
+      },
+      {
+        "term": "Auto-fit",
+        "definition": "Grid keyword that automatically fits as many columns as possible."
+      },
+      {
+        "term": "Minmax",
+        "definition": "Grid function that sets minimum and maximum size for grid tracks."
+      }
+    ]
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "3",
+    "title": "CSS Text and Fonts",
+    "description": "Master CSS text styling and typography. Learn to control font families, sizes, weights, text alignment, decoration, and spacing to create readable and visually appealing text content.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Apply font families and fallback fonts",
+      "Control font size, weight, and style",
+      "Align text and control line height",
+      "Add text decoration and transformation",
+      "Manage text spacing and letter spacing"
+    ],
+    "subtopics": [
+      {
+        "title": "CSS Font Families",
+        "content": "The font-family property specifies the font for an element. It can hold multiple font names as a fallback system.\n\n**Generic Font Families:**\n- `serif` - Times New Roman, Georgia\n- `sans-serif` - Arial, Helvetica, Verdana\n- `monospace` - Courier New, monospace\n- `cursive` - Comic Sans, cursive fonts\n- `fantasy` - Impact, fantasy fonts\n\n**Specific Font Families:**\n```css\np {\n  font-family: Arial, sans-serif;\n}\n```\n\n**Font Stack (Fallback System):**\n```css\nbody {\n  font-family: 'Helvetica Neue', Arial, sans-serif;\n}\n```\n- Browser tries first font\n- If not available, tries next\n- Falls back to generic family\n\n**Best Practices:**\n- Always end with a generic font family\n- Use quotes for font names with spaces\n- Test fonts across different operating systems\n- Consider web fonts for custom typography"
+      },
+      {
+        "title": "Font Size and Weight",
+        "content": "Control the size and thickness of text using CSS properties.\n\n**Font Size:**\n```css\nh1 {\n  font-size: 40px;\n}\n\np {\n  font-size: 16px;\n}\n```\n\n**Font Size Units:**\n- `px` - Pixels (absolute)\n- `em` - Relative to parent font size\n- `rem` - Relative to root font size\n- `%` - Percentage of parent\n- `vw/vh` - Viewport width/height\n\n**Font Weight:**\n```css\np {\n  font-weight: normal; /* 400 */\n  font-weight: bold; /* 700 */\n  font-weight: 300; /* Light */\n  font-weight: 900; /* Black */\n}\n```\n\n**Common Values:**\n- `100` - Thin\n- `300` - Light\n- `400` - Normal (default)\n- `500` - Medium\n- `700` - Bold\n- `900` - Black\n\n**Font Style:**\n```css\np {\n  font-style: normal;\n  font-style: italic;\n  font-style: oblique;\n}"
+      },
+      {
+        "title": "Text Alignment and Decoration",
+        "content": "Control how text is aligned and add decorative effects.\n\n**Text Alignment:**\n```css\nh1 {\n  text-align: center;\n}\n\np {\n  text-align: justify;\n}\n```\n\n**Alignment Values:**\n- `left` - Align left (default)\n- `right` - Align right\n- `center` - Center align\n- `justify` - Stretch to equal width\n\n**Text Decoration:**\n```css\na {\n  text-decoration: none; /* remove underline */\n}\n\np {\n  text-decoration: underline;\n  text-decoration: line-through;\n  text-decoration: overline;\n}\n```\n\n**Text Decoration Values:**\n- `none` - No decoration\n- `underline` - Underlined text\n- `overline` - Line above text\n- `line-through` - Strikethrough\n\n**Text Transform:**\n```css\nh1 {\n  text-transform: uppercase;\n}\n\np {\n  text-transform: lowercase;\n  text-transform: capitalize;\n}"
+      },
+      {
+        "title": "Line Height and Letter Spacing",
+        "content": "Control vertical spacing between lines and horizontal spacing between characters.\n\n**Line Height:**\n```css\np {\n  line-height: 1.5; /* 1.5 times font size */\n  line-height: 24px; /* absolute pixels */\n  line-height: 150%; /* percentage */\n}\n```\n\n**Best Practices:**\n- Use unitless values (1.5) for better scaling\n- 1.4-1.6 is ideal for body text\n- 1.2-1.4 for headings\n- Improves readability\n\n**Letter Spacing:**\n```css\nh1 {\n  letter-spacing: 2px;\n}\n\np {\n  letter-spacing: 0.5px;\n}\n```\n\n**Word Spacing:**\n```css\np {\n  word-spacing: 5px;\n}\n```\n\n**Text Indent:**\n```css\np {\n  text-indent: 50px;\n}\n```\n\n**Common Uses:**\n- Line height for readability\n- Letter spacing for headings\n- Word spacing for emphasis\n- Text indent for paragraphs"
+      },
+      {
+        "title": "Text Shadow and Color",
+        "content": "Add visual effects to text with shadows and colors.\n\n**Text Color:**\n```css\nh1 {\n  color: #333333;\n}\n\np {\n  color: rgb(51, 51, 51);\n}\n```\n\n**Text Shadow:**\n```css\nh1 {\n  text-shadow: 2px 2px 4px #000000;\n}\n```\n\n**Shadow Syntax:**\n```css\ntext-shadow: h-shadow v-shadow blur-radius color;\n```\n\n**Examples:**\n```css\n/* Simple shadow */\nh1 {\n  text-shadow: 2px 2px #ff0000;\n}\n\n/* Blurred shadow */\nh1 {\n  text-shadow: 2px 2px 5px #000000;\n}\n\n/* Multiple shadows */\nh1 {\n  text-shadow: 1px 1px 2px red, 0 0 1em blue;\n}\n```\n\n**White Space:**\n```css\np {\n  white-space: normal; /* default */\n  white-space: nowrap; /* no line breaks */\n  white-space: pre; /* preserve whitespace */\n  white-space: pre-wrap; /* preserve but wrap */\n}\n\n**Direction:**\n```css\np {\n  direction: ltr; /* left to right */\n  direction: rtl; /* right to left */\n}"
+      },
+      {
+        "title": "Font Shorthand",
+        "content": "The font property is a shorthand for all font properties.\n\n**Syntax:**\n```css\nfont: font-style font-weight font-size/line-height font-family;\n```\n\n**Example:**\n```cssnp {\n  font: italic bold 16px/1.5 Arial, sans-serif;\n}\n```\n\n**Breakdown:**\n- `italic` - font-style\n- `bold` - font-weight\n- `16px` - font-size\n- `/1.5` - line-height\n- `Arial, sans-serif` - font-family\n\n**Required Values:**\n- font-size and font-family are required\n- Other values are optional\n\n**Examples:**\n```css\n/* Minimum required */\np {\n  font: 16px Arial;\n}\n\n/* With style */\np {\n  font: italic 16px Arial;\n}\n\n/* With weight */\np {\n  font: bold 16px Arial;\n}\n\n/* Full specification */\np {\n  font: italic bold 16px/1.5 Arial, sans-serif;\n}\n```\n\n**Best Practice:**\n- Use shorthand for cleaner code\n- Always specify font-size and font-family\n- Order matters in shorthand"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/css-text-fonts-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Google Fonts",
+          "url": "https://fonts.google.com/",
+          "free": true,
+          "reason": "Free web fonts for your website"
+        },
+        {
+          "name": "Type Scale",
+          "url": "https://type-scale.com/",
+          "free": true,
+          "reason": "Visual tool for creating type scales"
+        },
+        {
+          "name": "Font Pair",
+          "url": "https://fontpair.co/",
+          "free": true,
+          "reason": "Find font pairings that work well together"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools CSS Fonts",
+        "W3Schools CSS Text",
+        "MDN Typography Best Practices"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Font Family",
+        "definition": "The font or set of fonts used to display text."
+      },
+      {
+        "term": "Font Stack",
+        "definition": "A list of font families with fallback options if a font is not available."
+      },
+      {
+        "term": "Font Weight",
+        "definition": "The thickness or darkness of characters in a font."
+      },
+      {
+        "term": "Line Height",
+        "definition": "The vertical space between lines of text."
+      },
+      {
+        "term": "Letter Spacing",
+        "definition": "The horizontal space between characters."
+      },
+      {
+        "term": "Text Decoration",
+        "definition": "Visual effects added to text (underline, line-through, etc.)."
+      },
+      {
+        "term": "Text Transform",
+        "definition": "Controls capitalization of text (uppercase, lowercase, capitalize)."
+      },
+      {
+        "term": "Text Shadow",
+        "definition": "Adds shadow effects to text for depth and emphasis."
+      },
+      {
+        "term": "White Space",
+        "definition": "Controls how whitespace inside elements is handled."
+      },
+      {
+        "term": "Generic Font Family",
+        "definition": "A general category of fonts (serif, sans-serif, monospace, etc.)."
+      }
+    ]
+  }
+]

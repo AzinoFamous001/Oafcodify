@@ -15,7 +15,7 @@ import {
 const LANGUAGE_DEFAULTS = {
   javascript:
     "console.log('Hello from JavaScript!');\n\nconst sum = (a, b) => a + b;\nconsole.log('Sum:', sum(10, 5));",
-  html: "<!DOCTYPE html>\n<html>\n<body>\n  <h1>Hello CodeBay!</h1>\n  <p>HTML is rendered in a preview window.</p>\n</body>\n</html>",
+  html: "<!DOCTYPE html>\n<html>\n<body>\n  <h1>Hello Oafcodify!</h1>\n  <p>HTML is rendered in a preview window.</p>\n</body>\n</html>",
   css: "body {\n  background-color: #f0f0f0;\n  color: #333;\n  font-family: sans-serif;\n}",
   python:
     "# Python execution usually requires a backend.\nprint('Hello from Python!')\n\nfor i in range(5):\n    print(f'Count: {i}')",
@@ -107,7 +107,7 @@ const EditorPage = () => {
                 theme === "vs-dark" ? "text-blue-400" : "text-blue-600"
               }`}
             >
-              CodeBay
+              Oafcodify
             </span>
           </div>
 

@@ -16,7 +16,7 @@ const Footer = () => {
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <img src="/Logo_4.png" alt="C" className="h-6" />
               </div>
-              <span className="text-xl font-bold text-gray-800">CodeBay</span>
+              <span className="text-xl font-bold text-gray-800">Oafcodify</span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed">
               Empowering the next generation of developers with world-class
@@ -74,7 +74,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-400">
-            © {currentYear} CodeBay Education Inc. All rights reserved.
+            © {currentYear} Oafcodify Education Inc. All rights reserved.
           </p>
           <div className="flex gap-8">
             <NavLink

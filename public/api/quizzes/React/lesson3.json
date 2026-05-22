@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "What are React Hooks?",
+    "options": [
+      "CSS styling tools",
+      "Functions that let you use state and other React features in functional components",
+      "Database connections",
+      "Testing utilities"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hooks are functions that let you use state and other React features in functional components."
+  },
+  {
+    "id": 2,
+    "question": "What is the rule about where hooks can be called?",
+    "options": [
+      "Can be called anywhere in the code",
+      "Only at the top level of a React function",
+      "Only in class components",
+      "Only in event handlers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hooks must be called at the top level of a React function, not inside loops or conditions."
+  },
+  {
+    "id": 3,
+    "question": "What is the purpose of the useEffect hook?",
+    "options": [
+      "To add state",
+      "To handle side effects in functional components",
+      "To create context",
+      "To reduce state"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useEffect is used to handle side effects like data fetching, subscriptions, or DOM manipulation."
+  },
+  {
+    "id": 4,
+    "question": "What does an empty dependency array [] in useEffect mean?",
+    "options": [
+      "The effect runs on every render",
+      "The effect runs only once on mount",
+      "The effect never runs",
+      "The effect runs when state changes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An empty dependency array means the effect runs only once when the component mounts."
+  },
+  {
+    "id": 5,
+    "question": "What is the purpose of the cleanup function in useEffect?",
+    "options": [
+      "To clean up the code",
+      "To remove event listeners and cancel subscriptions when component unmounts",
+      "To delete the component",
+      "To reset state"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The cleanup function runs when the component unmounts to clean up side effects."
+  },
+  {
+    "id": 6,
+    "question": "Which hook is used to consume context values?",
+    "options": [
+      "useState",
+      "useEffect",
+      "useContext",
+      "useRef"
+    ],
+    "correctAnswer": 2,
+    "explanation": "useContext is used to consume context values without nesting."
+  },
+  {
+    "id": 7,
+    "question": "How do you create a context in React?",
+    "options": [
+      "createContext()",
+      "useContext()",
+      "Context.create()",
+      "new Context()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "createContext() is used to create a context object."
+  },
+  {
+    "id": 8,
+    "question": "What is the purpose of the useRef hook?",
+    "options": [
+      "To add state",
+      "To create a mutable ref object that persists across renders",
+      "To handle effects",
+      "To create context"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useRef returns a mutable ref object that persists for the lifetime of the component."
+  },
+  {
+    "id": 9,
+    "question": "How do you access a DOM element using useRef?",
+    "options": [
+      "ref.value",
+      "ref.current",
+      "ref.element",
+      "ref.dom"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The DOM element is accessed through the current property of the ref."
+  },
+  {
+    "id": 10,
+    "question": "What is a custom hook in React?",
+    "options": [
+      "A built-in React hook",
+      "A user-defined hook that extracts and reuses stateful logic",
+      "A CSS hook",
+      "A database hook"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Custom hooks are user-defined functions that start with 'use' and can call other hooks."
+  },
+  {
+    "id": 11,
+    "question": "What naming convention must custom hooks follow?",
+    "options": [
+      "Must start with 'use'",
+      "Must start with 'custom'",
+      "Must start with 'hook'",
+      "No naming convention required"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Custom hooks must start with 'use' to follow React's rules of hooks."
+  },
+  {
+    "id": 12,
+    "question": "What is the purpose of the dependency array in useEffect?",
+    "options": [
+      "To style the component",
+      "To specify when the effect should re-run",
+      "To add event listeners",
+      "To create animations"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The dependency array specifies which values, when changed, should cause the effect to re-run."
+  },
+  {
+    "id": 13,
+    "question": "Can you call hooks inside conditional statements?",
+    "options": [
+      "Yes, it's allowed",
+      "No, hooks must be called at the top level",
+      "Only in certain conditions",
+      "Only with useEffect"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hooks must be called at the top level, not inside conditions, loops, or nested functions."
+  },
+  {
+    "id": 14,
+    "question": "What happens if you omit the dependency array in useEffect?",
+    "options": [
+      "The effect never runs",
+      "The effect runs on every render",
+      "The effect runs only once",
+      "It causes an error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Without a dependency array, the effect runs after every render."
+  },
+  {
+    "id": 15,
+    "question": "How do you provide a context value to components?",
+    "options": [
+      "Using the Consumer component",
+      "Using the Provider component",
+      "Using props",
+      "Using state"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Context values are provided using the Provider component with a value prop."
+  },
+  {
+    "id": 16,
+    "question": "What is a common use case for useRef?",
+    "options": [
+      "Managing state",
+      "Accessing DOM elements directly",
+      "Handling events",
+      "Creating context"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useRef is commonly used to access DOM elements directly without re-rendering."
+  },
+  {
+    "id": 17,
+    "question": "Can custom hooks call other hooks?",
+    "options": [
+      "No, they cannot",
+      "Yes, they can call other hooks",
+      "Only useState",
+      "Only useEffect"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Custom hooks can call other hooks to build reusable stateful logic."
+  },
+  {
+    "id": 18,
+    "question": "What is the benefit of using custom hooks?",
+    "options": [
+      "They make code slower",
+      "They allow reuse of stateful logic between components",
+      "They replace all components",
+      "They are required for all React apps"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Custom hooks allow you to extract and reuse stateful logic across multiple components."
+  },
+  {
+    "id": 19,
+    "question": "How do you use multiple contexts in a component?",
+    "options": [
+      "You can only use one context per component",
+      "Call useContext multiple times for each context",
+      "Combine all contexts into one",
+      "Use a special hook"
+    ],
+    "correctAnswer": 1,
+    "explanation": "You can call useContext multiple times to consume multiple different contexts."
+  },
+  {
+    "id": 20,
+    "question": "What is the return value of useRef?",
+    "options": [
+      "A state value",
+      "A ref object with a current property",
+      "A function",
+      "An array"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useRef returns a ref object with a current property that holds the mutable value."
+  }
+]

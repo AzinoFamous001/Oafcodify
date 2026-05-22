@@ -1,0 +1,90 @@
+[
+  {
+    "id": "5",
+    "title": "React Best Practices and Patterns",
+    "description": "Learn React best practices, common patterns, and optimization techniques for building scalable applications.",
+    "level": "Intermediate",
+    "duration": "60 minutes",
+    "learningObjectives": [
+      "Follow React best practices for clean code",
+      "Understand component composition patterns",
+      "Optimize React performance",
+      "Use proper state management",
+      "Apply common design patterns"
+    ],
+    "subtopics": [
+      {
+        "title": "Component Best Practices",
+        "content": "Follow these practices for clean, maintainable React components.\n\n**Keep Components Small:**\n```jsx\n// BAD - Large component doing too much\nfunction UserProfile() {\n  // 200 lines of code\n  return <div>...</div>;\n}\n\n// GOOD - Small, focused components\nfunction UserProfile() {\n  return (\n    <div>\n      <UserHeader />\n      <UserDetails />\n      <UserActions />\n    </div>\n  );\n}\n```\n\n**Single Responsibility:**\n```jsx\n// Each component should have one job\nfunction UserAvatar({ src, alt }) {\n  return <img src={src} alt={alt} />;\n}\n\nfunction UserName({ name }) {\n  return <h2>{name}</h2>;\n}\n\nfunction UserEmail({ email }) {\n  return <p>{email}</p>;\n}\n```\n\n**Use Functional Components:**\n```jsx\n// Preferred - Functional component with hooks\nfunction MyComponent() {\n  const [state, setState] = useState();\n  return <div>{state}</div>;\n}\n\n// Avoid - Class components (unless necessary)\nclass MyComponent extends React.Component {\n  render() {\n    return <div>{this.state}</div>;\n  }\n}\n```\n\n**Descriptive Naming:**\n```jsx\n// Good - Descriptive names\nfunction UserLoginForm() {}\nfunction ProductCard() {}\nfunction NavigationBar() {}\n\n// Bad - Vague names\nfunction Form() {}\nfunction Card() {}\nfunction Bar() {}\n```"
+      },
+      {
+        "title": "State Management Best Practices",
+        "content": "Choose the right state management approach for your application.\n\n**Local State (useState):**\n```jsx\n// Use for component-specific state\nfunction Counter() {\n  const [count, setCount] = useState(0);\n  return <button onClick={() => setCount(count + 1)}>{count}</button>;\n}\n```\n\n**Lifting State Up:**\n```jsx\n// Share state between components by lifting it up\nfunction Parent() {\n  const [count, setCount] = useState(0);\n  \n  return (\n    <div>\n      <ChildA count={count} setCount={setCount} />\n      <ChildB count={count} setCount={setCount} />\n    </div>\n  );\n}\n```\n\n**Context API (Global State):**\n```jsx\n// Use for app-wide state\nconst ThemeContext = createContext('light');\n\nfunction App() {\n  const [theme, setTheme] = useState('light');\n  \n  return (\n    <ThemeContext.Provider value={{ theme, setTheme }}>\n      <Child />\n    </ThemeContext.Provider>\n  );\n}\n```\n\n**When to Use External State Management:**\n- Redux/Zustand: Complex state, many components\n- React Query/SWR: Server state, caching\n- Recoil/Jotai: Atomic state, fine-grained updates"
+      },
+      {
+        "title": "Performance Optimization",
+        "content": "Optimize React applications for better performance.\n\n**useMemo for Expensive Calculations:**\n```jsx\nfunction ExpensiveComponent({ data }) {\n  const sortedData = useMemo(() => {\n    return data.sort((a, b) => a.value - b.value);\n  }, [data]);\n  \n  return <div>{sortedData.map(item => <div key={item.id}>{item.name}</div>)}</div>;\n}\n```\n\n**useCallback for Function References:**\n```jsx\nfunction Parent() {\n  const [count, setCount] = useState(0);\n  \n  const handleClick = useCallback(() => {\n    console.log('Clicked');\n  }, []);\n  \n  return <Child onClick={handleClick} />;\n}\n```\n\n**React.memo for Component Memoization:**\n```jsx\nconst ExpensiveChild = React.memo(function ExpensiveChild({ data }) {\n  console.log('Rendering child');\n  return <div>{data}</div>;\n});\n```\n\n**Code Splitting:**\n```jsx\nimport { lazy, Suspense } from 'react';\n\nconst HeavyComponent = lazy(() => import('./HeavyComponent'));\n\nfunction App() {\n  return (\n    <Suspense fallback={<div>Loading...</div>}>\n      <HeavyComponent />\n    </Suspense>\n  );\n}\n```\n\n**Virtualization for Long Lists:**\n```jsx\nimport { FixedSizeList } from 'react-window';\n\nfunction LongList({ items }) {\n  return (\n    <FixedSizeList\n      height={400}\n      itemCount={items.length}\n      itemSize={35}\n      width={300}\n    >\n      {({ index, style }) => (\n        <div style={style}>{items[index]}</div>\n      )}\n    </FixedSizeList>\n  );\n}\n```"
+      },
+      {
+        "title": "Common Patterns",
+        "content": "Use established patterns for common React scenarios.\n\n**Compound Components:**\n```jsx\nfunction Tabs({ children }) {\n  const [activeTab, setActiveTab] = useState(0);\n  \n  return (\n    <TabsContext.Provider value={{ activeTab, setActiveTab }}>\n      {children}\n    </TabsContext.Provider>\n  );\n}\n\nfunction Tab({ children, index }) {\n  const { activeTab, setActiveTab } = useContext(TabsContext);\n  \n  return (\n    <button onClick={() => setActiveTab(index)}>\n      {children}\n    </button>\n  );\n}\n\nfunction TabPanel({ children, index }) {\n  const { activeTab } = useContext(TabsContext);\n  \n  if (activeTab !== index) return null;\n  return <div>{children}</div>;\n}\n```\n\n**Render Props:**\n```jsx\nfunction MouseTracker({ render }) {\n  const [position, setPosition] = useState({ x: 0, y: 0 });\n  \n  return (\n    <div onMouseMove={e => setPosition({ x: e.clientX, y: e.clientY })}>\n      {render(position)}\n    </div>\n  );\n}\n\nfunction App() {\n  return (\n    <MouseTracker render={({ x, y }) => (\n      <p>Mouse position: {x}, {y}</p>\n    )} />\n  );\n}\n```\n\n**Higher-Order Components:**\n```jsx\nfunction withLoading(WrappedComponent) {\n  return function WithLoadingComponent({ isLoading, ...props }) {\n    if (isLoading) return <div>Loading...</div>;\n    return <WrappedComponent {...props} />;\n  };\n}\n\nconst UserListWithLoading = withLoading(UserList);\n```\n\n**Custom Hooks Pattern:**\n```jsx\nfunction useLocalStorage(key, initialValue) {\n  const [value, setValue] = useState(() => {\n    const saved = localStorage.getItem(key);\n    return saved ? JSON.parse(saved) : initialValue;\n  });\n  \n  useEffect(() => {\n    localStorage.setItem(key, JSON.stringify(value));\n  }, [key, value]);\n  \n  return [value, setValue];\n}\n```"
+      },
+      {
+        "title": "Error Handling and Testing",
+        "content": "Handle errors gracefully and test your React components.\n**Error Boundaries:**\n```jsx\nclass ErrorBoundary extends React.Component {\n  state = { hasError: false };\n  \n  static getDerivedStateFromError(error) {\n    return { hasError: true };\n  }\n  \n  componentDidCatch(error, errorInfo) {\n    console.error('Error:', error, errorInfo);\n  }\n  \n  render() {\n    if (this.state.hasError) {\n      return <div>Something went wrong.</div>;\n    }\n    return this.props.children;\n  }\n}\n\nfunction App() {\n  return (\n    <ErrorBoundary>\n      <MyComponent />\n    </ErrorBoundary>\n  );\n}\n```\n\n**Testing with Jest and React Testing Library:**\n```jsx\nimport { render, screen } from '@testing-library/react';\nimport { fireEvent } from '@testing-library/react';\nimport Button from './Button';\n\ntest('renders button with text', () => {\n  render(<Button>Click me</Button>);\n  const button = screen.getByText('Click me');\n  expect(button).toBeInTheDocument();\n});\n\ntest('calls onClick when clicked', () => {\n  const handleClick = jest.fn();\n  render(<Button onClick={handleClick}>Click me</Button>);\n  \n  fireEvent.click(screen.getByText('Click me'));\n  expect(handleClick).toHaveBeenCalledTimes(1);\n});\n```\n\n**Best Practices:**\n- Test user behavior, not implementation details\n- Use descriptive test names\n- Keep tests simple and focused\n- Test edge cases and error scenarios"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/react-best-practices-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "React DevTools",
+          "url": "https://react.dev/learn/react-developer-tools",
+          "free": true,
+          "reason": "Browser extension for debugging React applications"
+        },
+        {
+          "name": "React Testing Library",
+          "url": "https://testing-library.com/react",
+          "free": true,
+          "reason": "Simple and complete React DOM testing utilities"
+        }
+      ],
+      "furtherReading": [
+        "React Documentation - Best Practices",
+        "React Performance Optimization",
+        "Testing React Components"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Code Splitting",
+        "definition": "Splitting code into smaller chunks that can be loaded on demand."
+      },
+      {
+        "term": "Memoization",
+        "definition": "Caching the results of expensive function calls to avoid recomputation."
+      },
+      {
+        "term": "Virtualization",
+        "definition": "Rendering only visible items in long lists for performance."
+      },
+      {
+        "term": "Error Boundary",
+        "definition": "A React component that catches JavaScript errors in child components."
+      },
+      {
+        "term": "Compound Components",
+        "definition": "A pattern where components work together to share implicit state."
+      },
+      {
+        "term": "Render Props",
+        "definition": "A technique for sharing code between components using a prop whose value is a function."
+      },
+      {
+        "term": "Higher-Order Component",
+        "definition": "A function that takes a component and returns a new component with enhanced functionality."
+      }
+    ]
+  }
+]

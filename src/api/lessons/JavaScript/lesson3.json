@@ -1,0 +1,73 @@
+[
+  {
+    "id": "3",
+    "title": "Arrays & Objects",
+    "description": "Master JavaScript arrays and objects for storing and manipulating complex data structures.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Create and manipulate arrays",
+      "Use array methods effectively",
+      "Work with objects and properties",
+      "Understand array vs object differences",
+      "Apply array/object operations in real scenarios"
+    ],
+    "subtopics": [
+      {
+        "title": "Array Basics",
+        "content": "Arrays store multiple values in a single variable:\n\n**Creating Arrays:**\n```javascript\nlet fruits = ['apple', 'banana', 'orange'];\nlet numbers = [1, 2, 3, 4, 5];\nlet mixed = ['text', 42, true, null];\n```\n\n**Accessing Elements:**\n```javascript\nlet colors = ['red', 'green', 'blue'];\nconsole.log(colors[0]); // 'red' (first element)\nconsole.log(colors[2]); // 'blue' (third element)\nconsole.log(colors.length); // 3 (array length)\n```\n\n**Array Indexing:**\n- Arrays are zero-indexed (starts at 0)\n- Last element: array[array.length - 1]\n- Negative indices don't work in JavaScript"
+      },
+      {
+        "title": "Array Methods",
+        "content": "JavaScript provides powerful array methods:\n\n**Adding/Removing:**\n```javascript\nlet items = ['a', 'b', 'c'];\nitems.push('d'); // Add to end: ['a', 'b', 'c', 'd']\nitems.pop(); // Remove from end: ['a', 'b', 'c']\nitems.unshift('start'); // Add to beginning\nitems.shift(); // Remove from beginning\n```\n\n**Searching:**\n```javascript\nlet numbers = [1, 2, 3, 4, 5];\nconsole.log(numbers.includes(3)); // true\nconsole.log(numbers.indexOf(4)); // 3\nconsole.log(numbers.find(x => x > 2)); // 3\n```\n\n**Transforming:**\n```javascript\nlet nums = [1, 2, 3, 4];\nlet doubled = nums.map(x => x * 2); // [2, 4, 6, 8]\nlet evens = nums.filter(x => x % 2 === 0); // [2, 4]\nlet sum = nums.reduce((a, b) => a + b, 0); // 10\n```"
+      },
+      {
+        "title": "Object Fundamentals",
+        "content": "Objects store key-value pairs:\n\n**Creating Objects:**\n```javascript\nlet person = {\n  name: 'John',\n  age: 30,\n  city: 'New York'\n};\n\n// Empty object\nlet empty = {};\n```\n\n**Accessing Properties:**\n```javascript\nlet user = {\n  name: 'Alice',\n  email: 'alice@example.com'\n};\n\n// Dot notation\nconsole.log(user.name); // 'Alice'\n\n// Bracket notation\nconsole.log(user['email']); // 'alice@example.com'\n```\n\n**Adding/Modifying:**\n```javascript\nlet car = { brand: 'Toyota' };\ncar.model = 'Camry'; // Add property\ncar.brand = 'Honda'; // Modify property\ndelete car.brand; // Remove property\n```"
+      },
+      {
+        "title": "Object Methods & Arrays of Objects",
+        "content": "Advanced object operations:\n\n**Object Methods:**\n```javascript\nlet calculator = {\n  add: function(a, b) {\n    return a + b;\n  },\n  multiply: (a, b) => a * b\n};\n\nconsole.log(calculator.add(5, 3)); // 8\nconsole.log(calculator.multiply(4, 3)); // 12\n```\n\n**Arrays of Objects:**\n```javascript\nlet users = [\n  { id: 1, name: 'John', age: 25 },\n  { id: 2, name: 'Jane', age: 30 },\n  { id: 3, name: 'Bob', age: 35 }\n];\n\n// Find user\nlet user = users.find(u => u.id === 2);\n\n// Get names\nlet names = users.map(u => u.name);\n\n// Filter by age\nlet adults = users.filter(u => u.age >= 30);\n```\n\n**Object.keys/values:**\n```javascript\nlet person = { name: 'John', age: 30 };\nconsole.log(Object.keys(person)); // ['name', 'age']\nconsole.log(Object.values(person)); // ['John', 30]\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/javascript-arrays-objects-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "JavaScript Array Explorer",
+          "url": "https://array-explorer.com/",
+          "free": true,
+          "reason": "Interactive array method visualization"
+        },
+        {
+          "name": "JSON Editor Online",
+          "url": "https://jsoneditoronline.org/",
+          "free": true,
+          "reason": "Test and format JSON/objects"
+        }
+      ],
+      "furtherReading": [
+        "MDN Web Docs: Array methods",
+        "JavaScript.info: Objects and arrays"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Array",
+        "definition": "An ordered collection of values that can be accessed by index."
+      },
+      {
+        "term": "Object",
+        "definition": "A collection of key-value pairs for storing structured data."
+      },
+      {
+        "term": "Method",
+        "definition": "A function that is a property of an object."
+      },
+      {
+        "term": "Property",
+        "definition": "A key-value pair in an object that stores data."
+      }
+    ]
+  }
+]

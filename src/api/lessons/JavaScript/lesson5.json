@@ -1,0 +1,74 @@
+[
+  {
+    "id": "5",
+    "title": "Functions & Scope",
+    "description": "Deep dive into JavaScript functions, scope, closures, and advanced function concepts.",
+    "level": "Intermediate",
+    "duration": "55 minutes",
+    "learningObjectives": [
+      "Understand function declarations vs expressions",
+      "Learn about scope and variable visibility",
+      "Master arrow functions and their syntax",
+      "Understand closures and their use cases",
+      "Apply higher-order functions and callbacks"
+    ],
+    "subtopics": [
+      {
+        "title": "Function Types",
+        "content": "Different ways to create functions:\n\n**Function Declaration:**\n```javascript\nfunction greet(name) {\n  return 'Hello, ' + name;\n}\n\n// Hoisted - can be called before declaration\nconsole.log(greet('Alice')); // Works!\n```\n\n**Function Expression:**\n```javascript\nconst greet = function(name) {\n  return 'Hello, ' + name;\n};\n\n// Not hoisted - must be declared first\n```\n\n**Arrow Function:**\n```javascript\nconst add = (a, b) => a + b;\nconst square = x => x * x;\nconst sayHello = () => 'Hello!';\n\n// Multi-line arrow function\nconst calculate = (a, b) => {\n  const sum = a + b;\n  return sum * 2;\n};\n```\n\n**When to Use:**\n- Declaration: General functions, need hoisting\n- Expression: Callbacks, avoid hoisting\n- Arrow: Short functions, preserve 'this'"
+      },
+      {
+        "title": "Scope & Variables",
+        "content": "Understand variable visibility:\n\n**Global Scope:**\n```javascript\nlet globalVar = 'I am global';\n\nfunction showGlobal() {\n  console.log(globalVar); // Accessible\n}\n```\n\n**Function Scope (var):**\n```javascript\nfunction testVar() {\n  if (true) {\n    var x = 10; // Function-scoped\n  }\n  console.log(x); // 10 (accessible)\n}\n```\n\n**Block Scope (let/const):**\n```javascript\nfunction testLet() {\n  if (true) {\n    let y = 20; // Block-scoped\n  }\n  console.log(y); // Error! Not accessible\n}\n```\n\n**Scope Chain:**\n```javascript\nlet outer = 'global';\n\nfunction outerFunc() {\n  let outer = 'outer';\n  \n  function innerFunc() {\n    let inner = 'inner';\n    console.log(inner); // 'inner'\n    console.log(outer); // 'outer'\n    console.log(globalVar); // 'global'\n  }\n  \n  innerFunc();\n}\n```\n\n**Best Practice:**\n- Use `const` by default\n- Use `let` when reassignment needed\n- Avoid `var` in modern JavaScript"
+      },
+      {
+        "title": "Closures",
+        "content": "Functions that remember their environment:\n\n**What is a Closure?**\nA closure gives you access to an outer function's scope from an inner function.\n\n**Basic Closure:**\n```javascript\nfunction createCounter() {\n  let count = 0;\n  \n  return function() {\n    count++;\n    return count;\n  };\n}\n\nconst counter = createCounter();\nconsole.log(counter()); // 1\nconsole.log(counter()); // 2\nconsole.log(counter()); // 3\n```\n\n**Practical Use Case:**\n```javascript\nfunction createMultiplier(multiplier) {\n  return function(number) {\n    return number * multiplier;\n  };\n}\n\nconst double = createMultiplier(2);\nconst triple = createMultiplier(3);\n\nconsole.log(double(5)); // 10\nconsole.log(triple(5)); // 15\n```\n\n**Data Privacy:**\n```javascript\nfunction createBankAccount() {\n  let balance = 0;\n  \n  return {\n    deposit: function(amount) {\n      balance += amount;\n      return balance;\n    },\n    getBalance: function() {\n      return balance;\n    }\n  };\n}\n\nconst account = createBankAccount();\naccount.deposit(100);\nconsole.log(account.getBalance()); // 100\n// balance is not accessible directly\n```"
+      },
+      {
+        "title": "Higher-Order Functions",
+        "content": "Functions that take or return functions:\n\n**Callback Functions:**\n```javascript\nfunction processArray(arr, callback) {\n  const result = [];\n  for (let item of arr) {\n    result.push(callback(item));\n  }\n  return result;\n}\n\nconst numbers = [1, 2, 3, 4];\nconst doubled = processArray(numbers, x => x * 2);\nconsole.log(doubled); // [2, 4, 6, 8]\n```\n\n**Built-in Higher-Order Functions:**\n```javascript\nlet numbers = [1, 2, 3, 4, 5];\n\n// map - transform each element\nlet squared = numbers.map(x => x * x);\n\n// filter - keep elements that pass test\nlet evens = numbers.filter(x => x % 2 === 0);\n\n// reduce - combine elements\nlet sum = numbers.reduce((acc, x) => acc + x, 0);\n\n// forEach - execute function on each\nnumbers.forEach(x => console.log(x));\n\n// find - get first match\nlet found = numbers.find(x => x > 3);\n\n// some/every - test conditions\nlet hasEven = numbers.some(x => x % 2 === 0);\nlet allPositive = numbers.every(x => x > 0);\n```\n\n**Chaining Methods:**\n```javascript\nlet result = numbers\n  .filter(x => x % 2 === 0)\n  .map(x => x * 2)\n  .reduce((acc, x) => acc + x, 0);\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/javascript-functions-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "JavaScript Closure Explorer",
+          "url": "https://closure-explorer.com/",
+          "free": true,
+          "reason": "Interactive closure visualization"
+        },
+        {
+          "name": "ES6 Features",
+          "url": "https://es6-features.org/",
+          "free": true,
+          "reason": "Complete ES6 feature reference"
+        }
+      ],
+      "furtherReading": [
+        "MDN Web Docs: Functions",
+        "JavaScript.info: Closures and scope",
+        "You Don't Know JS: Scope & Closures"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Closure",
+        "definition": "A function that has access to variables from its outer (enclosing) scope, even after the outer function has returned."
+      },
+      {
+        "term": "Scope",
+        "definition": "The context in which variables are declared and can be accessed."
+      },
+      {
+        "term": "Higher-Order Function",
+        "definition": "A function that takes one or more functions as arguments or returns a function."
+      },
+      {
+        "term": "Callback",
+        "definition": "A function passed as an argument to another function to be executed later."
+      }
+    ]
+  }
+]

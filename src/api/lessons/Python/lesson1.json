@@ -1,0 +1,78 @@
+[
+  {
+    "id": "1",
+    "title": "Python Basics",
+    "description": "Learn the fundamentals of Python programming, including variables, data types, and basic operations.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Understand Python syntax and structure",
+      "Work with variables and data types",
+      "Write basic Python programs",
+      "Use Python's built-in functions",
+      "Handle user input and output"
+    ],
+    "subtopics": [
+      {
+        "title": "Getting Started with Python",
+        "content": "Python is a powerful, easy-to-learn programming language. It's known for its clean syntax and readability.\n\n**What is Python?**\n- High-level programming language\n- Interpreted (no compilation needed)\n- Great for beginners and experts\n- Used for web development, data science, AI, and more\n\n**Key Features:**\n- Simple syntax (close to English)\n- Large standard library\n- Cross-platform (Windows, Mac, Linux)\n\n**First Program:**\n```python\nprint('Hello, World!')\n```\n\nThis is the traditional first program - it prints 'Hello, World!' to the screen."
+      },
+      {
+        "title": "Variables and Data Types",
+        "content": "Variables store data values. Python has several built-in data types.\n\n**Basic Data Types:**\n- `text` - Strings: `name = 'Alice'`\n- `int` - Integers: `age = 25`\n- `float` - Decimals: `price = 19.99`\n- `bool` - Boolean: `is_student = True`\n- `list` - Lists: `colors = ['red', 'green', 'blue']`\n\n**Example:**\n```python\n# Variables\nname = 'John'\nage = 30\nis_learning = True\n\n# Print variables\nprint(f'Name: {name}')\nprint(f'Age: {age}')\nprint(f'Learning: {is_learning}')\n```\n\n**Python Rules:**\n- Use descriptive variable names\n- No need to declare data types\n- Variables can change type (dynamically typed)"
+      },
+      {
+        "title": "Basic Operations",
+        "content": "Python supports all standard math and string operations.\n\n**Math Operations:**\n```python\n# Arithmetic\nsum = 10 + 5     # 15\ndifference = 20 - 8   # 12\nproduct = 6 * 7       # 42\nquotient = 15 / 3      # 5\n\n# Power and modulo\npower = 2 ** 3      # 8\nremainder = 10 % 3      # 1\n```\n\n**String Operations:**\n```python\n# String concatenation\ngreeting = 'Hello' + ' ' + 'World'  # 'Hello World'\n\n# String formatting\nname = 'Alice'\nage = 30\nmessage = f'{name} is {age} years old'  # 'Alice is 30 years old'\n\n# String methods\ntext = 'Hello World'\nprint(text.upper())      # 'HELLO WORLD'\nprint(text.lower())       # 'hello world'\nprint(len(text))           # 11\n```\n\n**Best Practice:**\n- Use f-strings for formatting\n- Learn string methods for text manipulation"
+      },
+      {
+        "title": "User Input and Output",
+        "content": "Interact with users through input and display output.\n\n**Getting Input:**\n```python\n# Basic input\nname = input('Enter your name: ')\nprint(f'Hello, {name}!')\n\n# Input with prompt\nage = int(input('Enter your age: '))\nif age >= 18:\n    print('You can register!')\nelse:\n    print('Sorry, too young to register.')\n```\n\n**Output Methods:**\n```python\n# Basic print\nprint('Simple message')\n\n# Formatted output\nname = 'John'\nscore = 95\nprint(f'Student: {name}, Score: {score}%')  # 'student: John, Score: 95%'\n\n# Multiple items\nname = 'Alice'\nage = 25\nprint(f'Name: {name}, Age: {age}')  # 'Name: Alice, Age: 25'\n```\n\n**Tips:**\n- Always validate user input\n- Use appropriate data types\n- Provide clear error messages"
+      },
+      {
+        "title": "Control Structures",
+        "content": "Make decisions in your code using conditional statements and loops.\n\n**If Statements:**\n```python\nage = 20\n\nif age >= 18:\n    print('You are an adult')\nelse:\n    print('You are a minor')\n\n# Multiple conditions\nscore = 85\n\nif score >= 90:\n    grade = 'A'\nelif score >= 80:\n    grade = 'B'\nelif score >= 70:\n    grade = 'C'\nelse:\n    grade = 'D'\n\nprint(f'Grade: {grade}')\n```\n\n**Loops:**\n```python\n# For loop\nfor i in range(5):\n    print(f'Count: {i}')\n\n# While loop\ncount = 0\nwhile count < 3:\n    print(f'Count: {count}')\n    count += 1\n```\n\n**Best Practice:**\n- Use meaningful variable names\n- Keep conditions simple and readable\n- Use loops for repetitive tasks"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/python-basics-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Python.org",
+          "url": "https://www.python.org/",
+          "free": true,
+          "reason": "Official Python documentation and tutorials"
+        },
+        {
+          "name": "VS Code",
+          "url": "https://code.visualstudio.com/",
+          "free": true,
+          "reason": "Excellent Python support with extensions"
+        }
+      ],
+      "furtherReading": [
+        "Python.org Tutorial",
+        "Real Python book by Mark Lutz",
+        "Automate the Boring Stuff with Python"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Variable",
+        "definition": "A named storage location for data values in Python."
+      },
+      {
+        "term": "Function",
+        "definition": "A reusable block of code that performs a specific task."
+      },
+      {
+        "term": "Loop",
+        "definition": "A control structure that repeats code execution multiple times."
+      },
+      {
+        "term": "Indentation",
+        "definition": "Python uses whitespace indentation to define code blocks instead of braces."
+      }
+    ]
+  }
+]

@@ -1,0 +1,100 @@
+[
+  {
+    "id": "4",
+    "title": "CSS Box Model and Layout",
+    "description": "Master the CSS box model, understand margin, padding, border, and content areas. Learn about display properties, positioning, and layout techniques to create structured web pages.",
+    "level": "Intermediate",
+    "duration": "55 minutes",
+    "learningObjectives": [
+      "Understand the CSS box model components",
+      "Control margin, padding, and border spacing",
+      "Use display properties for layout",
+      "Position elements using CSS positioning",
+      "Create flexible layouts with modern techniques"
+    ],
+    "subtopics": [
+      {
+        "title": "The CSS Box Model",
+        "content": "The CSS box model is a fundamental concept that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content.\n\n**Box Model Components:**\n- **Content**: The actual content (text, images)\n- **Padding**: Space around the content (inside border)\n- **Border**: A border around the padding\n- **Margin**: Space outside the border\n\n**Visual Representation:**\n```\n┌───────────────┐\n│    Margin     │\n│  ┌─────────┐  │\n│  │ Border  │  │\n│  │┌───────┐│  │\n│  ││Padding││  │\n│  │└───────┘│  │\n│  └─────────┘  │\n└───────────────┘\n```\n\n**Example:**\n```css\ndiv {\n  width: 300px;\n  padding: 25px;\n  border: 5px solid black;\n  margin: 25px;\n}\n```\n\n**Box Sizing:**\n```css\n/* Default: content-box */\ndiv {\n  box-sizing: content-box;\n  /* width = content width only */\n}\n\n/* Recommended: border-box */\ndiv {\n  box-sizing: border-box;\n  /* width includes padding and border */\n}\n```"
+      },
+      {
+        "title": "Margin and Padding",
+        "content": "Control space around and inside elements.\n\n**Margin (Outside Space):**\n```css\n/* All sides */\ndiv {\n  margin: 25px;\n}\n\n/* Individual sides */\ndiv {\n  margin-top: 50px;\n  margin-right: 30px;\n  margin-bottom: 50px;\n  margin-left: 30px;\n}\n\n/* Shorthand: top right bottom left */\ndiv {\n  margin: 50px 30px 50px 30px;\n}\n\n/* Shorthand: top/bottom left/right */\ndiv {\n  margin: 50px 30px;\n}\n```\n\n**Padding (Inside Space):**\n```css\ndiv {\n  padding: 20px;\n  padding: 10px 20px 10px 20px;\n}\n```\n\n**Auto Margin (Centering):**\n```css\ndiv {\n  width: 300px;\n  margin: 0 auto; /* Centers horizontally */\n}\n```"
+      },
+      {
+        "title": "Display Property",
+        "content": "The display property controls how elements are displayed.\n\n**Common Display Values:**\n```css\n/* Block-level elements */\ndiv {\n  display: block;\n  /* Takes full width, starts on new line */\n}\n\n/* Inline elements */\nspan {\n  display: inline;\n  /* Only takes needed width, stays in line */\n}\n\n/* Inline-block */\ndiv {\n  display: inline-block;\n  /* Inline but can have width/height */\n}\n\n/* None (hides element) */\ndiv {\n  display: none;\n  /* Element is hidden, takes no space */\n}\n```\n\n**Flexbox:**\n```css\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n```\n\n**Grid:**\n```css\n.container {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n}\n```"
+      },
+      {
+        "title": "CSS Positioning",
+        "content": "Control element positioning on the page.\n\n**Position Values:**\n```css\n/* Static (default) */\ndiv {\n  position: static;\n}\n\n/* Relative (relative to normal position) */\ndiv {\n  position: relative;\n  top: 10px;\n  left: 20px;\n}\n\n/* Absolute (relative to nearest positioned parent) */\ndiv {\n  position: absolute;\n  top: 50px;\n  right: 100px;\n}\n\n/* Fixed (relative to viewport) */\ndiv {\n  position: fixed;\n  bottom: 0;\n  right: 0;\n}\n\n/* Sticky (scrolls until threshold) */\ndiv {\n  position: sticky;\n  top: 10px;\n}\n```\n\n**Z-Index (Stacking Order):**\n```css\ndiv {\n  position: absolute;\n  z-index: 10; /* Higher = on top */\n}\n```"
+      },
+      {
+        "title": "Overflow and Visibility",
+        "content": "Control how content that exceeds element bounds is handled.\n\n**Overflow Property:**\n```css\n/* Visible (default) */\ndiv {\n  overflow: visible;\n}\n\n/* Hidden (clip content) */\ndiv {\n  overflow: hidden;\n}\n\n/* Scroll (add scrollbars) */\ndiv {\n  overflow: scroll;\n}\n\n/* Auto (scroll when needed) */\ndiv {\n  overflow: auto;\n}\n\n/* Individual axes */\ndiv {\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n```\n\n**Visibility:**\n```css\ndiv {\n  visibility: visible; /* default */\n  visibility: hidden; /* hidden but takes space */\n}\n\n/* Difference from display: none */\n/* display: none - element removed from layout */\n/* visibility: hidden - element invisible but in layout */\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/css-boxmodel-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Box Model Debugger",
+          "url": "https://developer.chrome.com/docs/devtools/css/reference/#box-model",
+          "free": true,
+          "reason": "Browser tool to visualize box model"
+        },
+        {
+          "name": "Flexbox Froggy",
+          "url": "https://flexboxfroggy.com/",
+          "free": true,
+          "reason": "Interactive game to learn flexbox"
+        },
+        {
+          "name": "CSS Grid Garden",
+          "url": "https://cssgridgarden.com/",
+          "free": true,
+          "reason": "Interactive game to learn CSS Grid"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools CSS Box Model",
+        "W3Schools CSS Display",
+        "W3Schools CSS Positioning"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Box Model",
+        "definition": "The CSS concept that wraps every HTML element, consisting of margin, border, padding, and content."
+      },
+      {
+        "term": "Margin",
+        "definition": "The space outside an element's border, creating distance from other elements."
+      },
+      {
+        "term": "Padding",
+        "definition": "The space between an element's content and its border."
+      },
+      {
+        "term": "Box Sizing",
+        "definition": "Property that determines whether width includes padding and border."
+      },
+      {
+        "term": "Display Property",
+        "definition": "Controls how an element is displayed (block, inline, flex, grid, etc.)."
+      },
+      {
+        "term": "Positioning",
+        "definition": "Method of placing elements in specific locations on the page."
+      },
+      {
+        "term": "Z-Index",
+        "definition": "Property that controls the stacking order of positioned elements."
+      },
+      {
+        "term": "Overflow",
+        "definition": "Controls how content that exceeds an element's box is handled."
+      }
+    ]
+  }
+]

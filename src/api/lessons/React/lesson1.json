@@ -1,0 +1,96 @@
+[
+  {
+    "id": "1",
+    "title": "React Introduction and Setup",
+    "description": "Learn the fundamentals of React, what it is, how it works, and how to set up a React development environment.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Understand what React is and its purpose in web development",
+      "Learn about React's component-based architecture",
+      "Set up a React development environment",
+      "Create your first React application",
+      "Understand JSX syntax"
+    ],
+    "subtopics": [
+      {
+        "title": "What is React?",
+        "content": "React is a JavaScript library for building user interfaces, developed and maintained by Facebook.\n\n**Key Points:**\n- Component-based architecture\n- Virtual DOM for efficient updates\n- Declarative programming style\n- Used for building single-page applications\n- Large ecosystem and community\n\n**Why Use React?**\n- **Reusable Components**: Build encapsulated components that manage their own state\n- **Virtual DOM**: Efficient updates without direct DOM manipulation\n- **Declarative**: Describe what the UI should look like, React handles the rest\n- **Ecosystem**: Huge library of components and tools\n- **Performance**: Optimized rendering with virtual DOM\n\n**Common Uses:**\n- Single-page applications (SPAs)\n- Mobile applications (React Native)\n- Server-side rendering (Next.js)\n- Desktop applications (Electron with React)\n\n**React Version History:**\n- React 0.3 (2013) - Initial release\n- React 15 (2016) - Major improvements\n- React 16 (2017) - Fiber architecture\n- React 17 (2020) - No new features, focused on upgrades\n- React 18 (2022) - Concurrent features, automatic batching"
+      },
+      {
+        "title": "Setting Up React",
+        "content": "There are several ways to set up a React development environment.\n\n**Using Create React App (CRA):**\n```bash\nnpx create-react-app my-app\ncd my-app\nnpm start\n```\n\n**Using Vite (Recommended):**\n```bash\nnpm create vite@latest my-app -- --template react\ncd my-app\nnpm install\nnpm run dev\n```\n\n**Using Next.js (Full-featured):**\n```bash\nnpx create-next-app my-app\ncd my-app\nnpm run dev\n```\n\n**Project Structure:**\n```\nmy-app/\n├── node_modules/\n├── public/\n│   └── index.html\n├── src/\n│   ├── App.css\n│   ├── App.js\n│   ├── index.css\n│   └── index.js\n├── package.json\n└── README.md\n```\n\n**Best Practice:**\n- Use Vite for new projects (faster, modern)\n- Use Next.js for full-stack applications\n- Use CRA for simple projects (being phased out)"
+      },
+      {
+        "title": "Your First React Component",
+        "content": "Components are the building blocks of React applications.\n\n**Functional Component:**\n```jsx\nfunction Welcome() {\n  return <h1>Hello, World!</h1>;\n}\n\nexport default Welcome;\n```\n\n**App Component:**\n```jsx\nimport React from 'react';\nimport './App.css';\n\nfunction App() {\n  return (\n    <div className=\"App\">\n      <header className=\"App-header\">\n        <h1>Welcome to React</h1>\n        <p>Start editing to see some magic happen!</p>\n      </header>\n    </div>\n  );\n}\n\nexport default App;\n```\n\n**Component Rules:**\n- Component names must start with uppercase\n- Components return JSX\n- Components can be reused throughout the app\n- Each component manages its own state"
+      },
+      {
+        "title": "Understanding JSX",
+        "content": "JSX is a syntax extension for JavaScript that looks similar to HTML.\n\n**What is JSX?**\n- JavaScript XML\n- Allows writing HTML in JavaScript\n- Transpiled to JavaScript by Babel\n- Makes React code more readable\n\n**JSX Examples:**\n```jsx\n// JSX\nconst element = <h1>Hello, World!</h1>;\n\n// Equivalent JavaScript\nconst element = React.createElement('h1', null, 'Hello, World!');\n```\n\n**JSX Rules:**\n```jsx\n// Must have one parent element\nreturn (\n  <div>\n    <h1>Title</h1>\n    <p>Content</p>\n  </div>\n);\n\n// Or use Fragment (React 16+)\nreturn (\n  <>\n    <h1>Title</h1>\n    <p>Content</p>\n  </>\n);\n```\n\n**Expressions in JSX:**\n```jsx\nconst name = 'John';\nconst element = <h1>Hello, {name}!</h1>;\n\nconst sum = 5 + 3;\nconst element = <p>Result: {sum}</p>;\n```\n\n**Attributes in JSX:**\n```jsx\n// HTML attributes use camelCase\n<img src=\"image.jpg\" alt=\"Description\" />\n<button onClick={handleClick}>Click me</button>\n<input type=\"text\" placeholder=\"Enter text\" />\n```"
+      },
+      {
+        "title": "Rendering Components",
+        "content": "Learn how to render React components to the DOM.\n\n**Rendering to DOM:**\n```jsx\nimport React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\n\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(<App />);\n```\n\n**Multiple Components:**\n```jsx\n// Header.js\nfunction Header() {\n  return <header>My Website</header>;\n}\n\n// Footer.js\nfunction Footer() {\n  return <footer>© 2024</footer>;\n}\n\n// App.js\nfunction App() {\n  return (\n    <div>\n      <Header />\n      <main>\n        <h1>Welcome</h1>\n      </main>\n      <Footer />\n    </div>\n  );\n}\n```\n\n**Component Composition:**\n```jsx\nfunction Card({ title, content }) {\n  return (\n    <div className=\"card\">\n      <h2>{title}</h2>\n      <p>{content}</p>\n    </div>\n  );\n}\n\nfunction App() {\n  return (\n    <div>\n      <Card title=\"Card 1\" content=\"Content 1\" />\n      <Card title=\"Card 2\" content=\"Content 2\" />\n    </div>\n  );\n}\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/react-basics-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "React Documentation",
+          "url": "https://react.dev/",
+          "free": true,
+          "reason": "Official React documentation with interactive examples"
+        },
+        {
+          "name": "Create React App",
+          "url": "https://create-react-app.dev/",
+          "free": true,
+          "reason": "Official tool for creating React applications"
+        },
+        {
+          "name": "Vite",
+          "url": "https://vitejs.dev/",
+          "free": true,
+          "reason": "Fast build tool for React applications"
+        }
+      ],
+      "furtherReading": [
+        "React Documentation - Getting Started",
+        "React Tutorial - Official Docs",
+        "Full Stack React"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "React",
+        "definition": "A JavaScript library for building user interfaces with a component-based architecture."
+      },
+      {
+        "term": "Component",
+        "definition": "A reusable, self-contained piece of UI that can accept inputs (props) and return JSX."
+      },
+      {
+        "term": "JSX",
+        "definition": "A syntax extension for JavaScript that allows writing HTML-like code in JavaScript files."
+      },
+      {
+        "term": "Virtual DOM",
+        "definition": "A lightweight JavaScript representation of the real DOM that React uses for efficient updates."
+      },
+      {
+        "term": "Functional Component",
+        "definition": "A JavaScript function that returns JSX and can receive props as arguments."
+      },
+      {
+        "term": "Fragment",
+        "definition": "A React feature that lets you group multiple elements without adding extra DOM nodes."
+      },
+      {
+        "term": "Transpilation",
+        "definition": "The process of converting JSX and modern JavaScript to browser-compatible JavaScript."
+      }
+    ]
+  }
+]

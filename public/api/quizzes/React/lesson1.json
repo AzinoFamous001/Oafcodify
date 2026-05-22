@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "What is React?",
+    "options": [
+      "A database management system",
+      "A JavaScript library for building user interfaces",
+      "A programming language",
+      "A CSS framework"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React is a JavaScript library for building user interfaces with a component-based architecture."
+  },
+  {
+    "id": 2,
+    "question": "What is JSX?",
+    "options": [
+      "A JavaScript framework",
+      "A syntax extension for JavaScript",
+      "A database query language",
+      "A CSS preprocessor"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JSX is a syntax extension for JavaScript that allows writing HTML-like code in JavaScript files."
+  },
+  {
+    "id": 3,
+    "question": "How do you create a functional component in React?",
+    "options": [
+      "class MyComponent extends Component",
+      "function MyComponent()",
+      "create component MyComponent",
+      "def MyComponent()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functional components are created using JavaScript function syntax."
+  },
+  {
+    "id": 4,
+    "question": "What is the virtual DOM?",
+    "options": [
+      "A real DOM copy",
+      "A lightweight JavaScript representation of the DOM",
+      "A database",
+      "A CSS framework"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The virtual DOM is a lightweight JavaScript representation of the actual DOM that React uses for efficient updates."
+  },
+  {
+    "id": 5,
+    "question": "Which command creates a React app using Vite?",
+    "options": [
+      "npx create-react-app my-app",
+      "npm create vite@latest my-app -- --template react",
+      "npx create-next-app my-app",
+      "npm init react my-app"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Vite is the recommended modern tool for creating React applications."
+  },
+  {
+    "id": 6,
+    "question": "What is the correct way to render a React component to the DOM?",
+    "options": [
+      "render(Component)",
+      "ReactDOM.createRoot(document.getElementById('root')).render(<Component />)",
+      "Component.render()",
+      "show(Component)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React 18 uses createRoot() to render components to the DOM."
+  },
+  {
+    "id": 7,
+    "question": "What must JSX have as a parent element?",
+    "options": [
+      "No parent required",
+      "A single parent element or Fragment",
+      "Multiple parent elements",
+      "A div element only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JSX must have a single parent element, or you can use Fragment to group multiple elements."
+  },
+  {
+    "id": 8,
+    "question": "How do you embed a JavaScript expression in JSX?",
+    "options": [
+      "Using double quotes",
+      "Using curly braces {}",
+      "Using parentheses ()",
+      "Using square brackets []"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JavaScript expressions in JSX are embedded using curly braces {}."
+  },
+  {
+    "id": 9,
+    "question": "What is the purpose of the Fragment in React?",
+    "options": [
+      "To create a broken component",
+      "To group multiple elements without adding extra DOM nodes",
+      "To add styling to elements",
+      "To create animations"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fragments let you group multiple elements without adding extra DOM nodes to the structure."
+  },
+  {
+    "id": 10,
+    "question": "How are HTML attributes written in JSX?",
+    "options": [
+      "Using lowercase (e.g., onclick)",
+      "Using camelCase (e.g., onClick)",
+      "Using kebab-case (e.g., on-click)",
+      "Using uppercase (e.g., ONCLICK)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "HTML attributes in JSX are written in camelCase, such as onClick instead of onclick."
+  },
+  {
+    "id": 11,
+    "question": "What is component composition in React?",
+    "options": [
+      "Creating one large component",
+      "Combining smaller components to build complex UIs",
+      "Deleting components",
+      "Styling components"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Component composition is the practice of combining smaller components to build more complex user interfaces."
+  },
+  {
+    "id": 12,
+    "question": "What is the main benefit of React's component-based architecture?",
+    "options": [
+      "Slower performance",
+      "Reusable and maintainable code",
+      "Harder to debug",
+      "More complex syntax"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Component-based architecture allows for reusable, maintainable, and modular code."
+  },
+  {
+    "id": 13,
+    "question": "What does React use to efficiently update the DOM?",
+    "options": [
+      "Direct DOM manipulation",
+      "Virtual DOM",
+      "jQuery",
+      "Vanilla JavaScript"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React uses the Virtual DOM to efficiently update the actual DOM without direct manipulation."
+  },
+  {
+    "id": 14,
+    "question": "What is the purpose of Babel in React development?",
+    "options": [
+      "To style components",
+      "To transpile JSX to JavaScript",
+      "To manage state",
+      "To handle routing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Babel transpiles JSX and modern JavaScript to browser-compatible JavaScript."
+  },
+  {
+    "id": 15,
+    "question": "Which tool is recommended for new React projects due to its speed?",
+    "options": [
+      "Create React App",
+      "Vite",
+      "Webpack",
+      "Parcel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Vite is recommended for new React projects because it's faster and more modern than Create React App."
+  },
+  {
+    "id": 16,
+    "question": "What is the entry point of a React application?",
+    "options": [
+      "App.js",
+      "index.js or main.jsx",
+      "package.json",
+      "README.md"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The index.js or main.jsx file is the entry point where React renders the root component."
+  },
+  {
+    "id": 17,
+    "question": "What is the purpose of the src folder in a React project?",
+    "options": [
+      "To store images",
+      "To store source code and components",
+      "To store configuration files",
+      "To store documentation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The src folder contains the source code, components, and application logic."
+  },
+  {
+    "id": 18,
+    "question": "What is declarative programming in React?",
+    "options": [
+      "Writing step-by-step instructions",
+      "Describing what the UI should look like",
+      "Writing low-level code",
+      "Manual DOM manipulation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Declarative programming means describing what the UI should look like, and React handles the implementation."
+  },
+  {
+    "id": 19,
+    "question": "What is the purpose of the public folder in a React project?",
+    "options": [
+      "To store components",
+      "To store static assets like images and index.html",
+      "To store configuration",
+      "To store tests"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The public folder contains static assets like images, favicon, and the index.html file."
+  },
+  {
+    "id": 20,
+    "question": "What is the correct syntax for a self-closing JSX element?",
+    "options": [
+      "<img></img>",
+      "<img />",
+      "<img>",
+      "<image/>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Self-closing JSX elements use a forward slash before the closing angle bracket, like <img />."
+  }
+]

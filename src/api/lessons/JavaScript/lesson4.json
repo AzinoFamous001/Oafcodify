@@ -1,0 +1,73 @@
+[
+  {
+    "id": "4",
+    "title": "Control Flow & Loops",
+    "description": "Learn conditional statements and loops to control program execution flow.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Use if-else statements for decision making",
+      "Implement switch statements",
+      "Write different types of loops",
+      "Use break and continue statements",
+      "Apply control flow in practical scenarios"
+    ],
+    "subtopics": [
+      {
+        "title": "Conditional Statements",
+        "content": "Make decisions in your code:\n\n**if-else Statement:**\n```javascript\nlet age = 18;\n\nif (age >= 18) {\n  console.log('You are an adult');\n} else {\n  console.log('You are a minor');\n}\n```\n\n**else-if Chain:**\n```javascript\nlet score = 85;\n\nif (score >= 90) {\n  console.log('A');\n} else if (score >= 80) {\n  console.log('B');\n} else if (score >= 70) {\n  console.log('C');\n} else {\n  console.log('F');\n}\n```\n\n**Ternary Operator:**\n```javascript\nlet age = 20;\nlet status = age >= 18 ? 'adult' : 'minor';\nconsole.log(status); // 'adult'\n```\n\n**Logical Operators:**\n- `&&` (AND): Both conditions must be true\n- `||` (OR): At least one condition must be true\n- `!` (NOT): Reverses the condition"
+      },
+      {
+        "title": "Switch Statement",
+        "content": "Handle multiple conditions cleanly:\n\n**Basic Switch:**\n```javascript\nlet day = 'Monday';\n\nswitch (day) {\n  case 'Monday':\n    console.log('Start of the week');\n    break;\n  case 'Friday':\n    console.log('Almost weekend');\n    break;\n  case 'Saturday':\n  case 'Sunday':\n    console.log('Weekend!');\n    break;\n  default:\n    console.log('Regular day');\n}\n```\n\n**When to Use Switch:**\n- Multiple conditions on same variable\n- Cleaner than many if-else statements\n- Better readability for fixed values\n\n**Important:**\n- Always use `break` to prevent fall-through\n- `default` case catches unmatched values"
+      },
+      {
+        "title": "For Loops",
+        "content": "Repeat code multiple times:\n\n**For Loop:**\n```javascript\nfor (let i = 0; i < 5; i++) {\n  console.log('Iteration:', i);\n}\n// Output: 0, 1, 2, 3, 4\n```\n\n**For...of Loop (Arrays):**\n```javascript\nlet fruits = ['apple', 'banana', 'orange'];\n\nfor (let fruit of fruits) {\n  console.log(fruit);\n}\n```\n\n**For...in Loop (Objects):**\n```javascript\nlet person = { name: 'John', age: 30 };\n\nfor (let key in person) {\n  console.log(key + ': ' + person[key]);\n}\n```\n\n**Loop Components:**\n- Initialization: `let i = 0`\n- Condition: `i < 5`\n- Increment: `i++`"
+      },
+      {
+        "title": "While Loops & Control",
+        "content": "Alternative loop structures:\n\n**While Loop:**\n```javascript\nlet count = 0;\n\nwhile (count < 5) {\n  console.log('Count:', count);\n  count++;\n}\n```\n\n**Do-While Loop:**\n```javascript\nlet i = 0;\n\ndo {\n  console.log('At least once:', i);\n  i++;\n} while (i < 5);\n```\n\n**Break and Continue:**\n```javascript\nfor (let i = 0; i < 10; i++) {\n  if (i === 5) {\n    break; // Exit loop completely\n  }\n  if (i % 2 === 0) {\n    continue; // Skip to next iteration\n  }\n  console.log('Odd number:', i);\n}\n```\n\n**When to Use:**\n- `for`: Known number of iterations\n- `while`: Unknown iterations, condition-based\n- `do-while`: At least one iteration needed\n- `break`: Exit loop early\n- `continue`: Skip current iteration"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/javascript-control-flow-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "JS Visualizer",
+          "url": "http://pythontutor.com/javascript.html",
+          "free": true,
+          "reason": "Visualize code execution step by step"
+        },
+        {
+          "name": "Loop Explorer",
+          "url": "https://loop-explorer.com/",
+          "free": true,
+          "reason": "Interactive loop visualization"
+        }
+      ],
+      "furtherReading": [
+        "MDN Web Docs: Control flow",
+        "JavaScript.info: Loops and iterations"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Conditional",
+        "definition": "A statement that executes different code based on whether a condition is true or false."
+      },
+      {
+        "term": "Loop",
+        "definition": "A programming construct that repeats a block of code multiple times."
+      },
+      {
+        "term": "Iteration",
+        "definition": "A single execution of a loop's body."
+      },
+      {
+        "term": "Break",
+        "definition": "A statement that exits a loop immediately."
+      }
+    ]
+  }
+]

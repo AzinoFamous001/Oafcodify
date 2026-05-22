@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "How are React event handlers named?",
+    "options": [
+      "Using lowercase (e.g., onclick)",
+      "Using camelCase (e.g., onClick)",
+      "Using kebab-case (e.g., on-click)",
+      "Using uppercase (e.g., ONCLICK)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React event handlers use camelCase naming convention, such as onClick instead of onclick."
+  },
+  {
+    "id": 2,
+    "question": "What is the purpose of event.preventDefault() in React?",
+    "options": [
+      "To prevent the event from firing",
+      "To prevent the default browser behavior",
+      "To stop event propagation",
+      "To delete the event"
+    ],
+    "correctAnswer": 1,
+    "explanation": "event.preventDefault() prevents the default browser behavior, such as form submission."
+  },
+  {
+    "id": 3,
+    "question": "What is a synthetic event in React?",
+    "options": [
+      "A fake event",
+      "React's cross-browser wrapper around native browser events",
+      "A custom event type",
+      "An error event"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Synthetic events are React's cross-browser wrappers around native browser events for consistency."
+  },
+  {
+    "id": 4,
+    "question": "How do you pass arguments to an event handler in React?",
+    "options": [
+      "onClick={handleClick(arg)}",
+      "onClick={() => handleClick(arg)}",
+      "onClick={handleClick.bind(arg)}",
+      "onClick='handleClick(arg)'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Use an arrow function to pass arguments to event handlers in React."
+  },
+  {
+    "id": 5,
+    "question": "What is event bubbling?",
+    "options": [
+      "Events that float up",
+      "Events propagating from child to parent elements",
+      "Events that disappear",
+      "Events that repeat"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Event bubbling is when events propagate from child elements up to parent elements."
+  },
+  {
+    "id": 6,
+    "question": "How do you stop event propagation in React?",
+    "options": [
+      "event.stop()",
+      "event.stopPropagation()",
+      "event.cancel()",
+      "event.halt()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "event.stopPropagation() stops the event from propagating to parent elements."
+  },
+  {
+    "id": 7,
+    "question": "What is a controlled component in React?",
+    "options": [
+      "A component that controls other components",
+      "A form element whose value is controlled by React state",
+      "A component with no state",
+      "A class component"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Controlled components have their form data controlled by React state."
+  },
+  {
+    "id": 8,
+    "question": "How do you handle a text input in a controlled component?",
+    "options": [
+      "Use ref to get the value",
+      "Use value and onChange props",
+      "Use onInput only",
+      "Use defaultValue only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Controlled text inputs use the value prop to display and onChange to update state."
+  },
+  {
+    "id": 9,
+    "question": "How do you handle a checkbox in a controlled component?",
+    "options": [
+      "Use value prop",
+      "Use checked prop",
+      "Use selected prop",
+      "Use active prop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Checkboxes in controlled components use the checked prop instead of value."
+  },
+  {
+    "id": 10,
+    "question": "How do you handle a select dropdown in a controlled component?",
+    "options": [
+      "Use selected prop on options",
+      "Use value prop on select element",
+      "Use checked prop",
+      "Use defaultSelected prop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Controlled select elements use the value prop on the select element to control the selected option."
+  },
+  {
+    "id": 11,
+    "question": "What is the purpose of form validation?",
+    "options": [
+      "To make forms look better",
+      "To ensure user input meets specified requirements",
+      "To delete form data",
+      "To slow down form submission"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Form validation ensures user input meets specified requirements before submission."
+  },
+  {
+    "id": 12,
+    "question": "How do you handle form submission in React?",
+    "options": [
+      "Use onClick on the submit button",
+      "Use onSubmit on the form with preventDefault",
+      "Use onFormSubmit",
+      "Use handleSubmit only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Form submission is handled using the onSubmit event with preventDefault to stop page reload."
+  },
+  {
+    "id": 13,
+    "question": "What is real-time form validation?",
+    "options": [
+      "Validation after submission",
+      "Validation as the user types",
+      "Validation once per day",
+      "No validation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Real-time validation checks input as the user types, providing immediate feedback."
+  },
+  {
+    "id": 14,
+    "question": "What is Formik?",
+    "options": [
+      "A CSS framework",
+      "A popular React form library",
+      "A database",
+      "A testing tool"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Formik is a popular React library for handling forms with validation."
+  },
+  {
+    "id": 15,
+    "question": "What is React Hook Form?",
+    "options": [
+      "A hook for forms",
+      "A high-performance form library for React",
+      "A CSS library",
+      "A state management tool"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React Hook Form is a high-performance form library that reduces re-renders."
+  },
+  {
+    "id": 16,
+    "question": "How do you handle a textarea in a controlled component?",
+    "options": [
+      "Use text prop",
+      "Use value prop",
+      "Use content prop",
+      "Use message prop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Controlled textareas use the value prop to control their content."
+  },
+  {
+    "id": 17,
+    "question": "What is the purpose of the name attribute in form inputs?",
+    "options": [
+      "To style the input",
+      "To identify the input when processing form data",
+      "To add a tooltip",
+      "To make the input required"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The name attribute identifies the input when processing form data, especially with object state."
+  },
+  {
+    "id": 18,
+    "question": "How do you handle radio buttons in a controlled component?",
+    "options": [
+      "Use value prop on each radio",
+      "Use checked prop with matching value",
+      "Use selected prop",
+      "Use active prop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Radio buttons use the checked prop that matches the selected value in state."
+  },
+  {
+    "id": 19,
+    "question": "What is the difference between onChange and onInput?",
+    "options": [
+      "No difference",
+      "onChange is React's standard, onInput is less commonly used",
+      "onInput is for React, onChange is for vanilla JS",
+      "onInput is deprecated"
+    ],
+    "correctAnswer": 1,
+    "explanation": "onChange is React's standard event handler for input changes, though onInput also works."
+  },
+  {
+    "id": 20,
+    "question": "When should you use a form library like Formik or React Hook Form?",
+    "options": [
+      "For all forms",
+      "For complex forms with validation and many fields",
+      "Never, always build from scratch",
+      "Only for simple forms"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Form libraries are beneficial for complex forms with validation requirements and many fields."
+  }
+]

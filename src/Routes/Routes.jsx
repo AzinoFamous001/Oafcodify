@@ -14,6 +14,20 @@ import NotificationsPage from "../Pages/Notification";
 import SettingsPage from "../Pages/Setting";
 import PerformancePage from "../Pages/Performance";
 import LessonPage from "../Pages/Lesson";
+import QuizPage from "../Pages/Quiz";
+import QuizResultPage from "../Pages/QuizResult";
+import Error404Page from "../Pages/Error404";
+import CoursesPage from "../Pages/Courses";
+import ProjectsPage from "../Pages/Projects";
+import PricingPage from "../Pages/Pricing";
+import RoadmapPage from "../Pages/Roadmap";
+import HelpPage from "../Pages/Help";
+import CommunityPage from "../Pages/Community";
+import ContactPage from "../Pages/Contact";
+import StatusPage from "../Pages/Status";
+import PrivacyPage from "../Pages/Privacy";
+import TermsPage from "../Pages/Terms";
+import VideosPage from "../Pages/Videos";
 
 const router = createBrowserRouter([
   // --- AUTH ROUTES ---
@@ -42,6 +56,18 @@ const router = createBrowserRouter([
         path: "/editor",
         element: <EditorPage />,
       },
+      {
+        path: "/videos",
+        element: <VideosPage />,
+      },
+      {
+        path: "/quiz/:courseKey/:lessonId",
+        element: <QuizPage />,
+      },
+      {
+        path: "/quiz-result",
+        element: <QuizResultPage />,
+      },
 
       // ✅ FIXED ROUTE (IMPORTANT)
       {
@@ -65,24 +91,55 @@ const router = createBrowserRouter([
         path: "/performance",
         element: <PerformancePage />,
       },
+
+      // Footer pages
+      {
+        path: "/courses",
+        element: <CoursesPage />,
+      },
+      {
+        path: "/projects",
+        element: <ProjectsPage />,
+      },
+      {
+        path: "/pricing",
+        element: <PricingPage />,
+      },
+      {
+        path: "/roadmap",
+        element: <RoadmapPage />,
+      },
+      {
+        path: "/help",
+        element: <HelpPage />,
+      },
+      {
+        path: "/community",
+        element: <CommunityPage />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
+      },
+      {
+        path: "/status",
+        element: <StatusPage />,
+      },
+      {
+        path: "/privacy",
+        element: <PrivacyPage />,
+      },
+      {
+        path: "/terms",
+        element: <TermsPage />,
+      },
     ],
   },
 
   // --- 404 ---
   {
     path: "*",
-    element: (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-4xl font-bold text-gray-800">404</h1>
-        <p className="text-gray-600 mb-4">Oops! This page doesn't exist.</p>
-        <NavLink
-          to="/signup"
-          className="text-blue-600 font-semibold hover:underline"
-        >
-          Go back home
-        </NavLink>
-      </div>
-    ),
+    element: <Error404Page />,
   },
 ]);
 

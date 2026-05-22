@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
+import LoadingPage from "../../Components/shared/LoadingPage";
 
 import {
   FaGithub,
@@ -43,8 +44,125 @@ const LoginPage = () => {
     password: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Update login streak
+  const updateLoginStreak = (userId) => {
+    const streakKey = `streak_${userId}`;
+    const lastLoginKey = `lastLogin_${userId}`;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayStr = today.toISOString().split("T")[0];
+
+    const lastLoginStr = localStorage.getItem(lastLoginKey);
+
+    console.log('Login Streak Debug - userId:', userId);
+    console.log('Login Streak Debug - todayStr:', todayStr);
+    console.log('Login Streak Debug - lastLoginStr:', lastLoginStr);
+
+    let streak = 0;
+    const savedStreak = localStorage.getItem(streakKey);
+    if (savedStreak && !isNaN(savedStreak)) {
+      streak = Math.max(0, parseInt(savedStreak));
+    }
+    console.log('Login Streak Debug - savedStreak:', savedStreak, 'current streak:', streak);
+
+    if (!lastLoginStr) {
+      streak = 1;
+      localStorage.setItem(lastLoginKey, todayStr);
+      localStorage.setItem(streakKey, streak.toString());
+      console.log('Login Streak Debug - First time login, set streak to 1');
+    } else {
+      if (lastLoginStr === todayStr) {
+        console.log('Login Streak Debug - Already logged in today, returning streak:', streak);
+        return streak;
+      }
+
+      const lastLoginDate = new Date(lastLoginStr);
+      lastLoginDate.setHours(0, 0, 0, 0);
+
+      const diffTime = today - lastLoginDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      console.log('Login Streak Debug - diffDays:', diffDays);
+
+      if (diffDays === 1) {
+        streak += 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+        console.log('Login Streak Debug - Consecutive day, incremented streak to:', streak);
+      } else if (diffDays > 1) {
+        streak = 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+        console.log('Login Streak Debug - Missed day, reset streak to 1');
+      } else if (diffDays < 0) {
+        streak = 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+        console.log('Login Streak Debug - Future date, reset streak to 1');
+      } else {
+        console.log('Login Streak Debug - Same day (diffDays 0), returning streak:', streak);
+        return streak;
+      }
+    }
+
+    console.log('Login Streak Debug - Final streak:', streak);
+    return Math.max(0, streak);
+  };
+
+  // Generate cartoon avatar (deterministic based on username)
+  const generateCartoonAvatar = (userName) => {
+    const avatarStyles = [
+      'adventurer', 'adventurer-neutral', 'avataaars', 'bottts',
+      'fun-emoji', 'lorelei', 'micah', 'notionists', 'open-peeps', 'personas'
+    ];
+    // Use a simple hash of the username to always select the same style for the same user
+    let hash = 0;
+    for (let i = 0; i < userName.length; i++) {
+      hash = userName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const styleIndex = Math.abs(hash) % avatarStyles.length;
+    const randomStyle = avatarStyles[styleIndex];
+    const seed = userName || Math.random().toString(36).substring(7);
+    return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
+  };
+
+  // Handle OAuth callback
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const authSuccess = urlParams.get('auth');
+
+    if (authSuccess === 'success') {
+      // Fetch user data from backend
+      fetch('http://localhost:5000/api/auth/user', {
+        credentials: 'include'
+      })
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Not authenticated');
+        })
+        .then(data => {
+          localStorage.setItem('userName', data.user.fullName);
+          localStorage.setItem('userEmail', data.user.email);
+          localStorage.setItem('currentUserId', data.user.id);
+          // Generate cartoon avatar if not already set
+          const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
+          localStorage.setItem('userAvatar', cartoonAvatar);
+          // Update login streak for OAuth users
+          updateLoginStreak(data.user.id);
+          setShowSuccess(true);
+        })
+        .catch(err => {
+          console.error('OAuth callback error:', err);
+          // Redirect to login if authentication failed
+          navigate('/login');
+        });
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,6 +188,9 @@ const LoginPage = () => {
         localStorage.setItem("userEmail", data.user.email);
         localStorage.setItem("currentUserId", data.user.id);
 
+        // Update login streak (preserves legitimate streaks)
+        updateLoginStreak(data.user.id);
+
         setShowSuccess(true);
       } else {
         alert(data.message || "Invalid credentials");
@@ -81,6 +202,10 @@ const LoginPage = () => {
     }
   };
 
+  if (loading) {
+    return <LoadingPage message="Authenticating..." />;
+  }
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
       <AnimatedBackground />
@@ -89,7 +214,7 @@ const LoginPage = () => {
         isOpen={showSuccess}
         onClose={() => navigate("/dashboard")}
         title="Welcome Back!"
-        message="You have successfully logged into CodeBay."
+        message="You have successfully logged into Oafcodify."
       />
 
       <div className="relative z-10 w-full max-w-md md:max-w-4xl">
@@ -98,7 +223,7 @@ const LoginPage = () => {
           <section className="flex flex-col items-center justify-center text-center md:w-2/5 bg-slate-50/80 p-6 md:p-8 border-b md:border-b-0 md:border-r border-gray-100">
             <img src="/Logo_6.png" alt="Logo" className="h-20 md:h-16" />
             <h1 className="text-2xl md:text-3xl mb-1.5 font-bold text-gray-800">
-              CodeBay
+              Oafcodify
             </h1>
             <p className="text-[#153498] font-medium italic mb-4 md:mb-6 text-sm md:text-base">
               Master Code. Build Future.
@@ -117,7 +242,7 @@ const LoginPage = () => {
           <div className="flex-1 px-6 py-8 md:px-12 md:py-10">
             <header className="mb-6 text-center md:text-left">
               <h2 className="text-2xl font-bold text-gray-900 mb-1">Login</h2>
-              <p className="text-gray-500 text-sm">Welcome back to CodeBay</p>
+              <p className="text-gray-500 text-sm">Welcome back to Oafcodify</p>
             </header>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -172,18 +297,20 @@ const LoginPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-              <button className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1">
+              <button
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/github"}
+                className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
+              >
                 <FaGithub size={18} className="mr-2 text-gray-700" />
-                <span className="font-bold text-[11px] text-gray-700">
-                  GitHub
-                </span>
+                <span className="">Github</span>
               </button>
 
-              <button className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1">
+              <button
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/google"}
+                className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
+              >
                 <FaGoogle size={18} className="mr-2 text-gray-700" />
-                <span className="font-bold text-[11px] text-gray-700">
-                  Google
-                </span>
+                <span>Google</span>
               </button>
             </div>
           </div>

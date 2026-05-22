@@ -1,0 +1,242 @@
+[
+  {
+    "id": 5,
+    "question": "What is the correct way to output text in C++?",
+    "options": [
+      "print('Hello')",
+      "cout << 'Hello'",
+      "console.log('Hello')",
+      "echo 'Hello'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "cout << is used to output text in C++."
+  },
+  {
+    "id": 6,
+    "question": "Which data type is used to store a single character in C++?",
+    "options": [
+      "char",
+      "string",
+      "text",
+      "character"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The 'char' data type is used to store single characters in C++."
+  },
+  {
+    "id": 7,
+    "question": "How do you declare an integer variable in C++?",
+    "options": [
+      "int x;",
+      "integer x;",
+      "var x;",
+      "num x;"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Variables in C++ are declared with their type: int x;"
+  },
+  {
+    "id": 8,
+    "question": "What is the correct way to include a library in C++?",
+    "options": [
+      "include <iostream>",
+      "#include <iostream>",
+      "using <iostream>",
+      "import <iostream>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Libraries are included using #include <library_name>"
+  },
+  {
+    "id": 9,
+    "question": "Which symbol ends a C++ statement?",
+    "options": [
+      ":",
+      ";",
+      ".",
+      ","
+    ],
+    "correctAnswer": 1,
+    "explanation": "C++ statements end with a semicolon (;)."
+  },
+  {
+    "id": 10,
+    "question": "Which data type stores decimal numbers in C++?",
+    "options": [
+      "int",
+      "float",
+      "char",
+      "string"
+    ],
+    "correctAnswer": 1,
+    "explanation": "float and double are used for decimal numbers in C++."
+  },
+  {
+    "id": 11,
+    "question": "How do you create a string variable in C++?",
+    "options": [
+      "string s",
+      "str s",
+      "text s",
+      "char s"
+    ],
+    "correctAnswer": 0,
+    "explanation": "string s creates a string variable in C++."
+  },
+  {
+    "id": 12,
+    "question": "Which keyword is used to define a function in C++?",
+    "options": [
+      "function",
+      "def",
+      "func",
+      "No keyword needed"
+    ],
+    "correctAnswer": 3,
+    "explanation": "C++ functions are defined by return type, name, and parameters without a keyword."
+  },
+  {
+    "id": 13,
+    "question": "What is the main function's return type in C++?",
+    "options": [
+      "void",
+      "int",
+      "string",
+      "float"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The main function returns int in C++."
+  },
+  {
+    "id": 14,
+    "question": "Which operator is used for equality comparison in C++?",
+    "options": [
+      "=",
+      "==",
+      "===",
+      "equals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "== is used for equality comparison in C++."
+  },
+  {
+    "id": 15,
+    "question": "How do you declare an array in C++?",
+    "options": [
+      "arr[]",
+      "int arr[5]",
+      "array arr[5]",
+      "list arr[5]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "int arr[5] declares an array of 5 integers in C++."
+  },
+  {
+    "id": 16,
+    "question": "Which loop executes at least once in C++?",
+    "options": [
+      "for",
+      "while",
+      "do-while",
+      "foreach"
+    ],
+    "correctAnswer": 2,
+    "explanation": "do-while loop executes at least once in C++."
+  },
+  {
+    "id": 17,
+    "question": "What does 'new' operator do in C++?",
+    "options": [
+      "Creates a new variable",
+      "Allocates dynamic memory",
+      "Creates a new function",
+      "Resets memory"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'new' operator allocates dynamic memory in C++."
+  },
+  {
+    "id": 18,
+    "question": "Which keyword is used for inheritance in C++?",
+    "options": [
+      "inherits",
+      "extends",
+      ":",
+      "super"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The : symbol is used for inheritance in C++."
+  },
+  {
+    "id": 19,
+    "question": "What is a pointer in C++?",
+    "options": [
+      "A variable that stores a value",
+      "A variable that stores memory address",
+      "A function reference",
+      "A class type"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A pointer stores a memory address in C++."
+  },
+  {
+    "id": 20,
+    "question": "Which symbol is used to access pointer members?",
+    "options": [
+      ".",
+      "->",
+      "::",
+      ":"
+    ],
+    "correctAnswer": 1,
+    "explanation": "-> is used to access members through a pointer in C++."
+  },
+  {
+    "id": 21,
+    "question": "What is the purpose of the 'delete' operator?",
+    "options": [
+      "Remove a variable",
+      "Free dynamically allocated memory",
+      "Delete a file",
+      "Clear the screen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "delete frees dynamically allocated memory in C++."
+  },
+  {
+    "id": 22,
+    "question": "Which symbol is used for comments in C++?",
+    "options": [
+      "#",
+      "//",
+      "/*",
+      "--"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The // symbol is used for single-line comments in C++."
+  },
+  {
+    "id": 23,
+    "question": "Which keyword is used to define a constant in C++?",
+    "options": [
+      "constant",
+      "final",
+      "const",
+      "static"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'const' keyword is used to define constants in C++."
+  },
+  {
+    "id": 24,
+    "question": "What is the correct extension for C++ source files?",
+    "options": [
+      ".c",
+      ".cp",
+      ".cpp",
+      ".c++"
+    ],
+    "correctAnswer": 2,
+    "explanation": "C++ source files typically use the .cpp extension."
+  }
+]

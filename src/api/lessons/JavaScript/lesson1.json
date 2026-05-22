@@ -1,0 +1,73 @@
+[
+  {
+    "id": "1",
+    "title": "JavaScript Fundamentals",
+    "description": "Learn the basics of JavaScript programming, including variables, data types, and core concepts.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Understand what JavaScript is and where it runs",
+      "Declare and use variables",
+      "Work with different data types",
+      "Use console.log for debugging",
+      "Write basic JavaScript code"
+    ],
+    "subtopics": [
+      {
+        "title": "What is JavaScript?",
+        "content": "JavaScript is a programming language that makes web pages interactive. It runs in web browsers and can manipulate HTML elements.\n\n**Key Points:**\n- Client-side scripting language\n- Runs in web browsers\n- Makes websites dynamic and interactive\n- Can respond to user actions\n\n**Simple Example:**\n```javascript\nconsole.log('Hello, World!');\n```\n\nThis code displays a message in the browser console - your first JavaScript program!"
+      },
+      {
+        "title": "Variables and Data Types",
+        "content": "Variables store data values. JavaScript has several data types:\n\n**Basic Data Types:**\n- `let name = 'John';` // String\n- `let age = 25;` // Number\n- `let isStudent = true;` // Boolean\n- `let hobbies = ['coding', 'reading'];` // Array\n\n**Example:**\n```javascript\nlet message = 'Welcome to JavaScript!';\nconsole.log(message);\n```\n\n**Rules:**\n- Use `let` or `const` to declare variables\n- Variable names should be descriptive\n- JavaScript is dynamically typed"
+      },
+      {
+        "title": "Basic Operations",
+        "content": "JavaScript supports basic math and string operations:\n\n**Math Operations:**\n```javascript\nlet sum = 10 + 5;        // 15\nlet product = 3 * 4;     // 12\nlet remainder = 10 % 3;      // 1\n```\n\n**String Operations:**\n```javascript\nlet firstName = 'John';\nlet lastName = 'Doe';\nlet fullName = firstName + ' ' + lastName; // 'John Doe'\nlet greeting = `Hello, ${firstName}!`; // 'Hello, John!'\n```\n\n**Template Literals:** Use backticks (`) for easy string formatting."
+      },
+      {
+        "title": "Functions",
+        "content": "Functions are reusable blocks of code:\n\n**Function Declaration:**\n```javascript\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```\n\n**Using Functions:**\n```javascript\nlet result = greet('Alice');\nconsole.log(result); // 'Hello, Alice!'\n\nlet sum = add(5, 3);\nconsole.log(sum); // 8\n```\n\n**Benefits:**\n- Reusable code\n- Easier debugging\n- Cleaner programs"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/javascript-basics-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Browser Developer Tools",
+          "url": "https://developer.chrome.com/docs/devtools/",
+          "free": true,
+          "reason": "Built-in debugging tools for JavaScript"
+        },
+        {
+          "name": "VS Code",
+          "url": "https://code.visualstudio.com/",
+          "free": true,
+          "reason": "Best code editor for JavaScript development"
+        }
+      ],
+      "furtherReading": [
+        "MDN Web Docs: JavaScript Guide",
+        "JavaScript.info - Online reference"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Variable",
+        "definition": "A container for storing data values that can change during program execution."
+      },
+      {
+        "term": "Function",
+        "definition": "A reusable block of code that performs a specific task and can be called multiple times."
+      },
+      {
+        "term": "Console",
+        "definition": "A developer tool in browsers for logging messages and debugging JavaScript code."
+      },
+      {
+        "term": "Template Literal",
+        "definition": "A string created using backticks (`) that allows embedded expressions and variables."
+      }
+    ]
+  }
+]

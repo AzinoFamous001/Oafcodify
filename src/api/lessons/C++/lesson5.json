@@ -1,0 +1,94 @@
+[
+  {
+    "id": "5",
+    "title": "Object-Oriented Programming",
+    "description": "Learn the fundamentals of object-oriented programming in C++ including classes, objects, inheritance, and polymorphism.",
+    "level": "Intermediate",
+    "duration": "65 minutes",
+    "learningObjectives": [
+      "Understand classes and objects",
+      "Create and use constructors and destructors",
+      "Implement encapsulation with access modifiers",
+      "Use inheritance for code reuse",
+      "Apply polymorphism for flexible design"
+    ],
+    "subtopics": [
+      {
+        "title": "Classes and Objects",
+        "content": "Classes are blueprints for creating objects.\n\n**Class Definition:**\n```cpp\nclass Car {\n  public:\n    string brand;\n    string model;\n    int year;\n    \n    void displayInfo() {\n      cout << brand << \" \" << model << \" (\" << year << \")\" << endl;\n    }\n};\n```\n\n**Creating Objects:**\n```cpp\nint main() {\n  Car myCar;\n  myCar.brand = \"Toyota\";\n  myCar.model = \"Camry\";\n  myCar.year = 2022;\n  myCar.displayInfo();\n  \n  return 0;\n}\n```\n\n**Member Functions:**\n```cpp\nclass Rectangle {\n  public:\n    double width;\n    double height;\n    \n    double area() {\n      return width * height;\n    }\n    \n    double perimeter() {\n      return 2 * (width + height);\n    }\n};\n```\n\n**Class vs Object:**\n- Class: Blueprint/template\n- Object: Instance of a class"
+      },
+      {
+        "title": "Constructors and Destructors",
+        "content": "Special member functions for initialization and cleanup.\n\n**Constructor:**\n```cpp\nclass Car {\n  public:\n    string brand;\n    string model;\n    int year;\n    \n    // Constructor\n    Car(string b, string m, int y) {\n      brand = b;\n      model = m;\n      year = y;\n    }\n    \n    void displayInfo() {\n      cout << brand << \" \" << model << \" (\" << year << \")\" << endl;\n    }\n};\n\nint main() {\n  Car myCar(\"Toyota\", \"Camry\", 2022);\n  myCar.displayInfo();\n  return 0;\n}\n```\n\n**Default Constructor:**\n```cpp\nclass Car {\n  public:\n    string brand;\n    string model;\n    int year;\n    \n    Car() {  // Default constructor\n      brand = \"Unknown\";\n      model = \"Unknown\";\n      year = 0;\n    }\n};\n```\n\n**Destructor:**\n```cpp\nclass Car {\n  public:\n    Car() {\n      cout << \"Constructor called\" << endl;\n    }\n    \n    ~Car() {  // Destructor\n      cout << \"Destructor called\" << endl;\n    }\n};\n```"
+      },
+      {
+        "title": "Encapsulation and Access Modifiers",
+        "content": "Control access to class members using access modifiers.\n\n**Access Modifiers:**\n```cpp\nclass BankAccount {\n  private:    // Only accessible within class\n    double balance;\n    \n  public:     // Accessible from anywhere\n    BankAccount(double initialBalance) {\n      balance = initialBalance;\n    }\n    \n    void deposit(double amount) {\n      if (amount > 0) {\n        balance += amount;\n      }\n    }\n    \n    void withdraw(double amount) {\n      if (amount > 0 && amount <= balance) {\n        balance -= amount;\n      }\n    }\n    \n    double getBalance() {\n      return balance;\n    }\n  \n  protected:  // Accessible in derived classes\n    string accountNumber;\n};\n```\n\n**Getter and Setter Methods:**\n```cpp\nclass Person {\n  private:\n    string name;\n    int age;\n    \n  public:\n    void setName(string n) {\n      name = n;\n    }\n    \n    string getName() {\n      return name;\n    }\n    \n    void setAge(int a) {\n      if (a >= 0) {\n        age = a;\n      }\n    }\n    \n    int getAge() {\n      return age;\n    }\n};\n```"
+      },
+      {
+        "title": "Inheritance",
+        "content": "Create new classes based on existing classes.\n\n**Base and Derived Classes:**\n```cpp\nclass Animal {\n  public:\n    void eat() {\n      cout << \"This animal eats food.\" << endl;\n    }\n    \n    void sleep() {\n      cout << \"This animal sleeps.\" << endl;\n    }\n};\n\nclass Dog : public Animal {\n  public:\n    void bark() {\n      cout << \"The dog barks!\" << endl;\n    }\n};\n\nclass Cat : public Animal {\n  public:\n    void meow() {\n      cout << \"The cat meows!\" << endl;\n    }\n};\n\nint main() {\n  Dog myDog;\n  myDog.eat();    // Inherited from Animal\n  myDog.bark();   // Own method\n  \n  Cat myCat;\n  myCat.sleep();  // Inherited from Animal\n  myCat.meow();   // Own method\n  \n  return 0;\n}\n```\n\n**Types of Inheritance:**\n- Public: Public members remain public\n- Protected: Public members become protected\n- Private: Public members become private"
+      },
+      {
+        "title": "Polymorphism",
+        "content": "Different classes can respond to the same method call differently.\n\n**Virtual Functions:**\n```cpp\nclass Animal {\n  public:\n    virtual void makeSound() {\n      cout << \"Some sound\" << endl;\n    }\n};\n\nclass Dog : public Animal {\n  public:\n    void makeSound() override {\n      cout << \"Woof!\" << endl;\n    }\n};\n\nclass Cat : public Animal {\n  public:\n    void makeSound() override {\n      cout << \"Meow!\" << endl;\n    }\n};\n\nint main() {\n  Animal* myPet;\n  Dog myDog;\n  Cat myCat;\n  \n  myPet = &myDog;\n  myPet->makeSound();  // Woof!\n  \n  myPet = &myCat;\n  myPet->makeSound();  // Meow!\n  \n  return 0;\n}\n```\n\n**Pure Virtual Functions (Abstract Class):**\n```cpp\nclass Shape {\n  public:\n    virtual double area() = 0;  // Pure virtual\n};\n\nclass Rectangle : public Shape {\n  public:\n    double width, height;\n    \n    double area() override {\n      return width * height;\n    }\n};\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/cpp-oop-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "C++ OOP Tutorial",
+          "url": "https://www.w3schools.com/cpp/cpp_oop.asp",
+          "free": true,
+          "reason": "Comprehensive OOP tutorial from W3Schools"
+        },
+        {
+          "name": "Doxygen",
+          "url": "https://www.doxygen.nl/",
+          "free": true,
+          "reason": "Documentation generator for C++ code"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools C++ Classes",
+        "W3Schools C++ Inheritance",
+        "Effective C++ by Scott Meyers"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Class",
+        "definition": "A user-defined data type that serves as a blueprint for creating objects."
+      },
+      {
+        "term": "Object",
+        "definition": "An instance of a class with its own state and behavior."
+      },
+      {
+        "term": "Constructor",
+        "definition": "A special member function that initializes objects of a class."
+      },
+      {
+        "term": "Destructor",
+        "definition": "A special member function that cleans up when an object is destroyed."
+      },
+      {
+        "term": "Encapsulation",
+        "definition": "Bundling data and methods that operate on the data within a class."
+      },
+      {
+        "term": "Inheritance",
+        "definition": "Creating new classes from existing classes, inheriting their properties and methods."
+      },
+      {
+        "term": "Polymorphism",
+        "definition": "The ability of different classes to respond to the same method call differently."
+      },
+      {
+        "term": "Virtual Function",
+        "definition": "A member function that can be overridden in derived classes."
+      }
+    ]
+  }
+]

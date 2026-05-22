@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "What is the recommended approach for component size?",
+    "options": [
+      "Make components as large as possible",
+      "Keep components small and focused on a single responsibility",
+      "Size doesn't matter",
+      "Only use one component per page"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Small, focused components are easier to maintain, test, and reuse."
+  },
+  {
+    "id": 2,
+    "question": "What is the single responsibility principle in React components?",
+    "options": [
+      "Each component should do everything",
+      "Each component should have one job/purpose",
+      "Components should have no responsibility",
+      "Only parent components should have responsibility"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The single responsibility principle means each component should focus on one specific task."
+  },
+  {
+    "id": 3,
+    "question": "Which type of component is preferred in modern React?",
+    "options": [
+      "Class components",
+      "Functional components with hooks",
+      "Both are equally preferred",
+      "Neither, use vanilla JS"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functional components with hooks are the modern standard and preferred approach."
+  },
+  {
+    "id": 4,
+    "question": "What is lifting state up?",
+    "options": [
+      "Deleting state",
+      "Moving state to a common parent component to share it",
+      "Moving state to a child component",
+      "Making state global"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lifting state up moves state to a common parent to share it between sibling components."
+  },
+  {
+    "id": 5,
+    "question": "When should you use the Context API?",
+    "options": [
+      "For all state",
+      "For app-wide or deeply nested state that many components need",
+      "Never, always use props",
+      "Only for local component state"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Context API is best for global state or data needed by many components at different nesting levels."
+  },
+  {
+    "id": 6,
+    "question": "What is the purpose of useMemo?",
+    "options": [
+      "To add state",
+      "To memoize expensive calculations and avoid recomputation",
+      "To handle effects",
+      "To create context"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useMemo memoizes expensive calculations to avoid unnecessary recomputation on re-renders."
+  },
+  {
+    "id": 7,
+    "question": "What is the purpose of useCallback?",
+    "options": [
+      "To add state",
+      "To memoize functions and prevent unnecessary re-creations",
+      "To handle effects",
+      "To create context"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useCallback memoizes functions to prevent them from being recreated on every render."
+  },
+  {
+    "id": 8,
+    "question": "What is React.memo used for?",
+    "options": [
+      "To memoize state",
+      "To memoize components and prevent unnecessary re-renders",
+      "To memoize effects",
+      "To memoize context"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React.memo memoizes components to prevent re-renders when props haven't changed."
+  },
+  {
+    "id": 9,
+    "question": "What is code splitting in React?",
+    "options": [
+      "Splitting code into multiple files",
+      "Loading code chunks on demand to improve initial load time",
+      "Deleting unused code",
+      "Splitting code between developers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Code splitting loads code chunks on demand, improving the initial load time of the application."
+  },
+  {
+    "id": 10,
+    "question": "What is the compound components pattern?",
+    "options": [
+      "Components that are combined",
+      "A pattern where components work together to share implicit state",
+      "Components that are complex",
+      "Components that are deleted"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Compound components pattern allows components to work together while sharing state implicitly."
+  },
+  {
+    "id": 11,
+    "question": "What is the render props pattern?",
+    "options": [
+      "Rendering props as text",
+      "A technique for sharing code between components using a prop whose value is a function",
+      "Rendering props as images",
+      "Rendering props as numbers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Render props pattern uses a function prop to share code between components."
+  },
+  {
+    "id": 12,
+    "question": "What is a Higher-Order Component (HOC)?",
+    "options": [
+      "A component with high state",
+      "A function that takes a component and returns a new component with enhanced functionality",
+      "A component at the top of the tree",
+      "A component with many props"
+    ],
+    "correctAnswer": 1,
+    "explanation": "HOCs are functions that enhance components by wrapping them with additional functionality."
+  },
+  {
+    "id": 13,
+    "question": "What is an Error Boundary?",
+    "options": [
+      "A CSS border",
+      "A React component that catches JavaScript errors in child components",
+      "A database limit",
+      "A testing tool"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Error boundaries catch JavaScript errors in child components and display a fallback UI."
+  },
+  {
+    "id": 14,
+    "question": "What is virtualization in React?",
+    "options": [
+      "Making components virtual",
+      "Rendering only visible items in long lists for performance",
+      "Deleting invisible items",
+      "Creating virtual components"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virtualization renders only visible items in long lists to improve performance."
+  },
+  {
+    "id": 15,
+    "question": "What is memoization?",
+    "options": [
+      "Deleting memory",
+      "Caching the results of expensive function calls to avoid recomputation",
+      "Adding more memory",
+      "Clearing cache"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Memoization caches results of expensive operations to avoid unnecessary recomputation."
+  },
+  {
+    "id": 16,
+    "question": "When should you use external state management like Redux?",
+    "options": [
+      "For all applications",
+      "For complex state shared across many components",
+      "Never, always use local state",
+      "Only for small apps"
+    ],
+    "correctAnswer": 1,
+    "explanation": "External state management is beneficial for complex state shared across many components."
+  },
+  {
+    "id": 17,
+    "question": "What is the purpose of descriptive component naming?",
+    "options": [
+      "To make code longer",
+      "To make code more readable and maintainable",
+      "To confuse other developers",
+      "No purpose"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Descriptive naming makes code more readable and easier to understand and maintain."
+  },
+  {
+    "id": 18,
+    "question": "What is the custom hooks pattern used for?",
+    "options": [
+      "To replace all components",
+      "To extract and reuse stateful logic between components",
+      "To add CSS",
+      "To delete code"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Custom hooks allow you to extract and reuse stateful logic across multiple components."
+  },
+  {
+    "id": 19,
+    "question": "What is lazy loading in React?",
+    "options": [
+      "Loading data slowly",
+      "Loading components only when they are needed",
+      "Loading images",
+      "Loading CSS"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lazy loading defers loading of components until they are needed, improving initial load time."
+  },
+  {
+    "id": 20,
+    "question": "What is the best practice for component organization?",
+    "options": [
+      "Put all components in one file",
+      "Organize components by feature or domain",
+      "Organize randomly",
+      "No organization needed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Organizing components by feature or domain makes the codebase more maintainable and scalable."
+  }
+]

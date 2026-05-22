@@ -1,0 +1,197 @@
+[
+  {
+    "id": "4",
+    "title": "HTML Classes, ID, Buttons, Iframes, JavaScript, File Paths & Layouts",
+    "description": "Master advanced HTML concepts that bring your webpages to life. Learn to use classes and IDs for styling, create interactive buttons, embed external content with iframes, add JavaScript functionality, understand file paths, and build responsive, semantic layouts. These skills transform static HTML into dynamic, professional websites.",
+    "level": "Intermediate",
+    "duration": "70 minutes",
+    "learningObjectives": [
+      "Use classes and IDs to style and identify HTML elements",
+      "Create various types of buttons for user interactions",
+      "Embed external content using iframes",
+      "Add JavaScript to HTML for interactivity",
+      "Understand and use different file path types",
+      "Build responsive layouts with semantic HTML5 elements"
+    ],
+    "subtopics": [
+      {
+        "title": "HTML Classes and ID - Styling and Identifying Elements",
+        "content": "Classes and IDs are attributes that allow you to identify and style HTML elements. They are essential for CSS styling and JavaScript manipulation.\n\n**The class Attribute**\nThe `class` attribute specifies one or more class names for an element. Multiple elements can share the same class.\n\n**Basic Syntax:**\n```html\nelement class=\"classname\"\n```\n\n**Single Class:**\n```html\n<p class=\"highlight\">This text is highlighted</p>\n<div class=\"container\">Content wrapper</div>\n```\n\n**Multiple Classes:**\n```html\n<div class=\"container box shadow\">Multiple classes</div>\n<p class=\"text-large bold-red\">Styled text</p>\n```\n- Separate multiple classes with spaces\n- Order doesn't matter\n- Each class can have different CSS rules\n\n**The id Attribute**\nThe `id` attribute specifies a unique identifier for an element. Each ID must be unique within the page.\n\n**Basic Syntax:**\n```html\nelement id=\"uniqueid\"\n```\n\n**ID Examples:**\n```html\n<div id=\"header\">Header content</div>\n<p id=\"intro\">Introduction paragraph</p>\n<div id=\"main-content\">Main content area</div>\n```\n- IDs must be unique (only one per page)\n- IDs are often used for JavaScript selection\n- IDs can also be used for anchor links\n\n**Class vs ID - Key Differences**\n\n| Feature | Class | ID |\n|---------|-------|-----|\n| Reusability | Can be used on multiple elements | Must be unique (one per page) |\n| Purpose | Styling groups of elements | Identifying specific elements |\n| CSS Selector | .classname | #idname |\n| JavaScript | getElementsByClassName() | getElementById() |\n\n**CSS Selectors**\n```css\n/* Class selector */\n.highlight {\n  background-color: yellow;\n}\n\n/* ID selector */\n#header {\n  background-color: blue;\n}\n\n/* Multiple classes */\n.container.box {\n  border: 1px solid black;\n}\n```\n\n**Naming Conventions**\n- Use lowercase letters\n- Use hyphens to separate words (kebab-case)\n- Be descriptive and meaningful\n- Avoid spaces and special characters\n- Start with a letter (not a number)\n- Don't use reserved words\n\n**Using Classes in JavaScript**\n```javascript\n// Get all elements with a specific class\nconst elements = document.getElementsByClassName('highlight');\n\n// Add or remove classes\nelement.classList.add('new-class');\nelement.classList.remove('old-class');\nelement.classList.toggle('active');\n```\n\n**Using IDs in JavaScript**\n```javascript\n// Get element by ID\nconst header = document.getElementById('header');\n\n// Use ID for anchor links\n<a href=\"#section1\">Go to Section 1</a>\n<div id=\"section1\">Section 1 Content</div>\n```\n\n**HTML Bookmarks with IDs**\nIDs are commonly used to create bookmarks within a page:\n```html\n<a href=\"#tips\">Jump to Tips</a>\n\n<h2 id=\"tips\">Useful Tips</h2>\n<p>Here are some tips...</p>\n```\n\n**Best Practices**\n- Use classes for styling (reusable)\n- Use IDs for JavaScript and anchors (unique)\n- Keep class names descriptive\n- Use consistent naming conventions\n\n**Good Examples:**\n```html\n<div class=\"main-container\">\n<div class=\"btn-primary\">\n<div class=\"sidebar-menu\">\n<div id=\"page-header\">\n```\n\n**Bad Examples:**\n```html\n<div class=\"MainContainer\">  <!-- Don't use camelCase -->\n<div class=\"main container\">  <!-- Don't use spaces -->\n<div class=\"mc\">  <!-- Don't use abbreviations -->\n<div id=\"header1\">  <!-- Don't use numbers for uniqueness -->\n```\n\n**Best Practices:**\n- Use classes for styling (reusable)\n- Use IDs for unique elements and JavaScript hooks\n- Use meaningful, descriptive names\n- Keep naming consistent across your project\n- Don't overuse IDs when classes would work\n\n**Complete Example:**\n```html\n<div class=\"page-wrapper\">\n  <header id=\"main-header\" class=\"header\">\n    <h1 class=\"logo\">My Website</h1>\n    <nav class=\"navigation\">\n      <a href=\"#\" class=\"nav-link active\">Home</a>\n      <a href=\"#\" class=\"nav-link\">About</a>\n      <a href=\"#\" class=\"nav-link\">Contact</a>\n    </nav>\n  </header>\n  \n  <main class=\"content\">\n    <section id=\"hero\" class=\"hero-section\">\n      <h2 class=\"hero-title\">Welcome</h2>\n      <p class=\"hero-text\">Learn web development</p>\n    </section>\n  </main>\n  \n  <footer id=\"footer\" class=\"footer\">\n    <p class=\"copyright\"> 2024</p>\n  </footer>\n</div>\n```",
+        "imageUrl": "/images/html-classes-id.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "IDs are better than classes - FALSE, use classes for styling, IDs only when uniqueness is required",
+          "You can use the same ID multiple times - FALSE, IDs must be unique within a page",
+          "Class names are case-sensitive - FALSE, HTML class names are case-insensitive, but lowercase is standard"
+        ],
+        "realWorldAnalogy": "Classes are like uniform colors for a sports team - many players wear the same color (class) to show they belong to the same group. IDs are like jersey numbers - each player has a unique number (ID) to identify them individually."
+      },
+      {
+        "title": "HTML Buttons - Creating Interactive Elements",
+        "content": "Buttons are essential for user interaction on webpages. HTML provides the `<button>` element and the `<input type=\"button\">` for creating clickable buttons.\n\n**The <button> Element**\nThe `<button>` element is the preferred way to create buttons in HTML.\n\n**Basic Syntax:**\n```html\n<button>Click Me</button>\n```\n\n**Button Types**\n\n**1. Submit Button (default)**\n```html\n<button type=\"submit\">Submit Form</button>\n```\n- Submits the form when clicked\n- Default type for buttons inside forms\n\n**2. Button (no default action)**\n```html\n<button type=\"button\">Click Me</button>\n```\n- No default action\n- Requires JavaScript to function\n\n**3. Reset Button**\n```html\n<button type=\"reset\">Reset Form</button>\n```\n- Resets all form fields to default values\n\n**Button Attributes**\n\n**disabled** - Disable the button:\n```html\n<button disabled>Cannot Click</button>\n```\n\n**name** - Button name (for forms):\n```html\n<button name=\"submit-btn\" type=\"submit\">Submit</button>\n```\n\n**value** - Button value (for forms):\n```html\n<button value=\"submit\" type=\"submit\">Submit</button>\n```\n\n**form** - Associate with a form:\n```html\n<button form=\"myForm\" type=\"submit\">Submit</button>\n```\n\n**autofocus** - Auto-focus on page load:\n```html\n<button autofocus>Click Me</button>\n```\n\n**Input Button Alternative**\n```html\n<input type=\"button\" value=\"Click Me\">\n<input type=\"submit\" value=\"Submit\">\n<input type=\"reset\" value=\"Reset\">\n```\n- `<input type=\"button\">` is self-closing\n- `<button>` can contain HTML content\n- Prefer `<button>` for flexibility\n\n**Button with Content**\n```html\n<button>\n  <img src=\"icon.png\" alt=\"\">\n  Click Me\n</button>\n\n<button>\n  <strong>Important</strong> Action\n</button>\n```\n\n**Link as Button**\n```html\n<a href=\"#\" class=\"button\">Click Me</a>\n```\n- Use when the button is a link\n- Style with CSS to look like a button\n\n**Best Practices:**\n- Always specify the `type` attribute to avoid unexpected behavior\n- Use the `<button>` element instead of `<input type=\"button\">`\n- Add accessible labels using `aria-label` when needed\n- Style buttons with CSS for better appearance\n- Use meaningful button text\n- Consider keyboard accessibility (focus states)\n\n**Styling Buttons with CSS**\n```css\nbutton {\n  padding: 10px 20px;\n  background-color: #4CAF50;\n  color: white;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #45a049;\n}\n\nbutton:disabled {\n  background-color: #cccccc;\n  cursor: not-allowed;\n}\n```\n\n**Complete Example:**\n```html\n<form action=\"/submit\" method=\"POST\">\n  <label for=\"name\">Name:</label>\n  <input type=\"text\" id=\"name\" name=\"name\">\n  \n  <button type=\"submit\" class=\"btn btn-primary\">\n    Submit Form\n  </button>\n  \n  <button type=\"reset\" class=\"btn btn-secondary\">\n    Reset\n  </button>\n</form>\n\n<div class=\"actions\">\n  <button type=\"button\" class=\"btn btn-success\" onclick=\"saveData()\">\n    Save\n  </button>\n  \n  <button type=\"button\" class=\"btn btn-danger\" onclick=\"deleteData()\">\n    Delete\n  </button>\n  \n  <button type=\"button\" class=\"btn btn-info\" disabled>\n    Disabled\n  </button>\n</div>\n```",
+        "imageUrl": "/images/html-buttons.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Button type is optional - FALSE, always specify type to avoid unexpected behavior",
+          "<input type=\"button\"> is the same as <button> - FALSE, <button> is more flexible and preferred",
+          "Buttons can only contain text - FALSE, buttons can contain images, icons, and other HTML"
+        ],
+        "realWorldAnalogy": "HTML buttons are like physical buttons on a device. Just as a TV remote has different buttons for different functions (power, volume, channel), HTML buttons have different types (submit, reset, button) for different purposes."
+      },
+      {
+        "title": "HTML Iframes - Embedding External Content",
+        "content": "The `<iframe>` (inline frame) element allows you to embed another HTML document within the current document. It's commonly used to embed videos, maps, and other external content.\n\n**Basic Syntax**\n```html\n<iframe src=\"url\"></iframe>\n```\n\n**Common Iframe Uses**\n\n**1. Embedding YouTube Videos**\n```html\n<iframe width=\"560\" height=\"315\" \n  src=\"https://www.youtube.com/embed/VIDEO_ID\" \n  frameborder=\"0\" \n  allowfullscreen>\n</iframe>\n```\n\n**2. Embedding Google Maps**\n```html\n<iframe \n  src=\"https://www.google.com/maps/embed?pb=MAP_ID\" \n  width=\"600\" \n  height=\"450\" \n  style=\"border:0;\" \n  allowfullscreen=\"\" \n  loading=\"lazy\">\n</iframe>\n```\n\n**3. Embedding Other Websites**\n```html\n<iframe src=\"https://example.com\" width=\"100%\" height=\"500\"></iframe>\n```\n\n**Iframe Attributes**\n\n**src** - The URL of the page to embed:\n```html\n<iframe src=\"page.html\"></iframe>\n```\n\n**width and height** - Dimensions:\n```html\n<iframe src=\"page.html\" width=\"500\" height=\"300\"></iframe>\n```\n\n**name** - Frame name (for targeting):\n```html\n<iframe name=\"myFrame\" src=\"page.html\"></iframe>\n```\n\n**frameborder** - Border around iframe:\n```html\n<iframe src=\"page.html\" frameborder=\"0\"></iframe>\n```\n\n**scrolling** - Scrollbar control:\n```html\n<iframe src=\"page.html\" scrolling=\"no\"></iframe>\n```\n- Values: yes, no, auto\n\n**sandbox** - Security restrictions:\n```html\n<iframe src=\"page.html\" sandbox=\"allow-scripts\"></iframe>\n```\n- Restricts what the iframe can do\n- Improves security\n\n**allowfullscreen** - Allow fullscreen mode:\n```html\n<iframe src=\"video.html\" allowfullscreen></iframe>\n```\n\n**loading** - Lazy loading:\n```html\n<iframe src=\"page.html\" loading=\"lazy\"></iframe>\n```\n- Delays loading until needed\n- Improves page load performance\n\n**srcdoc** - Embed HTML directly:\n```html\n<iframe srcdoc=\"<h1>Hello</h1>\"></iframe>\n```\n\n**Security Considerations**\n\n**X-Frame-Options Header**\nSome websites send the X-Frame-Options header to prevent embedding:\n```http\nX-Frame-Options: DENY\nX-Frame-Options: SAMEORIGIN\n```\n- DENY - No one can embed the page\n- SAMEORIGIN - Only pages from the same origin can embed\n\n**Content-Security-Policy**\nModern alternative to X-Frame-Options:\n```html\n<meta http-equiv=\"Content-Security-Policy\" content=\"frame-ancestors 'self'\">\n```\n\n**Same-Origin Policy**\nIframes are subject to same-origin policy:\n- Parent and iframe must be from same origin to communicate\n- Different origins require postMessage API\n\n**Best Practices for Security**\n- Always use sandbox attribute when possible\n- Only embed trusted content\n- Use allow-same-origin only when necessary\n- Avoid embedding sensitive content in iframes\n- Use HTTPS for embedded content\n\n**Target Attribute with Iframes**\nYou can use the target attribute to open links in an iframe:\n```html\n<iframe name=\"myFrame\" src=\"page1.html\"></iframe>\n<a href=\"page2.html\" target=\"myFrame\">Open in Frame</a>\n```\n\n**Best Practices:**\n- Use `loading=\"lazy\"` for below-the-fold iframes\n- Always specify width and height\n- Use `sandbox` for untrusted content\n- Consider security implications\n- Test on mobile devices\n- Provide fallback content\n\n**Fallback Content**\n```html\n<iframe src=\"video.html\">\n  <p>Your browser doesn't support iframes.</p>\n  <a href=\"video.html\">Watch video here</a>\n</iframe>\n```\n\n**Complete Example:**\n```html\n<div class=\"video-container\">\n  <h2>Featured Video</h2>\n  <iframe \n    width=\"560\" \n    height=\"315\" \n    src=\"https://www.youtube.com/embed/dQw4w9WgXcQ\" \n    title=\"YouTube video\" \n    frameborder=\"0\" \n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" \n    allowfullscreen \n    loading=\"lazy\">\n  </iframe>\n</div>\n\n<div class=\"map-container\">\n  <h2>Our Location</h2>\n  <iframe \n    src=\"https://www.google.com/maps/embed?pb=MAP_ID\" \n    width=\"100%\" \n    height=\"400\" \n    style=\"border:0;\" \n    allowfullscreen=\"\" \n    loading=\"lazy\">\n  </iframe>\n</div>\n```",
+        "imageUrl": "/images/html-iframes.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Any website can be embedded in an iframe - FALSE, many sites block embedding for security",
+          "Iframes are always secure - FALSE, iframes can pose security risks if not properly sandboxed",
+          "Iframes slow down page load - FALSE, with lazy loading, iframes don't affect initial load time"
+        ],
+        "realWorldAnalogy": "An iframe is like a picture-in-picture window on your TV. Just as you can watch one channel in the main window and another in a small window, an iframe lets you display one webpage inside another webpage."
+      },
+      {
+        "title": "HTML JavaScript - Adding Interactivity",
+        "content": "JavaScript makes webpages interactive and dynamic. While JavaScript is a separate language, HTML provides several ways to include JavaScript in your webpages.\n\n**Ways to Add JavaScript to HTML**\n\n**1. Inline JavaScript (onclick attribute)**\n```html\n<button onclick=\"alert('Hello!')\">Click Me</button>\n```\n- Not recommended for production\n- Useful for quick testing\n- Hard to maintain\n\n**2. Internal JavaScript (script tag in head)**\n```html\n<head>\n  <script>\n    function greet() {\n      alert('Hello!');\n    }\n  </script>\n</head>\n```\n- Good for single-page websites\n- JavaScript loads with the page\n\n**3. External JavaScript (separate .js file)**\n```html\n<head>\n  <script src=\"script.js\"></script>\n</head>\n```\n- Best practice for production\n- Reusable across multiple pages\n- Better for caching\n\n**Script Tag Attributes**\n\n**src** - External file path:\n```html\n<script src=\"script.js\"></script>\n```\n\n**type** - Script type:\n```html\n<script type=\"text/javascript\">\n  // JavaScript code\n</script>\n```\n- Optional in HTML5 (default is text/javascript)\n\n**async** - Load asynchronously:\n```html\n<script src=\"script.js\" async></script>\n```\n- Script loads in parallel\n- Executes as soon as it loads\n- Doesn't block page rendering\n\n**defer** - Defer execution:\n```html\n<script src=\"script.js\" defer></script>\n```\n- Script loads in parallel\n- Executes after HTML parsing is complete\n- Maintains script order\n\n**Script Placement**\n\n**In Head (with defer)**\n```html\n<head>\n  <script src=\"script.js\" defer></script>\n</head>\n```\n- Best for performance\n- Scripts execute after page loads\n\n**At End of Body**\n```html\n<body>\n  <!-- Content -->\n  <script src=\"script.js\"></script>\n</body>\n```\n- Traditional approach\n- Scripts execute after content loads\n\n**Common JavaScript Events**\n\n**onclick** - Click event:\n```html\n<button onclick=\"myFunction()\">Click</button>\n```\n\n**onload** - Page load event:\n```html\n<body onload=\"init()\">\n```\n\n**onmouseover** - Mouse over element:\n```html\n<div onmouseover=\"highlight()\">Hover me</div>\n```\n\n**onmouseout** - Mouse leaves element:\n```html\n<div onmouseout=\"removeHighlight()\">Hover me</div>\n```\n\n**onchange** - Value changes:\n```html\n<select onchange=\"updateValue()\">\n  <option>Option 1</option>\n</select>\n```\n\n**onsubmit** - Form submission:\n```html\n<form onsubmit=\"return validateForm()\">\n```\n\n**onfocus** - Element gets focus:\n```html\n<input onfocus=\"clearPlaceholder()\">\n```\n\n**onblur** - Element loses focus:\n```html\n<input onblur=\"validateInput()\">\n```\n\n**Best Practices:**\n- Use external JavaScript files for production\n- Use event listeners instead of inline event handlers\n- Keep JavaScript separate from HTML\n- Use defer or async for better performance\n- Handle errors gracefully\n- Test across browsers\n\n**Complete Example:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>JavaScript Example</title>\n  <!-- External JavaScript with defer -->\n  <script src=\"main.js\" defer></script>\n</head>\n<body>\n  <h1 id=\"title\">Hello World</h1>\n  <button id=\"change-btn\">Change Text</button>\n  \n  <!-- Inline JavaScript (not recommended) -->\n  <button onclick=\"alert('Inline JS')\">Inline Button</button>\n  \n  <!-- Internal JavaScript -->\n  <script>\n    document.getElementById('change-btn').addEventListener('click', function() {\n      document.getElementById('title').textContent = 'Text Changed!';\n    });\n  </script>\n</body>\n</html>\n```\n\n**main.js file:**\n```javascript\n// External JavaScript file\nconsole.log('Script loaded');\n\nfunction myFunction() {\n  alert('Hello from external file!');\n}\n```",
+        "imageUrl": "/images/html-javascript.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Inline JavaScript is the best approach - FALSE, external files are better for maintainability",
+          "Scripts must be in the head - FALSE, scripts can be placed at the end of body for performance",
+          "async and defer are the same - FALSE, async executes immediately when loaded, defer waits for HTML parsing"
+        ],
+        "realWorldAnalogy": "JavaScript in HTML is like adding a motor to a bicycle. HTML provides the structure (the frame), CSS provides the styling (the paint job), and JavaScript provides the movement and interactivity (the motor that makes it go)."
+      },
+      {
+        "title": "HTML File Paths - Linking Files Correctly",
+        "content": "File paths specify the location of files in your website. Understanding file paths is crucial for linking to images, stylesheets, scripts, and other pages.\n\n**Types of File Paths**\n\n**1. Absolute File Paths**\nFull URL from the root:\n```html\n<img src=\"https://www.example.com/images/photo.jpg\">\n<link rel=\"stylesheet\" href=\"https://cdn.com/style.css\">\n```\n- Complete URL including domain\n- Works from anywhere\n- Good for external resources\n\n**2. Relative File Paths**\nPath relative to current file:\n\n**Same Folder:**\n```html\n<img src=\"photo.jpg\">\n<link href=\"style.css\">\n```\n\n**Subfolder:**\n```html\n<img src=\"images/photo.jpg\">\n<link href=\"css/style.css\">\n```\n\n**Parent Folder:**\n```html\n<img src=\"../photo.jpg\">\n<link href=\"../style.css\">\n```\n\n**Multiple Levels Up:**\n```html\n<img src=\"../../images/photo.jpg\">\n<link href=\"../../css/style.css\">\n```\n\n**Root-Relative Paths**\nPath from website root:\n```html\n<img src=\"/images/photo.jpg\">\n<link href=\"/css/style.css\">\n```\n- Starts with `/`\n- Relative to website root, not current file\n- Works from any location in site\n\n**Path Examples**\n```\nwebsite/\n├── index.html\n├── about.html\n├── css/\n│   └── style.css\n├── js/\n│   └── script.js\n├── images/\n│   └── logo.png\n└── pages/\n    └── contact.html\n```\n\n**From index.html:**\n```html\n<link href=\"css/style.css\">\n<script src=\"js/script.js\"></script>\n<img src=\"images/logo.png\">\n<a href=\"about.html\">About</a>\n```\n\n**From pages/contact.html:**\n```html\n<link href=\"../css/style.css\">\n<script src=\"../js/script.js\"></script>\n<img src=\"../images/logo.png\">\n<a href=\"../about.html\">About</a>\n```\n\n**Best Practices:**\n- Use relative paths for internal resources\n- Use absolute paths for external resources\n- Use root-relative paths for consistency\n- Keep file structure organized\n- Use lowercase filenames\n- Avoid spaces in filenames (use hyphens or underscores)\n- Always use forward slashes (/) never backslashes (\\)\n- Test paths locally before deploying\n- Use descriptive filenames\n\n**Common Path Issues**\n\n**Broken Images**\nIf the path is wrong, images won't display:\n```html\n<!-- Wrong path - image won't load -->\n<img src=\"../images/logo.png\">\n\n<!-- Correct path -->\n<img src=\"images/logo.png\">\n```\n\n**Case Sensitivity**\n- Windows: Case-insensitive (Image.jpg = image.jpg)\n- Linux/Mac: Case-sensitive (Image.jpg ≠ image.jpg)\n- Always use lowercase to avoid issues\n\n**File Extension Matters**\n```html\n<!-- Correct -->\n<link href=\"style.css\">\n<script src=\"script.js\">\n\n<!-- Wrong - wrong extension -->\n<link href=\"style.css.txt\">\n<script src=\"script.js.txt\">\n```\n\n**Base URL**\nSet a base URL for all relative links:\n```html\n<head>\n  <base href=\"https://www.example.com/\">\n</head>\n```\n- Affects all relative URLs in the document\n- Useful for moving site to different domain\n\n**Complete Example:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>File Path Example</title>\n  <!-- Root-relative path (recommended) -->\n  <link rel=\"stylesheet\" href=\"/css/style.css\">\n  <!-- External resource (absolute path) -->\n  <link rel=\"stylesheet\" href=\"https://cdn.com/bootstrap.css\">\n</head>\n<body>\n  <!-- Relative path from current folder -->\n  <img src=\"images/logo.png\" alt=\"Logo\">\n  \n  <!-- Relative path from parent folder -->\n  <img src=\"../images/photo.jpg\" alt=\"Photo\">\n  \n  <!-- Root-relative path -->\n  <a href=\"/about.html\">About Us</a>\n  \n  <!-- External link (absolute path) -->\n  <a href=\"https://example.com\">External Site</a>\n</body>\n</html>\n```",
+        "imageUrl": "/images/html-file-paths.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Backslashes work in file paths - FALSE, always use forward slashes in HTML",
+          "Absolute paths are always better - FALSE, relative paths are preferred for internal resources",
+          "File paths are case-sensitive on all systems - FALSE, Windows is case-insensitive, but Linux/Mac are case-sensitive"
+        ],
+        "realWorldAnalogy": "File paths are like addresses. Absolute paths are like full addresses with country, city, and street (https://example.com/images/photo.jpg). Relative paths are like directions from your current location (go up one folder, then into images folder). Root-relative paths are like directions from the city center (start from website root)."
+      },
+      {
+        "title": "HTML Head and Layouts - Responsiveness and Semantics",
+        "content": "The HTML `<head>` section contains metadata and resources, while proper layout ensures your webpage looks good on all devices. Semantic HTML5 elements provide meaning to your layout structure.\n\n**HTML Head Section**\nThe `<head>` contains metadata about the document that is not displayed on the page.\n\n**Essential Head Elements:**\n\n**1. Character Encoding**\n```html\n<meta charset=\"UTF-8\">\n```\n- Specifies character encoding\n- UTF-8 supports all languages\n- Should be first meta tag\n\n**2. Viewport (Responsive Design)**\n```html\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n```\n- Essential for mobile responsiveness\n- Controls how page scales on mobile\n- `width=device-width` - Use device width\n- `initial-scale=1.0` - Initial zoom level\n\n**3. Page Title**\n```html\n<title>My Website - Home</title>\n```\n- Displayed in browser tab\n- Important for SEO\n- Should be unique per page\n\n**4. Description (SEO)**\n```html\n<meta name=\"description\" content=\"Learn web development with our tutorials\">\n```\n- Search engine description\n- Appears in search results\n- Should be 150-160 characters\n\n**5. Keywords (SEO - less important now)**\n```html\n<meta name=\"keywords\" content=\"HTML, CSS, JavaScript, web development\">\n```\n\n**6. Author**\n```html\n<meta name=\"author\" content=\"John Doe\">\n```\n\n**7. Favicon**\n```html\n<link rel=\"icon\" type=\"image/png\" href=\"favicon.png\">\n```\n- Small icon in browser tab\n\n**8. Stylesheets**\n```html\n<link rel=\"stylesheet\" href=\"style.css\">\n```\n\n**9. JavaScript**\n```html\n<script src=\"script.js\" defer></script>\n```\n\n**Semantic HTML5 Layout Elements**\n\n**Complete Layout Structure:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>My Website</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <header>\n    <nav>\n      <ul>\n        <li><a href=\"#home\">Home</a></li>\n        <li><a href=\"#about\">About</a></li>\n        <li><a href=\"#contact\">Contact</a></li>\n      </ul>\n    </nav>\n  </header>\n  \n  <main>\n    <article>\n      <section>\n        <h1>Main Content</h1>\n        <p>This is the main content area.</p>\n      </section>\n    </article>\n    \n    <aside>\n      <h3>Sidebar</h3>\n      <p>Additional content here.</p>\n    </aside>\n  </main>\n  \n  <footer>\n    <p>&copy; 2024 My Website</p>\n  </footer>\n</body>\n</html>\n```\n\n**Semantic HTML5 Elements Explained**\n\n**<header>** - Introductory content or navigation:\n```html\n<header>\n  <h1>Website Title</h1>\n  <nav>Navigation links</nav>\n</header>\n```\n- Can be used at the top of the page or within sections\n- Often contains logo, navigation, or search\n\n**<nav>** - Navigation links:\n```html\n<nav>\n  <a href=\"#home\">Home</a>\n  <a href=\"#about\">About</a>\n</nav>\n```\n- For major navigation blocks\n- Not for all link groups\n\n**<main>** - Main content of the page:\n```html\n<main>\n  <h1>Main Article</h1>\n  <p>Content here...</p>\n</main>\n```\n- Should be unique per page\n- Contains the dominant content\n- Excludes header, footer, navigation\n\n**<section>** - Thematic grouping of content:\n```html\n<section>\n  <h2>Section Title</h2>\n  <p>Section content...</p>\n</section>\n```\n- Groups related content\n- Usually has a heading\n- Can be nested\n\n**<article>** - Self-contained content:\n```html\n<article>\n  <h2>Article Title</h2>\n  <p>Article content...</p>\n</article>\n```\n- Independent, distributable content\n- Blog posts, news articles, comments\n- Can stand alone\n\n**<aside>** - Content aside from main content:\n```html\n<aside>\n  <h3>Sidebar</h3>\n  <p>Related content...</p>\n</aside>\n```\n- Sidebars, pull quotes, advertising\n- Tangentially related to main content\n\n**<footer>** - Footer information:\n```html\n<footer>\n  <p>Copyright 2024</p>\n  <a href=\"#privacy\">Privacy Policy</a>\n</footer>\n```\n- Copyright, contact info, sitemap\n- Can appear at page or section level\n\n**Best Practices for Semantic HTML**\n- Use semantic elements instead of divs when possible\n- One <main> element per page\n- Proper nesting of elements\n- Use headings (h1-h6) in correct order\n- Include aria-labels for accessibility when needed\n- Semantic HTML improves SEO and accessibility\n\n**Responsive Design Principles**\n\n**Mobile-First Approach:**\n```css\n/* Base styles for mobile */\n.container {\n  width: 100%;\n  padding: 10px;\n}\n\n/* Tablet and up */\n@media (min-width: 768px) {\n  .container {\n    width: 750px;\n    margin: 0 auto;\n  }\n}\n\n/* Desktop and up */\n@media (min-width: 1024px) {\n  .container {\n    width: 960px;\n  }\n}\n```\n\n**Flexible Layouts:**\n```css\n.container {\n  max-width: 1200px;\n  width: 100%;\n  margin: 0 auto;\n}\n```\n\n**Best Practices:**\n- Always include viewport meta tag\n- Use semantic HTML5 elements\n- Design mobile-first\n- Test on multiple devices\n- Use meaningful title and description\n- Keep head section organized\n- Use external CSS and JavaScript files\n\n**Complete Example:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <meta name=\"description\" content=\"Learn web development\">\n  <title>My Website - Learn Web Development</title>\n  <link rel=\"icon\" href=\"favicon.ico\">\n  <link rel=\"stylesheet\" href=\"/css/style.css\">\n  <script src=\"/js/main.js\" defer></script>\n</head>\n<body>\n  <header class=\"site-header\">\n    <div class=\"container\">\n      <h1 class=\"logo\">My Website</h1>\n      <nav class=\"main-nav\">\n        <a href=\"/\">Home</a>\n        <a href=\"/about\">About</a>\n        <a href=\"/contact\">Contact</a>\n      </nav>\n    </div>\n  </header>\n  \n  <main class=\"main-content\">\n    <div class=\"container\">\n      <section class=\"hero\">\n        <h2>Welcome to My Website</h2>\n        <p>Learn web development step by step</p>\n      </section>\n      \n      <div class=\"content-wrapper\">\n        <section class=\"articles\">\n          <article>\n            <h3>Article 1</h3>\n            <p>Article content...</p>\n          </article>\n          <article>\n            <h3>Article 2</h3>\n            <p>Article content...</p>\n          </article>\n        </section>\n        \n        <aside class=\"sidebar\">\n          <h3>Sidebar</h3>\n          <p>Related content</p>\n        </aside>\n      </div>\n    </div>\n  </main>\n  \n  <footer class=\"site-footer\">\n    <div class=\"container\">\n      <p> 2024 My Website. All rights reserved.</p>\n    </div>\n  </footer>\n</body>\n</html>\n```",
+        "imageUrl": "/images/html-head-layouts.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Viewport meta tag is optional - FALSE, it's essential for mobile responsiveness",
+          "Semantic elements change how pages look - FALSE, they only add meaning, styling is done with CSS",
+          "You can have multiple main elements - FALSE, only one main element per page is allowed"
+        ],
+        "realWorldAnalogy": "The HTML head is like the engine compartment of a car - it contains everything that makes the car run (metadata, styles, scripts) but isn't visible to passengers. Semantic layout elements are like labeled rooms in a house - each has a clear purpose (kitchen, bedroom, bathroom) making it easy to navigate."
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/html-advanced-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Can I Use",
+          "url": "https://caniuse.com/",
+          "free": true,
+          "reason": "Check browser compatibility for HTML, CSS, and JavaScript features"
+        },
+        {
+          "name": "HTML Validator",
+          "url": "https://validator.w3.org/",
+          "free": true,
+          "reason": "Validate your HTML code for errors and best practices"
+        },
+        {
+          "name": "Responsive Design Tester",
+          "url": "https://responsivedesignchecker.com/",
+          "free": true,
+          "reason": "Test your website's responsiveness across different screen sizes"
+        }
+      ],
+      "furtherReading": [
+        "MDN Web Docs: HTML Attribute Reference (free, comprehensive)",
+        "W3Schools HTML Classes and IDs (free, beginner-friendly)",
+        "CSS-Tricks: A Complete Guide to Flexbox and Grid (free, modern layout guide)"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Class Attribute",
+        "definition": "An attribute that specifies one or more class names for an element, used for CSS styling and JavaScript selection."
+      },
+      {
+        "term": "ID Attribute",
+        "definition": "An attribute that specifies a unique identifier for an element, must be unique within the page."
+      },
+      {
+        "term": "CSS Selector",
+        "definition": "A pattern used to select HTML elements to style, .classname for classes, #idname for IDs."
+      },
+      {
+        "term": "Button Element",
+        "definition": "The <button> tag used to create clickable buttons for user interaction."
+      },
+      {
+        "term": "Iframe",
+        "definition": "Inline frame element used to embed another HTML document within the current document."
+      },
+      {
+        "term": "Sandbox Attribute",
+        "definition": "An iframe attribute that adds security restrictions to embedded content."
+      },
+      {
+        "term": "Lazy Loading",
+        "definition": "A technique that delays loading content (images, iframes) until it's needed, improving performance."
+      },
+      {
+        "term": "Script Tag",
+        "definition": "The <script> element used to embed or reference JavaScript code in HTML."
+      },
+      {
+        "term": "Async Attribute",
+        "definition": "A script attribute that loads the script asynchronously and executes as soon as it loads."
+      },
+      {
+        "term": "Defer Attribute",
+        "definition": "A script attribute that loads the script asynchronously but defers execution until HTML parsing is complete."
+      },
+      {
+        "term": "Absolute Path",
+        "definition": "A full file path including the complete URL from the domain root."
+      },
+      {
+        "term": "Relative Path",
+        "definition": "A file path relative to the current file's location in the directory structure."
+      },
+      {
+        "term": "Root-Relative Path",
+        "definition": "A file path relative to the website root directory, starting with a forward slash."
+      },
+      {
+        "term": "Viewport Meta Tag",
+        "definition": "A meta tag that controls how the webpage is displayed on mobile devices."
+      },
+      {
+        "term": "Responsive Design",
+        "definition": "A design approach that ensures webpages display correctly on all screen sizes and devices."
+      },
+      {
+        "term": "Semantic HTML",
+        "definition": "Using HTML tags that describe the meaning of content (like header, nav, main) rather than just appearance."
+      },
+      {
+        "term": "Meta Tags",
+        "definition": "HTML tags in the head section that provide metadata about the document."
+      },
+      {
+        "term": "Favicon",
+        "definition": "A small icon associated with a website, displayed in browser tabs and bookmarks."
+      },
+      {
+        "term": "Mobile-First Design",
+        "definition": "A design approach that starts with mobile layouts and progressively enhances for larger screens."
+      }
+    ]
+  }
+]

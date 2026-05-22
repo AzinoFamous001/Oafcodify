@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "How do you pass data from parent to child component?",
+    "options": [
+      "Using state",
+      "Using props",
+      "Using context",
+      "Using refs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props are used to pass data from parent to child components."
+  },
+  {
+    "id": 2,
+    "question": "What is the correct way to destructure props in a functional component?",
+    "options": [
+      "function Component(props.name)",
+      "function Component({ name })",
+      "function Component(name)",
+      "function Component(props->name)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props can be destructured using curly braces in the function parameter."
+  },
+  {
+    "id": 3,
+    "question": "Are props read-only or mutable?",
+    "options": [
+      "Mutable - can be changed by the child component",
+      "Read-only - cannot be modified by the child component",
+      "Both read-only and mutable",
+      "Depends on the prop type"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props are read-only and cannot be modified by the child component."
+  },
+  {
+    "id": 4,
+    "question": "What hook is used to add state to a functional component?",
+    "options": [
+      "useEffect",
+      "useState",
+      "useContext",
+      "useReducer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useState is the hook used to add state to functional components."
+  },
+  {
+    "id": 5,
+    "question": "How do you update state in React?",
+    "options": [
+      "state = newValue",
+      "setState(newValue)",
+      "state.update(newValue)",
+      "modify state directly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "State should be updated using the state setter function returned by useState."
+  },
+  {
+    "id": 6,
+    "question": "What is the difference between props and state?",
+    "options": [
+      "No difference",
+      "Props are passed from parent, state is managed within component",
+      "State is passed from parent, props are managed within component",
+      "Both are the same thing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props are passed from parent to child components, while state is managed internally within a component."
+  },
+  {
+    "id": 7,
+    "question": "What is a controlled component in React?",
+    "options": [
+      "A component with no state",
+      "A form element whose value is controlled by React state",
+      "A component that controls other components",
+      "A class component"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Controlled components have their form data controlled by React state."
+  },
+  {
+    "id": 8,
+    "question": "How do you set default values for props?",
+    "options": [
+      "Using default keyword",
+      "Using default values in destructuring",
+      "Using defaultProps",
+      "Both B and C"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Default values can be set using default values in destructuring or the defaultProps property."
+  },
+  {
+    "id": 9,
+    "question": "What happens when you modify state directly in React?",
+    "options": [
+      "It works fine",
+      "The component won't re-render",
+      "It causes an error",
+      "It automatically updates the UI"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Modifying state directly won't trigger a re-render. Always use the state setter function."
+  },
+  {
+    "id": 10,
+    "question": "How do you handle multiple state variables in a component?",
+    "options": [
+      "Use multiple useState hooks",
+      "Use one useState with an object",
+      "Both A and B",
+      "Use global state only"
+    ],
+    "correctAnswer": 2,
+    "explanation": "You can use multiple useState hooks or one useState with an object for multiple state variables."
+  },
+  {
+    "id": 11,
+    "question": "What is the correct way to update an object in state?",
+    "options": [
+      "setState(obj.key = newValue)",
+      "setState({ ...state, key: newValue })",
+      "state.key = newValue",
+      "setState(obj.key: newValue)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Use the spread operator to create a new object with the updated property."
+  },
+  {
+    "id": 12,
+    "question": "How do you update an array in state by adding an item?",
+    "options": [
+      "state.push(item)",
+      "setState([...state, item])",
+      "state.add(item)",
+      "setState(state + item)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Use the spread operator to create a new array with the new item added."
+  },
+  {
+    "id": 13,
+    "question": "What is functional state update?",
+    "options": [
+      "Updating state with a function",
+      "Using a function that receives the previous state",
+      "Updating state with a callback",
+      "Both B and C"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Functional state updates use a function that receives the previous state to ensure correct updates."
+  },
+  {
+    "id": 14,
+    "question": "Why should you use functional updates when the new state depends on the old state?",
+    "options": [
+      "It's faster",
+      "It ensures you get the latest state value",
+      "It uses less memory",
+      "It's required by React"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functional updates ensure you always work with the most recent state value."
+  },
+  {
+    "id": 15,
+    "question": "How do you handle form input with state?",
+    "options": [
+      "Use ref to get input value",
+      "Use controlled component with state",
+      "Use direct DOM manipulation",
+      "Use jQuery"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Controlled components use state to manage form input values."
+  },
+  {
+    "id": 16,
+    "question": "What event handler is used for text input changes?",
+    "options": [
+      "onInput",
+      "onChange",
+      "onValueChange",
+      "onTextChanged"
+    ],
+    "correctAnswer": 1,
+    "explanation": "onChange is the event handler used for text input changes in React."
+  },
+  {
+    "id": 17,
+    "question": "How do you handle a checkbox with state?",
+    "options": [
+      "Use onChange with value",
+      "Use onChange with checked",
+      "Use onClick",
+      "Use onCheck"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Checkboxes use the checked attribute instead of value in controlled components."
+  },
+  {
+    "id": 18,
+    "question": "What is the purpose of lifting state up?",
+    "options": [
+      "To make state global",
+      "To share state between sibling components",
+      "To delete state",
+      "To improve performance"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lifting state up moves state to a common parent to share it between sibling components."
+  },
+  {
+    "id": 19,
+    "question": "When should you use props vs state?",
+    "options": [
+      "Always use props",
+      "Always use state",
+      "Use props for data from parent, state for internal component data",
+      "Use state for data from parent, props for internal data"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Use props for data passed from parent, and state for data managed within the component."
+  },
+  {
+    "id": 20,
+    "question": "What happens when props change?",
+    "options": [
+      "Nothing happens",
+      "The component re-renders with new props",
+      "The component is destroyed",
+      "You must manually update"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When props change, React automatically re-renders the component with the new prop values."
+  }
+]

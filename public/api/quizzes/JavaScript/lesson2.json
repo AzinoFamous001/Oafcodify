@@ -1,0 +1,194 @@
+[
+  {
+    "id": 5,
+    "question": "How to write an IF statement in JavaScript?",
+    "options": [
+      "if i == 5 then",
+      "if i = 5",
+      "if (i == 5)",
+      "if i = 5 then"
+    ],
+    "correctAnswer": 2,
+    "explanation": "IF statements in JavaScript use the syntax: if (condition) { }"
+  },
+  {
+    "id": 6,
+    "question": "How does a WHILE loop start?",
+    "options": [
+      "while (i <= 5)",
+      "while i = 1 to 5",
+      "while (i <= 5; i++)",
+      "while (i <= 5;)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "WHILE loops start with while (condition) and continue while the condition is true."
+  },
+  {
+    "id": 7,
+    "question": "How do you declare a JavaScript variable?",
+    "options": [
+      "variable carName",
+      "v carName",
+      "var carName",
+      "val carName"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Variables are declared using the 'var', 'let', or 'const' keywords."
+  },
+  {
+    "id": 8,
+    "question": "What will the following code return: Boolean(10 > 9)?",
+    "options": [
+      "false",
+      "true",
+      "NaN",
+      "undefined"
+    ],
+    "correctAnswer": 1,
+    "explanation": "10 > 9 is true, so Boolean(10 > 9) returns true."
+  },
+  {
+    "id": 9,
+    "question": "How do you add a comment in JavaScript?",
+    "options": [
+      "'This is a comment'",
+      "// This is a comment",
+      "<!-- This is a comment -->",
+      "/* This is a comment */"
+    ],
+    "correctAnswer": 1,
+    "explanation": "// is used for single-line comments in JavaScript."
+  },
+  {
+    "id": 10,
+    "question": "What is the correct way to create a JavaScript array?",
+    "options": [
+      "var colors = 'red', 'green', 'blue'",
+      "var colors = ['red', 'green', 'blue']",
+      "var colors = (red, green, blue)",
+      "var colors = {red, green, blue}"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are created using square brackets []."
+  },
+  {
+    "id": 11,
+    "question": "How do you round the number 7.25 to the nearest integer?",
+    "options": [
+      "Math.round(7.25)",
+      "Math.rnd(7.25)",
+      "round(7.25)",
+      "Math.int(7.25)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Math.round() rounds a number to the nearest integer."
+  },
+  {
+    "id": 12,
+    "question": "How do you find the maximum value of x and y?",
+    "options": [
+      "Math.max(x, y)",
+      "max(x, y)",
+      "Math.maximum(x, y)",
+      "top(x, y)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Math.max() returns the largest of zero or more numbers."
+  },
+  {
+    "id": 13,
+    "question": "What is the correct JavaScript syntax for opening a new window?",
+    "options": [
+      "open('http://www.example.com')",
+      "window.open('http://www.example.com')",
+      "new('http://www.example.com')",
+      "window.new('http://www.example.com')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "window.open() is used to open a new browser window."
+  },
+  {
+    "id": 14,
+    "question": "How do you declare a JavaScript object?",
+    "options": [
+      "var person = {name: 'John', age: 30}",
+      "var person = (name: 'John', age: 30)",
+      "var person = [name: 'John', age: 30]",
+      "var person = <name: 'John', age: 30>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Objects are created using curly braces {} with key-value pairs."
+  },
+  {
+    "id": 15,
+    "question": "Which event occurs when the user clicks on an HTML element?",
+    "options": [
+      "onmouseclick",
+      "onchange",
+      "onclick",
+      "onmouseover"
+    ],
+    "correctAnswer": 2,
+    "explanation": "onclick is the event that occurs when an element is clicked."
+  },
+  {
+    "id": 16,
+    "question": "How do you declare a JavaScript function?",
+    "options": [
+      "function:myFunction()",
+      "function myFunction()",
+      "function = myFunction()",
+      "create function myFunction()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions are declared using the 'function' keyword."
+  },
+  {
+    "id": 17,
+    "question": "What is the correct syntax for referring to an external script?",
+    "options": [
+      "<script href='xxx.js'>",
+      "<script name='xxx.js'>",
+      "<script src='xxx.js'>",
+      "<script file='xxx.js'>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The src attribute specifies the URL of an external script file."
+  },
+  {
+    "id": 18,
+    "question": "How do you write 'Hello World' in an alert box?",
+    "options": [
+      "msg('Hello World')",
+      "alert('Hello World')",
+      "msgBox('Hello World')",
+      "alertBox('Hello World')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "alert() displays an alert box with a message."
+  },
+  {
+    "id": 19,
+    "question": "How do you create a function in JavaScript?",
+    "options": [
+      "function myFunction() {}",
+      "function:myFunction() {}",
+      "create myFunction() {}",
+      "def myFunction() {}"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Functions are created using the 'function' keyword followed by the function name."
+  },
+  {
+    "id": 20,
+    "question": "What is the correct way to write a JavaScript array?",
+    "options": [
+      "var colors = 'red', 'green', 'blue'",
+      "var colors = ['red', 'green', 'blue']",
+      "var colors = (red, green, blue)",
+      "var colors = {red, green, blue}"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are created using square brackets []."
+  }
+]

@@ -1,0 +1,100 @@
+[
+  {
+    "id": "1",
+    "title": "C++ Introduction and Syntax",
+    "description": "Learn the fundamentals of C++ programming, including what C++ is, how it works, and the basic syntax for writing C++ programs.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Understand what C++ is and its purpose in programming",
+      "Learn C++ syntax structure and program structure",
+      "Write and compile a basic C++ program",
+      "Understand variables and data types in C++",
+      "Use input/output operations in C++"
+    ],
+    "subtopics": [
+      {
+        "title": "What is C++?",
+        "content": "C++ is a powerful, high-performance programming language created by Bjarne Stroustrup. It's an extension of the C programming language with object-oriented features.\n\n**Key Points:**\n- Compiled language (converts to machine code)\n- Supports multiple programming paradigms\n- Used for system software, game development, and high-performance applications\n- Gives low-level memory control\n\n**Why Use C++?**\n- **Performance**: Fast execution and efficient memory use\n- **Control**: Direct memory manipulation\n- **Object-Oriented**: Supports classes and objects\n- **Portability**: Code runs on many platforms\n\n**Common Uses:**\n- Operating systems (Windows, Linux)\n- Game engines (Unreal Engine)\n- Embedded systems\n- High-performance applications\n\n**C++ Version History:**\n- C++98 (1998) - First standard\n- C++11 (2011) - Major update with modern features\n- C++14, C++17, C++20 - Incremental improvements\n- C++23 - Latest standard"
+      },
+      {
+        "title": "C++ Program Structure",
+        "content": "A basic C++ program has a specific structure that must be followed.\n\n**Basic Program Structure:**\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n  // Your code here\n  cout << \"Hello, World!\" << endl;\n  return 0;\n}\n```\n\n**Breakdown:**\n- `#include <iostream>` - Includes input/output library\n- `using namespace std;` - Uses standard namespace\n- `int main()` - Main function (entry point)\n- `{ }` - Code block\n- `cout` - Output stream\n- `return 0;` - Returns success status\n\n**Comments:**\n```cpp\n// Single-line comment\n\n/* Multi-line\n   comment */\n```\n\n**Compilation:**\n```bash\ng++ program.cpp -o program\n./program\n```"
+      },
+      {
+        "title": "Variables and Data Types",
+        "content": "C++ has several built-in data types for storing different kinds of data.\n\n**Basic Data Types:**\n```cpp\nint age = 25;           // Integer\nfloat price = 19.99;    // Floating-point\ndouble pi = 3.14159;    // Double precision\nchar grade = 'A';        // Single character\nbool isPassed = true;    // Boolean\nstring name = \"John\";    // String (needs #include <string>)\n```\n\n**Integer Types:**\n- `int` - Standard integer (usually 4 bytes)\n- `short` - Short integer (2 bytes)\n- `long` - Long integer (4 or 8 bytes)\n- `long long` - Very long integer (8 bytes)\n\n**Unsigned Types:**\n```cpp\nunsigned int x = 40000;  // Only positive numbers\nunsigned char c = 255;\n```\n\n**Variable Declaration:**\n```cpp\nint x;              // Declaration\nx = 10;            // Assignment\nint y = 20;         // Initialization\nconst int MAX = 100; // Constant (cannot change)\n```"
+      },
+      {
+        "title": "Input and Output",
+        "content": "C++ uses streams for input and output operations.\n\n**Output (cout):**\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n  cout << \"Hello, World!\" << endl;\n  cout << \"Age: \" << 25 << endl;\n  cout << \"Name: \" << \"John\" << endl;\n  return 0;\n}\n```\n\n**Input (cin):**\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n  int age;\n  string name;\n  \n  cout << \"Enter your name: \";\n  cin >> name;\n  \n  cout << \"Enter your age: \";\n  cin >> age;\n  \n  cout << \"Hello \" << name << \", you are \" << age << endl;\n  return 0;\n}\n```\n\n**getline for Strings:**\n```cpp\nstring fullName;\ncout << \"Enter your full name: \";\ngetline(cin, fullName); // Reads entire line\n```\n\n**Escape Sequences:**\n- `\\n` - New line\n- `\\t` - Tab\n- `\\\\` - Backslash\n- `\\\"` - Double quote"
+      },
+      {
+        "title": "Operators",
+        "content": "C++ supports various operators for performing operations.\n\n**Arithmetic Operators:**\n```cpp\nint a = 10, b = 3;\nint sum = a + b;      // 13\nint diff = a - b;     // 7\nint product = a * b;  // 30\nint quotient = a / b; // 3 (integer division)\nint remainder = a % b; // 1 (modulo)\n```\n\n**Increment/Decrement:**\n```cpp\nint x = 5;\nx++;      // x = 6 (post-increment)\n++x;      // x = 7 (pre-increment)\nx--;      // x = 6 (post-decrement)\n--x;      // x = 5 (pre-decrement)\n```\n\n**Comparison Operators:**\n```cpp\nint a = 5, b = 10;\na == b;   // false (equal)\na != b;   // true (not equal)\na < b;    // true (less than)\na > b;    // false (greater than)\na <= b;   // true (less than or equal)\na >= b;   // false (greater than or equal)\n```\n\n**Logical Operators:**\n```cpp\nbool a = true, b = false;\na && b;   // false (AND)\na || b;   // true (OR)\n!a;       // false (NOT)\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/cpp-basics-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "W3Schools C++ Tutorial",
+          "url": "https://www.w3schools.com/cpp/",
+          "free": true,
+          "reason": "Comprehensive C++ reference and tutorials"
+        },
+        {
+          "name": "cppreference.com",
+          "url": "https://en.cppreference.com/",
+          "free": true,
+          "reason": "Detailed C++ documentation and reference"
+        },
+        {
+          "name": "Online GDB",
+          "url": "https://www.onlinegdb.com/online_c++_compiler",
+          "free": true,
+          "reason": "Online C++ compiler for testing code"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools C++ Introduction",
+        "C++ Primer by Stanley Lippman",
+        "The C++ Programming Language by Bjarne Stroustrup"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "C++",
+        "definition": "A high-performance programming language that extends C with object-oriented features."
+      },
+      {
+        "term": "Compiler",
+        "definition": "A program that converts C++ source code into machine code that can be executed."
+      },
+      {
+        "term": "Variable",
+        "definition": "A named storage location in memory that holds a value."
+      },
+      {
+        "term": "Data Type",
+        "definition": "The type of data a variable can hold (int, float, char, bool, etc.)."
+      },
+      {
+        "term": "cout",
+        "definition": "Standard output stream in C++ used to display output to the console."
+      },
+      {
+        "term": "cin",
+        "definition": "Standard input stream in C++ used to get input from the user."
+      },
+      {
+        "term": "Namespace",
+        "definition": "A declarative region that provides a scope to identifiers."
+      },
+      {
+        "term": "Main Function",
+        "definition": "The entry point of a C++ program where execution begins."
+      }
+    ]
+  }
+]

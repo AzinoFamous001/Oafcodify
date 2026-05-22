@@ -1,0 +1,192 @@
+[
+  {
+    "id": "5",
+    "title": "HTML Entities, Charsets, Forms, Media & APIs",
+    "description": "Master essential HTML5 features including character entities, encoding, forms, multimedia, and powerful APIs. Learn how to handle special characters, create interactive forms, embed media, and use browser APIs like Geolocation, Drag and Drop, and Web Storage to build dynamic web applications.",
+    "level": "Intermediate",
+    "duration": "90 minutes",
+    "learningObjectives": [
+      "Use HTML character entities to display reserved and special characters",
+      "Understand and implement character encoding (UTF-8) in HTML documents",
+      "Create HTML forms with various input types including text, radio buttons, and checkboxes",
+      "Embed multimedia content (audio and video) in web pages",
+      "Use the Geolocation API to get user location with permission",
+      "Implement drag and drop functionality using HTML5 API",
+      "Store and retrieve data using localStorage and sessionStorage"
+    ],
+    "subtopics": [
+      {
+        "title": "HTML Character Entities",
+        "content": "Some characters are reserved in HTML. If you use the less than (<) or greater than (>) signs in your HTML text, the browser might mix them with tags. Entity names or entity numbers can be used to display reserved HTML characters.\n\n**What are HTML Entities?**\nHTML entities are special codes used to display characters that have special meaning in HTML or characters that are not on your keyboard. They start with an ampersand (&) and end with a semicolon (;).\n\n**Common Reserved Characters:**\n```html\n<!-- Less than sign -->\n&lt; or &#60;\n\n<!-- Greater than sign -->\n&gt; or &#62;\n\n<!-- Ampersand -->\n&amp; or &#38;\n\n<!-- Double quote -->\n&quot; or &#34;\n\n<!-- Single quote -->\n&apos; or &#39;\n```\n\n**Non-breaking Space:**\nThe non-breaking space entity (&nbsp;) is commonly used to prevent browsers from truncating spaces. If you write 10 spaces in your text, the browser will remove 9 of them. To add real spaces, use &nbsp;.\n\n```html\n<p>This text has&nbsp;&nbsp;&nbsp;extra spaces.</p>\n<p>10 km/h - won't break line</p>\n<p>10 PM - won't break line</p>\n```\n\n**Useful HTML Character Entities:**\n```html\n<!-- Currency symbols -->\n&cent;  (¢)\n&pound; (£)\n&yen;   (¥)\n&euro; (€)\n\n<!-- Copyright and trademark -->\n&copy;  (©)\n&reg;   (®)\n&trade; (™)\n\n<!-- Mathematical symbols -->\n&times; (×)\n&divide; (÷)\n&plusmn; (±)\n\n<!-- Arrows -->\n&larr; (←)\n&rarr; (→)\n&uarr; (↑)\n&darr; (↓)\n```\n\n**Important Notes:**\n- Entity names are case sensitive\n- Entity names are easier to remember than entity numbers\n- Not all entity names are supported in all browsers\n- Entity numbers work in all browsers",
+        "imageUrl": "/images/html-entities.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "HTML entities are NOT the same as emojis — entities are for special characters, emojis are graphical symbols.",
+          "You don't need to use entities for all special characters — only for reserved characters and symbols not on your keyboard.",
+          "Entity names are NOT always supported — use entity numbers for maximum browser compatibility."
+        ],
+        "realWorldAnalogy": "HTML entities are like escape characters in a story. If you want to write about a 'quote' character in your story, you need a special way to show it's part of the text, not the actual quotation marks around the text."
+      },
+      {
+        "title": "HTML Character Sets (Charsets)",
+        "content": "To display an HTML page correctly, a web browser must know which character set (encoding) to use. The character set is specified in the <meta> tag.\n\n**The HTML charset Attribute:**\n```html\n<meta charset=\"UTF-8\">\n```\n\nThe HTML specification encourages web developers to use the UTF-8 character set. UTF-8 covers almost all of the characters and symbols in the world!\n\n**Character Set History:**\n\n**ASCII (American Standard Code for Information Interchange)**\n- First character encoding standard for the web\n- Defined 128 different latin characters\n- English letters (a-z and A-Z)\n- Numbers (0-9)\n- Some special characters: ! $ + - ( ) @ < > . # ?\n\n**ANSI (Windows-1252)**\n- First Windows character set\n- Identical to ASCII for the first 127 characters\n- Special characters from 128 to 159\n- Identical to UTF-8 from 160 to 255\n\n**ISO-8859-1**\n- Default character set for HTML 4\n- Supported 256 characters\n- Identical to ASCII for the first 127 characters\n- Does not use characters from 128 to 159\n- Identical to ANSI and UTF-8 from 160 to 255\n\n**UTF-8 (Unicode Transformation Format - 8-bit)**\n- Identical to ASCII for values 0 to 127\n- Does not use characters from 128 to 159\n- Identical to ANSI and 8859-1 from 160 to 255\n- Continues from value 256 to 10,000+ characters\n- Supports almost all world languages and symbols\n- Default encoding for HTML5\n\n**Why UTF-8 is Recommended:**\n- Supports all languages (English, Chinese, Arabic, etc.)\n- Supports emojis and special symbols\n- Backward compatible with ASCII\n- Industry standard for modern web development\n- Required for international websites\n\n**Example:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>My Page</title>\n</head>\n<body>\n  <p>Hello 世界 مرحبا Привет</p>\n  <p>Emoji support: 😀 🎉 🚀</p>\n</body>\n</html>\n```",
+        "imageUrl": "/images/charset-diagram.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "UTF-8 is NOT just for English — it supports virtually every language and writing system in the world.",
+          "You don't need different charsets for different languages — UTF-8 handles all of them in one encoding.",
+          "Old charsets like ISO-8859-1 are NOT obsolete but should be avoided for new projects — UTF-8 is the modern standard."
+        ],
+        "realWorldAnalogy": "Character sets are like different alphabets. ASCII is like a basic English alphabet with 26 letters. UTF-8 is like a universal alphabet that includes English, Chinese, Arabic, emojis, and every other writing system — all in one comprehensive set."
+      },
+      {
+        "title": "HTML Forms",
+        "content": "HTML forms are used to collect user input. The <form> element is a container for different types of input elements such as text fields, checkboxes, radio buttons, submit buttons, and more.\n\n**The <form> Element:**\n```html\n<form>\n  <!-- form elements go here -->\n</form>\n```\n\n**The <input> Element:**\nThe <input> element is the most used form element. It can be displayed in many ways depending on the type attribute.\n\n**Text Fields:**\n```html\n<form>\n  <label for=\"fname\">First name:</label><br>\n  <input type=\"text\" id=\"fname\" name=\"fname\"><br><br>\n  \n  <label for=\"lname\">Last name:</label><br>\n  <input type=\"text\" id=\"lname\" name=\"lname\">\n</form>\n```\n\n**The <label> Element:**\nThe <label> tag defines a label for form elements. It's useful for screen-reader users and helps users click on small regions like radio buttons.\n```html\n<label for=\"male\">Male</label>\n<input type=\"radio\" id=\"male\" name=\"gender\" value=\"male\">\n```\n\n**Radio Buttons:**\nRadio buttons let a user select ONE of a limited number of choices.\n```html\n<form>\n  <p>Choose your favorite Web language:</p>\n  <input type=\"radio\" id=\"html\" name=\"fav_language\" value=\"HTML\">\n  <label for=\"html\">HTML</label><br>\n  \n  <input type=\"radio\" id=\"css\" name=\"fav_language\" value=\"CSS\">\n  <label for=\"css\">CSS</label><br>\n  \n  <input type=\"radio\" id=\"javascript\" name=\"fav_language\" value=\"JavaScript\">\n  <label for=\"javascript\">JavaScript</label>\n</form>\n```\n\n**Checkboxes:**\nCheckboxes let a user select ZERO or MORE options of a limited number of choices.\n```html\n<form>\n  <input type=\"checkbox\" id=\"vehicle1\" name=\"vehicle1\" value=\"Bike\">\n  <label for=\"vehicle1\"> I have a bike</label><br>\n  \n  <input type=\"checkbox\" id=\"vehicle2\" name=\"vehicle2\" value=\"Car\">\n  <label for=\"vehicle2\"> I have a car</label>\n</form>\n```\n\n**The Submit Button:**\n```html\n<form action=\"/submit-page\">\n  <label for=\"fname\">First name:</label><br>\n  <input type=\"text\" id=\"fname\" name=\"fname\" value=\"John\"><br><br>\n  <input type=\"submit\" value=\"Submit\">\n</form>\n```\n\n**Common Input Types:**\n- `type=\"text\"` - Single-line text input\n- `type=\"password\"` - Password field (characters hidden)\n- `type=\"radio\"` - Radio button\n- `type=\"checkbox\"` - Checkbox\n- `type=\"submit\"` - Submit button\n- `type=\"email\"` - Email field with validation\n- `type=\"number\"` - Numeric input\n- `type=\"date\"` - Date picker\n- `type=\"file\"` - File upload",
+        "imageUrl": "/images/html-forms.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Forms do NOT submit data automatically — you need a server or JavaScript to handle the submission.",
+          "The <label> element is NOT optional — it's crucial for accessibility and usability.",
+          "Radio buttons with the same name attribute are NOT independent — they work as a group where only one can be selected."
+        ],
+        "realWorldAnalogy": "An HTML form is like a paper application form. You have fields to fill in (input elements), checkboxes to select options, radio buttons for single choices, and a submit button to send it in. The labels tell you what each field is for."
+      },
+      {
+        "title": "HTML Multimedia",
+        "content": "Multimedia comes in many different formats. It can be almost anything you can hear or see, like images, music, sound, videos, records, films, animations, and more. Web pages often contain multimedia elements of different types and formats.\n\n**What is Multimedia?**\nMultimedia elements (like audio or video) are stored in media files. The most common way to discover the type of a file is to look at the file extension.\n\n**Common Multimedia File Extensions:**\n- .wav, .mp3, .mp4, .mpg, .wmv, .avi\n\n**Supported Video Formats:**\nOnly MP4, WebM, and Ogg video are supported by the HTML standard.\n\n- **MP4** - Most widely supported format\n- **WebM** - Open format, good quality\n- **Ogg** - Open format, good compression\n\n**Supported Audio Formats:**\nOnly MP3, WAV, and Ogg audio are supported by the HTML standard.\n\n- **MP3** - Best format for compressed recorded music\n- **WAV** - Uncompressed, high quality\n- **Ogg** - Open format, good compression\n\n**HTML5 Video Element:**\n```html\n<video width=\"320\" height=\"240\" controls>\n  <source src=\"movie.mp4\" type=\"video/mp4\">\n  <source src=\"movie.ogg\" type=\"video/ogg\">\n  Your browser does not support the video tag.\n</video>\n```\n\n**HTML5 Audio Element:**\n```html\n<audio controls>\n  <source src=\"horse.mp3\" type=\"audio/mpeg\">\n  <source src=\"horse.ogg\" type=\"audio/ogg\">\n  Your browser does not support the audio element.\n</audio>\n```\n\n**Video Attributes:**\n- `controls` - Adds play, pause, volume controls\n- `autoplay` - Starts playing automatically (not recommended)\n- `loop` - Repeats the video when finished\n- `muted` - Mutes the video by default\n- `width/height` - Sets dimensions\n- `poster` - Image to show before video loads\n\n**Audio Attributes:**\n- `controls` - Adds play, pause, volume controls\n- `autoplay` - Starts playing automatically\n- `loop` - Repeats when finished\n- `muted` - Mutes by default\n\n**Best Practices:**\n- Always provide multiple source formats for compatibility\n- Include fallback content for browsers that don't support the element\n- Use the `controls` attribute so users can control playback\n- Avoid autoplay (it's annoying and often blocked by browsers)\n- Optimize media files for web (compress videos/audio)",
+        "imageUrl": "/images/html-media.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Not all video formats are supported in HTML — only MP4, WebM, and Ogg are standard.",
+          "Autoplay doesn't work reliably — most browsers block autoplay with sound for better user experience.",
+          "You don't need different files for different browsers — providing multiple source formats handles browser compatibility automatically."
+        ],
+        "realWorldAnalogy": "HTML multimedia is like a universal media player. Just as a DVD player can play movies and a CD player can play music, HTML5 has built-in support for playing videos and audio directly in the browser without needing plugins like Flash."
+      },
+      {
+        "title": "HTML Geolocation API",
+        "content": "The Geolocation API is used to access the user's current location. Since this can compromise privacy, the location is not available unless the user approves it.\n\n**Browser Support:**\nThe Geolocation API is supported in all modern browsers.\n\n**Using the Geolocation API:**\nThe Geolocation API is accessed via a call to navigator.geolocation. This will cause the browser to ask the user for permission to access their location data.\n\n```javascript\nnavigator.geolocation.getCurrentPosition(showPosition);\n```\n\n**Complete Example:**\n```html\n<!DOCTYPE html>\n<html>\n<body>\n<p>Click the button to get your coordinates.</p>\n<button onclick=\"getLocation()\">Try It</button>\n<p id=\"demo\"></p>\n\n<script>\nconst x = document.getElementById(\"demo\");\n\nfunction getLocation() {\n  if (navigator.geolocation) {\n    navigator.geolocation.getCurrentPosition(showPosition);\n  } else {\n    x.innerHTML = \"Geolocation is not supported by this browser.\";\n  }\n}\n\nfunction showPosition(position) {\n  x.innerHTML = \"Latitude: \" + position.coords.latitude + \n  \"<br>Longitude: \" + position.coords.longitude;\n}\n</script>\n</body>\n</html>\n```\n\n**Error Handling:**\nThe second parameter of getCurrentPosition() is used to handle errors.\n```javascript\nfunction showError(error) {\n  switch(error.code) {\n    case error.PERMISSION_DENIED:\n      x.innerHTML = \"User denied the request for Geolocation.\"\n      break;\n    case error.POSITION_UNAVAILABLE:\n      x.innerHTML = \"Location information is unavailable.\"\n      break;\n    case error.TIMEOUT:\n      x.innerHTML = \"The request to get user location timed out.\"\n      break;\n    default:\n      x.innerHTML = \"An unknown error occurred.\"\n  }\n}\n```\n\n**Important Notes:**\n- Geolocation only works on secure contexts (HTTPS)\n- Most accurate for devices with GPS (smartphones)\n- User must grant permission\n- Privacy-sensitive feature",
+        "imageUrl": "/images/geolocation-api.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Geolocation does NOT work on HTTP (except localhost) — modern browsers require HTTPS for privacy.",
+          "The API does NOT track users continuously — it only gets location when you request it.",
+          "Geolocation is NOT always precise — accuracy depends on device and available location methods."
+        ],
+        "realWorldAnalogy": "The Geolocation API is like asking someone for their address. You have to ask politely (request permission), they can say yes or no, and if they agree, they tell you where they are. You don't automatically know their location without asking."
+      },
+      {
+        "title": "HTML Drag and Drop API",
+        "content": "Drag and drop is a very common feature. It is when you \"grab\" an object and drag it to a different location. HTML5 has a native Drag and Drop API that makes this easy to implement.\n\n**Make an Element Draggable:**\nFirst, to make an element draggable, set the draggable attribute to true:\n```html\n<img draggable=\"true\" id=\"drag1\" src=\"img_logo.gif\">\n```\n\n**What to Drag - ondragstart and setData():**\nSpecify what should happen when the element is dragged. The dataTransfer.setData() method sets the data type and the value of the dragged data.\n```html\ndefine drag(ev) {\n  ev.dataTransfer.setData(\"text\", ev.target.id);\n}\n```\n\n**Where to Drop - ondragover:**\nBy default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element using preventDefault().\n```html\ndefine allowDrop(ev) {\n  ev.preventDefault();\n}\n```\n\n**Do the Drop - ondrop:**\nWhen the dragged data is dropped, a drop event occurs. Use dataTransfer.getData() to get the dragged data.\n```html\ndefine drop(ev) {\n  ev.preventDefault();\n  var data = ev.dataTransfer.getData(\"text\");\n  ev.target.appendChild(document.getElementById(data));\n}\n```\n\n**Complete Example:**\n```html\n<!DOCTYPE HTML>\n<html>\n<head>\n<style>\n#div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}\n</style>\n<script>\nfunction allowDrop(ev) {\n  ev.preventDefault();\n}\n\nfunction drag(ev) {\n  ev.dataTransfer.setData(\"text\", ev.target.id);\n}\n\nfunction drop(ev) {\n  ev.preventDefault();\n  var data = ev.dataTransfer.getData(\"text\");\n  ev.target.appendChild(document.getElementById(data));\n}\n</script>\n</head>\n<body>\n\n<p>Drag the W3Schools image into the rectangle:</p>\n\n<div id=\"div1\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></div>\n<br>\n<img id=\"drag1\" src=\"img_logo.gif\" draggable=\"true\" ondragstart=\"drag(event)\" width=\"336\" height=\"69\">\n\n</body>\n</html>\n```\n\n**Key Events:**\n- `dragstart` - When dragging starts\n- `drag` - While dragging\n- `dragend` - When dragging ends\n- `dragenter` - When dragged element enters drop zone\n- `dragover` - While over drop zone\n- `dragleave` - When leaving drop zone\n- `drop` - When dropped",
+        "imageUrl": "/images/drag-drop-api.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "You must call preventDefault() on dragover — without it, dropping won't work.",
+          "Drag and drop is NOT just for images — any HTML element can be made draggable.",
+          "The API does NOT work the same on mobile — touch devices need special handling."
+        ],
+        "realWorldAnalogy": "Drag and drop is like moving a physical file from one folder to another. You pick it up (dragstart), move it across your desk (drag), and place it in the new location (drop). The destination folder has to be ready to accept it (dragover preventDefault)."
+      },
+      {
+        "title": "HTML Web Storage API",
+        "content": "With web storage, applications can store data locally within the user's browser. Before HTML5, application data had to be stored in cookies, included in every server request. Web storage is more secure, and large amounts of data can be stored locally.\n\n**What is HTML Web Storage?**\n- More secure than cookies\n- Large amounts of data can be stored (at least 5MB)\n- Information is never transferred to the server\n- Per origin (per domain and protocol)\n\n**Web Storage Objects:**\n- **localStorage** - Stores data with no expiration date (data not lost when browser is closed)\n- **sessionStorage** - Stores data for one session (data lost when browser tab is closed)\n\n**The localStorage Object:**\n```html\n<script>\n// Store data\nlocalStorage.setItem(\"lastname\", \"Smith\");\n\n// Retrieve data\ndocument.getElementById(\"result\").innerHTML = localStorage.getItem(\"lastname\");\n</script>\n```\n\n**Example: Counting Clicks:**\n```html\n<!DOCTYPE html>\n<html>\n<body>\n\n<p><button onclick=\"clickCounter()\" type=\"button\">Click me!</button></p>\n<div id=\"result\"></div>\n\n<script>\nfunction clickCounter() {\n  if (typeof(Storage) !== \"undefined\") {\n    if (localStorage.clickcount) {\n      localStorage.clickcount = Number(localStorage.clickcount) + 1;\n    } else {\n      localStorage.clickcount = 1;\n    }\n    document.getElementById(\"result\").innerHTML = \"You have clicked the button \" + localStorage.clickcount + \" time(s).\";\n  } else {\n    document.getElementById(\"result\").innerHTML = \"Sorry, your browser does not support web storage...\";\n  }\n}\n</script>\n\n</body>\n</html>\n```\n\n**The sessionStorage Object:**\n```html\n<script>\nif (sessionStorage.clickcount) {\n  sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;\n} else {\n  sessionStorage.clickcount = 1;\n}\ndocument.getElementById(\"result\").innerHTML = \"You have clicked the button \" + sessionStorage.clickcount + \" time(s) in this session.\";\n</script>\n```\n\n**Common Methods:**\n- `setItem(key, value)` - Store data\n- `getItem(key)` - Retrieve data\n- `removeItem(key)` - Remove specific item\n- `clear()` - Clear all data\n- `key(index)` - Get key at index\n\n**When to Use:**\n- localStorage: User preferences, shopping cart, theme settings\n- sessionStorage: Form data during multi-step process, temporary session data",
+        "imageUrl": "/images/web-storage-api.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "localStorage is NOT secure for sensitive data — anyone with access to the browser can read it.",
+          "Web storage is NOT sent to the server — it stays entirely on the client side.",
+          "sessionStorage data is NOT lost on page refresh — it persists until the tab is closed."
+        ],
+        "realWorldAnalogy": "localStorage is like a filing cabinet in your home — things stay there indefinitely until you remove them. sessionStorage is like a temporary notepad on your desk — it's there while you're working, but gets cleared when you leave (close the tab)."
+      },
+      {
+        "title": "Responsive Design Basics: The Meta Viewport Tag",
+        "content": "Before smartphones, every website was designed for desktop screens. When the iPhone launched in 2007, it tried to fit full desktop websites onto a tiny 320px screen by zooming out. That made everything tiny and unreadable. The meta viewport tag fixed this by telling mobile browsers: \"Scale my page properly for this screen size.\"\n\n**The magic tag (always include it):**\n```html\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n```\n\n**What each part does:**\n- `width=device-width` — Sets the page width to match the device's screen width (not zoomed-out desktop width).\n- `initial-scale=1.0` — Sets the initial zoom level to 100% (not zoomed out or in).\n\n**Without this tag (bad):**\n```html\n<!-- Browsers assume 980px desktop width on a 375px phone → everything is tiny -->\n```\nUser sees: An entire desktop website squished into a small phone screen. Text is unreadable, buttons are tiny. The user must pinch and zoom constantly.\n\n**With this tag (good):**\n```html\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n```\nUser sees: Content that fills the phone screen. Text is readable, buttons are tappable. No pinching needed.\n\n**Additional viewport settings:**\n```html\n<!-- Prevent zooming (usually NOT recommended - hurts accessibility) -->\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n\n<!-- Set maximum zoom level -->\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=2.0\">\n```\n**Warning:** Avoid `user-scalable=no` unless you have a very good reason. It blocks users with visual impairments from zooming your page.\n\n**How viewport works with CSS media queries:**\nThe viewport tag enables CSS media queries to work correctly. Media queries apply different styles based on screen width.\n\n```css\n/* Default: desktop styles */\n.container {\n  display: flex;\n  gap: 20px;\n}\n\n/* Tablet screens (768px to 1024px) */\n@media (max-width: 1024px) {\n  .container {\n    gap: 15px;\n  }\n}\n\n/* Mobile screens (below 768px) */\n@media (max-width: 768px) {\n  .container {\n    flex-direction: column; /* Stack vertically on phones */\n    gap: 10px;\n  }\n}\n```\n\n**Testing responsive design:**\n1. In Chrome: Right-click → Inspect → Click the \"Toggle device toolbar\" icon (phone/tablet icon).\n2. Select different devices (iPhone, Pixel, iPad) from the dropdown.\n3. Resize your browser window manually to see how the layout changes.\n\n**Common responsive patterns:**\n- **Stacking:** Columns stack vertically on mobile instead of sitting side-by-side.\n- **Hamburger menu:** Navigation links hide behind a ☰ icon on mobile.\n- **Larger touch targets:** Buttons are at least 44x44px on mobile for fingers.\n- **Readable font sizes:** Minimum 16px for body text on mobile.\n\n**Complete responsive example:**\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Responsive Page</title>\n  <style>\n    body {\n      font-family: system-ui, sans-serif;\n      margin: 0;\n      padding: 20px;\n    }\n    .cards {\n      display: flex;\n      gap: 20px;\n      flex-wrap: wrap;\n    }\n    .card {\n      background: #f5f5f5;\n      padding: 20px;\n      border-radius: 8px;\n      flex: 1;\n      min-width: 200px;\n    }\n    /* Mobile: cards stack, font gets smaller */\n    @media (max-width: 640px) {\n      body {\n        padding: 10px;\n      }\n      .cards {\n        flex-direction: column;\n      }\n      h1 {\n        font-size: 1.5rem;\n      }\n    }\n  </style>\n</head>\n<body>\n  <h1>Responsive Card Layout</h1>\n  <div class=\"cards\">\n    <div class=\"card\">Card 1</div>\n    <div class=\"card\">Card 2</div>\n    <div class=\"card\">Card 3</div>\n  </div>\n</body>\n</html>\n```\n\nRemember: Adding the meta viewport tag is the single most important step for mobile-friendly websites. Without it, even the most beautiful responsive CSS will not work correctly on phones.",
+        "imageUrl": "/images/viewport-diagram.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "The viewport tag does NOT make your site responsive by itself — you still need CSS media queries and flexible layouts. It only tells the browser to scale correctly.",
+          "Removing the viewport tag breaks responsive CSS — media queries depend on the viewport being set correctly.",
+          "The viewport tag is not optional for modern websites — over 60% of web traffic is mobile. Without it, mobile users have a terrible experience."
+        ],
+        "realWorldAnalogy": "The meta viewport tag is like giving someone the correct glasses prescription. Without it, the browser sees your website through distorted lenses (zoomed out, tiny text). With it, everything comes into clear focus at the right size."
+      },
+      {
+        "title": "Professional Best Practices: File Organization and Code Quality",
+        "content": "Professional developers follow consistent practices that make code readable, maintainable, and fast. These habits separate beginners from hired professionals.\n\n**1. File and folder structure (never put everything in one folder)**\n```\nproject-folder/\n├── index.html          (homepage)\n├── about.html          (about page)\n├── contact.html        (contact page)\n├── css/\n│   ├── style.css       (main stylesheet)\n│   └── responsive.css  (mobile-specific styles)\n├── js/\n│   ├── main.js         (main JavaScript)\n│   └── utils.js        (helper functions)\n├── images/\n│   ├── logo.png\n│   ├── hero.jpg\n│   └── icons/\n│       ├── facebook.svg\n│       └── twitter.svg\n└── fonts/\n    └── custom-font.woff2\n```\n\n**Rules for file paths:**\n- Use relative paths: `href=\"css/style.css\"` not `href=\"C:/Users/...\"`\n- Lowercase filenames: `about.html` not `About.HTML`\n- No spaces: `my-file.html` not `my file.html`\n- Use hyphens (-) not underscores (_) for readability\n\n**2. HTML formatting standards**\n```html\n<!-- Good: 2-space indentation, lowercase tags, quoted attributes -->\n<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n  </head>\n  <body>\n    <main>\n      <h1>Welcome</h1>\n      <p>This is properly formatted.</p>\n    </main>\n  </body>\n</html>\n\n<!-- Bad: inconsistent indentation, uppercase tags, no quotes -->\n<!DOCTYPE html>\n<HTML LANG=en>\n<HEAD>\n<TITLE>My Page</TITLE>\n</HEAD>\n<body>\n<main>\n    <h1>Welcome</h1>\n      <p>This is hard to read.</p>\n</main>\n</body>\n</HTML>\n```\n\n**3. Performance best practices**\n- **Load CSS early:** Put `<link>` tags in the `<head>` so styles apply immediately.\n- **Load JavaScript late:** Put `<script>` tags right before `</body>` so HTML loads first.\n```html\n<body>\n  <h1>Content loads first</h1>\n  <p>Users see this while JS loads.</p>\n  \n  <script src=\"js/main.js\"></script>\n</body>\n```\n- **Compress images:** Use TinyPNG or Squoosh to reduce file sizes (often by 70%).\n- **Use modern image formats:** WebP images are 30% smaller than JPEG at same quality.\n- **Add loading=\"lazy\" to images below the fold:**\n```html\n<img src=\"footer-logo.png\" alt=\"Logo\" loading=\"lazy\">\n```\n\n**4. Accessibility checklist (simple wins)**\n- All images have `alt` text.\n- Heading levels follow logical order (h1 then h2 then h3).\n- Links have descriptive text (not \"click here\").\n- Color is not the only way to convey information (add icons or text labels).\n- Form inputs have associated `<label>` tags.\n\n**5. SEO basics (search engine optimization)**\n```html\n<head>\n  <title>My Website | Best Product Description</title>\n  <meta name=\"description\" content=\"This is the 150-character description that appears in Google search results.\">\n  <meta name=\"keywords\" content=\"HTML, CSS, web development\">\n  <link rel=\"canonical\" href=\"https://mysite.com/page\">\n</head>\n```\n- One `<h1>` per page.\n- Descriptive page titles (under 60 characters).\n- Unique meta descriptions for every page (under 160 characters).\n- Clean, descriptive URLs: `mysite.com/about-us` not `mysite.com/page?id=123`.\n\n**6. HTML validation**\nAlways check your HTML with the [W3C Markup Validation Service](https://validator.w3.org/). It catches unclosed tags, missing attributes, and invalid nesting for free.\n\n**7. Commenting guidelines**\n```html\n<!-- Good comment: explains WHY, not WHAT -->\n<!-- Using absolute positioning to overlap hero image with text overlay -->\n<div class=\"hero\">...</div>\n\n<!-- Bad comment: states the obvious -->\n<!-- This is a div -->\n<div class=\"hero\">...</div>\n\n<!-- Good section comments for large pages -->\n<!-- ========== HEADER ========== -->\n<header>...</header>\n\n<!-- ========== MAIN CONTENT ========== -->\n<main>...</main>\n```\n\n**8. Browser testing**\nTest your site in at least:\n- Chrome (most popular)\n- Firefox (second most popular)\n- Safari (if you have a Mac)\n- One mobile browser (Chrome on phone or Safari on iPhone)\n\n**The professional's mindset:** Code is read more often than it is written. Write for the next developer (who might be you in 6 months). Clean code is not optional — it is the price of entry for professional work.",
+        "imageUrl": "/images/folder-structure.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Valid HTML does not mean good HTML — validation checks syntax only, not semantics, accessibility, or performance.",
+          "You can write HTML in any text editor — Notepad works but VS Code gives you productivity superpowers (auto-complete, error highlighting, formatting).",
+          "More comments are not always better — well-written code should be self-documenting. Comments should explain why, not what."
+        ],
+        "realWorldAnalogy": "Writing clean HTML is like cooking in a professional kitchen. You use labeled containers (file organization), clean as you go (consistent formatting), and keep your station organized (best practices). A messy kitchen might still produce good food, but no professional chef would work there — and no professional developer should work with messy code."
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/html5-advanced-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Chrome DevTools",
+          "url": "https://developer.chrome.com/docs/devtools/",
+          "free": true,
+          "reason": "Debug geolocation, storage, and responsive design"
+        },
+        {
+          "name": "W3C Validator",
+          "url": "https://validator.w3.org/",
+          "free": true,
+          "reason": "Checks your HTML for errors and warnings"
+        },
+        {
+          "name": "TinyPNG",
+          "url": "https://tinypng.com/",
+          "free": true,
+          "reason": "Compress images without losing quality"
+        }
+      ],
+      "furtherReading": [
+        "MDN: Geolocation API (free)",
+        "MDN: Drag and Drop API (free)",
+        "MDN: Web Storage API (free)",
+        "Google: Responsive Web Design Basics (free)",
+        "HTML5 Best Practices by Google (free PDF)"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Geolocation API",
+        "definition": "A browser feature that gets the user's physical location (latitude/longitude) after they grant permission."
+      },
+      {
+        "term": "localStorage",
+        "definition": "A way to store data in the browser that persists even after the browser is closed and reopened."
+      },
+      {
+        "term": "sessionStorage",
+        "definition": "Storage that only lasts until the browser tab is closed — cleared automatically afterwards."
+      },
+      {
+        "term": "Iframe",
+        "definition": "An HTML element that embeds one webpage inside another webpage (used for YouTube, Google Maps, etc.)."
+      },
+      {
+        "term": "Meta Viewport",
+        "definition": "A tag that tells mobile browsers how to scale and display a webpage correctly on small screens."
+      },
+      {
+        "term": "Responsive Design",
+        "definition": "Building websites that automatically adjust layout and font sizes to work on phones, tablets, and desktops."
+      },
+      {
+        "term": "Media Query",
+        "definition": "CSS rules that apply different styles based on screen width, device type, or other features."
+      },
+      {
+        "term": "SEO",
+        "definition": "Search Engine Optimization — practices to help search engines understand and rank your website higher."
+      }
+    ]
+  }
+]

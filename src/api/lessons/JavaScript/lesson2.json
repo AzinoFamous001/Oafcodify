@@ -1,0 +1,69 @@
+[
+  {
+    "id": "2",
+    "title": "DOM Manipulation & Events",
+    "description": "Learn how to interact with HTML elements using JavaScript DOM manipulation and handle user events.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Select HTML elements with JavaScript",
+      "Modify element content and styles",
+      "Handle user interactions and events",
+      "Use event listeners effectively",
+      "Create dynamic web page updates"
+    ],
+    "subtopics": [
+      {
+        "title": "Selecting Elements",
+        "content": "Use JavaScript to select and manipulate HTML elements:\n\n**Common Selection Methods:**\n- `document.getElementById('id')` - Select by ID\n- `document.querySelector('.class')` - Select by CSS class\n- `document.querySelectorAll('div')` - Select multiple elements\n\n**Example:**\n```javascript\n// Select element by ID\nconst title = document.getElementById('pageTitle');\ntitle.textContent = 'New Title';\n\n// Select by class\nconst buttons = document.querySelectorAll('.btn');\nbuttons.forEach(btn => {\n  btn.style.backgroundColor = 'blue';\n});\n```\n\n**Best Practice:**\n- Store selected elements in variables for reuse\n- Use specific selectors for better performance"
+      },
+      {
+        "title": "Modifying Content",
+        "content": "Change element content and styles:\n\n**Content Properties:**\n- `.textContent` - Text content\n- `.innerHTML` - HTML content (use carefully)\n- `.value` - Form input values\n\n**Style Properties:**\n- `.style.color = 'red'`\n- `.style.backgroundColor = '#f0f0f0'`\n- `.style.fontSize = '18px'`\n\n**Example:**\n```javascript\nconst message = document.getElementById('message');\nmessage.textContent = 'Hello World!';\nmessage.style.color = 'blue';\nmessage.style.fontSize = '24px';\n```\n\n**Security Note:**\n- Avoid innerHTML with user input\n- Sanitize content when possible"
+      },
+      {
+        "title": "Event Handling",
+        "content": "Respond to user actions:\n\n**Common Events:**\n- `click` - Mouse click\n- `submit` - Form submission\n- `keydown` - Keyboard press\n- `mouseover` - Mouse hover\n\n**Event Listeners:**\n```javascript\nconst button = document.getElementById('myButton');\nbutton.addEventListener('click', function() {\n  alert('Button clicked!');\n});\n\n// Arrow function\nbutton.addEventListener('click', () => {\n  console.log('Clicked!');\n});\n```\n\n**Event Object:**\n```javascript\nfunction handleClick(event) {\n  console.log('Target:', event.target);\n  event.preventDefault(); // Stop default action\n}\n```\n\n**Best Practice:**\n- Use specific event types\n- Remove event listeners when no longer needed\n- Use event delegation for multiple elements"
+      },
+      {
+        "title": "Dynamic Updates",
+        "content": "Create interactive and responsive pages:\n\n**Creating Elements:**\n```javascript\nconst newDiv = document.createElement('div');\nnewDiv.textContent = 'Dynamic content';\nnewDiv.className = 'highlight';\ndocument.body.appendChild(newDiv);\n```\n\n**Removing Elements:**\n```javascript\nconst element = document.getElementById('removeMe');\nelement.remove(); // Modern and simple\n```\n\n**Template Literals:**\n```javascript\nconst userCard = `\n  <div class='card'>\n    <h3>${name}</h3>\n    <p>${email}</p>\n  </div>\n`;\ndocument.getElementById('container').innerHTML = userCard;\n```\n\n**Performance Tips:**\n- Use document fragments for multiple updates\n- Batch DOM operations when possible"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/javascript-dom-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Browser DevTools",
+          "url": "https://developer.chrome.com/docs/devtools/",
+          "free": true,
+          "reason": "Essential for DOM debugging"
+        },
+        {
+          "name": "JSFiddle",
+          "url": "https://jsfiddle.net/",
+          "free": true,
+          "reason": "Test JavaScript code online"
+        }
+      ],
+      "furtherReading": [
+        "MDN Web Docs: DOM",
+        "JavaScript.info - DOM manipulation reference"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "DOM",
+        "definition": "Document Object Model - the structure of HTML documents as objects."
+      },
+      {
+        "term": "Event Listener",
+        "definition": "A function that waits for specific events to occur on an element."
+      },
+      {
+        "term": "Element",
+        "definition": "An HTML element represented as a JavaScript object."
+      }
+    ]
+  }
+]

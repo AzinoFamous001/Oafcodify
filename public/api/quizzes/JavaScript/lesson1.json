@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "Inside which HTML element do we put the JavaScript?",
+    "options": [
+      "<javascript>",
+      "<js>",
+      "<script>",
+      "<coding>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "JavaScript code is placed inside the <script> tag in HTML."
+  },
+  {
+    "id": 2,
+    "question": "How do you write 'Hello World' in an alert box?",
+    "options": [
+      "msg('Hello World')",
+      "alert('Hello World')",
+      "msgBox('Hello World')",
+      "alertBox('Hello World')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "alert('Hello World') displays an alert box with the message."
+  },
+  {
+    "id": 3,
+    "question": "How do you create a function in JavaScript?",
+    "options": [
+      "function:myFunction()",
+      "function myFunction()",
+      "function = myFunction()",
+      "create function myFunction()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions are created using the 'function' keyword followed by the function name."
+  },
+  {
+    "id": 4,
+    "question": "How do you call a function named 'myFunction'?",
+    "options": [
+      "call myFunction()",
+      "myFunction()",
+      "call function myFunction()",
+      "execute myFunction()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions are called by writing their name followed by parentheses."
+  },
+  {
+    "id": 5,
+    "question": "How do you write a comment in JavaScript?",
+    "options": [
+      "'This is a comment'",
+      "// This is a comment",
+      "<!-- This is a comment -->",
+      "/* This is a comment */"
+    ],
+    "correctAnswer": 1,
+    "explanation": "// is used for single-line comments in JavaScript."
+  },
+  {
+    "id": 6,
+    "question": "What is the correct way to create a variable in JavaScript?",
+    "options": [
+      "variable myVar",
+      "var myVar",
+      "v myVar",
+      "create myVar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Variables are declared using 'var', 'let', or 'const' keywords."
+  },
+  {
+    "id": 7,
+    "question": "Which operator is used to assign a value to a variable?",
+    "options": [
+      "=",
+      "==",
+      "===",
+      ":="
+    ],
+    "correctAnswer": 0,
+    "explanation": "The = operator assigns a value to a variable."
+  },
+  {
+    "id": 8,
+    "question": "What is the result of 2 + 2 in JavaScript?",
+    "options": [
+      "22",
+      "4",
+      "NaN",
+      "undefined"
+    ],
+    "correctAnswer": 1,
+    "explanation": "2 + 2 equals 4 in JavaScript."
+  },
+  {
+    "id": 9,
+    "question": "How do you declare a constant in JavaScript?",
+    "options": [
+      "var myConst",
+      "let myConst",
+      "const myConst",
+      "constant myConst"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 'const' keyword is used to declare constants."
+  },
+  {
+    "id": 10,
+    "question": "What is the difference between var and let?",
+    "options": [
+      "No difference",
+      "var is block-scoped, let is function-scoped",
+      "let is block-scoped, var is function-scoped",
+      "let cannot be reassigned"
+    ],
+    "correctAnswer": 2,
+    "explanation": "let is block-scoped while var is function-scoped."
+  },
+  {
+    "id": 11,
+    "question": "How do you create an array in JavaScript?",
+    "options": [
+      "var colors = 'red', 'green', 'blue'",
+      "var colors = ['red', 'green', 'blue']",
+      "var colors = (red, green, blue)",
+      "var colors = {red, green, blue}"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are created using square brackets []."
+  },
+  {
+    "id": 12,
+    "question": "How do you access the first element of an array?",
+    "options": [
+      "array[1]",
+      "array[0]",
+      "array.first",
+      "array.first()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Array indices start at 0, so the first element is at index 0."
+  },
+  {
+    "id": 13,
+    "question": "What is the correct syntax for an if statement?",
+    "options": [
+      "if i = 5",
+      "if (i == 5)",
+      "if i == 5 then",
+      "if (i = 5)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "if statements use parentheses around the condition."
+  },
+  {
+    "id": 14,
+    "question": "How do you create an object in JavaScript?",
+    "options": [
+      "var person = {name: 'John', age: 30}",
+      "var person = (name: 'John', age: 30)",
+      "var person = [name: 'John', age: 30]",
+      "var person = <name: 'John', age: 30>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Objects are created using curly braces {} with key-value pairs."
+  },
+  {
+    "id": 15,
+    "question": "What does the typeof operator return?",
+    "options": [
+      "The value of a variable",
+      "The type of a variable",
+      "The size of a variable",
+      "The name of a variable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "typeof returns the data type of a variable."
+  },
+  {
+    "id": 16,
+    "question": "How do you write a for loop?",
+    "options": [
+      "for (i = 0; i <= 5)",
+      "for (i = 0; i <= 5; i++)",
+      "for i = 0 to 5",
+      "for (i <= 5; i++)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "for loops use the syntax: for (initialization; condition; increment)."
+  },
+  {
+    "id": 17,
+    "question": "What is the correct way to add an element to the end of an array?",
+    "options": [
+      "array.add(element)",
+      "array.push(element)",
+      "array.append(element)",
+      "array.insert(element)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The push() method adds an element to the end of an array."
+  },
+  {
+    "id": 18,
+    "question": "How do you check if two values are equal in value and type?",
+    "options": [
+      "==",
+      "===",
+      "=",
+      "equals()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "=== checks for both value and type equality."
+  },
+  {
+    "id": 19,
+    "question": "What is the result of '5' + 5 in JavaScript?",
+    "options": [
+      "10",
+      "55",
+      "NaN",
+      "undefined"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JavaScript converts the number to a string and concatenates them."
+  },
+  {
+    "id": 20,
+    "question": "How do you create a boolean variable?",
+    "options": [
+      "var myBool = 'true'",
+      "var myBool = true",
+      "var myBool = True",
+      "var myBool = boolean(true)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Boolean values are true or false (lowercase)."
+  }
+]

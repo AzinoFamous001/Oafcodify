@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
+import LoadingPage from "../../Components/shared/LoadingPage";
+import { resetStreak } from "../../Shared/streakUtils";
 
 import {
   FaGithub,
@@ -50,6 +52,106 @@ const SignupPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   // Storage for the user ID returned by the API
   const [receivedUserId, setReceivedUserId] = useState(null);
+
+  // Update login streak
+  const updateLoginStreak = (userId) => {
+    const streakKey = `streak_${userId}`;
+    const lastLoginKey = `lastLogin_${userId}`;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayStr = today.toISOString().split("T")[0];
+
+    const lastLoginStr = localStorage.getItem(lastLoginKey);
+
+    let streak = 0;
+    const savedStreak = localStorage.getItem(streakKey);
+    if (savedStreak && !isNaN(savedStreak)) {
+      streak = Math.max(0, parseInt(savedStreak));
+    }
+
+    if (!lastLoginStr) {
+      streak = 1;
+      localStorage.setItem(lastLoginKey, todayStr);
+      localStorage.setItem(streakKey, streak.toString());
+    } else {
+      if (lastLoginStr === todayStr) {
+        return streak;
+      }
+
+      const lastLoginDate = new Date(lastLoginStr);
+      lastLoginDate.setHours(0, 0, 0, 0);
+
+      const diffTime = today - lastLoginDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays === 1) {
+        streak += 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+      } else if (diffDays > 1) {
+        streak = 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+      } else if (diffDays < 0) {
+        streak = 1;
+        localStorage.setItem(lastLoginKey, todayStr);
+        localStorage.setItem(streakKey, streak.toString());
+      }
+    }
+
+    return Math.max(0, streak);
+  };
+
+  // Generate cartoon avatar (deterministic based on username)
+  const generateCartoonAvatar = (userName) => {
+    const avatarStyles = [
+      'adventurer', 'adventurer-neutral', 'avataaars', 'bottts',
+      'fun-emoji', 'lorelei', 'micah', 'notionists', 'open-peeps', 'personas'
+    ];
+    // Use a simple hash of the username to always select the same style for the same user
+    let hash = 0;
+    for (let i = 0; i < userName.length; i++) {
+      hash = userName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const styleIndex = Math.abs(hash) % avatarStyles.length;
+    const randomStyle = avatarStyles[styleIndex];
+    const seed = userName || Math.random().toString(36).substring(7);
+    return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
+  };
+
+  // Handle OAuth callback
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const authSuccess = urlParams.get('auth');
+
+    if (authSuccess === 'success') {
+      // Fetch user data from backend
+      fetch('http://localhost:5000/api/auth/user', {
+        credentials: 'include'
+      })
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Not authenticated');
+        })
+        .then(data => {
+          localStorage.setItem('userName', data.user.fullName);
+          localStorage.setItem('userEmail', data.user.email);
+          localStorage.setItem('currentUserId', data.user.id);
+          // Generate cartoon avatar if not already set
+          const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
+          localStorage.setItem('userAvatar', cartoonAvatar);
+          // Update login streak for OAuth users
+          updateLoginStreak(data.user.id);
+          // Show success modal instead of direct navigation
+          setShowSuccess(true);
+        })
+        .catch(err => {
+          console.error('OAuth callback error:', err);
+          navigate('/signup');
+        });
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -137,8 +239,14 @@ const SignupPage = () => {
     localStorage.setItem("userName", formData.fullName);
     localStorage.setItem("userEmail", formData.email);
     localStorage.setItem("currentUserId", receivedUserId);
+    // Force reset streak to 1 for new account to prevent persistence from deleted accounts
+    resetStreak(receivedUserId);
     navigate("/dashboard");
   };
+
+  if (loading) {
+    return <LoadingPage message="Creating Account..." />;
+  }
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
@@ -156,7 +264,7 @@ const SignupPage = () => {
           <section className="flex flex-col items-center justify-center text-center md:w-2/5 bg-slate-50/80 p-6 md:p-8 border-b md:border-b-0 md:border-r border-gray-100">
             <img src="/Logo_6.png" alt="Logo" className="h-20 md:h-16" />
             <h1 className="text-2xl md:text-3xl mb-1.5 font-bold text-gray-800">
-              CodeBay
+              Oafcodify
             </h1>
             <p className="text-[#153498] font-medium italic mb-4 md:mb-6 text-sm md:text-base">
               Master Code. Build Future.
@@ -177,7 +285,7 @@ const SignupPage = () => {
                 Create your account
               </h2>
               <p className="text-gray-500 text-sm">
-                Join thousands of developers on CodeBay
+                Join thousands of developers on Oafcodify
               </p>
             </header>
 
@@ -260,22 +368,20 @@ const SignupPage = () => {
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <button
                 type="button"
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/github"}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGithub size={18} className="mr-2 text-gray-700" />
-                <span className="font-bold text-[11px] text-gray-700">
-                  GitHub
-                </span>
+                <span>Github</span>
               </button>
 
               <button
                 type="button"
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/google"}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGoogle size={18} className="mr-2 text-gray-700" />
-                <span className="font-bold text-[11px] text-gray-700">
-                  Google
-                </span>
+                <span>Google</span>
               </button>
             </div>
           </div>

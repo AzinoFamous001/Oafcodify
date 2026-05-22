@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaChevronRight,
@@ -8,10 +8,13 @@ import {
   FaPython,
   FaTerminal,
   FaLaptopCode,
+  FaLock,
+  FaYoutube,
 } from "react-icons/fa";
 import { SiCplusplus, SiReact } from "react-icons/si";
 import { LuBookOpenCheck } from "react-icons/lu";
-import { Cpu } from "lucide-react";
+import { Cpu, PlayCircle } from "lucide-react";
+import { updateLoginStreak, checkDailyLessonReminder } from "../../Shared/streakUtils";
 
 const AnimatedBackground = () => {
   return (
@@ -112,23 +115,107 @@ const LearningBox = ({
 const DashboardPage = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("Developer");
+  const [userAvatar, setUserAvatar] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [showQuizDropdown, setShowQuizDropdown] = useState(false);
+  const [expandedCourse, setExpandedCourse] = useState(null);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowQuizDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Check if a quiz should be locked based on previous lesson and quiz completion
+  const isQuizLocked = (courseKey, lessonNumber) => {
+    if (!userId) return true;
+    if (lessonNumber === 1) return false; // First lesson quiz is always unlocked
+
+    // Check if this specific lesson/quiz has been explicitly unlocked
+    const unlockKey = `${userId}_${courseKey}_lesson_${lessonNumber}_unlocked`;
+    const isExplicitlyUnlocked = localStorage.getItem(unlockKey) === 'true';
+    if (isExplicitlyUnlocked) return false;
+
+    const prevLessonNumber = lessonNumber - 1;
+    
+    // Check if previous lesson is completed
+    const lessonKey = `${userId}_${courseKey}_lesson_${prevLessonNumber}_completed`;
+    const lessonCompleted = localStorage.getItem(lessonKey);
+    
+    // Check if previous quiz is completed with 60%+ score
+    const quizResultsKey = "quizResults";
+    const quizResults = JSON.parse(localStorage.getItem(quizResultsKey) || '[]');
+    const prevQuizResult = quizResults.find(
+      r => r.userId === userId && r.courseKey === courseKey && r.lessonId === prevLessonNumber
+    );
+    
+    const quizPassed = prevQuizResult && prevQuizResult.percentage >= 60;
+    
+    return !lessonCompleted || !quizPassed;
+  };
+
+  const courses = [
+    { key: "HTML5", title: "HTML5", icon: <FaHtml5 size={28} /> },
+    { key: "CSS3", title: "CSS3", icon: <FaCss3Alt size={28} /> },
+    { key: "JavaScript", title: "JavaScript", icon: <FaJsSquare size={28} /> },
+    { key: "Python", title: "Python", icon: <FaPython size={28} /> },
+    { key: "C++", title: "C++", icon: <SiCplusplus size={28} /> },
+    { key: "React", title: "React", icon: <SiReact size={28} /> },
+  ];
+
+  // Generate cartoon avatar (deterministic based on username)
+  const generateCartoonAvatar = (userName) => {
+    const avatarStyles = [
+      'adventurer', 'adventurer-neutral', 'avataaars', 'bottts',
+      'fun-emoji', 'lorelei', 'micah', 'notionists', 'open-peeps', 'personas'
+    ];
+    // Use a simple hash of the username to always select the same style for the same user
+    let hash = 0;
+    for (let i = 0; i < userName.length; i++) {
+      hash = userName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const styleIndex = Math.abs(hash) % avatarStyles.length;
+    const randomStyle = avatarStyles[styleIndex];
+    const seed = userName || Math.random().toString(36).substring(7);
+    return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
+  };
+
 
   useEffect(() => {
     const savedName = localStorage.getItem("userName");
+    const currentUserId = localStorage.getItem("currentUserId");
     if (savedName) {
       setUserName(savedName);
+    }
+    if (currentUserId) {
+      setUserId(currentUserId);
+    }
+
+    // Load or generate cartoon avatar
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar && savedAvatar.startsWith("https://api.dicebear.com")) {
+      setUserAvatar(savedAvatar);
+    } else if (savedName) {
+      const newAvatar = generateCartoonAvatar(savedName);
+      setUserAvatar(newAvatar);
+      localStorage.setItem("userAvatar", newAvatar);
+    }
+
+    // Update streak on dashboard visit
+    if (currentUserId) {
+      updateLoginStreak(currentUserId);
+      checkDailyLessonReminder(currentUserId);
     }
   }, []);
 
   const handleLessonClick = (courseKey, lessonNumber) => {
-    const courseMap = {
-      HTML5: 1,
-      CSS3: 2,
-      JavaScript: 3,
-      Python: 4,
-      "C++": 5,
-      React: 6,
-    };
     navigate(`/lesson/${courseKey}/${lessonNumber}`);
   };
 
@@ -138,9 +225,9 @@ const DashboardPage = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
         <section className="flex flex-col md:flex-row items-center gap-6 mb-12 sm:mb-16">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden ring-4 ring-blue-200/30 flex-shrink-0">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden ring-4 ring-blue-200/30 flex-shrink-0 bg-white">
             <img
-              src="/Logo_.jpg"
+              src={userAvatar}
               alt="Dev"
               className="w-full h-full object-cover"
               onError={(e) =>
@@ -225,48 +312,136 @@ const DashboardPage = () => {
             <span className="w-8 h-1 bg-yellow-400 rounded-full"></span>
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-13">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-0">
             <div
               onClick={() => navigate("/editor")}
-              className="group relative overflow-hidden bg-slate-900 rounded-[2rem] p-8 sm:p-10 border border-slate-700 cursor-pointer hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500"
+              className="group relative overflow-hidden bg-slate-900 rounded-[2rem] p-6 sm:p-8 border border-slate-700 cursor-pointer hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500"
             >
               <div className="relative z-10">
-                <div className="bg-blue-500/10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-6 border border-blue-500/20">
-                  <FaLaptopCode className="text-blue-400" size={32} />
+                <div className="bg-blue-500/10 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 border border-blue-500/20">
+                  <FaLaptopCode className="text-blue-400" size={28} />
                 </div>
-                <h4 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
                   Code Playground
                 </h4>
-                <p className="text-slate-400 text-base max-w-xs mb-8 leading-relaxed">
+                <p className="text-slate-400 text-sm max-w-xs mb-6 leading-relaxed">
                   Test logic in our IDE. Supports JS, Python, and more.
                 </p>
-                <div className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-xl font-bold group-hover:bg-blue-500 transition-colors text-sm">
+                <div className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold group-hover:bg-blue-500 transition-colors text-sm">
                   Launch Editor
                 </div>
               </div>
             </div>
 
-            <div
-              onClick={() => navigate("/quiz")}
-              className="group relative overflow-hidden bg-gradient-to-br from-purple-700 to-indigo-900 rounded-[2rem] p-8 sm:p-10 border border-white/10 cursor-pointer hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-500"
-            >
+            <div className="group relative overflow-visible bg-gradient-to-br from-purple-700 to-indigo-900 rounded-[2rem] p-6 sm:p-8 border border-white/10">
               <div className="relative z-10">
-                <div className="bg-white/10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-6 border border-white/20">
-                  <LuBookOpenCheck className="text-white" size={32} />
+                <div className="bg-white/10 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 border border-white/20">
+                  <LuBookOpenCheck className="text-white" size={28} />
                 </div>
-                <h4 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
                   Quick Quiz
                 </h4>
-                <p className="text-purple-100/70 text-base max-w-xs mb-8 leading-relaxed">
+                <p className="text-purple-100/70 text-sm max-w-xs mb-4 leading-relaxed">
                   Check your knowledge with challenges and earn XP.
                 </p>
-                <div className="inline-flex items-center px-6 py-3 bg-white text-purple-900 rounded-xl font-bold group-hover:bg-purple-50 transition-colors text-sm">
-                  Take a Quiz
+
+                <div className="relative" ref={dropdownRef}>
+                  <div
+                    onClick={() => setShowQuizDropdown(!showQuizDropdown)}
+                    className="inline-flex items-center px-5 py-2.5 bg-white text-purple-900 rounded-xl font-bold hover:bg-purple-50 transition-colors text-sm cursor-pointer"
+                  >
+                    Select Quiz <FaChevronRight size={12} className="ml-2" />
+                  </div>
+
+                  {showQuizDropdown && (
+                    <div
+                      className="
+                        absolute right-0 bottom-full mb-2 w-full min-w-[240px]
+                        z-[9999] bg-slate-900 border border-white/10 rounded-2xl p-2 shadow-2xl max-h-[300px] overflow-y-auto
+                      "
+                    >
+                      <p className="text-[10px] font-bold text-purple-400 uppercase tracking-widest mb-2 px-2">
+                        Select Course
+                      </p>
+                      {courses.map((course) => (
+                        <div key={course.key}>
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setExpandedCourse(expandedCourse === course.key ? null : course.key);
+                            }}
+                            className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-purple-600/30 text-white/90 hover:text-white transition-all cursor-pointer"
+                          >
+                            <span className="text-sm font-medium flex items-center gap-2">
+                              {course.icon}
+                              {course.title}
+                            </span>
+                            <FaChevronRight
+                              size={10}
+                              className={`text-white/40 transition-transform ${expandedCourse === course.key ? 'rotate-90' : ''}`}
+                            />
+                          </div>
+                          {expandedCourse === course.key && (
+                            <div className="pl-4 space-y-1 mt-1">
+                              {[1, 2, 3, 4, 5].map((lessonNum) => {
+                                const locked = isQuizLocked(course.key, lessonNum);
+                                return (
+                                  <div
+                                    key={lessonNum}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (!locked) {
+                                        navigate(`/quiz/${course.key}/${lessonNum}`);
+                                        setShowQuizDropdown(false);
+                                        setExpandedCourse(null);
+                                      }
+                                    }}
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer ${
+                                      locked
+                                        ? 'text-slate-500 cursor-not-allowed'
+                                        : 'text-white/80 hover:text-white hover:bg-purple-600/20'
+                                    }`}
+                                  >
+                                    {locked ? <FaLock size={10} /> : <PlayCircle size={10} />}
+                                    Lesson {lessonNum} Quiz
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               <Cpu
-                size={140}
-                className="absolute -right-8 -bottom-8 text-white/5 rotate-12 group-hover:text-white/10 transition-colors duration-500"
+                size={120}
+                className="absolute -right-6 -bottom-6 text-white/5 rotate-12 group-hover:text-white/10 transition-colors duration-500"
+              />
+            </div>
+
+            <div
+              onClick={() => navigate("/videos")}
+              className="group relative overflow-hidden z-0 bg-gradient-to-br from-red-600 to-pink-700 rounded-[2rem] p-6 sm:p-8 border border-white/10 cursor-pointer hover:shadow-2xl hover:shadow-red-500/30 transition-all duration-500"
+            >
+              <div className="relative z-10">
+                <div className="bg-white/10 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 border border-white/20">
+                  <FaYoutube className="text-white" size={28} />
+                </div>
+                <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                  Video Tutorials
+                </h4>
+                <p className="text-red-100/70 text-sm max-w-xs mb-6 leading-relaxed">
+                  Watch video tutorials for all courses directly on the platform.
+                </p>
+                <div className="inline-flex items-center px-5 py-2.5 bg-white text-red-900 rounded-xl font-bold group-hover:bg-red-50 transition-colors text-sm">
+                  Watch Videos
+                </div>
+              </div>
+              <PlayCircle
+                size={120}
+                className="absolute -right-6 -bottom-6 text-white/5 rotate-12 group-hover:text-white/10 transition-colors duration-500"
               />
             </div>
           </div>

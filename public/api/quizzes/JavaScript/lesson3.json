@@ -1,0 +1,242 @@
+[
+  {
+    "id": 9,
+    "question": "Which event occurs when the user clicks on an HTML element?",
+    "options": [
+      "onmouseclick",
+      "onchange",
+      "onclick",
+      "onmouseover"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The onclick event occurs when the user clicks on an element."
+  },
+  {
+    "id": 10,
+    "question": "How do you declare a JavaScript array?",
+    "options": [
+      "var colors = 'red', 'green', 'blue'",
+      "var colors = (1:'red', 2:'green', 3:'blue')",
+      "var colors = ['red', 'green', 'blue']",
+      "var colors = 1=('red'), 2=('green'), 3=('blue')"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Arrays in JavaScript are declared using square brackets: [item1, item2, item3]"
+  },
+  {
+    "id": 11,
+    "question": "Which operator is used to assign a value to a variable?",
+    "options": [
+      "*",
+      "-",
+      "=",
+      "x"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The assignment operator (=) is used to assign values to variables."
+  },
+  {
+    "id": 12,
+    "question": "What is the correct syntax for referring to an external script called 'app.js'?",
+    "options": [
+      "<script href='app.js'>",
+      "<script name='app.js'>",
+      "<script src='app.js'>",
+      "<script file='app.js'>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "External scripts are referenced using the src attribute in the script tag."
+  },
+  {
+    "id": 13,
+    "question": "How do you create a JavaScript object?",
+    "options": [
+      "var person = {name: 'John', age: 30}",
+      "var person = (name: 'John', age: 30)",
+      "var person = [name: 'John', age: 30]",
+      "var person = <name: 'John', age: 30>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Objects are created using curly braces {} with key-value pairs."
+  },
+  {
+    "id": 14,
+    "question": "What is the correct way to write a JavaScript array?",
+    "options": [
+      "var colors = 'red', 'green', 'blue'",
+      "var colors = ['red', 'green', 'blue']",
+      "var colors = (red, green, blue)",
+      "var colors = {red, green, blue}"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are created using square brackets []."
+  },
+  {
+    "id": 15,
+    "question": "How do you find the number with the highest value of x and y?",
+    "options": [
+      "Math.ceil(x, y)",
+      "Math.max(x, y)",
+      "Math.highest(x, y)",
+      "top(x, y)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Math.max() returns the largest of zero or more numbers."
+  },
+  {
+    "id": 16,
+    "question": "What is the correct JavaScript syntax to change the content of the HTML element below?",
+    "options": [
+      "document.getElementById('demo').innerHTML = 'Hello World!'",
+      "document.getElement('p').innerHTML = 'Hello World!'",
+      "document.getElementById('demo').value = 'Hello World!'",
+      "#demo.innerHTML = 'Hello World!'"
+    ],
+    "correctAnswer": 0,
+    "explanation": "getElementById() and innerHTML are used to change HTML content."
+  },
+  {
+    "id": 17,
+    "question": "How do you declare a JavaScript variable?",
+    "options": [
+      "variable carName",
+      "v carName",
+      "var carName",
+      "val carName"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Variables are declared using 'var', 'let', or 'const'."
+  },
+  {
+    "id": 18,
+    "question": "Which operator is used to compare value and type?",
+    "options": [
+      "==",
+      "===",
+      "=",
+      "!=="
+    ],
+    "correctAnswer": 1,
+    "explanation": "=== compares both value and type."
+  },
+  {
+    "id": 19,
+    "question": "How do you add a comment in JavaScript?",
+    "options": [
+      "'This is a comment'",
+      "// This is a comment",
+      "<!-- This is a comment -->",
+      "/* This is a comment */"
+    ],
+    "correctAnswer": 1,
+    "explanation": "// is used for single-line comments."
+  },
+  {
+    "id": 20,
+    "question": "What is the correct way to write a JavaScript function?",
+    "options": [
+      "function myFunction() {}",
+      "function:myFunction() {}",
+      "create myFunction() {}",
+      "def myFunction() {}"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Functions are created using the 'function' keyword."
+  },
+  {
+    "id": 21,
+    "question": "How do you call a function named 'myFunction'?",
+    "options": [
+      "call myFunction()",
+      "myFunction()",
+      "call function myFunction()",
+      "execute myFunction()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions are called by writing their name followed by parentheses."
+  },
+  {
+    "id": 22,
+    "question": "What is the result of 2 + 2 in JavaScript?",
+    "options": [
+      "22",
+      "4",
+      "NaN",
+      "undefined"
+    ],
+    "correctAnswer": 1,
+    "explanation": "2 + 2 equals 4 in JavaScript."
+  },
+  {
+    "id": 23,
+    "question": "How do you round the number 7.25 to the nearest integer?",
+    "options": [
+      "Math.round(7.25)",
+      "Math.rnd(7.25)",
+      "round(7.25)",
+      "Math.int(7.25)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Math.round() rounds a number to the nearest integer."
+  },
+  {
+    "id": 24,
+    "question": "What does the typeof operator return?",
+    "options": [
+      "The value of a variable",
+      "The type of a variable",
+      "The size of a variable",
+      "The name of a variable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "typeof returns the data type of a variable."
+  },
+  {
+    "id": 25,
+    "question": "How do you create a boolean variable?",
+    "options": [
+      "var myBool = 'true'",
+      "var myBool = true",
+      "var myBool = True",
+      "var myBool = boolean(true)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Boolean values are true or false (lowercase)."
+  },
+  {
+    "id": 26,
+    "question": "What is the correct way to add an element to the end of an array?",
+    "options": [
+      "array.add(element)",
+      "array.push(element)",
+      "array.append(element)",
+      "array.insert(element)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The push() method adds an element to the end of an array."
+  },
+  {
+    "id": 27,
+    "question": "How do you access the first element of an array?",
+    "options": [
+      "array[1]",
+      "array[0]",
+      "array.first",
+      "array.first()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Array indices start at 0, so the first element is at index 0."
+  },
+  {
+    "id": 28,
+    "question": "What is the result of '5' + 5 in JavaScript?",
+    "options": [
+      "10",
+      "55",
+      "NaN",
+      "undefined"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JavaScript converts the number to a string and concatenates them."
+  }
+]

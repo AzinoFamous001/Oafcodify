@@ -1,0 +1,202 @@
+[
+  {
+    "id": "3",
+    "title": "HTML Links, Images, Tables, Lists, Block & Inline Elements",
+    "description": "Master the essential HTML elements that make webpages interactive and organized. Learn how to create links to connect pages, display images to enhance content, organize data in tables, structure information with lists, understand block vs inline elements, and use divs for layout. These are fundamental skills every web developer needs.",
+    "level": "Beginner → Intermediate",
+    "duration": "60 minutes",
+    "learningObjectives": [
+      "Create different types of links (external, internal, email, anchor)",
+      "Add and style images with proper attributes for accessibility",
+      "Build tables to display structured data in rows and columns",
+      "Use ordered and unordered lists to organize content effectively",
+      "Distinguish between block and inline elements and their behavior",
+      "Use divs to group and layout content on webpages"
+    ],
+    "subtopics": [
+      {
+        "title": "HTML Links - Connecting the Web",
+        "content": "Links are what make the web a web. Without links, every webpage would be isolated. HTML links are created using the `<a>` (anchor) tag.\n\n**Basic Link Syntax**\n```html\n<a href=\"url\">Link text</a>\n```\n- `href` = hypertext reference (the destination URL)\n- Link text = what users see and click\n\n**Types of Links**\n\n**1. External Links (to other websites)**\n```html\n<a href=\"https://www.google.com\">Visit Google</a>\n<a href=\"https://www.w3schools.com\">Learn HTML</a>\n```\n\n**2. Internal Links (to pages within your site)**\n```html\n<a href=\"about.html\">About Us</a>\n<a href=\"contact.html\">Contact</a>\n<a href=\"/products/item.html\">Product Page</a>\n```\n\n**3. Anchor Links (to sections on the same page)**\n```html\n<!-- Link to section -->\n<a href=\"#section1\">Go to Section 1</a>\n\n<!-- Target section -->\n<h2 id=\"section1\">Section 1</h2>\n```\n\n**4. Email Links**\n```html\n<a href=\"mailto:info@example.com\">Send Email</a>\n<a href=\"mailto:support@example.com?subject=Help\">Contact Support</a>\n```\n\n**5. Phone Links**\n```html\n<a href=\"tel:+1234567890\">Call Us</a>\n```\n\n**Link Attributes**\n\n**target=\"_blank\"** - Open in new tab:\n```html\n<a href=\"https://example.com\" target=\"_blank\">Open in New Tab</a>\n```\n\n**title** - Tooltip text:\n```html\n<a href=\"https://example.com\" title=\"Visit our partner site\">Partner</a>\n```\n\n**download** - Download file:\n```html\n<a href=\"document.pdf\" download>Download PDF</a>\n```\n\n**Image as Link**\n```html\n<a href=\"https://example.com\">\n  <img src=\"logo.jpg\" alt=\"Company Logo\">\n</a>\n```\n\n**Best Practices:**\n- Use descriptive link text (avoid \"click here\")\n- Open external links in new tabs with target=\"_blank\"\n- Always include alt text for image links\n- Use meaningful anchor IDs for page sections\n- Test all links to ensure they work\n\n**Complete Example:**\n```html\n<h1>Navigation Menu</h1>\n<nav>\n  <a href=\"index.html\">Home</a> |\n  <a href=\"about.html\">About</a> |\n  <a href=\"services.html\">Services</a> |\n  <a href=\"contact.html\">Contact</a>\n</nav>\n\n<h2>Quick Links</h2>\n<ul>\n  <li><a href=\"https://google.com\" target=\"_blank\">Google</a></li>\n  <li><a href=\"mailto:info@example.com\">Email Us</a></li>\n  <li><a href=\"#top\">Back to Top</a></li>\n</ul>\n```",
+        "imageUrl": "/images/html-links.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Links only work with text - FALSE, you can wrap images, buttons, and other elements in links",
+          "The href attribute is optional - FALSE, without href, the link won't go anywhere",
+          "All links must open in new tabs - FALSE, only external links typically use target=\"_blank\""
+        ],
+        "realWorldAnalogy": "HTML links are like doors and hallways in a building. Each door takes you to a different room (webpage), and hallways connect different areas. Without them, you'd be stuck in one room with no way to explore."
+      },
+      {
+        "title": "HTML Images - Adding Visual Content",
+        "content": "Images make webpages engaging and help communicate information visually. HTML images are added using the `<img>` tag, which is a self-closing tag.\n\n**Basic Image Syntax**\n```html\n<img src=\"image.jpg\" alt=\"Description\">\n```\n- `src` = source (path to the image file)\n- `alt` = alternative text (description of the image)\n\n**Image Paths**\n\n**1. Same Folder**\n```html\n<img src=\"photo.jpg\" alt=\"Photo\">\n```\n\n**2. Subfolder**\n```html\n<img src=\"images/photo.jpg\" alt=\"Photo\">\n```\n\n**3. Parent Folder**\n```html\n<img src=\"../photo.jpg\" alt=\"Photo\">\n```\n\n**4. Absolute URL**\n```html\n<img src=\"https://example.com/image.jpg\" alt=\"Photo\">\n```\n\n**Image Attributes**\n\n**width and height**\n```html\n<img src=\"photo.jpg\" alt=\"Photo\" width=\"300\" height=\"200\">\n```\n- Specified in pixels\n- Helps prevent layout shift\n\n**title** - Tooltip:\n```html\n<img src=\"photo.jpg\" alt=\"Photo\" title=\"Click to enlarge\">\n```\n\n**loading=\"lazy\"** - Lazy loading:\n```html\n<img src=\"photo.jpg\" alt=\"Photo\" loading=\"lazy\">\n```\n- Improves page load performance\n- Images load as user scrolls\n\n**Why alt Text is Important**\n- Screen readers read it for visually impaired users\n- Displays if the image fails to load\n- Improves SEO (search engines understand the image)\n- Required for accessibility compliance\n\n**Image Formats**\n- **JPEG** - Photographs, complex images (small file size)\n- **PNG** - Graphics, logos, transparent backgrounds\n- **GIF** - Simple animations\n- **SVG** - Scalable vector graphics (icons, logos)\n- **WebP** - Modern format (smaller than JPEG/PNG)\n\n**Responsive Images**\n```html\n<img src=\"small.jpg\" srcset=\"small.jpg 500w, large.jpg 1000w\" sizes=\"50vw\" alt=\"Responsive image\">\n```\n\n**Picture Element (Multiple Sources)**\n```html\n<picture>\n  <source media=\"(min-width: 800px)\" srcset=\"large.jpg\">\n  <source media=\"(min-width: 400px)\" srcset=\"medium.jpg\">\n  <img src=\"small.jpg\" alt=\"Responsive image\">\n</picture>\n```\n\n**Best Practices:**\n- Always include alt text (even if empty for decorative images)\n- Use appropriate image formats for the content type\n- Optimize images for web (compress, resize)\n- Use descriptive file names (not img123.jpg)\n- Consider lazy loading for below-the-fold images\n- Maintain aspect ratio to prevent distortion\n\n**Complete Example:**\n```html\n<div class=\"gallery\">\n  <h1>Photo Gallery</h1>\n  <img src=\"images/sunset.jpg\" alt=\"Beautiful sunset over the ocean\" width=\"400\" height=\"300\" loading=\"lazy\">\n  <img src=\"images/mountain.jpg\" alt=\"Snowy mountain peak\" width=\"400\" height=\"300\" loading=\"lazy\">\n  <img src=\"images/forest.jpg\" alt=\"Dense green forest\" width=\"400\" height=\"300\" loading=\"lazy\">\n</div>\n```",
+        "imageUrl": "/images/html-images.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Images need a closing tag - FALSE, <img> is self-closing",
+          "Alt text is optional - FALSE, it's required for accessibility and SEO",
+          "You should always specify both width and height - TRUE, this prevents layout shift",
+          "Larger images always look better - FALSE, large images slow down page load"
+        ],
+        "realWorldAnalogy": "HTML images are like pictures in a magazine article. They enhance the content, make it more engaging, and help tell the story. Just as a magazine editor chooses the right images and places them strategically, you need to select appropriate images and position them effectively on your webpage."
+      },
+      {
+        "title": "HTML Tables - Displaying Structured Data",
+        "content": "Tables are used to display data in rows and columns, making it easy to compare and understand information. Tables should only be used for tabular data, not for page layout.\n\n**Basic Table Structure**\n```html\n<table>\n  <tr>\n    <th>Name</th>\n    <th>Age</th>\n    <th>City</th>\n  </tr>\n  <tr>\n    <td>John</td>\n    <td>25</td>\n    <td>New York</td>\n  </tr>\n  <tr>\n    <td>Jane</td>\n    <td>30</td>\n    <td>London</td>\n  </tr>\n</table>\n```\n\n**Table Elements**\n- `<table>` - Container for the table\n- `<tr>` - Table row\n- `<th>` - Table header cell (bold, centered by default)\n- `<td>` - Table data cell\n\n**Table with Caption**\n```html\n<table>\n  <caption>Employee Information</caption>\n  <tr>\n    <th>Name</th>\n    <th>Department</th>\n  </tr>\n  <tr>\n    <td>Alice</td>\n    <td>Marketing</td>\n  </tr>\n</table>\n```\n\n**Table with Sections**\n```html\n<table>\n  <thead>\n    <tr>\n      <th>Product</th>\n      <th>Price</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Laptop</td>\n      <td>$999</td>\n    </tr>\n    <tr>\n      <td>Phone</td>\n      <td>$699</td>\n    </tr>\n  </tbody>\n  <tfoot>\n    <tr>\n      <td>Total</td>\n      <td>$1698</td>\n    </tr>\n  </tfoot>\n</table>\n```\n- `<thead>` - Table header group\n- `<tbody>` - Table body group\n- `<tfoot>` - Table footer group\n\n**Colspan and Rowspan**\n\n**Colspan (merge columns)**\n```html\n<table>\n  <tr>\n    <th colspan=\"2\">Contact Information</th>\n  </tr>\n  <tr>\n    <td>Email</td>\n    <td>Phone</td>\n  </tr>\n</table>\n```\n\n**Rowspan (merge rows)**\n```html\n<table>\n  <tr>\n    <th rowspan=\"2\">Region</th>\n    <td>North</td>\n  </tr>\n  <tr>\n    <td>South</td>\n  </tr>\n</table>\n```\n\n**Styling Tables**\n```html\n<table style=\"width: 100%; border-collapse: collapse;\">\n  <tr style=\"background-color: #f2f2f2;\">\n    <th style=\"padding: 10px; border: 1px solid #ddd;\">Name</th>\n    <th style=\"padding: 10px; border: 1px solid #ddd;\">Age</th>\n  </tr>\n  <tr>\n    <td style=\"padding: 10px; border: 1px solid #ddd;\">John</td>\n    <td style=\"padding: 10px; border: 1px solid #ddd;\">25</td>\n  </tr>\n</table>\n```\n\n**Best Practices:**\n- Use tables only for tabular data, not layout\n- Always use `<th>` for headers (better for accessibility)\n- Include captions for table descriptions\n- Use `<thead>`, `<tbody>`, `<tfoot>` for complex tables\n- Ensure proper contrast for readability\n- Make tables responsive for mobile devices\n\n**Complete Example:**\n```html\n<table style=\"width: 100%; border-collapse: collapse;\">\n  <caption>Monthly Sales Report</caption>\n  <thead>\n    <tr style=\"background-color: #4CAF50; color: white;\">\n      <th style=\"padding: 12px; text-align: left;\">Product</th>\n      <th style=\"padding: 12px; text-align: left;\">Quantity</th>\n      <th style=\"padding: 12px; text-align: left;\">Revenue</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 12px; border-bottom: 1px solid #ddd;\">Laptop</td>\n      <td style=\"padding: 12px; border-bottom: 1px solid #ddd;\">50</td>\n      <td style=\"padding: 12px; border-bottom: 1px solid #ddd;\">$49,950</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 12px; border-bottom: 1px solid #ddd;\">Phone</td>\n      <td style=\"padding: 12px; border-bottom: 1px solid #ddd;\">100</td>\n      <td style=\"padding: 12px; border-bottom: 1px solid #ddd;\">$69,900</td>\n    </tr>\n  </tbody>\n  <tfoot>\n    <tr style=\"background-color: #f2f2f2;\">\n      <td style=\"padding: 12px; font-weight: bold;\">Total</td>\n      <td style=\"padding: 12px; font-weight: bold;\">150</td>\n      <td style=\"padding: 12px; font-weight: bold;\">$119,850</td>\n    </tr>\n  </tfoot>\n</table>\n```",
+        "imageUrl": "/images/html-tables.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Tables are good for page layout - FALSE, use CSS for layout, tables are only for data",
+          "th and td are the same - FALSE, th is for headers and has semantic meaning",
+          "Tables must have borders - FALSE, tables can be styled without visible borders"
+        ],
+        "realWorldAnalogy": "HTML tables are like spreadsheets or data grids. Just as Excel organizes data in rows and columns for easy comparison and analysis, HTML tables structure information in a similar way for web display."
+      },
+      {
+        "title": "HTML Lists - Organizing Content",
+        "content": "Lists help organize information in a clear, readable format. HTML provides three main types of lists: unordered (bullet points), ordered (numbered), and description lists.\n\n**1. Unordered Lists (Bullet Points)**\n```html\n<ul>\n  <li>Apple</li>\n  <li>Banana</li>\n  <li>Orange</li>\n</ul>\n```\n- `<ul>` = unordered list\n- `<li>` = list item\n- Displays with bullet points\n\n**2. Ordered Lists (Numbered)**\n```html\n<ol>\n  <li>Wake up</li>\n  <li>Brush teeth</li>\n  <li>Go to work</li>\n</ol>\n```\n- `<ol>` = ordered list\n- Displays with numbers (1, 2, 3...)\n\n**Ordered List Attributes**\n\n**start** - Start from a different number:\n```html\n<ol start=\"5\">\n  <li>Item 5</li>\n  <li>Item 6</li>\n</ol>\n```\n\n**type** - Change numbering style:\n```html\n<ol type=\"A\">  <!-- A, B, C -->\n<ol type=\"a\">  <!-- a, b, c -->\n<ol type=\"I\">  <!-- I, II, III -->\n<ol type=\"i\">  <!-- i, ii, iii -->\n<ol type=\"1\">  <!-- 1, 2, 3 (default) -->\n```\n\n**reversed** - Reverse order:\n```html\n<ol reversed>\n  <li>First</li>\n  <li>Second</li>\n</ol>\n```\n\n**3. Description Lists**\n```html\n<dl>\n  <dt>HTML</dt>\n  <dd>HyperText Markup Language</dd>\n  <dt>CSS</dt>\n  <dd>Cascading Style Sheets</dd>\n</dl>\n```\n- `<dl>` = description list\n- `<dt>` = description term\n- `<dd>` = description data\n\n**Nested Lists**\n```html\n<ul>\n  <li>Fruits\n    <ul>\n      <li>Apple</li>\n      <li>Banana</li>\n    </ul>\n  </li>\n  <li>Vegetables\n    <ul>\n      <li>Carrot</li>\n      <li>Broccoli</li>\n    </ul>\n  </li>\n</ul>\n```\n\n**Mixed Lists**\n```html\n<ol>\n  <li>Step 1</li>\n  <li>Step 2\n    <ul>\n      <li>Sub-step 2a</li>\n      <li>Sub-step 2b</li>\n    </ul>\n  </li>\n  <li>Step 3</li>\n</ol>\n```\n\n**Styling Lists**\n```html\n<ul style=\"list-style-type: square;\">  <!-- Square bullets -->\n<ol style=\"list-style-type: upper-roman;\">  <!-- Roman numerals -->\n<ul style=\"list-style-type: none;\">  <!-- No bullets -->\n```\n\n**List Style Types**\n- `disc` (default for ul)\n- `circle`\n- `square`\n- `decimal` (default for ol)\n- `upper-roman`\n- `lower-roman`\n- `upper-alpha`\n- `lower-alpha`\n- `none`\n\n**Best Practices:**\n- Use unordered lists for items with no specific order\n- Use ordered lists for steps or ranked items\n- Use description lists for terms and definitions\n- Nest lists logically (max 2-3 levels deep)\n- Keep list items concise and scannable\n- Use semantic list elements, not just styled divs\n\n**Complete Example:**\n```html\n<h2>Shopping List</h2>\n<ul>\n  <li>Fruits\n    <ul>\n      <li>Apples</li>\n      <li>Bananas</li>\n      <li>Oranges</li>\n    </ul>\n  </li>\n  <li>Dairy\n    <ul>\n      <li>Milk</li>\n      <li>Cheese</li>\n      <li>Yogurt</li>\n    </ul>\n  </li>\n</ul>\n\n<h2>Instructions</h2>\n<ol>\n  <li>Preheat oven to 350°F</li>\n  <li>Mix ingredients</li>\n  <li>Pour into pan</li>\n  <li>Bake for 30 minutes</li>\n  <li>Let cool before serving</li>\n</ol>\n```",
+        "imageUrl": "/images/html-lists.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "You can only nest the same type of list - FALSE, you can mix ul and ol",
+          "List items must be short - FALSE, list items can contain paragraphs, links, and other elements",
+          "Description lists are obsolete - FALSE, they're still valid and useful for glossaries"
+        ],
+        "realWorldAnalogy": "HTML lists are like organized notes or outlines. Just as you use bullet points for unordered items and numbered lists for steps in a document, HTML lists provide the same organizational structure for web content."
+      },
+      {
+        "title": "HTML Block and Inline Elements - Understanding Display Behavior",
+        "content": "HTML elements are classified as either block-level or inline-level. Understanding the difference is crucial for proper webpage layout and styling.\n\n**Block-Level Elements**\nBlock elements always start on a new line and take up the full available width.\n\n**Characteristics:**\n- Always start on a new line\n- Stretch to fill the full width available\n- Can contain other block and inline elements\n- Have top and bottom margins\n\n**Common Block Elements:**\n```html\n<div>  <!-- Generic container -->\n<p>  <!-- Paragraph -->\n<h1> to <h6>  <!-- Headings -->\n<ul>, <ol>  <!-- Lists -->\n<li>  <!-- List item -->\n<table>  <!-- Table -->\n<form>  <!-- Form -->\n<header>, <footer>, <section>  <!-- Semantic HTML5 -->\n```\n\n**Example:**\n```html\n<p>This is a paragraph.</p>\n<p>This is another paragraph (starts on new line).</p>\n<div>This div takes full width.</div>\n```\n\n**Inline Elements**\nInline elements do not start on a new line and only take up as much width as necessary.\n\n**Characteristics:**\n- Do not start on a new line\n- Only take up as much width as needed\n- Can only contain other inline elements (not block elements)\n- Do not have top and bottom margins\n\n**Common Inline Elements:**\n```html\n<span>  <!-- Generic inline container -->\n<a>  <!-- Link -->\n<strong>, <b>  <!-- Bold -->\n<em>, <i>  <!-- Italic -->\n<img>  <!-- Image -->\n<br>  <!-- Line break -->\n<input>  <!-- Input field -->\n<button>  <!-- Button -->\n```\n\n**Example:**\n```html\n<p>This is <strong>bold</strong> and this is <em>italic</em> text on the same line.</p>\n<a href=\"#\">Link</a> <a href=\"#\">Another link</a> <!-- Same line -->\n```\n\n**Inline-Block Elements**\nInline-block elements are like inline elements but can have width and height set.\n\n**Characteristics:**\n- Flow with content like inline elements\n- Can have width and height like block elements\n- Respect top and bottom margins\n\n**Common Inline-Block Elements:**\n```html\n<img>  <!-- Image -->\n<button>  <!-- Button -->\n<input>  <!-- Input -->\n```\n\n**You can make any element inline-block with CSS:**\n```css\ndisplay: inline-block;\n```\n\n**The `<div>` Element**\nThe `<div>` is a generic block-level container used to group other elements.\n\n**Uses:**\n- Group related elements together\n- Apply styles to a group of elements\n- Create layout structure\n- Organize content sections\n\n**Example:**\n```html\n<div class=\"header\">\n  <h1>Website Title</h1>\n  <nav>Navigation</nav>\n</div>\n\n<div class=\"content\">\n  <p>Main content goes here.</p>\n</div>\n\n<div class=\"footer\">\n  <p>Copyright 2024</p>\n</div>\n```\n\n**The `<span>` Element**\nThe `<span>` is a generic inline-level container used to group inline elements.\n\n**Uses:**\n- Style a portion of text\n- Group inline elements\n- Apply CSS to specific text sections\n\n**Example:**\n```html\n<p>This is <span style=\"color: red;\">red text</span> in a paragraph.</p>\n<p>Visit our <span class=\"highlight\"><a href=\"#\">website</a></span> for more info.</p>\n```\n\n**Key Differences Summary**\n\n| Feature | Block | Inline |\n|---------|-------|--------|\n| New line | Yes | No |\n| Width | Full available | Content only |\n| Can contain | Block + Inline | Inline only |\n| Margins | All sides | Left/right only |\n\n**Changing Display Type with CSS**\n```css\n/* Make block element inline */\ndisplay: inline;\n\n/* Make inline element block */\ndisplay: block;\n\n/* Make element inline-block */\ndisplay: inline-block;\n\n/* Hide element */\ndisplay: none;\n```\n\n**Best Practices:**\n- Use block elements for structural layout\n- Use inline elements within text content\n- Use `<div>` for grouping block elements\n- Use `<span>` for grouping inline elements\n- Don't nest block elements inside inline elements\n- Use semantic HTML5 elements when possible (header, section, etc.)\n\n**Complete Example:**\n```html\n<div class=\"container\">\n  <header class=\"header\">\n    <h1>My Website</h1>\n    <nav>\n      <a href=\"#\">Home</a>\n      <a href=\"#\">About</a>\n      <a href=\"#\">Contact</a>\n    </nav>\n  </header>\n  \n  <main class=\"content\">\n    <p>This is a <span class=\"highlight\">highlighted</span> paragraph.</p>\n    <p>Another paragraph with <strong>bold</strong> and <em>italic</em> text.</p>\n  </main>\n  \n  <footer class=\"footer\">\n    <p>© 2024 My Website</p>\n  </footer>\n</div>\n```",
+        "imageUrl": "/images/html-block-inline.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Div and span are the same - FALSE, div is block-level, span is inline",
+          "You can put block elements inside inline elements - FALSE, this is invalid HTML",
+          "All elements are either block or inline - FALSE, some are inline-block or have other display types"
+        ],
+        "realWorldAnalogy": "Block elements are like paragraphs in a document - each starts on a new line and takes full width. Inline elements are like words within a paragraph - they flow naturally and only take the space they need. Div is like a chapter divider, while span is like highlighting a specific phrase."
+      },
+      {
+        "title": "HTML Div - The Universal Container",
+        "content": "The `<div>` (division) element is the most versatile container in HTML. It's a block-level element used to group other elements together for styling and layout purposes.\n\n**What is a Div?**\nThe `<div>` tag defines a division or section in an HTML document. It has no inherent meaning or default styling - it's a blank container that you can style and use as needed.\n\n**Basic Syntax**\n```html\n<div>\n  Content goes here\n</div>\n```\n\n**Common Uses of Div**\n\n**1. Grouping Related Elements**\n```html\n<div class=\"header\">\n  <h1>Website Title</h1>\n  <p>Tagline goes here</p>\n</div>\n```\n\n**2. Creating Layout Structure**\n```html\n<div class=\"container\">\n  <div class=\"sidebar\">\n    <h3>Sidebar</h3>\n    <ul>\n      <li>Link 1</li>\n      <li>Link 2</li>\n    </ul>\n  </div>\n  <div class=\"main-content\">\n    <h2>Main Content</h2>\n    <p>Content goes here</p>\n  </div>\n</div>\n```\n\n**3. Applying Styles**\n```html\n<div style=\"background-color: lightblue; padding: 20px;\">\n  <p>This div has a blue background.</p>\n</div>\n```\n\n**4. Positioning Elements**\n```html\n<div class=\"wrapper\">\n  <div class=\"left-column\">Left content</div>\n  <div class=\"right-column\">Right content</div>\n</div>\n```\n\n**Div Attributes**\n\n**class** - For styling with CSS:\n```html\n<div class=\"container\">\n  <div class=\"box\">Content</div>\n</div>\n```\n\n**id** - For unique identification:\n```html\n<div id=\"main-content\">\n  <p>This is the main content area.</p>\n</div>\n```\n\n**style** - For inline CSS:\n```html\n<div style=\"margin: 20px; padding: 10px;\">\n  <p>Styled content</p>\n</div>\n```\n\n**data-* attributes** - For custom data:\n```html\n<div data-id=\"123\" data-category=\"products\">\n  <p>Product information</p>\n</div>\n```\n\n**Nesting Divs**\nDivs can be nested inside each other to create complex layouts:\n```html\n<div class=\"page-wrapper\">\n  <div class=\"header\">\n    <div class=\"logo\">Logo</div>\n    <div class=\"nav\">Navigation</div>\n  </div>\n  <div class=\"content\">\n    <div class=\"article\">\n      <h2>Article Title</h2>\n      <p>Article content...</p>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <p>Footer content</p>\n  </div>\n</div>\n```\n\n**Div vs Semantic HTML5 Elements**\nWhile `<div>` is useful, HTML5 provides semantic alternatives:\n\n```html\n<!-- Instead of this -->\n<div class=\"header\">Header content</div>\n<div class=\"nav\">Navigation</div>\n<div class=\"article\">Article content</div>\n<div class=\"section\">Section content</div>\n<div class=\"footer\">Footer content</div>\n\n<!-- Use this when possible -->\n<header>Header content</header>\n<nav>Navigation</nav>\n<article>Article content</article>\n<section>Section content</section>\n<footer>Footer content</footer>\n```\n\n**When to Use Div:**\n- When no semantic element fits your need\n- For grouping elements for styling purposes\n- As a wrapper for layout structure\n- When you need a generic container\n\n**When NOT to Use Div:**\n- When a semantic element exists (use header, nav, article, etc.)\n- Just for styling text (use span instead)\n- For text content (use p, h1-h6, etc.)\n\n**Common Div Class Names**\n```html\n<div class=\"container\">      <!-- Main container -->\n<div class=\"wrapper\">        <!-- Wrapper element -->\n<div class=\"header\">         <!-- Header section -->\n<div class=\"footer\">         <!-- Footer section -->\n<div class=\"sidebar\">        <!-- Sidebar -->\n<div class=\"content\">        <!-- Main content -->\n<div class=\"box\">            <!-- Generic box -->\n<div class=\"card\">           <!-- Card component -->\n<div class=\"row\">            <!-- Row for grid -->\n<div class=\"col\">            <!-- Column for grid -->\n```\n\n**Best Practices:**\n- Use meaningful class names that describe purpose, not appearance\n- Don't overuse divs - use semantic HTML5 elements when possible\n- Keep nesting depth reasonable (usually 3-4 levels max)\n- Use divs for layout structure, not content meaning\n- Comment closing div tags when nesting deeply\n\n**Accessibility Considerations**\n```html\n<!-- Add role when using div for interactive elements -->\n<div role=\"button\" tabindex=\"0\" onclick=\"handleClick()\">\n  Click me\n</div>\n\n<!-- Use aria-label for divs that act as landmarks -->\n<div class=\"search-box\" role=\"search\" aria-label=\"Search\">\n  <input type=\"text\" placeholder=\"Search...\">\n</div>\n```\n\n**Complete Example:**\n```html\n<div class=\"page-container\">\n  <div class=\"header\">\n    <div class=\"logo\">\n      <img src=\"logo.png\" alt=\"Company Logo\">\n    </div>\n    <div class=\"navigation\">\n      <a href=\"#\">Home</a>\n      <a href=\"#\">About</a>\n      <a href=\"#\">Contact</a>\n    </div>\n  </div>\n  \n  <div class=\"main-content\">\n    <div class=\"hero-section\">\n      <h1>Welcome to Our Site</h1>\n      <p>Learn more about what we do.</p>\n    </div>\n    \n    <div class=\"features\">\n      <div class=\"feature-card\">\n        <h3>Feature 1</h3>\n        <p>Description of feature 1.</p>\n      </div>\n      <div class=\"feature-card\">\n        <h3>Feature 2</h3>\n        <p>Description of feature 2.</p>\n      </div>\n      <div class=\"feature-card\">\n        <h3>Feature 3</h3>\n        <p>Description of feature 3.</p>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"footer\">\n    <p>© 2024 Company Name. All rights reserved.</p>\n  </div>\n</div>\n```",
+        "imageUrl": "/images/html-div.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Div has default styling - FALSE, div has no default styling, it's a blank container",
+          "You should always use divs for layout - FALSE, use semantic HTML5 elements when possible",
+          "Div and span are interchangeable - FALSE, div is block-level, span is inline"
+        ],
+        "realWorldAnalogy": "The div element is like a cardboard box. It doesn't have any inherent purpose or appearance - it's just a container. You can put anything in it, label it, style it, or use it to organize other items. Just as boxes help organize items in storage, divs help organize elements on a webpage."
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/html-elements-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Tables Generator",
+          "url": "https://www.tablesgenerator.com/",
+          "free": true,
+          "reason": "Online tool to create and style HTML tables visually"
+        },
+        {
+          "name": "TinyPNG",
+          "url": "https://tinypng.com/",
+          "free": true,
+          "reason": "Compress and optimize images for web without quality loss"
+        },
+        {
+          "name": "HTML List Generator",
+          "url": "https://www.htmllistgenerator.com/",
+          "free": true,
+          "reason": "Quickly generate HTML lists with various styles"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools HTML Links (free, comprehensive link guide)",
+        "MDN Web Docs: HTML Images (free, detailed image reference)",
+        "CSS-Tricks: A Complete Guide to Flexbox (free, modern layout guide)"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Anchor Tag",
+        "definition": "The <a> tag used to create hyperlinks that connect webpages."
+      },
+      {
+        "term": "href Attribute",
+        "definition": "The hypertext reference attribute that specifies the destination URL of a link."
+      },
+      {
+        "term": "target Attribute",
+        "definition": "An attribute that specifies where to open the linked document (e.g., _blank for new tab)."
+      },
+      {
+        "term": "alt Text",
+        "definition": "Alternative text attribute for images that provides description for accessibility and SEO."
+      },
+      {
+        "term": "src Attribute",
+        "definition": "The source attribute that specifies the path to an image file."
+      },
+      {
+        "term": "Table Row",
+        "definition": "The <tr> element that defines a row in an HTML table."
+      },
+      {
+        "term": "Table Header",
+        "definition": "The <th> element that defines a header cell in a table, typically bold and centered."
+      },
+      {
+        "term": "Table Data",
+        "definition": "The <td> element that defines a standard data cell in a table."
+      },
+      {
+        "term": "Colspan",
+        "definition": "An attribute that specifies how many columns a table cell should span."
+      },
+      {
+        "term": "Rowspan",
+        "definition": "An attribute that specifies how many rows a table cell should span."
+      },
+      {
+        "term": "Unordered List",
+        "definition": "A list marked with bullet points, created with the <ul> tag."
+      },
+      {
+        "term": "Ordered List",
+        "definition": "A list marked with numbers, created with the <ol> tag."
+      },
+      {
+        "term": "Description List",
+        "definition": "A list of terms and descriptions, created with <dl>, <dt>, and <dd> tags."
+      },
+      {
+        "term": "Block Element",
+        "definition": "An HTML element that starts on a new line and takes up the full available width (e.g., div, p, h1)."
+      },
+      {
+        "term": "Inline Element",
+        "definition": "An HTML element that does not start on a new line and only takes necessary width (e.g., span, a, strong)."
+      },
+      {
+        "term": "Inline-Block",
+        "definition": "A display type that flows like inline but can have width and height like block."
+      },
+      {
+        "term": "Div",
+        "definition": "A generic block-level container used to group elements for styling and layout."
+      },
+      {
+        "term": "Span",
+        "definition": "A generic inline-level container used to group inline elements for styling."
+      },
+      {
+        "term": "Lazy Loading",
+        "definition": "A technique that delays loading images until they are needed, improving page load performance."
+      },
+      {
+        "term": "Responsive Image",
+        "definition": "An image that adapts to different screen sizes and resolutions using srcset and picture elements."
+      }
+    ]
+  }
+]

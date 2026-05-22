@@ -1,0 +1,86 @@
+[
+  {
+    "id": "2",
+    "title": "Control Flow and Loops",
+    "description": "Learn how to control program execution flow using conditional statements and loops in C++.",
+    "level": "Beginner",
+    "duration": "50 minutes",
+    "learningObjectives": [
+      "Use if-else statements for decision making",
+      "Implement switch statements",
+      "Write different types of loops",
+      "Use break and continue statements",
+      "Apply control flow in practical scenarios"
+    ],
+    "subtopics": [
+      {
+        "title": "If-Else Statements",
+        "content": "Make decisions in your code using conditional statements.\n\n**If Statement:**\n```cpp\nint age = 18;\n\nif (age >= 18) {\n  cout << \"You are an adult\" << endl;\n}\n```\n\n**If-Else Statement:**\n```cpp\nint age = 15;\n\nif (age >= 18) {\n  cout << \"You are an adult\" << endl;\n} else {\n  cout << \"You are a minor\" << endl;\n}\n```\n\n**Else-If Chain:**\n```cpp\nint score = 85;\n\nif (score >= 90) {\n  cout << \"Grade: A\" << endl;\n} else if (score >= 80) {\n  cout << \"Grade: B\" << endl;\n} else if (score >= 70) {\n  cout << \"Grade: C\" << endl;\n} else {\n  cout << \"Grade: F\" << endl;\n}\n```\n\n**Nested If:**\n```cpp\nint age = 25;\nbool hasLicense = true;\n\nif (age >= 18) {\n  if (hasLicense) {\n    cout << \"You can drive\" << endl;\n  } else {\n    cout << \"Get a license first\" << endl;\n  }\n}\n```"
+      },
+      {
+        "title": "Switch Statement",
+        "content": "Handle multiple conditions cleanly with switch statements.\n\n**Basic Switch:**\n```cpp\nint day = 2;\n\nswitch (day) {\n  case 1:\n    cout << \"Monday\" << endl;\n    break;\n  case 2:\n    cout << \"Tuesday\" << endl;\n    break;\n  case 3:\n    cout << \"Wednesday\" << endl;\n    break;\n  default:\n    cout << \"Other day\" << endl;\n}\n```\n\n**Multiple Cases:**\n```cpp\nchar grade = 'A';\n\nswitch (grade) {\n  case 'A':\n  case 'B':\n    cout << \"Excellent!\" << endl;\n    break;\n  case 'C':\n    cout << \"Good\" << endl;\n    break;\n  default:\n    cout << \"Needs improvement\" << endl;\n}\n```\n\n**Important Rules:**\n- Use `break` to prevent fall-through\n- `default` case catches unmatched values\n- Works with int, char, and enum types"
+      },
+      {
+        "title": "For Loops",
+        "content": "Repeat code a specific number of times using for loops.\n\n**Basic For Loop:**\n```cpp\nfor (int i = 0; i < 5; i++) {\n  cout << \"Iteration: \" << i << endl;\n}\n// Output: 0, 1, 2, 3, 4\n```\n\n**Loop Components:**\n- Initialization: `int i = 0`\n- Condition: `i < 5`\n- Increment: `i++`\n\n**Range-Based For Loop (C++11):**\n```cpp\nint arr[] = {1, 2, 3, 4, 5};\n\nfor (int num : arr) {\n  cout << num << \" \";\n}\n// Output: 1 2 3 4 5\n```\n\n**Nested For Loops:**\n```cpp\nfor (int i = 1; i <= 3; i++) {\n  for (int j = 1; j <= 3; j++) {\n    cout << i << \" x \" << j << \" = \" << i * j << endl;\n  }\n}\n```"
+      },
+      {
+        "title": "While and Do-While Loops",
+        "content": "Use while loops when the number of iterations is unknown.\n\n**While Loop:**\n```cpp\nint count = 0;\n\nwhile (count < 5) {\n  cout << \"Count: \" << count << endl;\n  count++;\n}\n```\n\n**Do-While Loop:**\n```cpp\nint i = 0;\n\ndo {\n  cout << \"Iteration: \" << i << endl;\n  i++;\n} while (i < 5);\n```\n\n**Difference:**\n- `while`: Checks condition before executing\n- `do-while`: Executes at least once, then checks condition\n\n**Infinite Loop:**\n```cpp\nwhile (true) {\n  // Code that should break eventually\n  if (condition) break;\n}\n```"
+      },
+      {
+        "title": "Break and Continue",
+        "content": "Control loop execution with break and continue statements.\n\n**Break Statement:**\n```cpp\nfor (int i = 0; i < 10; i++) {\n  if (i == 5) {\n    break; // Exit loop completely\n  }\n  cout << i << \" \";\n}\n// Output: 0 1 2 3 4\n```\n\n**Continue Statement:**\n```cpp\nfor (int i = 0; i < 10; i++) {\n  if (i % 2 == 0) {\n    continue; // Skip to next iteration\n  }\n  cout << i << \" \";\n}\n// Output: 1 3 5 7 9\n```\n\n**Break in Nested Loops:**\n```cppnfor (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 3; j++) {\n    if (i == 1 && j == 1) {\n      break; // Only breaks inner loop\n    }\n    cout << i << \",\" << j << \" \";\n  }\n}\n```\n\n**Labeled Break (with goto):**\n```cppnouter:\nfor (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 3; j++) {\n    if (i == 1 && j == 1) {\n      goto outer; // Break outer loop\n    }\n  }\n}\n```"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/cpp-control-flow-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "C++ Shell",
+          "url": "https://cpp.sh/",
+          "free": true,
+          "reason": "Online C++ compiler with execution visualization"
+        },
+        {
+          "name": "Visual Studio Code",
+          "url": "https://code.visualstudio.com/",
+          "free": true,
+          "reason": "Excellent C++ support with IntelliSense"
+        }
+      ],
+      "furtherReading": [
+        "W3Schools C++ If Else",
+        "W3Schools C++ Loops",
+        "C++ Primer: Control Flow"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Conditional Statement",
+        "definition": "A statement that executes different code based on whether a condition is true or false."
+      },
+      {
+        "term": "Loop",
+        "definition": "A programming construct that repeats a block of code multiple times."
+      },
+      {
+        "term": "Iteration",
+        "definition": "A single execution of a loop's body."
+      },
+      {
+        "term": "Break",
+        "definition": "A statement that exits a loop immediately."
+      },
+      {
+        "term": "Continue",
+        "definition": "A statement that skips the current iteration and continues with the next."
+      },
+      {
+        "term": "Switch Statement",
+        "definition": "A control statement that allows selection among multiple alternatives."
+      }
+    ]
+  }
+]

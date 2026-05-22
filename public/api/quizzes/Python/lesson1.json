@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "What is the correct file extension for Python files?",
+    "options": [
+      ".py",
+      ".python",
+      ".pt",
+      ".pyt"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python files use the .py extension."
+  },
+  {
+    "id": 2,
+    "question": "How do you create a variable with the numeric value 5 in Python?",
+    "options": [
+      "x = 5",
+      "int x = 5",
+      "var x = 5",
+      "x := 5"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In Python, variables are created by simply assigning a value: x = 5"
+  },
+  {
+    "id": 3,
+    "question": "Which of the following is correct to output 'Hello World' in Python?",
+    "options": [
+      "echo 'Hello World'",
+      "print('Hello World')",
+      "p('Hello World')",
+      "console.log('Hello World')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The print() function is used to output text in Python."
+  },
+  {
+    "id": 4,
+    "question": "How do you create a comment in Python?",
+    "options": [
+      "// This is a comment",
+      "/* This is a comment */",
+      "# This is a comment",
+      "-- This is a comment"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Python uses the # symbol for single-line comments."
+  },
+  {
+    "id": 5,
+    "question": "Which keyword is used to define a function in Python?",
+    "options": [
+      "function",
+      "def",
+      "func",
+      "define"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'def' keyword is used to define functions in Python."
+  },
+  {
+    "id": 6,
+    "question": "What is the correct way to create a list in Python?",
+    "options": [
+      "list = [1, 2, 3]",
+      "list = (1, 2, 3)",
+      "list = {1, 2, 3}",
+      "list = <1, 2, 3>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lists in Python are created using square brackets."
+  },
+  {
+    "id": 7,
+    "question": "How do you get user input in Python?",
+    "options": [
+      "input()",
+      "read()",
+      "get()",
+      "scan()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The input() function is used to get user input in Python."
+  },
+  {
+    "id": 8,
+    "question": "How do you start a for loop in Python?",
+    "options": [
+      "for i in range(5):",
+      "for (i = 0; i < 5; i++)",
+      "for i to 5:",
+      "loop i from 0 to 5:"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python for loops use 'for variable in iterable:' syntax."
+  },
+  {
+    "id": 9,
+    "question": "What is the output of print(type(3.14))?",
+    "options": [
+      "<class 'int'>",
+      "<class 'float'>",
+      "<class 'number'>",
+      "<class 'decimal'>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "3.14 is a floating-point number, so its type is 'float'."
+  },
+  {
+    "id": 10,
+    "question": "Which method adds an element to the end of a list?",
+    "options": [
+      "add()",
+      "append()",
+      "insert()",
+      "push()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The append() method adds an element to the end of a list."
+  },
+  {
+    "id": 11,
+    "question": "How do you create a string variable in Python?",
+    "options": [
+      "str x = 'text'",
+      "x = 'text'",
+      "string x = 'text'",
+      "var x = 'text'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In Python, you create string variables by simply assigning a string value."
+  },
+  {
+    "id": 12,
+    "question": "What is the result of 2 ** 3 in Python?",
+    "options": [
+      "5",
+      "6",
+      "8",
+      "9"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The ** operator is used for exponentiation, so 2 ** 3 = 8."
+  },
+  {
+    "id": 13,
+    "question": "Which method is used to convert a string to lowercase?",
+    "options": [
+      "toLower()",
+      "lower()",
+      "toLowerCase()",
+      "case_lower()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The lower() method converts a string to lowercase in Python."
+  },
+  {
+    "id": 14,
+    "question": "What does the len() function return?",
+    "options": [
+      "The type of an object",
+      "The length of an object",
+      "The value of an object",
+      "The memory address of an object"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The len() function returns the length (number of items) of an object."
+  },
+  {
+    "id": 15,
+    "question": "How do you create a boolean variable in Python?",
+    "options": [
+      "x = True",
+      "x = true",
+      "x = TRUE",
+      "boolean x = true"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python uses True and False (capitalized) for boolean values."
+  },
+  {
+    "id": 16,
+    "question": "What is the correct syntax for an if statement in Python?",
+    "options": [
+      "if x = 5:",
+      "if x == 5:",
+      "if (x == 5)",
+      "if x == 5 then"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python if statements use a colon at the end and rely on indentation."
+  },
+  {
+    "id": 17,
+    "question": "How do you format a string with variables in Python?",
+    "options": [
+      "Using % formatting",
+      "Using .format()",
+      "Using f-strings",
+      "All of the above"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Python supports multiple string formatting methods including %, .format(), and f-strings."
+  },
+  {
+    "id": 18,
+    "question": "What is the result of 10 % 3 in Python?",
+    "options": [
+      "1",
+      "3",
+      "3.33",
+      "0"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The % operator is the modulo operator, so 10 % 3 = 1 (remainder)."
+  },
+  {
+    "id": 19,
+    "question": "How do you start a while loop in Python?",
+    "options": [
+      "while (condition)",
+      "while condition:",
+      "while condition do",
+      "while condition {"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python while loops use 'while condition:' syntax with a colon."
+  },
+  {
+    "id": 20,
+    "question": "What is the purpose of indentation in Python?",
+    "options": [
+      "To make code look pretty",
+      "To define code blocks",
+      "To add comments",
+      "No purpose"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python uses indentation to define code blocks instead of braces."
+  }
+]

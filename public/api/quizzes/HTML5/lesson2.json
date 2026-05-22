@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "Which attribute is used to specify the URL of a link?",
+    "options": [
+      "src",
+      "href",
+      "url",
+      "link"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The href attribute is used in anchor tags to specify the destination URL."
+  },
+  {
+    "id": 2,
+    "question": "What is the correct HTML element for inserting an image?",
+    "options": [
+      "<image>",
+      "<img>",
+      "<picture>",
+      "<media>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<img> is the correct element for inserting images, with src attribute specifying the image path."
+  },
+  {
+    "id": 3,
+    "question": "Which tag creates a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <a> (anchor) tag creates hyperlinks when used with the href attribute."
+  },
+  {
+    "id": 4,
+    "question": "What attribute is required for the img tag?",
+    "options": [
+      "alt",
+      "title",
+      "width",
+      "height"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The alt attribute is required for accessibility and provides alternative text for images."
+  },
+  {
+    "id": 5,
+    "question": "How do you create an email link?",
+    "options": [
+      "<a href='email:user@example.com'>Email</a>",
+      "<a href='mailto:user@example.com'>Email</a>",
+      "<a mail='user@example.com'>Email</a>",
+      "<link email='user@example.com'>Email</a>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Use mailto: protocol in the href attribute to create email links."
+  },
+  {
+    "id": 6,
+    "question": "What is the purpose of the target attribute in links?",
+    "options": [
+      "Specifies link color",
+      "Opens link in new tab",
+      "Adds animation",
+      "Changes font size"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The target='_blank' attribute opens a link in a new tab."
+  },
+  {
+    "id": 7,
+    "question": "Which attribute specifies the image file path?",
+    "options": [
+      "href",
+      "src",
+      "link",
+      "path"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The src attribute specifies the path to the image file."
+  },
+  {
+    "id": 8,
+    "question": "What does the width attribute do in images?",
+    "options": [
+      "Sets image quality",
+      "Sets image width",
+      "Sets image height",
+      "Sets image format"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The width attribute sets the display width of an image."
+  },
+  {
+    "id": 9,
+    "question": "How do you make a link open in a new tab?",
+    "options": [
+      "target='_new'",
+      "target='_blank'",
+      "target='_open'",
+      "target='_tab'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "target='_blank' makes a link open in a new browser tab."
+  },
+  {
+    "id": 10,
+    "question": "Which tag is used for internal linking?",
+    "options": [
+      "<link>",
+      "<anchor>",
+      "<a>",
+      "<nav>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The <a> tag with id references is used for internal page linking."
+  },
+  {
+    "id": 11,
+    "question": "What is the correct HTML for creating a table?",
+    "options": [
+      "<table>",
+      "<tab>",
+      "<grid>",
+      "<matrix>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <table> tag is used to create HTML tables."
+  },
+  {
+    "id": 12,
+    "question": "Which tag defines a table row?",
+    "options": [
+      "<tr>",
+      "<row>",
+      "<td>",
+      "<th>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <tr> tag defines a table row."
+  },
+  {
+    "id": 13,
+    "question": "Which tag defines a table cell?",
+    "options": [
+      "<tr>",
+      "<td>",
+      "<th>",
+      "<cell>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <td> tag defines a standard table cell."
+  },
+  {
+    "id": 14,
+    "question": "Which tag defines a table header cell?",
+    "options": [
+      "<tr>",
+      "<td>",
+      "<th>",
+      "<header>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The <th> tag defines a table header cell."
+  },
+  {
+    "id": 15,
+    "question": "What attribute is used to merge cells in a table?",
+    "options": [
+      "merge",
+      "colspan",
+      "span",
+      "combine"
+    ],
+    "correctAnswer": 1,
+    "explanation": "colspan is used to merge columns, rowspan for rows."
+  },
+  {
+    "id": 16,
+    "question": "Which tag creates a form in HTML?",
+    "options": [
+      "<form>",
+      "<input>",
+      "<submit>",
+      "<field>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The <form> tag creates an HTML form."
+  },
+  {
+    "id": 17,
+    "question": "What is the correct HTML for a text input?",
+    "options": [
+      "<text>",
+      "<input type='text'>",
+      "<textbox>",
+      "<field type='text'>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Use <input type='text'> for text input fields."
+  },
+  {
+    "id": 18,
+    "question": "Which attribute specifies the form submission URL?",
+    "options": [
+      "href",
+      "src",
+      "action",
+      "method"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The action attribute specifies where form data is sent."
+  },
+  {
+    "id": 19,
+    "question": "What does the method attribute do in forms?",
+    "options": [
+      "Specifies form style",
+      "Specifies HTTP method (GET/POST)",
+      "Specifies validation",
+      "Specifies animation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The method attribute specifies the HTTP method for form submission."
+  },
+  {
+    "id": 20,
+    "question": "Which tag creates a submit button?",
+    "options": [
+      "<button type='submit'>",
+      "<submit>",
+      "<input type='button'>",
+      "<form type='submit'>"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Use <button type='submit'> or <input type='submit'> for submit buttons."
+  }
+]

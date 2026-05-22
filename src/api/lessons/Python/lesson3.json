@@ -1,0 +1,69 @@
+[
+  {
+    "id": "3",
+    "title": "Working with Files & Modules",
+    "description": "Learn how to work with external files and use Python modules for code organization.",
+    "level": "Beginner",
+    "duration": "45 minutes",
+    "learningObjectives": [
+      "Read and write files efficiently",
+      "Import and use Python modules",
+      "Handle file paths and directories",
+      "Work with different file formats"
+    ],
+    "subtopics": [
+      {
+        "title": "File Paths and Directories",
+        "content": "Navigate and manipulate file system paths.\n\n**File Path Operations:**\n```python\nimport os\n\n# Get current directory\ncurrent_dir = os.getcwd()\nprint(f'Current directory: {current_dir}')\n\n# List files and folders\nfiles = os.listdir('.')\nprint('Files:', files)\n\n# Check if path exists\nif os.path.exists('data.txt'):\n    print('data.txt exists')\n\n# Create directory\nos.makedirs('new_folder', exist_ok=True)\n```\n\n**Path Joining:**\n```python\n# Join paths correctly\nfile_path = os.path.join('data', 'info.txt')\nprint(file_path)  # 'data/info.txt'\n\n# Cross-platform paths\nfile_path = os.path.join(os.getcwd(), 'data', 'file.txt')\n```\n\n**Best Practices:**\n- Use `os.path.join()` for cross-platform compatibility\n- Check path existence before operations\n- Use context managers (`with` statement)"
+      },
+      {
+        "title": "Reading and Writing Files",
+        "content": "Handle file content with proper encoding and error handling.\n\n**Reading Files:**\n```python\n# Read entire file\nwith open('data.txt', 'r') as file:\n    content = file.read()\n    print(content)\n\n# Read line by line\nwith open('data.txt', 'r') as file:\n    for line_num, line in enumerate(file, 1):\n        print(f'Line {line_num}: {line.strip()}')\n\n# Read specific lines\nwith open('data.txt', 'r') as file:\n    lines = file.readlines()\n    print(lines[0])     # First line\n    print(lines[2])     # Third line\n\n# Read with context manager\nwith open('data.txt', 'r') as file:\n    for line in file:\n        print(line.strip())\n```\n\n**Writing Files:**\n```python\n# Write text\nwith open('output.txt', 'w') as file:\n    file.write('Hello, Python!')\n\n# Write multiple lines\nlines = ['Line 1', 'Line 2', 'Line 3']\nwith open('output.txt', 'w') as file:\n    file.write('\\n'.join(lines))\n\n# Append to file\nwith open('data.txt', 'a') as file:\n    file.write('New data\\n')\n```\n\n**File Modes:**\n- `'r'` - Read mode\n- `'w'` - Write mode (overwrites)\n- `'a'` - Append mode\n- `'b'` - Binary mode"
+      },
+      {
+        "title": "Working with File Formats",
+        "content": "Handle different file types like CSV, JSON, and plain text.\n\n**CSV Files:**\n```python\nimport csv\n\n# Reading CSV\nwith open('data.csv', 'r') as file:\n    reader = csv.reader(file)\n    for row in reader:\n        print(row)\n\n# Writing CSV\nwith open('output.csv', 'w', newline='') as file:\n    writer = csv.writer(file)\n    writer.writerow(['Name', 'Age', 'City'])\n```\n\n**JSON Files:**\n```python\nimport json\n\n# Reading JSON\nwith open('data.json', 'r') as file:\n    data = json.load(file)\n    print(data['name'])\n\n# Writing JSON\nwith open('output.json', 'w') as file:\n    json.dump({'name': 'Alice', 'age': 25}, file)\n```\n\n**Best Practices:**\n- Use appropriate libraries for file formats\n- Handle encoding issues\n- Validate file structure before processing"
+      },
+      {
+        "title": "Python Modules",
+        "content": "Organize code using Python modules and packages.\n\n**Importing Modules:**\n```python\n# Import entire module\nimport math\nimport random\n\n# Import specific functions\nfrom math import sqrt, pi\nfrom random import choice, randint\n\n# Import with alias\nimport numpy as np\nimport pandas as pd\n```\n\n**Creating Modules:**\n```python\n# mymodule.py\nPI = 3.14159\n\ndef calculate_area(radius):\n    return PI * radius ** 2\n\n# main.py\nimport mymodule\narea = mymodule.calculate_area(5)\n```\n\n**Using Modules:**\n```python\n# Use imported function\nresult = math.sqrt(16)  # 4.0\n\n# Use random choice\nselected_color = random.choice(['red', 'green', 'blue'])\n```\n\n**Standard Library Modules:**\n- `math` - Mathematical functions\n- `random` - Random number generation\n- `datetime` - Date and time handling\n- `json` - JSON data handling\n- `csv` - CSV file operations"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/python-files-modules-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Python Docs",
+          "url": "https://docs.python.org/3/",
+          "free": true,
+          "reason": "Official Python documentation"
+        },
+        {
+          "name": "VS Code",
+          "url": "https://code.visualstudio.com/",
+          "free": true,
+          "reason": "Excellent Python support with IntelliSense"
+        }
+      ],
+      "furtherReading": [
+        "Python Crash Course",
+        "Free online Python tutorial",
+        "Automate the Boring Stuff with Python"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Module",
+        "definition": "A Python file containing functions and variables that can be imported."
+      },
+      {
+        "term": "Package",
+        "definition": "A collection of Python modules."
+      },
+      {
+        "term": "Context Manager",
+        "definition": "An object that manages resources, like file handles."
+      }
+    ]
+  }
+]

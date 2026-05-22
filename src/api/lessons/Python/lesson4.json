@@ -1,0 +1,68 @@
+[
+  {
+    "id": "4",
+    "title": "Error Handling & Debugging",
+    "description": "Learn how to handle errors and debug Python programs effectively.",
+    "level": "Beginner",
+    "duration": "40 minutes",
+    "learningObjectives": [
+      "Understand Python exceptions",
+      "Use try/except blocks properly",
+      "Implement debugging techniques",
+      "Write robust error-free code"
+    ],
+    "subtopics": [
+      {
+        "title": "Understanding Exceptions",
+        "content": "Python uses exceptions to handle errors gracefully.\n\n**Common Exceptions:**\n- `ValueError` - Wrong value type\n- `TypeError` - Wrong operation on data type\n- `IndexError` - List index out of range\n- `KeyError` - Dictionary key not found\n- `FileNotFoundError` - File doesn't exist\n\n**Example:**\n```python\ntry:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    result = 'Cannot divide by zero'\nprint(result)\n```\n\n**Best Practice:**\n- Catch specific exceptions\n- Provide meaningful error messages\n- Use multiple except blocks when needed"
+      },
+      {
+        "title": "Try/Except Blocks",
+        "content": "Handle errors without crashing your program.\n\n**Basic Structure:**\n```python\ntry:\n    # Risky code that might fail\n    result = 10 / 2\nexcept ZeroDivisionError:\n    # Handle specific error\n    result = 'Division by zero not allowed'\nexcept Exception:\n    # Handle any other error\n    result = 'Unknown error occurred'\n```\n\n**Multiple Exceptions:**\n```python\ntry:\n    number = int(input('Enter a number: '))\n    result = 100 / number\nexcept ValueError:\n    result = 'Please enter a valid number'\nexcept ZeroDivisionError:\n    result = 'Cannot divide by zero'\nexcept Exception as e:\n    result = f'Error: {str(e)}'\n```\n\n**Finally Block:**\n```python\ntry:\n    file = open('data.txt', 'r')\n    content = file.read()\nexcept FileNotFoundError:\n    content = 'No file found'\nfinally:\n    print('Operation completed')\n```\n\n**Best Practices:**\n- Be specific in exception handling\n- Always clean up resources in finally\n- Log errors for debugging"
+      },
+      {
+        "title": "Debugging Techniques",
+        "content": "Find and fix bugs in your code.\n\n**Print Debugging:**\n```python\n# Add print statements to track execution\nname = 'Alice'\nage = 25\nprint(f'Processing: {name}, age: {age}')\nprint('Variable types:', type(name), type(age))\n```\n\n**Python Debugger:**\n```python\nimport pdb\n\n# Set breakpoint\npdb.set_trace()\n\n# Run with debugger\npython -m pdb myscript.py\n```\n\n**VS Code Debugging:**\n- Use breakpoints\n- Step through code\n- Inspect variables\n- Watch expressions"
+      },
+      {
+        "title": "Logging",
+        "content": "Track program execution and errors.\n\n**Basic Logging:**\n```python\nimport logging\n\n# Configure logging\nlogging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')\n\n# Log messages\nlogging.info('Program started')\nlogging.error('Something went wrong')\nlogging.debug('Variable value: %s', variable)\n```\n\n**Log Levels:**\n- DEBUG: Detailed information\n- INFO: General information\n- WARNING: Potential issues\n- ERROR: Serious problems\n\n**Best Practices:**\n- Use appropriate log levels\n- Include context in log messages\n- Don't log sensitive information"
+      }
+    ],
+    "resources": {
+      "downloadableCheatsheet": "/downloads/python-error-handling-cheatsheet.pdf",
+      "recommendedTools": [
+        {
+          "name": "Python Debugger (pdb)",
+          "url": "https://docs.python.org/3/library/pdb.html",
+          "free": true,
+          "reason": "Built-in Python debugger"
+        },
+        {
+          "name": "VS Code Python Extension",
+          "url": "https://marketplace.visualstudio.com/items?itemName=ms-python.python",
+          "free": true,
+          "reason": "Advanced debugging in VS Code"
+        }
+      ],
+      "furtherReading": [
+        "Python Debugging Guide",
+        "Real-world debugging techniques"
+      ]
+    },
+    "glossary": [
+      {
+        "term": "Exception",
+        "definition": "An error condition that disrupts normal program flow."
+      },
+      {
+        "term": "Debugging",
+        "definition": "The process of finding and fixing errors in code."
+      },
+      {
+        "term": "Logging",
+        "definition": "Recording program events and information for analysis."
+      }
+    ]
+  }
+]

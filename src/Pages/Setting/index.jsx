@@ -10,16 +10,18 @@ import {
   FaSignOutAlt,
   FaTrashAlt,
   FaInfoCircle,
+  FaDatabase,
 } from "react-icons/fa";
+import { resetStreak } from "../../Shared/streakUtils";
 
 // --- MINIMAL BACKGROUND ---
 const AnimatedBackground = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
-    <div className="absolute top-[10%] left-[5%] animate-pulse">
-      <FaCode size={120} className="text-white/20" />
+  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
+    <div className="absolute top-[10%] left-[5%] animate-[spin_20s_linear_infinite] hidden sm:block">
+      <FaCode size={120} className="text-white/30" />
     </div>
-    <div className="absolute bottom-[10%] right-[5%] animate-pulse">
-      <FaCode size={80} className="text-white/10" />
+    <div className="absolute bottom-[15%] left-[10%] animate-bounce duration-[5000ms]">
+      <FaDatabase size={60} className="text-white/20" />
     </div>
   </div>
 );
@@ -153,9 +155,16 @@ const SettingsPage = () => {
             </p>
             <button
               onClick={() => {
-                if (window.confirm("Reset all your progress?"))
+                if (window.confirm("Reset all your progress?")) {
+                  const currentUserId = localStorage.getItem("currentUserId");
+                  // Clear all user-specific data
                   localStorage.clear();
-                navigate("/");
+                  // Reset streak to 1 if userId exists
+                  if (currentUserId) {
+                    resetStreak(currentUserId);
+                  }
+                  navigate("/");
+                }
               }}
               className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold rounded-lg border border-red-500/20 transition-all"
             >
@@ -181,7 +190,7 @@ const SettingsPage = () => {
         </div>
 
         <p className="text-center mt-10 text-[10px] text-white/20 uppercase tracking-[0.2em] flex items-center justify-center gap-2">
-          <FaInfoCircle /> CodeBay School Edition v1.0
+          <FaInfoCircle /> Oafcodify School Edition v1.0
         </p>
       </div>
     </main>
