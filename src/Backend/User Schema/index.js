@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
   avatar: { type: String },
   streak: { type: Number, default: 0 },
   completedLessons: [{ type: mongoose.Schema.Types.ObjectId, ref: "Lesson" }],
+  codeRuns: { type: Number, default: 0 },
   rank: { type: String, default: "Bronze" },
   createdAt: { type: Date, default: Date.now },
 });

@@ -3,7 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
 import LoadingPage from "../../Components/shared/LoadingPage";
-import { resetStreak } from "../../Shared/streakUtils";
+import ErrorModal from "../../Components/shared/Errormodal";
+import { updateLoginStreak } from "../../Shared/streakUtils";
 
 import {
   FaGithub,
@@ -14,7 +15,6 @@ import {
   FaServer,
   FaGlobe,
 } from "react-icons/fa";
-import SuccessModal from "../../Components/shared/Successmodal";
 
 // Background component EXACTLY SAME
 const AnimatedBackground = () => (
@@ -49,59 +49,9 @@ const SignupPage = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  // Storage for the user ID returned by the API
-  const [receivedUserId, setReceivedUserId] = useState(null);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Update login streak
-  const updateLoginStreak = (userId) => {
-    const streakKey = `streak_${userId}`;
-    const lastLoginKey = `lastLogin_${userId}`;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayStr = today.toISOString().split("T")[0];
-
-    const lastLoginStr = localStorage.getItem(lastLoginKey);
-
-    let streak = 0;
-    const savedStreak = localStorage.getItem(streakKey);
-    if (savedStreak && !isNaN(savedStreak)) {
-      streak = Math.max(0, parseInt(savedStreak));
-    }
-
-    if (!lastLoginStr) {
-      streak = 1;
-      localStorage.setItem(lastLoginKey, todayStr);
-      localStorage.setItem(streakKey, streak.toString());
-    } else {
-      if (lastLoginStr === todayStr) {
-        return streak;
-      }
-
-      const lastLoginDate = new Date(lastLoginStr);
-      lastLoginDate.setHours(0, 0, 0, 0);
-
-      const diffTime = today - lastLoginDate;
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-      if (diffDays === 1) {
-        streak += 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-      } else if (diffDays > 1) {
-        streak = 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-      } else if (diffDays < 0) {
-        streak = 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-      }
-    }
-
-    return Math.max(0, streak);
-  };
 
   // Generate cartoon avatar (deterministic based on username)
   const generateCartoonAvatar = (userName) => {
@@ -135,16 +85,18 @@ const SignupPage = () => {
           throw new Error('Not authenticated');
         })
         .then(data => {
-          localStorage.setItem('userName', data.user.fullName);
-          localStorage.setItem('userEmail', data.user.email);
-          localStorage.setItem('currentUserId', data.user.id);
-          // Generate cartoon avatar if not already set
+          // Store OAuth user data with userId prefix for complete user isolation
+          sessionStorage.setItem('currentUserId', data.user.id);
+          localStorage.setItem(`userName_${data.user.id}`, data.user.fullName);
+          localStorage.setItem(`userEmail_${data.user.id}`, data.user.email);
+          
+          // Generate cartoon avatar (user-specific)
           const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
-          localStorage.setItem('userAvatar', cartoonAvatar);
+          localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
           // Update login streak for OAuth users
           updateLoginStreak(data.user.id);
-          // Show success modal instead of direct navigation
-          setShowSuccess(true);
+          // Navigate directly to dashboard
+          navigate("/dashboard");
         })
         .catch(err => {
           console.error('OAuth callback error:', err);
@@ -221,27 +173,29 @@ const SignupPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // SAVE DATA TO STATE, NOT LOCALSTORAGE (Prevents auto-redirect)
-        setReceivedUserId(data?.user?._id || "local-user");
-        setShowSuccess(true);
+        // Store currentUserId in sessionStorage (tab-isolated) while user data stays in localStorage (persistent)
+        sessionStorage.setItem("currentUserId", data.user.id);
+        localStorage.setItem(`userName_${data.user.id}`, data.user.fullName);
+        localStorage.setItem(`userEmail_${data.user.id}`, data.user.email);
+        
+        // Generate cartoon avatar (user-specific)
+        const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
+        localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
+        // Update login streak
+        updateLoginStreak(data.user.id);
+        // Navigate directly to dashboard
+        navigate("/dashboard");
       } else {
-        alert(data.message || "Registration failed");
+        setErrorMessage(data.message || "Registration failed");
+        setShowError(true);
       }
     } catch (err) {
-      alert("Server error");
+      setErrorMessage("Server error");
+      setShowError(true);
     } finally {
       setLoading(false);
+      console.log('loading set to false');
     }
-  };
-
-  // Logic to execute when "Continue" is clicked
-  const handleFinalizeSignup = () => {
-    localStorage.setItem("userName", formData.fullName);
-    localStorage.setItem("userEmail", formData.email);
-    localStorage.setItem("currentUserId", receivedUserId);
-    // Force reset streak to 1 for new account to prevent persistence from deleted accounts
-    resetStreak(receivedUserId);
-    navigate("/dashboard");
   };
 
   if (loading) {
@@ -250,14 +204,12 @@ const SignupPage = () => {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
-      <AnimatedBackground />
-
-      <SuccessModal
-        isOpen={showSuccess}
-        onClose={handleFinalizeSignup}
-        title="Success!"
-        message="Your account has been created successfully."
+      <ErrorModal
+        isOpen={showError}
+        onClose={() => setShowError(false)}
+        message={errorMessage}
       />
+      <AnimatedBackground />
 
       <div className="relative z-10 w-full max-w-md md:max-w-4xl">
         <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl border border-blue-100 overflow-hidden flex flex-col md:flex-row md:items-stretch">
@@ -271,9 +223,9 @@ const SignupPage = () => {
             </p>
             <div className="hidden md:block space-y-4 text-sm text-gray-600">
               <div className="p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-                <p className="font-semibold text-[#153498]">Welcome Back</p>
+                <p className="font-semibold text-[#153498]">Join the Community </p>
                 <p className="mt-1 leading-relaxed">
-                  Login to access your personalized learning dashboard.
+                  Create an account to join thounsands of developers on Oafcodify to improve with amazing built-in features.
                 </p>
               </div>
             </div>

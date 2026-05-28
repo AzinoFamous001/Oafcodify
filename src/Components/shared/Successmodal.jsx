@@ -2,11 +2,11 @@ import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import Button from "../../Shared/Buttons";
 
-const SuccessModal = ({ isOpen, onClose, message, title = "Success!" }) => {
+const SuccessModal = ({ isOpen, onClose, message, title = "Success!", buttonText = "Continue to Dashboard" }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md">
       <div className="bg-white rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl flex flex-col items-center text-center border border-blue-50">
         <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
           <FaCheckCircle size={48} />
@@ -18,7 +18,7 @@ const SuccessModal = ({ isOpen, onClose, message, title = "Success!" }) => {
           variant="primary"
           className="w-full py-4 text-lg font-bold shadow-lg shadow-blue-200"
         >
-          Continue to Dashboard
+          {buttonText}
         </Button>
       </div>
     </div>

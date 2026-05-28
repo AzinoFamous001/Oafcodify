@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which function type is hoisted?",
+    "options": [
+      "Function expression",
+      "Arrow function",
+      "Function declaration",
+      "All functions"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Function declarations are hoisted, meaning they can be called before declaration. Expressions and arrow functions are not."
+  },
+  {
+    "id": 2,
+    "question": "What is a closure?",
+    "options": [
+      "A function that closes a file",
+      "A function with access to variables from its outer scope",
+      "A function that returns nothing",
+      "A function with no parameters"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A closure is a function that has access to variables from its outer (enclosing) scope, even after the outer function has returned."
+  },
+  {
+    "id": 3,
+    "question": "Which keyword is block-scoped?",
+    "options": [
+      "var",
+      "let",
+      "Both var and let",
+      "Neither"
+    ],
+    "correctAnswer": 1,
+    "explanation": "let is block-scoped. var is function-scoped and can leak outside blocks."
+  },
+  {
+    "id": 4,
+    "question": "What does async/await simplify?",
+    "options": [
+      "Loop syntax",
+      "Object creation",
+      "Asynchronous code",
+      "Array manipulation"
+    ],
+    "correctAnswer": 2,
+    "explanation": "async/await simplifies asynchronous code, making it look and behave more like synchronous code."
+  },
+  {
+    "id": 5,
+    "question": "Which keyword is used to export a default value from a module?",
+    "options": [
+      "export default",
+      "default export",
+      "module export",
+      "export default value"
+    ],
+    "correctAnswer": 0,
+    "explanation": "export default is used to export a default value from a module. Each module can have only one default export."
+  },
+  {
+    "id": 6,
+    "question": "What does a higher-order function do?",
+    "options": [
+      "Has higher priority",
+      "Takes a function as argument or returns a function",
+      "Is declared at the top",
+      "Has more parameters"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A higher-order function takes one or more functions as arguments or returns a function."
+  },
+  {
+    "id": 7,
+    "question": "Which keyword creates a class in JavaScript?",
+    "options": [
+      "class",
+      "create",
+      "object",
+      "constructor"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The class keyword creates a class in JavaScript. It's syntactic sugar over JavaScript's prototype-based inheritance."
+  },
+  {
+    "id": 8,
+    "question": "What does the super keyword do in a class?",
+    "options": [
+      "Creates a superclass",
+      "Calls the parent class constructor",
+      "Exports the class",
+      "Makes the class private"
+    ],
+    "correctAnswer": 1,
+    "explanation": "super calls the parent class constructor in a child class. It's required when extending a class."
+  },
+  {
+    "id": 9,
+    "question": "Which method is used to handle errors in async/await?",
+    "options": [
+      "catch",
+      "try/catch",
+      "error",
+      "handle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "try/catch is used to handle errors in async/await. The try block contains the code, catch handles errors."
+  },
+  {
+    "id": 10,
+    "question": "What is the scope chain?",
+    "options": [
+      "A list of scopes",
+      "The order in which JavaScript looks for variables",
+      "A chain of functions",
+      "The order of function execution"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The scope chain is the order in which JavaScript looks for variables, starting from the current scope and moving outward."
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What are React Hooks?",
+    "options": [
+      "Functions that allow you to hook into React state and lifecycle features",
+      "CSS styling hooks",
+      "Database connection hooks",
+      "Network request hooks"
+    ],
+    "correctAnswer": 0,
+    "explanation": "React Hooks are functions that let you hook into React state and lifecycle features from function components."
+  },
+  {
+    "id": 2,
+    "question": "Which hook is used for side effects in functional components?",
+    "options": [
+      "useState",
+      "useEffect",
+      "useContext",
+      "useReducer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useEffect is used for side effects like data fetching, subscriptions, or manually changing the DOM in functional components."
+  },
+  {
+    "id": 3,
+    "question": "What does useEffect do if you pass an empty array [] as the second argument?",
+    "options": [
+      "Runs on every render",
+      "Runs only once when component mounts",
+      "Never runs",
+      "Runs when component unmounts"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Passing an empty array [] as the second argument to useEffect makes it run only once when the component mounts, similar to componentDidMount."
+  },
+  {
+    "id": 4,
+    "question": "What is useContext used for?",
+    "options": [
+      "Managing component state",
+      "Accessing context values",
+      "Creating context providers",
+      "Handling events"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useContext allows you to consume context values created by Context.Provider without wrapping components in a Consumer component."
+  },
+  {
+    "id": 5,
+    "question": "What does useRef return?",
+    "options": [
+      "A mutable ref object",
+      "A state value",
+      "A context value",
+      "An effect function"
+    ],
+    "correctAnswer": 0,
+    "explanation": "useRef returns a mutable ref object whose .current property is initialized to the passed argument. It persists across re-renders."
+  },
+  {
+    "id": 6,
+    "question": "When should you use a custom hook?",
+    "options": [
+      "When you need to reuse stateful logic between components",
+      "When you need to add CSS styles",
+      "When you need to fetch data",
+      "Only in class components"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Custom hooks are used to extract and reuse stateful logic between different components, promoting code reusability."
+  },
+  {
+    "id": 7,
+    "question": "What is the purpose of the dependency array in useEffect?",
+    "options": [
+      "To specify when the effect should run",
+      "To improve performance only",
+      "To prevent memory leaks",
+      "To style the component"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The dependency array in useEffect specifies which values the effect depends on. The effect only re-runs when those values change."
+  },
+  {
+    "id": 8,
+    "question": "Can you use hooks inside regular JavaScript functions?",
+    "options": [
+      "Yes, always",
+      "No, hooks can only be used inside React function components",
+      "Only in class components",
+      "Only in useEffect"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hooks can only be called at the top level of React function components or custom hooks, not in regular JavaScript functions or class components."
+  }
+]

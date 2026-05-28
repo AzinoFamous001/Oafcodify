@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which array method adds an element to the end?",
+    "options": [
+      "unshift()",
+      "push()",
+      "append()",
+      "add()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "push() adds an element to the end of an array. unshift() adds to the beginning."
+  },
+  {
+    "id": 2,
+    "question": "How do you access the first element of an array?",
+    "options": [
+      "array.first",
+      "array[0]",
+      "array[1]",
+      "array.first()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are zero-indexed, so array[0] accesses the first element."
+  },
+  {
+    "id": 3,
+    "question": "Which object notation uses a string key?",
+    "options": [
+      "Dot notation",
+      "Bracket notation",
+      "Both",
+      "Neither"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bracket notation (object['key']) uses a string key. Dot notation (object.key) is for known property names."
+  },
+  {
+    "id": 4,
+    "question": "Which array method transforms each element?",
+    "options": [
+      "filter()",
+      "map()",
+      "reduce()",
+      "forEach()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "map() transforms each element in an array and returns a new array with the transformed values."
+  },
+  {
+    "id": 5,
+    "question": "Which array method keeps elements that pass a test?",
+    "options": [
+      "map()",
+      "filter()",
+      "reduce()",
+      "find()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "filter() keeps elements that pass a test and returns a new array with only those elements."
+  },
+  {
+    "id": 6,
+    "question": "What does Object.keys() return?",
+    "options": [
+      "Array of values",
+      "Array of keys",
+      "Array of key-value pairs",
+      "String representation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Object.keys() returns an array of an object's property names (keys)."
+  },
+  {
+    "id": 7,
+    "question": "Which array method removes the last element?",
+    "options": [
+      "shift()",
+      "pop()",
+      "remove()",
+      "delete()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "pop() removes and returns the last element of an array. shift() removes the first element."
+  },
+  {
+    "id": 8,
+    "question": "Which array method reduces an array to a single value?",
+    "options": [
+      "map()",
+      "filter()",
+      "reduce()",
+      "forEach()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "reduce() combines all array elements into a single value using a reducer function."
+  },
+  {
+    "id": 9,
+    "question": "How do you check if an array includes a value?",
+    "options": [
+      "array.contains(value)",
+      "array.includes(value)",
+      "array.has(value)",
+      "array.find(value)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "array.includes(value) returns true if the array contains the specified value."
+  },
+  {
+    "id": 10,
+    "question": "What is the difference between an array and an object?",
+    "options": [
+      "Arrays store key-value pairs, objects store ordered values",
+      "Arrays store ordered values accessed by index, objects store key-value pairs",
+      "They are the same",
+      "Objects are faster than arrays"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays store ordered values accessed by numeric index. Objects store key-value pairs accessed by string keys."
+  }
+]

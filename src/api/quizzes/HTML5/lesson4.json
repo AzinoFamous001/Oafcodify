@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which attribute specifies a unique identifier for an HTML element?",
+    "options": [
+      "class",
+      "id",
+      "name",
+      "unique"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The id attribute specifies a unique identifier for an element. Each ID must be unique within the page."
+  },
+  {
+    "id": 2,
+    "question": "Which CSS selector symbol is used for class names?",
+    "options": [
+      "#",
+      ".",
+      "*",
+      "@"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The dot (.) is used for class selectors in CSS. The hash (#) is used for ID selectors."
+  },
+  {
+    "id": 3,
+    "question": "Which button type submits a form?",
+    "options": [
+      "type=\"button\"",
+      "type=\"submit\"",
+      "type=\"reset\"",
+      "type=\"form\""
+    ],
+    "correctAnswer": 1,
+    "explanation": "type=\"submit\" creates a button that submits the form when clicked. type=\"button\" has no default action."
+  },
+  {
+    "id": 4,
+    "question": "Which HTML element embeds another HTML document within the current document?",
+    "options": [
+      "<embed>",
+      "<frame>",
+      "<iframe>",
+      "<object>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<iframe> (inline frame) embeds another HTML document within the current document. It's commonly used for videos and maps."
+  },
+  {
+    "id": 5,
+    "question": "Which script attribute loads the script asynchronously and executes after HTML parsing?",
+    "options": [
+      "async",
+      "defer",
+      "load",
+      "wait"
+    ],
+    "correctAnswer": 1,
+    "explanation": "defer loads the script asynchronously but defers execution until HTML parsing is complete. async executes as soon as it loads."
+  },
+  {
+    "id": 6,
+    "question": "Which file path type starts from the website root directory?",
+    "options": [
+      "Absolute path",
+      "Relative path",
+      "Root-relative path",
+      "Full path"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Root-relative paths start with a forward slash (/) and are relative to the website root, not the current file."
+  },
+  {
+    "id": 7,
+    "question": "Which meta tag is essential for mobile responsiveness?",
+    "options": [
+      "<meta name=\"description\">",
+      "<meta charset=\"UTF-8\">",
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "<meta name=\"keywords\">"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The viewport meta tag is essential for mobile responsiveness. It tells the browser how to scale the page on mobile devices."
+  },
+  {
+    "id": 8,
+    "question": "Which HTML5 semantic element defines the main content of a document?",
+    "options": [
+      "<section>",
+      "<main>",
+      "<content>",
+      "<article>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<main> specifies the main content of a document. There should be only one <main> element per page."
+  },
+  {
+    "id": 9,
+    "question": "Which attribute adds security restrictions to an iframe?",
+    "options": [
+      "secure",
+      "sandbox",
+      "restrict",
+      "safe"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The sandbox attribute adds security restrictions to embedded content in an iframe, limiting what the iframe can do."
+  },
+  {
+    "id": 10,
+    "question": "Can multiple elements share the same class?",
+    "options": [
+      "No, classes must be unique",
+      "Yes, multiple elements can share the same class",
+      "Only two elements can share a class",
+      "Classes cannot be used at all"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Multiple elements can share the same class. This is the purpose of classes - to style groups of elements together."
+  }
+]

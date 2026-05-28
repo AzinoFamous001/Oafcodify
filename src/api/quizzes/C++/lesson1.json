@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What is the correct extension for C++ source files?",
+    "options": [
+      ".c",
+      ".cpp",
+      ".cp",
+      ".c++"
+    ],
+    "correctAnswer": 1,
+    "explanation": ".cpp is the standard extension for C++ source files. .c is used for C files."
+  },
+  {
+    "id": 2,
+    "question": "Which statement is used to output text in C++?",
+    "options": [
+      "print()",
+      "console.log()",
+      "cout",
+      "printf()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "cout is used for output in C++ (cout << \"Hello\"). It's part of the iostream library."
+  },
+  {
+    "id": 3,
+    "question": "What does #include <iostream> do?",
+    "options": [
+      "Creates a new file",
+      "Includes the input/output stream library",
+      "Defines a variable",
+      "Compiles the program"
+    ],
+    "correctAnswer": 1,
+    "explanation": "#include <iostream> includes the input/output stream library, which provides cin and cout for I/O operations."
+  },
+  {
+    "id": 4,
+    "question": "Which data type stores whole numbers?",
+    "options": [
+      "float",
+      "double",
+      "int",
+      "char"
+    ],
+    "correctAnswer": 2,
+    "explanation": "int stores whole numbers (integers). float and double store decimal numbers, char stores single characters."
+  },
+  {
+    "id": 5,
+    "question": "What is the correct way to declare a string variable in C++?",
+    "options": [
+      "string name = \"John\";",
+      "str name = \"John\";",
+      "char name = \"John\";",
+      "text name = \"John\";"
+    ],
+    "correctAnswer": 0,
+    "explanation": "string name = \"John\"; is the correct way to declare a string in C++. You need to include <string>."
+  },
+  {
+    "id": 6,
+    "question": "Which operator is used for input in C++?",
+    "options": [
+      "<<",
+      ">>",
+      "<-",
+      "->"
+    ],
+    "correctAnswer": 1,
+    "explanation": ">> is used for input (cin >> variable). << is used for output (cout << variable)."
+  },
+  {
+    "id": 7,
+    "question": "What is the main function's return type in C++?",
+    "options": [
+      "void",
+      "int",
+      "string",
+      "No return type"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The main function returns int. Returning 0 indicates successful program execution."
+  },
+  {
+    "id": 8,
+    "question": "Which keyword declares a constant variable?",
+    "options": [
+      "static",
+      "final",
+      "const",
+      "constant"
+    ],
+    "correctAnswer": 2,
+    "explanation": "const declares a constant variable that cannot be modified after initialization."
+  },
+  {
+    "id": 9,
+    "question": "What does endl do in C++?",
+    "options": [
+      "Ends the program",
+      "Inserts a newline and flushes the buffer",
+      "Ends the current line only",
+      "Clears the screen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "endl inserts a newline character and flushes the output buffer. It's equivalent to \"\\n\" with buffer flush."
+  },
+  {
+    "id": 10,
+    "question": "Which data type stores decimal numbers with higher precision?",
+    "options": [
+      "float",
+      "double",
+      "int",
+      "long"
+    ],
+    "correctAnswer": 1,
+    "explanation": "double stores decimal numbers with higher precision (64-bit) compared to float (32-bit)."
+  }
+]

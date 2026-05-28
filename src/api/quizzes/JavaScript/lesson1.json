@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which keyword declares a variable that cannot be reassigned?",
+    "options": [
+      "var",
+      "let",
+      "const",
+      "variable"
+    ],
+    "correctAnswer": 2,
+    "explanation": "const declares a variable that cannot be reassigned. let can be reassigned, and var is the old way (function-scoped)."
+  },
+  {
+    "id": 2,
+    "question": "Which comparison operator checks both value and type?",
+    "options": [
+      "==",
+      "===",
+      "=",
+      "!=="
+    ],
+    "correctAnswer": 1,
+    "explanation": "=== checks both value and type (strict equality). == checks value only with type coercion."
+  },
+  {
+    "id": 3,
+    "question": "What is the result of typeof null?",
+    "options": [
+      "null",
+      "undefined",
+      "object",
+      "number"
+    ],
+    "correctAnswer": 2,
+    "explanation": "typeof null returns 'object' due to a historical bug in JavaScript. This is a known quirk."
+  },
+  {
+    "id": 4,
+    "question": "Which operator is used for exponentiation?",
+    "options": [
+      "^",
+      "**",
+      "exp",
+      "pow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "** is the exponentiation operator in JavaScript. 2 ** 3 equals 8 (2 to the power of 3)."
+  },
+  {
+    "id": 5,
+    "question": "Which data type is immutable in JavaScript?",
+    "options": [
+      "Array",
+      "Object",
+      "String",
+      "All primitive types"
+    ],
+    "correctAnswer": 3,
+    "explanation": "All primitive types (string, number, boolean, null, undefined, symbol, bigint) are immutable. Arrays and objects are mutable."
+  },
+  {
+    "id": 6,
+    "question": "What is the correct syntax for an arrow function?",
+    "options": [
+      "function => () { return x; }",
+      "() => { return x; }",
+      "=> function() { return x; }",
+      "function() => { return x; }"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrow functions use the syntax () => { } where parameters go before the arrow and the function body after."
+  },
+  {
+    "id": 7,
+    "question": "Which variable declaration is function-scoped?",
+    "options": [
+      "let",
+      "const",
+      "var",
+      "All of them"
+    ],
+    "correctAnswer": 2,
+    "explanation": "var is function-scoped and can leak outside blocks. let and const are block-scoped."
+  },
+  {
+    "id": 8,
+    "question": "What does the logical OR operator (||) return?",
+    "options": [
+      "true if both operands are true",
+      "true if at least one operand is true",
+      "true if both operands are false",
+      "The first truthy value"
+    ],
+    "correctAnswer": 1,
+    "explanation": "|| returns true if at least one operand is true. It also returns the first truthy value in short-circuit evaluation."
+  },
+  {
+    "id": 9,
+    "question": "Which function parameter syntax provides a default value?",
+    "options": [
+      "function greet(name = 'Guest')",
+      "function greet(name: 'Guest')",
+      "function greet(name default 'Guest')",
+      "function greet(name = 'Guest'?)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Default parameters use the syntax: parameter = defaultValue. function greet(name = 'Guest') sets 'Guest' as default."
+  },
+  {
+    "id": 10,
+    "question": "What is the result of 2 + '2' in JavaScript?",
+    "options": [
+      "4",
+      "'22'",
+      "NaN",
+      "Error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "2 + '2' results in '22' because JavaScript converts the number to a string and concatenates (type coercion)."
+  }
+]

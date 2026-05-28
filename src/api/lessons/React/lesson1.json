@@ -15,11 +15,39 @@
     "subtopics": [
       {
         "title": "What is React?",
-        "content": "React is a JavaScript library for building user interfaces, developed and maintained by Facebook.\n\n**Key Points:**\n- Component-based architecture\n- Virtual DOM for efficient updates\n- Declarative programming style\n- Used for building single-page applications\n- Large ecosystem and community\n\n**Why Use React?**\n- **Reusable Components**: Build encapsulated components that manage their own state\n- **Virtual DOM**: Efficient updates without direct DOM manipulation\n- **Declarative**: Describe what the UI should look like, React handles the rest\n- **Ecosystem**: Huge library of components and tools\n- **Performance**: Optimized rendering with virtual DOM\n\n**Common Uses:**\n- Single-page applications (SPAs)\n- Mobile applications (React Native)\n- Server-side rendering (Next.js)\n- Desktop applications (Electron with React)\n\n**React Version History:**\n- React 0.3 (2013) - Initial release\n- React 15 (2016) - Major improvements\n- React 16 (2017) - Fiber architecture\n- React 17 (2020) - No new features, focused on upgrades\n- React 18 (2022) - Concurrent features, automatic batching"
+        "content": "React is a JavaScript library for building user interfaces, developed and maintained by Facebook.\n\n**Key Points:**\n- Component-based architecture\n- Virtual DOM for efficient updates\n- Declarative programming style\n- Used for building single-page applications\n- Large ecosystem and community\n\n**Why Use React?**\n- **Reusable Components**: Build encapsulated components that manage their own state\n- **Virtual DOM**: Efficient updates without direct DOM manipulation\n- **Declarative**: Describe what the UI should look like, React handles the rest\n- **Ecosystem**: Huge library of components and tools\n- **Performance**: Optimized rendering with virtual DOM\n\n**Common Uses:**\n- Single-page applications (SPAs)\n- Mobile applications (React Native)\n- Server-side rendering (Next.js)\n- Desktop applications (Electron with React)\n\n**React Version History:**\n- React 0.3 (2013) - Initial release\n- React 15 (2016) - Major improvements\n- React 16 (2017) - Fiber architecture\n- React 17 (2020) - No new features, focused on upgrades\n- React 18 (2022) - Concurrent features, automatic batching",
+        "imageUrl": "/images/react-introduction.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "React is NOT a framework - it's a library focused on the view layer.",
+          "React does NOT replace HTML - it uses JSX which looks like HTML but is JavaScript.",
+          "You do NOT need to use JSX with React - you can use React.createElement, but JSX is preferred."
+        ],
+        "realWorldAnalogy": "React is like a construction crew with prefabricated building blocks. Instead of building everything from scratch (traditional DOM manipulation), you use pre-made components (like walls, windows, doors) that you can assemble and reuse to build complex structures quickly and efficiently."
+      },
+      {
+        "title": "ES6 Fundamentals for React",
+        "content": "React heavily uses ES6 (ECMAScript 2015) features. Understanding these is essential for modern React development.\n\n**ES6 Variables (let and const):**\n```javascript\n// let - can be reassigned\nlet count = 0;\ncount = 1;\n\n// const - cannot be reassigned\nconst name = 'Alice';\n// name = 'Bob'; // Error\n\n// const with objects\nconst user = { name: 'Alice' };\nuser.name = 'Bob'; // OK - object properties can change\n```\n\n**Arrow Functions:**\n```javascript\n// Traditional function\nfunction add(a, b) {\n  return a + b;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n\n// Arrow function with single parameter\nconst square = x => x * x;\n\n// Arrow function with no parameters\nconst greet = () => 'Hello!';\n```\n\n**Template Literals:**\n```javascript\nconst name = 'Alice';\nconst greeting = `Hello, ${name}!`;\n```\n\n**Destructuring:**\n```javascript\n// Array destructuring\nconst [a, b] = [1, 2];\n\n// Object destructuring\nconst { name, age } = { name: 'Alice', age: 25 };\n\n// Destructuring in function parameters\nfunction greet({ name }) {\n  console.log(`Hello, ${name}!`);\n}\n```\n\n**Spread Operator:**\n```javascript\n// Array spread\nconst arr1 = [1, 2];\nconst arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]\n\n// Object spread\nconst obj1 = { name: 'Alice' };\nconst obj2 = { ...obj1, age: 25 }; // { name: 'Alice', age: 25 }\n```\n\n**ES6 Classes:**\n```javascript\nclass Person {\n  constructor(name) {\n    this.name = name;\n  }\n  \n  greet() {\n    return `Hello, ${this.name}!`;\n  }\n}\n\nconst person = new Person('Alice');\nconsole.log(person.greet());\n```\n\n**Array Methods:**\n```javascript\n// map\nconst doubled = [1, 2, 3].map(x => x * 2); // [2, 4, 6]\n\n// filter\nconst evens = [1, 2, 3, 4].filter(x => x % 2 === 0); // [2, 4]\n\n// reduce\nconst sum = [1, 2, 3].reduce((acc, x) => acc + x, 0); // 6\n\n// find\nconst found = [1, 2, 3].find(x => x === 2); // 2\n```\n\n**Ternary Operator:**\n```javascript\nconst age = 18;\nconst canVote = age >= 18 ? 'Yes' : 'No';\n```",
+        "imageUrl": "/images/react-es6.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Arrow functions do NOT have their own 'this' context - they inherit 'this' from the surrounding scope.",
+          "const does NOT make objects immutable - only the reference cannot change, properties can still be modified.",
+          "Template literals use backticks (`), not single quotes (') or double quotes (\")."
+        ],
+        "realWorldAnalogy": "ES6 features are like modern power tools compared to old hand tools. let/const are like better storage containers, arrow functions are like shortcuts, template literals are like mail merge, and destructuring is like unpacking a suitcase efficiently."
       },
       {
         "title": "Setting Up React",
-        "content": "There are several ways to set up a React development environment.\n\n**Using Create React App (CRA):**\n```bash\nnpx create-react-app my-app\ncd my-app\nnpm start\n```\n\n**Using Vite (Recommended):**\n```bash\nnpm create vite@latest my-app -- --template react\ncd my-app\nnpm install\nnpm run dev\n```\n\n**Using Next.js (Full-featured):**\n```bash\nnpx create-next-app my-app\ncd my-app\nnpm run dev\n```\n\n**Project Structure:**\n```\nmy-app/\n├── node_modules/\n├── public/\n│   └── index.html\n├── src/\n│   ├── App.css\n│   ├── App.js\n│   ├── index.css\n│   └── index.js\n├── package.json\n└── README.md\n```\n\n**Best Practice:**\n- Use Vite for new projects (faster, modern)\n- Use Next.js for full-stack applications\n- Use CRA for simple projects (being phased out)"
+        "content": "There are several ways to set up a React development environment.\n\n**Using Create React App (CRA):**\n```bash\nnpx create-react-app my-app\ncd my-app\nnpm start\n```\n\n**Using Vite (Recommended):**\n```bash\nnpm create vite@latest my-app -- --template react\ncd my-app\nnpm install\nnpm run dev\n```\n\n**Using Next.js (Full-featured):**\n```bash\nnpx create-next-app my-app\ncd my-app\nnpm run dev\n```\n\n**Project Structure:**\n```\nmy-app/\n├── node_modules/\n├── public/\n│   └── index.html\n├── src/\n│   ├── App.css\n│   ├── App.js\n│   ├── index.css\n│   └── index.js\n├── package.json\n└── README.md\n```\n\n**Best Practice:**\n- Use Vite for new projects (faster, modern)\n- Use Next.js for full-stack applications\n- Use CRA for simple projects (being phased out)",
+        "imageUrl": "/images/react-setup.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "You do NOT need Node.js to run React in production - only for development.",
+          "Create React App is NOT the only way to set up React - Vite and Next.js are often better choices.",
+          "You do NOT need to install React globally - it's installed per project."
+        ],
+        "realWorldAnalogy": "Setting up React is like setting up a kitchen. Create React App is like a pre-furnished kitchen with everything you need, Vite is like a modern, efficient kitchen with the latest appliances, and Next.js is like a full restaurant setup with both kitchen and dining areas."
       },
       {
         "title": "Your First React Component",

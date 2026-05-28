@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What is React?",
+    "options": [
+      "A database management system",
+      "A JavaScript library for building user interfaces",
+      "A programming language",
+      "A CSS framework"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React is a JavaScript library developed by Facebook for building user interfaces, particularly for single-page applications."
+  },
+  {
+    "id": 2,
+    "question": "What does ES6 stand for?",
+    "options": [
+      "ECMAScript 2015",
+      "Extended Script 6",
+      "Enterprise Script 6",
+      "Enhanced Syntax 6"
+    ],
+    "correctAnswer": 0,
+    "explanation": "ES6 stands for ECMAScript 2015, which introduced many new features to JavaScript including arrow functions, classes, and modules."
+  },
+  {
+    "id": 3,
+    "question": "Which keyword declares a variable that cannot be reassigned?",
+    "options": [
+      "var",
+      "let",
+      "const",
+      "variable"
+    ],
+    "correctAnswer": 2,
+    "explanation": "const declares a variable that cannot be reassigned. However, if it's an object or array, its properties can still be modified."
+  },
+  {
+    "id": 4,
+    "question": "What is the correct syntax for an arrow function?",
+    "options": [
+      "function => () { return x; }",
+      "() => { return x; }",
+      "=> function() { return x; }",
+      "function() => { return x; }"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrow functions use the syntax () => { } where the parameters go before the arrow and the function body after."
+  },
+  {
+    "id": 5,
+    "question": "What does JSX stand for?",
+    "options": [
+      "JavaScript XML",
+      "Java Syntax Extension",
+      "JavaScript Extended",
+      "JSON XML"
+    ],
+    "correctAnswer": 0,
+    "explanation": "JSX stands for JavaScript XML. It's a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files."
+  },
+  {
+    "id": 6,
+    "question": "Which tool is recommended for creating new React projects?",
+    "options": [
+      "Create React App",
+      "Vite",
+      "Webpack",
+      "Both Vite and Create React App"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Both Vite and Create React App can be used to create React projects, but Vite is recommended for new projects due to its faster build times."
+  },
+  {
+    "id": 7,
+    "question": "What is array destructuring?",
+    "options": [
+      "Removing elements from an array",
+      "Extracting values from arrays into variables",
+      "Sorting arrays",
+      "Combining multiple arrays"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Array destructuring allows you to extract values from arrays and assign them to variables in a single statement."
+  },
+  {
+    "id": 8,
+    "question": "What is the spread operator used for?",
+    "options": [
+      "To spread elements of an array or object",
+      "To create spreadsheets",
+      "To spread elements across multiple files",
+      "To spread network requests"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The spread operator (...) is used to expand elements of an array or properties of an object into individual elements."
+  }
+]

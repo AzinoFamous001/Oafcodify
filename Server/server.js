@@ -10,6 +10,8 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GitHubStrategy = require("passport-github2").Strategy;
 const session = require("express-session");
+const nodemailer = require("nodemailer");
+const cron = require("node-cron");
 
 const app = express();
 
@@ -31,16 +33,92 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === "production",
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    httpOnly: true,
+    sameSite: 'lax'
+  },
+  name: 'oafcodify.sid' // Custom session name for better isolation
 }));
 
 // PASSPORT INITIALIZATION
 app.use(passport.initialize());
 app.use(passport.session());
 
+// SESSION VALIDATION MIDDLEWARE
+const validateSession = (req, res, next) => {
+  // If user is authenticated via passport, validate session
+  if (req.isAuthenticated() && req.session.userId) {
+    // Ensure session userId matches passport user
+    if (req.user && req.user.id !== req.session.userId) {
+      // Session mismatch - destroy session
+      req.session.destroy((err) => {
+        if (err) console.error("Session destruction error:", err);
+      });
+      return res.status(401).json({ message: "Session mismatch. Please login again." });
+    }
+  }
+  next();
+};
+
 // GEMINI SETUP
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// EMAIL SETUP
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+// Function to send study reminder email
+async function sendStudyReminder(email, userName) {
+  try {
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: '📚 Time to Study on Oafcodify!',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">📚 Study Reminder</h1>
+          </div>
+          <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; border: 1px solid #e0e0e0;">
+            <p style="color: #333; font-size: 16px; line-height: 1.6;">Hello ${userName},</p>
+            <p style="color: #333; font-size: 16px; line-height: 1.6;">It's time to continue your learning journey on Oafcodify! Consistent practice is the key to mastering programming.</p>
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+              <p style="color: #1976d2; margin: 0; font-weight: bold;">💡 Quick Tip:</p>
+              <p style="color: #333; margin: 5px 0 0 0;">Even 15 minutes of daily practice can lead to significant improvement over time.</p>
+            </div>
+            <a href="http://localhost:5173/dashboard" style="display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">Continue Learning</a>
+            <p style="color: #666; font-size: 14px; margin-top: 20px;">Keep coding and never stop learning!</p>
+            <p style="color: #999; font-size: 12px; margin-top: 30px;">This is an automated reminder from Oafcodify.</p>
+          </div>
+        </div>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`Study reminder sent to ${email}`);
+  } catch (error) {
+    console.error('Error sending study reminder:', error);
+  }
+}
+
+// Schedule daily study reminders at 9 AM
+cron.schedule('0 9 * * *', async () => {
+  try {
+    const users = await getUsers();
+    for (const user of users) {
+      if (user.email) {
+        await sendStudyReminder(user.email, user.fullName);
+      }
+    }
+  } catch (error) {
+    console.error('Error in daily reminder cron job:', error);
+  }
+});
 
 // =========================
 // PASSPORT SERIALIZATION
@@ -189,6 +267,11 @@ app.post("/api/register", async (req, res) => {
 
     res.status(201).json({
       message: "Account created successfully",
+      user: {
+        id: newUser.id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+      },
     });
   } catch (error) {
     console.error("Register Error:", error);
@@ -233,14 +316,36 @@ app.post("/api/login", async (req, res) => {
       });
     }
 
-    // SUCCESS
-    res.status(200).json({
-      message: "Login successful",
-      user: {
-        id: user.id,
-        fullName: user.fullName,
-        email: user.email,
-      },
+    // REGENERATE SESSION TO PREVENT SESSION FIXATION
+    req.session.regenerate((err) => {
+      if (err) {
+        console.error("Session regeneration error:", err);
+        return res.status(500).json({
+          message: "Server error",
+        });
+      }
+
+      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+      req.session.userId = user.id;
+      req.session.sessionId = `${user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      req.session.save((err) => {
+        if (err) {
+          console.error("Session save error:", err);
+          return res.status(500).json({
+            message: "Server error",
+          });
+        }
+
+        // SUCCESS
+        res.status(200).json({
+          message: "Login successful",
+          user: {
+            id: user.id,
+            fullName: user.fullName,
+            email: user.email,
+          },
+        });
+      });
     });
   } catch (error) {
     console.error("Login Error:", error);
@@ -327,8 +432,26 @@ app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile",
 app.get("/api/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
-    // Successful authentication
-    res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard?auth=success`);
+    // REGENERATE SESSION TO PREVENT SESSION FIXATION
+    req.session.regenerate((err) => {
+      if (err) {
+        console.error("Session regeneration error:", err);
+        return res.redirect("/login");
+      }
+
+      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+      req.session.userId = req.user.id;
+      req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      req.session.save((err) => {
+        if (err) {
+          console.error("Session save error:", err);
+          return res.redirect("/login");
+        }
+
+        // Successful authentication
+        res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard?auth=success`);
+      });
+    });
   }
 );
 
@@ -338,13 +461,31 @@ app.get("/api/auth/github", passport.authenticate("github", { scope: ["user:emai
 app.get("/api/auth/github/callback",
   passport.authenticate("github", { failureRedirect: "/login" }),
   (req, res) => {
-    // Successful authentication
-    res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard?auth=success`);
+    // REGENERATE SESSION TO PREVENT SESSION FIXATION
+    req.session.regenerate((err) => {
+      if (err) {
+        console.error("Session regeneration error:", err);
+        return res.redirect("/login");
+      }
+
+      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+      req.session.userId = req.user.id;
+      req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      req.session.save((err) => {
+        if (err) {
+          console.error("Session save error:", err);
+          return res.redirect("/login");
+        }
+
+        // Successful authentication
+        res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard?auth=success`);
+      });
+    });
   }
 );
 
 // Get current user
-app.get("/api/auth/user", (req, res) => {
+app.get("/api/auth/user", validateSession, (req, res) => {
   if (req.isAuthenticated()) {
     res.json({
       user: {
@@ -361,9 +502,16 @@ app.get("/api/auth/user", (req, res) => {
 
 // Logout
 app.post("/api/auth/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    res.json({ message: "Logged out successfully" });
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Session destruction error:", err);
+      return next(err);
+    }
+    req.logout((err) => {
+      if (err) return next(err);
+      res.clearCookie('oafcodify.sid');
+      res.json({ message: "Logged out successfully" });
+    });
   });
 });
 
@@ -372,6 +520,26 @@ app.post("/api/auth/logout", (req, res, next) => {
 // =========================
 app.get("/", (req, res) => {
   res.send("CodeBay Backend Server Running...");
+});
+
+// =========================
+// EMAIL REMINDER ROUTE
+// =========================
+app.post("/api/send-study-reminder", async (req, res) => {
+  try {
+    const { email, userName } = req.body;
+    
+    if (!email || !userName) {
+      return res.status(400).json({ message: "Email and userName are required" });
+    }
+
+    await sendStudyReminder(email, userName);
+    
+    res.status(200).json({ message: "Study reminder sent successfully" });
+  } catch (error) {
+    console.error("Error sending study reminder:", error);
+    res.status(500).json({ message: "Failed to send study reminder" });
+  }
 });
 
 // =========================

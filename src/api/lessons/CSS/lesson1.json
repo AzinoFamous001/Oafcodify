@@ -15,23 +15,63 @@
     "subtopics": [
       {
         "title": "What is CSS?",
-        "content": "CSS stands for Cascading Style Sheets. It is a stylesheet language used to describe the presentation and styling of a document written in HTML.\n\n**Key Points:**\n- CSS controls the layout, colors, fonts, and overall appearance of web pages\n- It separates content (HTML) from presentation (CSS)\n- CSS makes websites responsive and visually appealing\n- It saves time by styling multiple pages at once\n\n**Why Use CSS?**\n- **Consistency**: Apply the same styles across multiple pages\n- **Maintenance**: Change styles in one place to update entire site\n- **Flexibility**: Create different layouts for different devices\n- **Accessibility**: Improve readability and user experience\n\n**CSS Version History:**\n- CSS1 (1996) - Basic styling\n- CSS2 (1998) - Positioning and media types\n- CSS3 (2011) - Animations, flexbox, grid, gradients\n- CSS4 (Ongoing) - New features and enhancements"
+        "content": "CSS stands for Cascading Style Sheets. It is a stylesheet language used to describe the presentation and styling of a document written in HTML.\n\n**Key Points:**\n- CSS controls the layout, colors, fonts, and overall appearance of web pages\n- It separates content (HTML) from presentation (CSS)\n- CSS makes websites responsive and visually appealing\n- It saves time by styling multiple pages at once\n\n**Why Use CSS?**\n- **Consistency**: Apply the same styles across multiple pages\n- **Maintenance**: Change styles in one place to update entire site\n- **Flexibility**: Create different layouts for different devices\n- **Accessibility**: Improve readability and user experience\n\n**CSS Version History:**\n- CSS1 (1996) - Basic styling\n- CSS2 (1998) - Positioning and media types\n- CSS3 (2011) - Animations, flexbox, grid, gradients\n- CSS4 (Ongoing) - New features and enhancements",
+        "imageUrl": "/images/css-introduction.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "CSS is NOT a programming language - it's a stylesheet language for presentation only.",
+          "CSS does NOT replace HTML - HTML provides structure, CSS provides styling.",
+          "Inline CSS is NOT the best practice - external CSS files are recommended for maintainability."
+        ],
+        "realWorldAnalogy": "CSS is like the interior design of a house. HTML provides the structure (walls, rooms, doors), while CSS provides the decoration (paint colors, furniture placement, lighting, curtains) that makes the house visually appealing and comfortable."
       },
       {
         "title": "CSS Syntax",
-        "content": "A CSS rule consists of a selector and a declaration block. The selector points to the HTML element you want to style, and the declaration block contains one or more declarations.\n\n**Basic Syntax Structure:**\n```css\nselector {\n  property: value;\n}\n```\n\n**Example:**\n```css\np {\n  color: blue;\n  font-size: 16px;\n}\n```\n\n**Breakdown:**\n- **Selector**: `p` - Selects all paragraph elements\n- **Property**: `color` - The CSS property to style\n- **Value**: `blue` - The value for the property\n- **Declaration**: `color: blue;` - Property and value pair\n- **Declaration Block**: `{ color: blue; font-size: 16px; }` - All declarations\n\n**Multiple Declarations:**\n```css\nh1 {\n  color: red;\n  font-size: 32px;\n  text-align: center;\n  background-color: yellow;\n}\n```\n\n**Important Rules:**\n- Each declaration ends with a semicolon (;)\n- Declaration blocks are surrounded by curly braces ({})\n- Properties and values are separated by a colon (:)\n- Multiple declarations are separated by semicolons"
+        "content": "A CSS rule consists of a selector and a declaration block. The selector points to the HTML element you want to style, and the declaration block contains one or more declarations.\n\n**Basic Syntax Structure:**\n```css\nselector {\n  property: value;\n}\n```\n\n**Example:**\n```css\np {\n  color: blue;\n  font-size: 16px;\n}\n```\n\n**Breakdown:**\n- **Selector**: `p` - Selects all paragraph elements\n- **Property**: `color` - The CSS property to style\n- **Value**: `blue` - The value for the property\n- **Declaration**: `color: blue;` - Property and value pair\n- **Declaration Block**: `{ color: blue; font-size: 16px; }` - All declarations\n\n**Multiple Declarations:**\n```css\nh1 {\n  color: red;\n  font-size: 32px;\n  text-align: center;\n  background-color: yellow;\n}\n```\n\n**Important Rules:**\n- Each declaration ends with a semicolon (;)\n- Declaration blocks are surrounded by curly braces ({})\n- Properties and values are separated by a colon (:)\n- Multiple declarations are separated by semicolons",
+        "imageUrl": "/images/css-syntax.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "The last semicolon in a declaration block is optional - but it's good practice to include it.",
+          "CSS is case-insensitive for property names, but best practice is to use lowercase.",
+          "Whitespace in CSS doesn't matter - you can format it however you like for readability."
+        ],
+        "realWorldAnalogy": "CSS syntax is like a recipe. The selector is the dish name (what you're making), properties are ingredients, and values are amounts. The declaration block is the complete recipe with all instructions."
       },
       {
         "title": "CSS Selectors",
-        "content": "CSS selectors are used to select HTML elements you want to style. There are several types of selectors.\n\n**Element Selector:**\nSelects all elements with a specific tag name.\n```css\np {\n  color: blue;\n}\n```\n\n**ID Selector:**\nSelects the element with a specific id (uses #).\n```css\n#myHeader {\n  color: red;\n}\n```\n\n**Class Selector:**\nSelects all elements with a specific class (uses .).\n```css\n.myClass {\n  color: green;\n}\n```\n\n**Universal Selector:**\nSelects all elements (uses *).\n```css\n* {\n  margin: 0;\n  padding: 0;\n}\n```\n\n**Grouping Selector:**\nSelects multiple elements with the same styles.\n```css\nh1, h2, p {\n  color: blue;\n}\n```\n\n**Selector Specificity:**\n- ID selectors have highest specificity\n- Class selectors have medium specificity\n- Element selectors have lowest specificity\n- More specific selectors override less specific ones"
+        "content": "CSS selectors are used to select HTML elements you want to style. There are several types of selectors.\n\n**Element Selector:**\nSelects all elements with a specific tag name.\n```css\np {\n  color: blue;\n}\n```\n\n**ID Selector:**\nSelects the element with a specific id (uses #).\n```css\n#myHeader {\n  color: red;\n}\n```\n\n**Class Selector:**\nSelects all elements with a specific class (uses .).\n```css\n.myClass {\n  color: green;\n}\n```\n\n**Universal Selector:**\nSelects all elements (uses *).\n```css\n* {\n  margin: 0;\n  padding: 0;\n}\n```\n\n**Grouping Selector:**\nSelects multiple elements with the same styles.\n```css\nh1, h2, p {\n  color: blue;\n}\n```\n\n**Selector Specificity:**\n- ID selectors have highest specificity\n- Class selectors have medium specificity\n- Element selectors have lowest specificity\n- More specific selectors override less specific ones",
+        "imageUrl": "/images/css-selectors.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "ID selectors should only be used once per page - using the same ID multiple times is invalid HTML.",
+          "Class selectors can be used on multiple elements - that's their purpose.",
+          "The universal selector (*) is slow - avoid using it on large pages for performance reasons."
+        ],
+        "realWorldAnalogy": "CSS selectors are like address labels. Element selectors are like addressing 'all houses on Main Street', class selectors are like 'all houses with blue mailboxes', and ID selectors are like '123 Main Street' - a specific, unique address."
       },
       {
         "title": "Ways to Add CSS",
-        "content": "There are three ways to add CSS to HTML documents.\n\n**1. Inline CSS (Not Recommended)**\nCSS applied directly to elements using the style attribute.\n```html\n<p style=\"color: red; font-size: 20px;\">This is red text</p>\n```\n- **Pros**: Quick for testing\n- **Cons**: Hard to maintain, mixes content with style\n\n**2. Internal CSS**\nCSS defined in the <style> tag within the <head> section.\n```html\n<head>\n  <style>\n    body {\n      background-color: lightblue;\n    }\n    h1 {\n      color: white;\n    }\n  </style>\n</head>\n```\n- **Pros**: Good for single-page websites\n- **Cons**: Not reusable across pages\n\n**3. External CSS (Best Practice)**\nCSS defined in a separate .css file and linked using <link>.\n```html\n<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n```\n\n**styles.css file:**\n```css\nbody {\n  background-color: lightblue;\n}\n\nh1 {\n  color: white;\n}\n```\n- **Pros**: Reusable, maintainable, separates concerns\n- **Cons**: Requires additional file\n\n**Best Practice:** Always use external CSS for production websites."
+        "content": "There are three ways to add CSS to HTML documents.\n\n**1. Inline CSS (Not Recommended)**\nCSS applied directly to elements using the style attribute.\n```html\n<p style=\"color: red; font-size: 20px;\">This is red text</p>\n```\n- **Pros**: Quick for testing\n- **Cons**: Hard to maintain, mixes content with style\n\n**2. Internal CSS**\nCSS defined in the <style> tag within the <head> section.\n```html\n<head>\n  <style>\n    body {\n      background-color: lightblue;\n    }\n    h1 {\n      color: white;\n    }\n  </style>\n</head>\n```\n- **Pros**: Good for single-page websites\n- **Cons**: Not reusable across pages\n\n**3. External CSS (Best Practice)**\nCSS defined in a separate .css file and linked using <link>.\n```html\n<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n```\n\n**styles.css file:**\n```css\nbody {\n  background-color: lightblue;\n}\n\nh1 {\n  color: white;\n}\n```\n- **Pros**: Reusable, maintainable, separates concerns\n- **Cons**: Requires additional file\n\n**Best Practice:** Always use external CSS for production websites.",
+        "imageUrl": "/images/css-ways-to-add.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Inline CSS has the highest specificity - it will override most other styles, which is why it's hard to maintain.",
+          "Internal and external CSS have the same specificity - the order in the HTML file determines which wins.",
+          "You can use multiple external CSS files - they cascade in the order they're linked."
+        ],
+        "realWorldAnalogy": "Inline CSS is like writing notes directly on a page of a book. Internal CSS is like writing notes in the book's margin. External CSS is like having a separate notebook with all your styling notes that you can reference for any book."
       },
       {
         "title": "CSS Comments",
-        "content": "CSS comments are used to explain your code and make it more readable. Comments are ignored by browsers.\n\n**Syntax:**\n```css\n/* This is a comment */\n```\n\n**Single-line Comment:**\n```css\n/* This is a single-line comment */\np {\n  color: blue;\n}\n```\n\n**Multi-line Comment:**\n```css\n/*\n  This is a\n  multi-line comment\n  It can span multiple lines\n*/\nh1 {\n  color: red;\n}\n```\n\n**Commenting Out Code:**\n```css\n/* p {\n  color: blue;\n} */\n```\n\n**Best Practices:**\n- Use comments to explain complex CSS\n- Comment sections of your stylesheet\n- Comment out code for debugging instead of deleting\n- Keep comments concise and relevant"
+        "content": "CSS comments are used to explain your code and make it more readable. Comments are ignored by browsers.\n\n**Syntax:**\n```css\n/* This is a comment */\n```\n\n**Single-line Comment:**\n```css\n/* This is a single-line comment */\np {\n  color: blue;\n}\n```\n\n**Multi-line Comment:**\n```css\n/*\n  This is a\n  multi-line comment\n  It can span multiple lines\n*/\nh1 {\n  color: red;\n}\n```\n\n**Commenting Out Code:**\n```css\n/* p {\n  color: blue;\n} */\n```\n\n**Best Practices:**\n- Use comments to explain complex CSS\n- Comment sections of your stylesheet\n- Comment out code for debugging instead of deleting\n- Keep comments concise and relevant",
+        "imageUrl": "/images/css-comments.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "CSS comments use /* */ syntax, not // like JavaScript - // does NOT work in CSS.",
+          "Comments are completely ignored by browsers - they don't affect file size significantly.",
+          "You cannot nest CSS comments - /* /* nested */ */ will cause errors."
+        ],
+        "realWorldAnalogy": "CSS comments are like sticky notes in a cookbook. They explain why you're doing something a certain way, remind you of important details, or help you temporarily disable a recipe step without erasing it."
       }
     ],
     "resources": {

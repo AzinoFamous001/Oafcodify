@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What is the difference between a list and a tuple in Python?",
+    "options": [
+      "Lists are immutable, tuples are mutable",
+      "Lists are mutable, tuples are immutable",
+      "Lists can only store numbers, tuples can store anything",
+      "There is no difference"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lists are mutable (can be modified after creation) while tuples are immutable (cannot be modified after creation)."
+  },
+  {
+    "id": 2,
+    "question": "How do you add an item to a list?",
+    "options": [
+      "list.add(item)",
+      "list.push(item)",
+      "list.append(item)",
+      "list.insert(item)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The append() method is used to add an item to the end of a list in Python."
+  },
+  {
+    "id": 3,
+    "question": "What is a dictionary in Python?",
+    "options": [
+      "An ordered collection of items",
+      "A collection of key-value pairs",
+      "A collection of unique items",
+      "A collection of numbers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A dictionary is an unordered collection of key-value pairs, where each key must be unique."
+  },
+  {
+    "id": 4,
+    "question": "How do you define a function in Python?",
+    "options": [
+      "function myFunc():",
+      "def myFunc():",
+      "func myFunc():",
+      "create myFunc():"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In Python, functions are defined using the def keyword followed by the function name and parentheses."
+  },
+  {
+    "id": 5,
+    "question": "What is a class in Python?",
+    "options": [
+      "A collection of functions",
+      "A blueprint for creating objects",
+      "A variable type",
+      "A module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A class is a blueprint or template for creating objects. It defines the properties and behaviors that objects of that class will have."
+  },
+  {
+    "id": 6,
+    "question": "What is inheritance in OOP?",
+    "options": [
+      "Creating multiple instances of a class",
+      "A new class deriving properties from an existing class",
+      "Combining two classes",
+      "Deleting a class"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inheritance allows a new class (child class) to acquire properties and methods from an existing class (parent class)."
+  },
+  {
+    "id": 7,
+    "question": "What is polymorphism in OOP?",
+    "options": [
+      "Multiple classes with the same name",
+      "Different classes responding to the same method call differently",
+      "Creating multiple objects",
+      "Combining multiple classes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Polymorphism allows different classes to be treated as instances of the same class through inheritance, with each class implementing methods differently."
+  },
+  {
+    "id": 8,
+    "question": "How do you open a file for reading in Python?",
+    "options": [
+      "open('file.txt', 'r')",
+      "file.open('file.txt')",
+      "read('file.txt')",
+      "load('file.txt')"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The open() function is used to open files, with 'r' mode for reading. The with statement is recommended for automatic file closing."
+  }
+]

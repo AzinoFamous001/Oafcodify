@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which HTML tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <a> (anchor) tag is used to create hyperlinks. The href attribute specifies the destination URL."
+  },
+  {
+    "id": 2,
+    "question": "Which attribute opens a link in a new tab?",
+    "options": [
+      "target=\"new\"",
+      "target=\"_blank\"",
+      "target=\"_new\"",
+      "open=\"new\""
+    ],
+    "correctAnswer": 1,
+    "explanation": "target=\"_blank\" opens the link in a new tab. This is commonly used for external links."
+  },
+  {
+    "id": 3,
+    "question": "Which attribute provides alternative text for images?",
+    "options": [
+      "title",
+      "description",
+      "alt",
+      "text"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The alt attribute provides alternative text for images. It's required for accessibility and displays if the image fails to load."
+  },
+  {
+    "id": 4,
+    "question": "Which HTML tag is self-closing and does not require a closing tag?",
+    "options": [
+      "<div>",
+      "<span>",
+      "<img>",
+      "<p>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<img> is a self-closing tag that doesn't require a closing tag. Other self-closing tags include <br>, <hr>, and <input>."
+  },
+  {
+    "id": 5,
+    "question": "Which table element defines a header cell?",
+    "options": [
+      "<td>",
+      "<th>",
+      "<tr>",
+      "<thead>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<th> defines a table header cell. It's typically bold and centered by default, unlike <td> which is for regular data cells."
+  },
+  {
+    "id": 6,
+    "question": "Which HTML tag creates an unordered (bulleted) list?",
+    "options": [
+      "<ol>",
+      "<ul>",
+      "<list>",
+      "<li>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<ul> creates an unordered list with bullet points. <ol> creates an ordered (numbered) list, and <li> defines list items."
+  },
+  {
+    "id": 7,
+    "question": "Which type of HTML element starts on a new line and takes full width?",
+    "options": [
+      "Inline element",
+      "Block element",
+      "Inline-block element",
+      "None of the above"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Block elements always start on a new line and stretch to fill the full available width. Examples include <div>, <p>, <h1>."
+  },
+  {
+    "id": 8,
+    "question": "Which HTML tag is a generic block-level container?",
+    "options": [
+      "<span>",
+      "<div>",
+      "<section>",
+      "<container>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<div> is a generic block-level container used to group elements for styling and layout. <span> is the inline equivalent."
+  },
+  {
+    "id": 9,
+    "question": "Which attribute specifies how many columns a table cell should span?",
+    "options": [
+      "rowspan",
+      "colspan",
+      "span",
+      "merge"
+    ],
+    "correctAnswer": 1,
+    "explanation": "colspan specifies how many columns a table cell should span. rowspan is used to span rows."
+  },
+  {
+    "id": 10,
+    "question": "Which type of list is used for terms and descriptions?",
+    "options": [
+      "<ul>",
+      "<ol>",
+      "<dl>",
+      "<list>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<dl> (description list) is used for terms and descriptions, with <dt> for terms and <dd> for descriptions."
+  }
+]

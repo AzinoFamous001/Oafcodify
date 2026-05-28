@@ -133,7 +133,7 @@ const ProfilePage = () => {
   }, []);
 
   useEffect(() => {
-    const currentUserId = localStorage.getItem("currentUserId");
+    const currentUserId = sessionStorage.getItem("currentUserId");
     console.log('Profile - currentUserId:', currentUserId);
     if (!currentUserId) {
       navigate("/login");
@@ -141,26 +141,28 @@ const ProfilePage = () => {
     }
     setUserId(currentUserId);
 
-    const userName = localStorage.getItem("userName") || "Developer";
+
+    const userName = localStorage.getItem(`userName_${currentUserId}`) || "Developer";
     setCurrentUser({
       name: userName,
-      email: localStorage.getItem("userEmail") || "dev@oafcodify.com",
+      email: localStorage.getItem(`userEmail_${currentUserId}`) || "dev@oafcodify.com",
     });
 
-    // Generate or retrieve cartoon avatar
-    const savedAvatar = localStorage.getItem("userAvatar");
+    // Generate or retrieve cartoon avatar (user-specific storage)
+    const avatarKey = `userAvatar_${currentUserId}`;
+    const savedAvatar = localStorage.getItem(avatarKey);
     if (savedAvatar && savedAvatar.startsWith("https://api.dicebear.com")) {
       setCartoonAvatar(savedAvatar);
     } else {
       const newAvatar = generateCartoonAvatar(userName);
       setCartoonAvatar(newAvatar);
-      localStorage.setItem("userAvatar", newAvatar);
+      localStorage.setItem(avatarKey, newAvatar);
     }
 
-    // Quiz Results - Fresh for new user
-    const savedResults = localStorage.getItem("quizResults");
-    const allResults = savedResults ? JSON.parse(savedResults) : [];
-    const userSpecificResults = allResults.filter((r) => r.userId === currentUserId);
+    // Quiz Results - User-specific storage
+    const quizResultsKey = `quizResults_${currentUserId}`;
+    const savedResults = localStorage.getItem(quizResultsKey);
+    const userSpecificResults = savedResults ? JSON.parse(savedResults) : [];
     setResults(
       userSpecificResults.sort((a, b) => new Date(b.date) - new Date(a.date)),
     );
@@ -179,13 +181,32 @@ const ProfilePage = () => {
     }
     setCompletedLessonsCount(lessonCount);
 
+    // Calculate completed courses (all 5 lessons in a course)
+    let completedCoursesCount = 0;
+    courses.forEach(course => {
+      let completedInCourse = 0;
+      for (let lessonId = 1; lessonId <= 5; lessonId++) {
+        const lessonKey = `${currentUserId}_${course}_lesson_${lessonId}_completed`;
+        if (localStorage.getItem(lessonKey)) {
+          completedInCourse++;
+        }
+      }
+      if (completedInCourse === 5) {
+        completedCoursesCount++;
+      }
+    });
+    localStorage.setItem(`completedCourses_${currentUserId}`, completedCoursesCount.toString());
+
     // Update streak on profile visit
     const updatedStreak = updateLoginStreak(currentUserId);
     setCurrentStreak(updatedStreak);
     
     // Check for daily lesson reminder
     checkDailyLessonReminder(currentUserId);
-  }, [navigate]);
+
+    // Auto-scroll to top on page mount
+    window.scrollTo(0, 0);
+  }, [navigate, userId]);
 
   const hasQuizzes = results.length > 0;
   
@@ -254,6 +275,8 @@ const ProfilePage = () => {
 
   const quizStats = calculateQuizStats();
 
+  const completedCoursesCount = parseInt(localStorage.getItem(`completedCourses_${userId}`) || '0');
+
   const stats = {
     quizzesTaken: results.length || 0,
     lessonsCompleted: completedLessonsCount || 0,
@@ -261,9 +284,9 @@ const ProfilePage = () => {
     points: quizStats.totalPoints,
     correct: hasQuizzes ? results.reduce((sum, r) => sum + r.score, 0) : 0,
     rank:
-      results.length >= 20
+      completedCoursesCount >= 2
         ? "Gold"
-        : results.length >= 10
+        : completedCoursesCount >= 1
           ? "Silver"
           : "Bronze",
   };

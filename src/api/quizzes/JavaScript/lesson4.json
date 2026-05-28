@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which statement is used for decision making?",
+    "options": [
+      "when",
+      "if",
+      "check",
+      "decide"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The if statement is used for decision making in JavaScript. It executes code if a condition is true."
+  },
+  {
+    "id": 2,
+    "question": "What is the ternary operator syntax?",
+    "options": [
+      "condition ? true : false",
+      "condition ? true : false :",
+      "if condition then true else false",
+      "condition ? true : false {}"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The ternary operator syntax is: condition ? valueIfTrue : valueIfFalse. It's a shorthand for if-else."
+  },
+  {
+    "id": 3,
+    "question": "Which keyword prevents fall-through in switch statements?",
+    "options": [
+      "stop",
+      "break",
+      "exit",
+      "return"
+    ],
+    "correctAnswer": 1,
+    "explanation": "break prevents fall-through in switch statements. Without it, execution continues to the next case."
+  },
+  {
+    "id": 4,
+    "question": "Which loop is best when the number of iterations is known?",
+    "options": [
+      "while loop",
+      "do-while loop",
+      "for loop",
+      "All loops are equal"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The for loop is best when the number of iterations is known because it has initialization, condition, and increment in one line."
+  },
+  {
+    "id": 5,
+    "question": "What does the break statement do in a loop?",
+    "options": [
+      "Skips to the next iteration",
+      "Exits the loop completely",
+      "Pauses the loop",
+      "Restarts the loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "break exits the loop completely. continue skips to the next iteration."
+  },
+  {
+    "id": 6,
+    "question": "Which loop executes at least once?",
+    "options": [
+      "for loop",
+      "while loop",
+      "do-while loop",
+      "for-of loop"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The do-while loop executes at least once because the condition is checked after the first iteration."
+  },
+  {
+    "id": 7,
+    "question": "What does the continue statement do?",
+    "options": [
+      "Exits the loop",
+      "Skips to the next iteration",
+      "Pauses execution",
+      "Restarts the loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "continue skips the current iteration and moves to the next iteration of the loop."
+  },
+  {
+    "id": 8,
+    "question": "Which logical operator requires both conditions to be true?",
+    "options": [
+      "|| (OR)",
+      "&& (AND)",
+      "! (NOT)",
+      "?? (Nullish)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "&& (AND) requires both conditions to be true. || (OR) requires at least one to be true."
+  },
+  {
+    "id": 9,
+    "question": "Which loop is best for iterating over object properties?",
+    "options": [
+      "for loop",
+      "for...of loop",
+      "for...in loop",
+      "while loop"
+    ],
+    "correctAnswer": 2,
+    "explanation": "for...in loop is best for iterating over object properties. for...of is for iterable objects like arrays."
+  },
+  {
+    "id": 10,
+    "question": "What happens if you forget the break in a switch case?",
+    "options": [
+      "Error is thrown",
+      "Execution falls through to the next case",
+      "Loop stops",
+      "Nothing happens"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Without break, execution falls through to the next case (fall-through), executing code for multiple cases."
+  }
+]

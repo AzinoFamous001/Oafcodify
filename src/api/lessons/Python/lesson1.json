@@ -15,23 +15,63 @@
     "subtopics": [
       {
         "title": "Getting Started with Python",
-        "content": "Python is a powerful, easy-to-learn programming language. It's known for its clean syntax and readability.\n\n**What is Python?**\n- High-level programming language\n- Interpreted (no compilation needed)\n- Great for beginners and experts\n- Used for web development, data science, AI, and more\n\n**Key Features:**\n- Simple syntax (close to English)\n- Large standard library\n- Cross-platform (Windows, Mac, Linux)\n\n**First Program:**\n```python\nprint('Hello, World!')\n```\n\nThis is the traditional first program - it prints 'Hello, World!' to the screen."
+        "content": "Python is a powerful, easy-to-learn programming language. It's known for its clean syntax and readability.\n\n**What is Python?**\n- High-level programming language\n- Interpreted (no compilation needed)\n- Great for beginners and experts\n- Used for web development, data science, AI, and more\n\n**Key Features:**\n- Simple syntax (close to English)\n- Large standard library\n- Cross-platform (Windows, Mac, Linux)\n\n**First Program:**\n```python\nprint('Hello, World!')\n```\n\nThis is the traditional first program - it prints 'Hello, World!' to the screen.",
+        "imageUrl": "/images/python-introduction.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Python is NOT slow for most applications - modern Python is fast enough for web development, data science, and many other uses.",
+          "Python is NOT just for beginners - it's used by major companies like Google, Netflix, and NASA.",
+          "Python does NOT need compilation - it's an interpreted language that runs directly."
+        ],
+        "realWorldAnalogy": "Python is like speaking English to a computer. Instead of using complex technical jargon (like some other languages), Python uses simple, readable commands that almost look like plain English sentences."
       },
       {
         "title": "Variables and Data Types",
-        "content": "Variables store data values. Python has several built-in data types.\n\n**Basic Data Types:**\n- `text` - Strings: `name = 'Alice'`\n- `int` - Integers: `age = 25`\n- `float` - Decimals: `price = 19.99`\n- `bool` - Boolean: `is_student = True`\n- `list` - Lists: `colors = ['red', 'green', 'blue']`\n\n**Example:**\n```python\n# Variables\nname = 'John'\nage = 30\nis_learning = True\n\n# Print variables\nprint(f'Name: {name}')\nprint(f'Age: {age}')\nprint(f'Learning: {is_learning}')\n```\n\n**Python Rules:**\n- Use descriptive variable names\n- No need to declare data types\n- Variables can change type (dynamically typed)"
+        "content": "Variables store data values. Python has several built-in data types.\n\n**Basic Data Types:**\n- `text` - Strings: `name = 'Alice'`\n- `int` - Integers: `age = 25`\n- `float` - Decimals: `price = 19.99`\n- `bool` - Boolean: `is_student = True`\n- `list` - Lists: `colors = ['red', 'green', 'blue']`\n\n**Example:**\n```python\n# Variables\nname = 'John'\nage = 30\nis_learning = True\n\n# Print variables\nprint(f'Name: {name}')\nprint(f'Age: {age}')\nprint(f'Learning: {is_learning}')\n```\n\n**Python Rules:**\n- Use descriptive variable names\n- No need to declare data types\n- Variables can change type (dynamically typed)",
+        "imageUrl": "/images/python-variables.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Python variables are NOT like boxes - they're more like labels that reference objects.",
+          "You do NOT need to declare variable types in Python - it's dynamically typed.",
+          "Variable names ARE case-sensitive in Python - 'myVar' and 'myvar' are different variables."
+        ],
+        "realWorldAnalogy": "Variables in Python are like nametags. You put a nametag on an object (like a box with a number inside), and you can move that nametag to different objects. The nametag (variable name) stays the same, but what it points to can change."
       },
       {
         "title": "Basic Operations",
-        "content": "Python supports all standard math and string operations.\n\n**Math Operations:**\n```python\n# Arithmetic\nsum = 10 + 5     # 15\ndifference = 20 - 8   # 12\nproduct = 6 * 7       # 42\nquotient = 15 / 3      # 5\n\n# Power and modulo\npower = 2 ** 3      # 8\nremainder = 10 % 3      # 1\n```\n\n**String Operations:**\n```python\n# String concatenation\ngreeting = 'Hello' + ' ' + 'World'  # 'Hello World'\n\n# String formatting\nname = 'Alice'\nage = 30\nmessage = f'{name} is {age} years old'  # 'Alice is 30 years old'\n\n# String methods\ntext = 'Hello World'\nprint(text.upper())      # 'HELLO WORLD'\nprint(text.lower())       # 'hello world'\nprint(len(text))           # 11\n```\n\n**Best Practice:**\n- Use f-strings for formatting\n- Learn string methods for text manipulation"
+        "content": "Python supports all standard math and string operations.\n\n**Math Operations:**\n```python\n# Arithmetic\nsum = 10 + 5     # 15\ndifference = 20 - 8   # 12\nproduct = 6 * 7       # 42\nquotient = 15 / 3      # 5\n\n# Power and modulo\npower = 2 ** 3      # 8\nremainder = 10 % 3      # 1\n```\n\n**String Operations:**\n```python\n# String concatenation\ngreeting = 'Hello' + ' ' + 'World'  # 'Hello World'\n\n# String formatting\nname = 'Alice'\nage = 30\nmessage = f'{name} is {age} years old'  # 'Alice is 30 years old'\n\n# String methods\ntext = 'Hello World'\nprint(text.upper())      # 'HELLO WORLD'\nprint(text.lower())       # 'hello world'\nprint(len(text))           # 11\n```\n\n**Best Practice:**\n- Use f-strings for formatting\n- Learn string methods for text manipulation",
+        "imageUrl": "/images/python-operations.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "The + operator works differently for numbers and strings - it adds numbers but concatenates strings.",
+          "Division in Python 3 always returns a float, even if the result is a whole number.",
+          "String multiplication repeats the string - 'ha' * 3 gives 'hahaha'."
+        ],
+        "realWorldAnalogy": "Python operations are like calculator buttons and word processing tools. Math operations are like a calculator, while string operations are like a word processor's copy, paste, and formatting tools."
       },
       {
         "title": "User Input and Output",
-        "content": "Interact with users through input and display output.\n\n**Getting Input:**\n```python\n# Basic input\nname = input('Enter your name: ')\nprint(f'Hello, {name}!')\n\n# Input with prompt\nage = int(input('Enter your age: '))\nif age >= 18:\n    print('You can register!')\nelse:\n    print('Sorry, too young to register.')\n```\n\n**Output Methods:**\n```python\n# Basic print\nprint('Simple message')\n\n# Formatted output\nname = 'John'\nscore = 95\nprint(f'Student: {name}, Score: {score}%')  # 'student: John, Score: 95%'\n\n# Multiple items\nname = 'Alice'\nage = 25\nprint(f'Name: {name}, Age: {age}')  # 'Name: Alice, Age: 25'\n```\n\n**Tips:**\n- Always validate user input\n- Use appropriate data types\n- Provide clear error messages"
+        "content": "Interact with users through input and display output.\n\n**Getting Input:**\n```python\n# Basic input\nname = input('Enter your name: ')\nprint(f'Hello, {name}!')\n\n# Input with prompt\nage = int(input('Enter your age: '))\nif age >= 18:\n    print('You can register!')\nelse:\n    print('Sorry, too young to register.')\n```\n\n**Output Methods:**\n```python\n# Basic print\nprint('Simple message')\n\n# Formatted output\nname = 'John'\nscore = 95\nprint(f'Student: {name}, Score: {score}%')  # 'student: John, Score: 95%'\n\n# Multiple items\nname = 'Alice'\nage = 25\nprint(f'Name: {name}, Age: {age}')  # 'Name: Alice, Age: 25'\n```\n\n**Tips:**\n- Always validate user input\n- Use appropriate data types\n- Provide clear error messages",
+        "imageUrl": "/images/python-input-output.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "input() always returns a string - you must convert it to numbers with int() or float().",
+          "print() adds a newline by default - use end='' to prevent this.",
+          "You can use commas or f-strings for formatting - f-strings are more readable and modern."
+        ],
+        "realWorldAnalogy": "Input and output are like a conversation. input() is like asking someone a question and waiting for their answer, while print() is like speaking or writing information for others to see."
       },
       {
         "title": "Control Structures",
-        "content": "Make decisions in your code using conditional statements and loops.\n\n**If Statements:**\n```python\nage = 20\n\nif age >= 18:\n    print('You are an adult')\nelse:\n    print('You are a minor')\n\n# Multiple conditions\nscore = 85\n\nif score >= 90:\n    grade = 'A'\nelif score >= 80:\n    grade = 'B'\nelif score >= 70:\n    grade = 'C'\nelse:\n    grade = 'D'\n\nprint(f'Grade: {grade}')\n```\n\n**Loops:**\n```python\n# For loop\nfor i in range(5):\n    print(f'Count: {i}')\n\n# While loop\ncount = 0\nwhile count < 3:\n    print(f'Count: {count}')\n    count += 1\n```\n\n**Best Practice:**\n- Use meaningful variable names\n- Keep conditions simple and readable\n- Use loops for repetitive tasks"
+        "content": "Make decisions in your code using conditional statements and loops.\n\n**If Statements:**\n```python\nage = 20\n\nif age >= 18:\n    print('You are an adult')\nelse:\n    print('You are a minor')\n\n# Multiple conditions\nscore = 85\n\nif score >= 90:\n    grade = 'A'\nelif score >= 80:\n    grade = 'B'\nelif score >= 70:\n    grade = 'C'\nelse:\n    grade = 'D'\n\nprint(f'Grade: {grade}')\n```\n\n**Loops:**\n```python\n# For loop\nfor i in range(5):\n    print(f'Count: {i}')\n\n# While loop\ncount = 0\nwhile count < 3:\n    print(f'Count: {count}')\n    count += 1\n```\n\n**Best Practice:**\n- Use meaningful variable names\n- Keep conditions simple and readable\n- Use loops for repetitive tasks",
+        "imageUrl": "/images/python-control-structures.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Python uses indentation, not braces - incorrect indentation will cause syntax errors.",
+          "elif is short for 'else if' - it's not 'elseif' or 'else if'.",
+          "range(5) gives 0,1,2,3,4 - it does NOT include 5."
+        ],
+        "realWorldAnalogy": "Control structures are like traffic lights and road signs. If statements are like choosing which road to take based on conditions, while loops are like driving around a roundabout until you find your exit, and for loops are like following a specific route with a set number of stops."
       }
     ],
     "resources": {

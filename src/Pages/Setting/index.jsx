@@ -13,6 +13,7 @@ import {
   FaDatabase,
 } from "react-icons/fa";
 import { resetStreak } from "../../Shared/streakUtils";
+import SuccessModal from "../../Components/shared/Successmodal";
 
 // --- MINIMAL BACKGROUND ---
 const AnimatedBackground = () => (
@@ -31,6 +32,7 @@ const SettingsPage = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Settings State
   const [settings, setSettings] = useState({
@@ -41,14 +43,15 @@ const SettingsPage = () => {
 
   // --- LOAD USER DATA ---
   useEffect(() => {
-    const currentId = localStorage.getItem("currentUserId");
+    const currentId = sessionStorage.getItem("currentUserId");
     if (!currentId) {
       navigate("/login");
       return;
     }
     setUserId(currentId);
-    setUserName(localStorage.getItem("userName") || "Student");
-    setUserEmail(localStorage.getItem("userEmail") || "student@school.com");
+
+    setUserName(localStorage.getItem(`userName_${currentId}`) || "Student");
+    setUserEmail(localStorage.getItem(`userEmail_${currentId}`) || "student@school.com");
 
     // Load user-specific settings if they exist
     const savedSettings = localStorage.getItem(`settings_${currentId}`);
@@ -58,27 +61,46 @@ const SettingsPage = () => {
   }, [navigate]);
 
   const handleSave = () => {
-    // Save Profile Info
-    localStorage.setItem("userName", userName);
-    localStorage.setItem("userEmail", userEmail);
+    // Save Profile Info with userId prefix for complete user isolation
+    localStorage.setItem(`userName_${userId}`, userName);
+    localStorage.setItem(`userEmail_${userId}`, userEmail);
     // Save Toggles
     localStorage.setItem(`settings_${userId}`, JSON.stringify(settings));
 
-    alert("Settings updated successfully!");
+    setShowSuccess(true);
   };
 
   const toggleSetting = (key) => {
     setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("currentUserId");
+  const handleLogout = async () => {
+    sessionStorage.removeItem("currentUserId");
+
+    // Call server logout to destroy session
+    try {
+      await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+
     navigate("/login");
   };
 
   return (
     <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-hidden">
       <AnimatedBackground />
+
+      <SuccessModal
+        isOpen={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        title="Settings Saved!"
+        message="Your settings have been updated successfully."
+        buttonText="OK"
+      />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 pt-10">
         {/* Header */}
@@ -156,11 +178,17 @@ const SettingsPage = () => {
             <button
               onClick={() => {
                 if (window.confirm("Reset all your progress?")) {
-                  const currentUserId = localStorage.getItem("currentUserId");
-                  // Clear all user-specific data
-                  localStorage.clear();
-                  // Reset streak to 1 if userId exists
+                  const currentUserId = sessionStorage.getItem("currentUserId");
+                  // Clear only current user's data (not all users)
                   if (currentUserId) {
+                    const keysToRemove = [];
+                    for (let i = 0; i < localStorage.length; i++) {
+                      const key = localStorage.key(i);
+                      if (key.startsWith(`${currentUserId}_`) || key === `userName_${currentUserId}` || key === `userEmail_${currentUserId}` || key === `userAvatar_${currentUserId}` || key === `settings_${currentUserId}` || key === `streak_${currentUserId}` || key === `notifications_${currentUserId}` || key === `quizResults_${currentUserId}`) {
+                        keysToRemove.push(key);
+                      }
+                    }
+                    keysToRemove.forEach(key => localStorage.removeItem(key));
                     resetStreak(currentUserId);
                   }
                   navigate("/");

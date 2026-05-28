@@ -38,16 +38,21 @@ const Navbar = () => {
     return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
   };
 
-  // Load user avatar on mount
+  // Load user avatar on mount (user-specific storage)
   useEffect(() => {
-    const savedAvatar = localStorage.getItem("userAvatar");
-    const userName = localStorage.getItem("userName");
+    const currentUserId = sessionStorage.getItem("currentUserId");
+    if (!currentUserId) return;
+
+    const avatarKey = `userAvatar_${currentUserId}`;
+    const userNameKey = `userName_${currentUserId}`;
+    const savedAvatar = localStorage.getItem(avatarKey);
+    const userName = localStorage.getItem(userNameKey);
     if (savedAvatar && savedAvatar.startsWith("https://api.dicebear.com")) {
       setUserAvatar(savedAvatar);
     } else if (userName) {
       const newAvatar = generateCartoonAvatar(userName);
       setUserAvatar(newAvatar);
-      localStorage.setItem("userAvatar", newAvatar);
+      localStorage.setItem(avatarKey, newAvatar);
     }
   }, []);
 
@@ -66,13 +71,19 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ✅ LOGOUT FIXED
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("currentUserId");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
+  // ✅ LOGOUT FIXED - Destroy server session only, keep localStorage data
+  const handleLogout = async () => {
+    sessionStorage.removeItem("currentUserId");
+
+    // Call server logout to destroy session
+    try {
+      await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
 
     setIsDropdownOpen(false);
     navigate("/login");

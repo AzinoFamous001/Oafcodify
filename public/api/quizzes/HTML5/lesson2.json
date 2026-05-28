@@ -1,242 +1,242 @@
 [
   {
     "id": 1,
-    "question": "Which attribute is used to specify the URL of a link?",
+    "question": "Which tag makes text bold with semantic importance?",
     "options": [
-      "src",
-      "href",
-      "url",
-      "link"
+      "<b>",
+      "<strong>",
+      "<bold>",
+      "<em>"
     ],
     "correctAnswer": 1,
-    "explanation": "The href attribute is used in anchor tags to specify the destination URL."
+    "explanation": "<strong> makes text bold AND indicates semantic importance, better for SEO and accessibility."
   },
   {
     "id": 2,
-    "question": "What is the correct HTML element for inserting an image?",
+    "question": "Which tag makes text italic with semantic emphasis?",
     "options": [
-      "<image>",
-      "<img>",
-      "<picture>",
-      "<media>"
+      "<i>",
+      "<em>",
+      "<italic>",
+      "<strong>"
     ],
     "correctAnswer": 1,
-    "explanation": "<img> is the correct element for inserting images, with src attribute specifying the image path."
+    "explanation": "<em> makes text italic AND indicates emphasis, important for screen readers."
   },
   {
     "id": 3,
-    "question": "Which tag creates a hyperlink?",
+    "question": "Which tag is used for long quotations?",
     "options": [
-      "<link>",
-      "<a>",
-      "<href>",
-      "<url>"
+      "<quote>",
+      "<q>",
+      "<blockquote>",
+      "<citation>"
     ],
-    "correctAnswer": 1,
-    "explanation": "The <a> (anchor) tag creates hyperlinks when used with the href attribute."
+    "correctAnswer": 2,
+    "explanation": "<blockquote> is for longer quotes that span multiple lines, typically displayed as indented blocks."
   },
   {
     "id": 4,
-    "question": "What attribute is required for the img tag?",
+    "question": "Which tag is used for short inline quotations?",
     "options": [
-      "alt",
-      "title",
-      "width",
-      "height"
+      "<blockquote>",
+      "<q>",
+      "<quote>",
+      "<cite>"
     ],
-    "correctAnswer": 0,
-    "explanation": "The alt attribute is required for accessibility and provides alternative text for images."
+    "correctAnswer": 1,
+    "explanation": "<q> is for short inline quotes within a sentence, browsers add quotation marks automatically."
   },
   {
     "id": 5,
-    "question": "How do you create an email link?",
+    "question": "How do you write a comment in HTML?",
     "options": [
-      "<a href='email:user@example.com'>Email</a>",
-      "<a href='mailto:user@example.com'>Email</a>",
-      "<a mail='user@example.com'>Email</a>",
-      "<link email='user@example.com'>Email</a>"
+      "// This is a comment",
+      "/* This is a comment */",
+      "<!-- This is a comment -->",
+      "# This is a comment"
     ],
-    "correctAnswer": 1,
-    "explanation": "Use mailto: protocol in the href attribute to create email links."
+    "correctAnswer": 2,
+    "explanation": "HTML comments are written using <!-- --> syntax and are ignored by browsers."
   },
   {
     "id": 6,
-    "question": "What is the purpose of the target attribute in links?",
+    "question": "Which tag highlights text for reference?",
     "options": [
-      "Specifies link color",
-      "Opens link in new tab",
-      "Adds animation",
-      "Changes font size"
+      "<highlight>",
+      "<mark>",
+      "<yellow>",
+      "<note>"
     ],
     "correctAnswer": 1,
-    "explanation": "The target='_blank' attribute opens a link in a new tab."
+    "explanation": "<mark> is used to mark or highlight text for reference purposes."
   },
   {
     "id": 7,
-    "question": "Which attribute specifies the image file path?",
+    "question": "Which tag displays text with a strikethrough?",
     "options": [
-      "href",
-      "src",
-      "link",
-      "path"
+      "<strike>",
+      "<del>",
+      "<s>",
+      "<remove>"
     ],
     "correctAnswer": 1,
-    "explanation": "The src attribute specifies the path to the image file."
+    "explanation": "<del> shows text with a strikethrough to indicate deleted content."
   },
   {
     "id": 8,
-    "question": "What does the width attribute do in images?",
+    "question": "Which tag displays smaller text?",
     "options": [
-      "Sets image quality",
-      "Sets image width",
-      "Sets image height",
-      "Sets image format"
+      "<small>",
+      "<tiny>",
+      "<mini>",
+      "<little>"
     ],
-    "correctAnswer": 1,
-    "explanation": "The width attribute sets the display width of an image."
+    "correctAnswer": 0,
+    "explanation": "<small> displays text in a smaller font size."
   },
   {
     "id": 9,
-    "question": "How do you make a link open in a new tab?",
+    "question": "Which tag creates subscript text?",
     "options": [
-      "target='_new'",
-      "target='_blank'",
-      "target='_open'",
-      "target='_tab'"
+      "<sub>",
+      "<sup>",
+      "<low>",
+      "<down>"
     ],
-    "correctAnswer": 1,
-    "explanation": "target='_blank' makes a link open in a new browser tab."
+    "correctAnswer": 0,
+    "explanation": "<sub> displays subscript text (below the line), like H₂O."
   },
   {
     "id": 10,
-    "question": "Which tag is used for internal linking?",
+    "question": "Which tag creates superscript text?",
     "options": [
-      "<link>",
-      "<anchor>",
-      "<a>",
-      "<nav>"
+      "<sub>",
+      "<sup>",
+      "<high>",
+      "<up>"
     ],
-    "correctAnswer": 2,
-    "explanation": "The <a> tag with id references is used for internal page linking."
+    "correctAnswer": 1,
+    "explanation": "<sup> displays superscript text (above the line), like E=mc²."
   },
   {
     "id": 11,
-    "question": "What is the correct HTML for creating a table?",
+    "question": "Which tag is used to cite the title of a creative work?",
     "options": [
-      "<table>",
-      "<tab>",
-      "<grid>",
-      "<matrix>"
+      "<quote>",
+      "<cite>",
+      "<reference>",
+      "<source>"
     ],
-    "correctAnswer": 0,
-    "explanation": "The <table> tag is used to create HTML tables."
+    "correctAnswer": 1,
+    "explanation": "<cite> indicates the title of a creative work like a book, movie, or song."
   },
   {
     "id": 12,
-    "question": "Which tag defines a table row?",
+    "question": "What attribute is used with <abbr> to show the full text on hover?",
     "options": [
-      "<tr>",
-      "<row>",
-      "<td>",
-      "<th>"
+      "full",
+      "title",
+      "tooltip",
+      "text"
     ],
-    "correctAnswer": 0,
-    "explanation": "The <tr> tag defines a table row."
+    "correctAnswer": 1,
+    "explanation": "The title attribute in <abbr> shows the full text when you hover over the abbreviation."
   },
   {
     "id": 13,
-    "question": "Which tag defines a table cell?",
+    "question": "Which color format uses a 6-digit code like #FF0000?",
     "options": [
-      "<tr>",
-      "<td>",
-      "<th>",
-      "<cell>"
+      "RGB",
+      "Hexadecimal",
+      "HSL",
+      "Color name"
     ],
     "correctAnswer": 1,
-    "explanation": "The <td> tag defines a standard table cell."
+    "explanation": "Hexadecimal colors use a 6-digit code like #FF0000 to represent RGB values."
   },
   {
     "id": 14,
-    "question": "Which tag defines a table header cell?",
+    "question": "What does RGB stand for in color specification?",
     "options": [
-      "<tr>",
-      "<td>",
-      "<th>",
-      "<header>"
+      "Red Green Blue",
+      "Red Gold Black",
+      "Right Green Bottom",
+      "Regular Gray Bright"
     ],
-    "correctAnswer": 2,
-    "explanation": "The <th> tag defines a table header cell."
+    "correctAnswer": 0,
+    "explanation": "RGB stands for Red, Green, and Blue - the three primary colors of light."
   },
   {
     "id": 15,
-    "question": "What attribute is used to merge cells in a table?",
+    "question": "Which color format includes an alpha channel for transparency?",
     "options": [
-      "merge",
-      "colspan",
-      "span",
-      "combine"
+      "RGB",
+      "Hex",
+      "RGBA",
+      "HSL"
     ],
-    "correctAnswer": 1,
-    "explanation": "colspan is used to merge columns, rowspan for rows."
+    "correctAnswer": 2,
+    "explanation": "RGBA includes an alpha channel (transparency) as the fourth value: rgba(red, green, blue, alpha)."
   },
   {
     "id": 16,
-    "question": "Which tag creates a form in HTML?",
+    "question": "What is the best practice for adding CSS to a multi-page website?",
     "options": [
-      "<form>",
-      "<input>",
-      "<submit>",
-      "<field>"
+      "Inline CSS",
+      "Internal CSS",
+      "External CSS",
+      "All of the above"
     ],
-    "correctAnswer": 0,
-    "explanation": "The <form> tag creates an HTML form."
+    "correctAnswer": 2,
+    "explanation": "External CSS in a separate .css file is best for maintainability and reusability across multiple pages."
   },
   {
     "id": 17,
-    "question": "What is the correct HTML for a text input?",
+    "question": "Which tag is used to link an external CSS file?",
     "options": [
-      "<text>",
-      "<input type='text'>",
-      "<textbox>",
-      "<field type='text'>"
+      "<style>",
+      "<css>",
+      "<link>",
+      "<script>"
     ],
-    "correctAnswer": 1,
-    "explanation": "Use <input type='text'> for text input fields."
+    "correctAnswer": 2,
+    "explanation": "The <link> tag with rel='stylesheet' is used to link external CSS files."
   },
   {
     "id": 18,
-    "question": "Which attribute specifies the form submission URL?",
+    "question": "Where is internal CSS placed in an HTML document?",
     "options": [
-      "href",
-      "src",
-      "action",
-      "method"
+      "In the <body> section",
+      "In the <head> section",
+      "After the </html> tag",
+      "In a separate file"
     ],
-    "correctAnswer": 2,
-    "explanation": "The action attribute specifies where form data is sent."
+    "correctAnswer": 1,
+    "explanation": "Internal CSS is placed within a <style> tag in the <head> section of the HTML document."
   },
   {
     "id": 19,
-    "question": "What does the method attribute do in forms?",
+    "question": "Which CSS selector targets elements by their class attribute?",
     "options": [
-      "Specifies form style",
-      "Specifies HTTP method (GET/POST)",
-      "Specifies validation",
-      "Specifies animation"
+      "#classname",
+      ".classname",
+      "classname",
+      "*classname"
     ],
     "correctAnswer": 1,
-    "explanation": "The method attribute specifies the HTTP method for form submission."
+    "explanation": "The class selector uses a dot (.) prefix, like .classname, to target elements with that class."
   },
   {
     "id": 20,
-    "question": "Which tag creates a submit button?",
+    "question": "Which CSS selector targets elements by their id attribute?",
     "options": [
-      "<button type='submit'>",
-      "<submit>",
-      "<input type='button'>",
-      "<form type='submit'>"
+      "#idname",
+      ".idname",
+      "idname",
+      "*idname"
     ],
     "correctAnswer": 0,
-    "explanation": "Use <button type='submit'> or <input type='submit'> for submit buttons."
+    "explanation": "The ID selector uses a hash (#) prefix, like #idname, to target the unique element with that ID."
   }
 ]

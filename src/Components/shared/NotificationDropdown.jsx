@@ -16,7 +16,7 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const currentId = localStorage.getItem("currentUserId");
+    const currentId = sessionStorage.getItem("currentUserId");
     if (!currentId) return;
     setUserId(currentId);
 

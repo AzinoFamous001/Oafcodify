@@ -3,6 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
 import LoadingPage from "../../Components/shared/LoadingPage";
+import ErrorModal from "../../Components/shared/Errormodal";
+import SuccessModal from "../../Components/shared/Successmodal";
+import { updateLoginStreak } from "../../Shared/streakUtils";
 
 import {
   FaGithub,
@@ -13,7 +16,7 @@ import {
   FaServer,
   FaGlobe,
 } from "react-icons/fa";
-import SuccessModal from "../../Components/shared/Successmodal";
+
 
 // Background component
 const AnimatedBackground = () => (
@@ -47,72 +50,9 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Update login streak
-  const updateLoginStreak = (userId) => {
-    const streakKey = `streak_${userId}`;
-    const lastLoginKey = `lastLogin_${userId}`;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayStr = today.toISOString().split("T")[0];
-
-    const lastLoginStr = localStorage.getItem(lastLoginKey);
-
-    console.log('Login Streak Debug - userId:', userId);
-    console.log('Login Streak Debug - todayStr:', todayStr);
-    console.log('Login Streak Debug - lastLoginStr:', lastLoginStr);
-
-    let streak = 0;
-    const savedStreak = localStorage.getItem(streakKey);
-    if (savedStreak && !isNaN(savedStreak)) {
-      streak = Math.max(0, parseInt(savedStreak));
-    }
-    console.log('Login Streak Debug - savedStreak:', savedStreak, 'current streak:', streak);
-
-    if (!lastLoginStr) {
-      streak = 1;
-      localStorage.setItem(lastLoginKey, todayStr);
-      localStorage.setItem(streakKey, streak.toString());
-      console.log('Login Streak Debug - First time login, set streak to 1');
-    } else {
-      if (lastLoginStr === todayStr) {
-        console.log('Login Streak Debug - Already logged in today, returning streak:', streak);
-        return streak;
-      }
-
-      const lastLoginDate = new Date(lastLoginStr);
-      lastLoginDate.setHours(0, 0, 0, 0);
-
-      const diffTime = today - lastLoginDate;
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-      console.log('Login Streak Debug - diffDays:', diffDays);
-
-      if (diffDays === 1) {
-        streak += 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-        console.log('Login Streak Debug - Consecutive day, incremented streak to:', streak);
-      } else if (diffDays > 1) {
-        streak = 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-        console.log('Login Streak Debug - Missed day, reset streak to 1');
-      } else if (diffDays < 0) {
-        streak = 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-        console.log('Login Streak Debug - Future date, reset streak to 1');
-      } else {
-        console.log('Login Streak Debug - Same day (diffDays 0), returning streak:', streak);
-        return streak;
-      }
-    }
-
-    console.log('Login Streak Debug - Final streak:', streak);
-    return Math.max(0, streak);
-  };
 
   // Generate cartoon avatar (deterministic based on username)
   const generateCartoonAvatar = (userName) => {
@@ -146,12 +86,14 @@ const LoginPage = () => {
           throw new Error('Not authenticated');
         })
         .then(data => {
-          localStorage.setItem('userName', data.user.fullName);
-          localStorage.setItem('userEmail', data.user.email);
-          localStorage.setItem('currentUserId', data.user.id);
-          // Generate cartoon avatar if not already set
+          // Store currentUserId in sessionStorage (tab-isolated) while user data stays in localStorage (persistent)
+          sessionStorage.setItem('currentUserId', data.user.id);
+          localStorage.setItem(`userName_${data.user.id}`, data.user.fullName);
+          localStorage.setItem(`userEmail_${data.user.id}`, data.user.email);
+          
+          // Generate cartoon avatar (user-specific)
           const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
-          localStorage.setItem('userAvatar', cartoonAvatar);
+          localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
           // Update login streak for OAuth users
           updateLoginStreak(data.user.id);
           setShowSuccess(true);
@@ -183,20 +125,26 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // FIX: ensure all required user data is stored
-        localStorage.setItem("userName", data.user.fullName);
-        localStorage.setItem("userEmail", data.user.email);
-        localStorage.setItem("currentUserId", data.user.id);
+        // Store currentUserId in sessionStorage (tab-isolated) while user data stays in localStorage (persistent)
+        sessionStorage.setItem("currentUserId", data.user.id);
+        localStorage.setItem(`userName_${data.user.id}`, data.user.fullName);
+        localStorage.setItem(`userEmail_${data.user.id}`, data.user.email);
+        
+        // Generate cartoon avatar (user-specific)
+        const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
+        localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
 
         // Update login streak (preserves legitimate streaks)
         updateLoginStreak(data.user.id);
 
         setShowSuccess(true);
       } else {
-        alert(data.message || "Invalid credentials");
+        setErrorMessage(data.message || "Invalid credentials");
+        setShowError(true);
       }
     } catch (err) {
-      alert("Server error");
+      setErrorMessage("Server error");
+      setShowError(true);
     } finally {
       setLoading(false);
     }
@@ -215,6 +163,12 @@ const LoginPage = () => {
         onClose={() => navigate("/dashboard")}
         title="Welcome Back!"
         message="You have successfully logged into Oafcodify."
+      />
+
+      <ErrorModal
+        isOpen={showError}
+        onClose={() => setShowError(false)}
+        message={errorMessage}
       />
 
       <div className="relative z-10 w-full max-w-md md:max-w-4xl">

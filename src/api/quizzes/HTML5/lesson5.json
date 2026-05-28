@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which HTML entity displays a non-breaking space?",
+    "options": [
+      "&space;",
+      "&nbsp;",
+      "&nbsp",
+      " "
+    ],
+    "correctAnswer": 1,
+    "explanation": "&nbsp; (non-breaking space) prevents browsers from truncating spaces. It's commonly used to add extra spaces."
+  },
+  {
+    "id": 2,
+    "question": "Which character encoding is recommended for HTML5?",
+    "options": [
+      "ASCII",
+      "ISO-8859-1",
+      "UTF-8",
+      "Windows-1252"
+    ],
+    "correctAnswer": 2,
+    "explanation": "UTF-8 is the recommended character encoding for HTML5. It supports almost all characters and symbols in the world."
+  },
+  {
+    "id": 3,
+    "question": "Which form element lets users select ONE of a limited number of choices?",
+    "options": [
+      "Checkbox",
+      "Radio button",
+      "Text input",
+      "Textarea"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Radio buttons let users select ONE of a limited number of choices. Checkboxes allow selecting ZERO or MORE options."
+  },
+  {
+    "id": 4,
+    "question": "Which HTML5 video format is most widely supported?",
+    "options": [
+      "AVI",
+      "MOV",
+      "MP4",
+      "WMV"
+    ],
+    "correctAnswer": 2,
+    "explanation": "MP4 is the most widely supported video format in HTML5. WebM and Ogg are also supported but MP4 has the best compatibility."
+  },
+  {
+    "id": 5,
+    "question": "Which API is used to get the user's location?",
+    "options": [
+      "Location API",
+      "Geolocation API",
+      "Position API",
+      "GPS API"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Geolocation API is used to get the user's current location. It requires user permission and only works on secure contexts (HTTPS)."
+  },
+  {
+    "id": 6,
+    "question": "Which web storage method persists data even after the browser is closed?",
+    "options": [
+      "sessionStorage",
+      "cookieStorage",
+      "localStorage",
+      "tempStorage"
+    ],
+    "correctAnswer": 2,
+    "explanation": "localStorage stores data with no expiration date - data persists even after the browser is closed. sessionStorage only lasts for the session."
+  },
+  {
+    "id": 7,
+    "question": "Which event must be prevented to allow dropping in drag and drop?",
+    "options": [
+      "ondrop",
+      "ondragstart",
+      "ondragover",
+      "ondragend"
+    ],
+    "correctAnswer": 2,
+    "explanation": "You must call preventDefault() on the ondragover event to allow dropping. By default, elements cannot be dropped in other elements."
+  },
+  {
+    "id": 8,
+    "question": "Which HTML element is used to draw graphics via JavaScript?",
+    "options": [
+      "<svg>",
+      "<graphics>",
+      "<canvas>",
+      "<draw>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<canvas> is used to draw graphics on a web page via JavaScript. It can be used for drawing graphs, animations, and more."
+  },
+  {
+    "id": 9,
+    "question": "Which SVG characteristic makes it ideal for logos and icons?",
+    "options": [
+      "Small file size",
+      "Scalable without quality loss",
+      "Easy to animate",
+      "Supports transparency"
+    ],
+    "correctAnswer": 1,
+    "explanation": "SVG graphics are scalable without quality loss because they're vector-based. This makes them ideal for logos and icons."
+  },
+  {
+    "id": 10,
+    "question": "Which form element is crucial for accessibility and usability?",
+    "options": [
+      "<input>",
+      "<button>",
+      "<label>",
+      "<form>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<label> is crucial for accessibility and usability. It associates a text label with a form element, helping screen-reader users and improving click targets."
+  }
+]

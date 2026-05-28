@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What is React Router used for?",
+    "options": [
+      "Styling React components",
+      "Managing navigation and routing in React applications",
+      "Managing state",
+      "Making API calls"
+    ],
+    "correctAnswer": 1,
+    "explanation": "React Router is the standard routing library for React applications, enabling navigation between different components without page refreshes."
+  },
+  {
+    "id": 2,
+    "question": "Which component is used to define routes in React Router v6?",
+    "options": [
+      "Switch",
+      "Routes",
+      "Router",
+      "Route"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In React Router v6, the Routes component is used to define which component should render for each path."
+  },
+  {
+    "id": 3,
+    "question": "How do you create a link in React Router?",
+    "options": [
+      "<a href=\"/about\">About</a>",
+      "<Link to=\"/about\">About</Link>",
+      "<Route to=\"/about\">About</Route>",
+      "<NavLink to=\"/about\">About</NavLink>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Link component from React Router is used to create navigation links without causing a full page refresh."
+  },
+  {
+    "id": 4,
+    "question": "What hook is used for programmatic navigation?",
+    "options": [
+      "useHistory",
+      "useNavigate",
+      "useRouter",
+      "useLocation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useNavigate is the hook used for programmatic navigation in React Router v6 (replaced useHistory from v5)."
+  },
+  {
+    "id": 5,
+    "question": "How do you define a dynamic route parameter?",
+    "options": [
+      "<Route path=\"/user/:id\" />",
+      "<Route path=\"/user/{id}\" />",
+      "<Route path=\"/user/<id>\" />",
+      "<Route path=\"/user/$id\" />"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Dynamic route parameters are defined using a colon prefix, like :id, in the path attribute."
+  },
+  {
+    "id": 6,
+    "question": "What component wraps your application to enable routing?",
+    "options": [
+      "Router",
+      "BrowserRouter",
+      "Routes",
+      "Route"
+    ],
+    "correctAnswer": 1,
+    "explanation": "BrowserRouter (or HashRouter) wraps your application to enable routing functionality by keeping the UI in sync with the URL."
+  },
+  {
+    "id": 7,
+    "question": "How do you access route parameters in a component?",
+    "options": [
+      "useRoute",
+      "useParams",
+      "useLocation",
+      "useNavigate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The useParams hook allows you to access the dynamic parameters from the current route URL."
+  },
+  {
+    "id": 8,
+    "question": "What is a protected route?",
+    "options": [
+      "A route that cannot be accessed",
+      "A route that requires authentication to access",
+      "A route that is always visible",
+      "A route with no component"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A protected route is a route that requires the user to be authenticated or have specific permissions before they can access it."
+  }
+]

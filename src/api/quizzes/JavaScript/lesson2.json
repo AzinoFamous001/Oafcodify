@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What does DOM stand for?",
+    "options": [
+      "Document Object Model",
+      "Data Object Model",
+      "Document Order Model",
+      "Digital Object Model"
+    ],
+    "correctAnswer": 0,
+    "explanation": "DOM stands for Document Object Model. It's a programming interface for HTML and XML documents."
+  },
+  {
+    "id": 2,
+    "question": "Which method selects an element by its ID?",
+    "options": [
+      "querySelector('#id')",
+      "getElementById('id')",
+      "selectElementById('id')",
+      "getElement('#id')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "getElementById('id') is the fastest method to select an element by its unique ID."
+  },
+  {
+    "id": 3,
+    "question": "Which property is safer from XSS attacks?",
+    "options": [
+      "innerHTML",
+      "textContent",
+      "outerHTML",
+      "innerText"
+    ],
+    "correctAnswer": 1,
+    "explanation": "textContent is safer from XSS attacks because it treats content as text, not HTML. innerHTML can execute malicious code."
+  },
+  {
+    "id": 4,
+    "question": "Which method adds an event listener to an element?",
+    "options": [
+      "addEvent()",
+      "addEventListener()",
+      "attachEvent()",
+      "bindEvent()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "addEventListener() attaches an event listener to an element. It allows multiple listeners for the same event."
+  },
+  {
+    "id": 5,
+    "question": "What does event.preventDefault() do?",
+    "options": [
+      "Removes the event listener",
+      "Stops event propagation",
+      "Cancels the default browser behavior",
+      "Prevents the event from firing"
+    ],
+    "correctAnswer": 2,
+    "explanation": "preventDefault() cancels the default browser behavior for an event (e.g., preventing form submission or link navigation)."
+  },
+  {
+    "id": 6,
+    "question": "Which method selects all elements matching a CSS selector?",
+    "options": [
+      "querySelector()",
+      "querySelectorAll()",
+      "selectAll()",
+      "getElements()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "querySelectorAll() selects all elements matching a CSS selector and returns a NodeList."
+  },
+  {
+    "id": 7,
+    "question": "Which method adds a CSS class to an element?",
+    "options": [
+      "element.class.add('classname')",
+      "element.classList.add('classname')",
+      "element.addClass('classname')",
+      "element.cssClass.add('classname')"
+    ],
+    "correctAnswer": 1,
+    "explanation": "classList.add('classname') adds a CSS class to an element. The classList object provides methods for class manipulation."
+  },
+  {
+    "id": 8,
+    "question": "What does event.stopPropagation() do?",
+    "options": [
+      "Prevents the default behavior",
+      "Stops the event from bubbling to parent elements",
+      "Removes the event listener",
+      "Prevents the event from firing again"
+    ],
+    "correctAnswer": 1,
+    "explanation": "stopPropagation() stops an event from bubbling up to parent elements in the DOM tree."
+  },
+  {
+    "id": 9,
+    "question": "Which method creates a new DOM element?",
+    "options": [
+      "new Element()",
+      "createNode()",
+      "createElement()",
+      "makeElement()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "document.createElement('tagname') creates a new DOM element. It's safer and more performant than using innerHTML."
+  },
+  {
+    "id": 10,
+    "question": "What is event delegation?",
+    "options": [
+      "Removing event listeners",
+      "Attaching a single listener to a parent to handle child events",
+      "Creating multiple event listeners",
+      "Preventing events from firing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Event delegation attaches a single event listener to a parent element to handle events for multiple child elements, improving performance."
+  }
+]

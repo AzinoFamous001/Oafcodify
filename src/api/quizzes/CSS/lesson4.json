@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which box model component is outside the border?",
+    "options": [
+      "Content",
+      "Padding",
+      "Border",
+      "Margin"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Margin is the space outside the border. From inside out: Content → Padding → Border → Margin."
+  },
+  {
+    "id": 2,
+    "question": "Which box-sizing value includes padding and border in the width?",
+    "options": [
+      "content-box",
+      "border-box",
+      "padding-box",
+      "margin-box"
+    ],
+    "correctAnswer": 1,
+    "explanation": "border-box includes padding and border in the element's width. content-box (default) only includes the content width."
+  },
+  {
+    "id": 3,
+    "question": "Which display value hides an element completely?",
+    "options": [
+      "hidden",
+      "none",
+      "invisible",
+      "collapse"
+    ],
+    "correctAnswer": 1,
+    "explanation": "display: none hides the element completely and it takes no space in the layout. visibility: hidden hides it but keeps the space."
+  },
+  {
+    "id": 4,
+    "question": "Which position value positions an element relative to the viewport?",
+    "options": [
+      "static",
+      "relative",
+      "absolute",
+      "fixed"
+    ],
+    "correctAnswer": 3,
+    "explanation": "position: fixed positions an element relative to the viewport (browser window). It stays in place when scrolling."
+  },
+  {
+    "id": 5,
+    "question": "Which property controls the stacking order of positioned elements?",
+    "options": [
+      "stack-order",
+      "z-index",
+      "layer",
+      "depth"
+    ],
+    "correctAnswer": 1,
+    "explanation": "z-index controls the stacking order. Higher values appear on top of lower values. Only works on positioned elements."
+  },
+  {
+    "id": 6,
+    "question": "Which margin value centers an element horizontally?",
+    "options": [
+      "margin: center;",
+      "margin: 0 auto;",
+      "margin: auto 0;",
+      "margin: center auto;"
+    ],
+    "correctAnswer": 1,
+    "explanation": "margin: 0 auto centers an element horizontally (0 top/bottom, auto left/right). The element must have a width set."
+  },
+  {
+    "id": 7,
+    "question": "Which overflow value adds scrollbars when needed?",
+    "options": [
+      "scroll",
+      "auto",
+      "hidden",
+      "visible"
+    ],
+    "correctAnswer": 1,
+    "explanation": "overflow: auto adds scrollbars only when content exceeds the element bounds. scroll always shows scrollbars."
+  },
+  {
+    "id": 8,
+    "question": "Which display value allows an element to have width and height but flow inline?",
+    "options": [
+      "inline",
+      "block",
+      "inline-block",
+      "flex"
+    ],
+    "correctAnswer": 2,
+    "explanation": "inline-block allows an element to have width and height like a block element, but flow inline like an inline element."
+  },
+  {
+    "id": 9,
+    "question": "Which position value positions an element relative to its normal position?",
+    "options": [
+      "static",
+      "relative",
+      "absolute",
+      "fixed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "position: relative positions an element relative to its normal position. You can use top, right, bottom, left to offset it."
+  },
+  {
+    "id": 10,
+    "question": "What is the difference between display: none and visibility: hidden?",
+    "options": [
+      "They are the same",
+      "display: none takes no space, visibility: hidden takes space",
+      "visibility: hidden takes no space, display: none takes space",
+      "Neither hides the element"
+    ],
+    "correctAnswer": 1,
+    "explanation": "display: none removes the element from the layout (takes no space). visibility: hidden hides the element but it still takes up space."
+  }
+]

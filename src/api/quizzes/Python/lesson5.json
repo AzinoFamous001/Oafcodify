@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What is PEP 8?",
+    "options": [
+      "A Python library",
+      "Python's style guide for code formatting",
+      "A Python version",
+      "A debugging tool"
+    ],
+    "correctAnswer": 1,
+    "explanation": "PEP 8 is Python's official style guide that provides conventions for writing readable and consistent Python code."
+  },
+  {
+    "id": 2,
+    "question": "How many spaces should be used for indentation in Python?",
+    "options": [
+      "2 spaces",
+      "4 spaces",
+      "8 spaces",
+      "Tabs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "PEP 8 recommends using 4 spaces per indentation level. Mixing tabs and spaces is discouraged."
+  },
+  {
+    "id": 3,
+    "question": "What is the purpose of docstrings?",
+    "options": [
+      "To comment out code",
+      "To document functions, classes, and modules",
+      "To debug code",
+      "To format output"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Docstrings are string literals that occur as the first statement in a module, function, class, or method definition, used to document code."
+  },
+  {
+    "id": 4,
+    "question": "What is the naming convention for functions in Python?",
+    "options": [
+      "camelCase",
+      "PascalCase",
+      "snake_case",
+      "kebab-case"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Python uses snake_case for function names (e.g., my_function). Class names use PascalCase (e.g., MyClass)."
+  },
+  {
+    "id": 5,
+    "question": "Why is code readability important?",
+    "options": [
+      "It makes code run faster",
+      "It makes code easier to maintain and understand",
+      "It reduces file size",
+      "It's only important for beginners"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Readable code is easier to maintain, debug, and collaborate on. It reduces the time needed to understand and modify code."
+  },
+  {
+    "id": 6,
+    "question": "What is the purpose of type hints in Python?",
+    "options": [
+      "To enforce strict typing",
+      "To improve code documentation and IDE support",
+      "To make code run faster",
+      "To prevent all runtime errors"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Type hints are optional annotations that improve code documentation and enable better IDE support and static analysis tools."
+  },
+  {
+    "id": 7,
+    "question": "What is the DRY principle?",
+    "options": [
+      "Don't Repeat Yourself",
+      "Do Run Yields",
+      "Data Ready Yields",
+      "Debug Regularly Yearly"
+    ],
+    "correctAnswer": 0,
+    "explanation": "DRY (Don't Repeat Yourself) is a principle that aims to reduce repetition of code by using abstractions and functions."
+  },
+  {
+    "id": 8,
+    "question": "How should you handle deprecated code?",
+    "options": [
+      "Delete it immediately",
+      "Leave it as is",
+      "Mark it with a deprecation warning and plan removal",
+      "Copy it to another file"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Deprecated code should be marked with warnings to inform users, with a planned removal timeline to allow migration."
+  }
+]

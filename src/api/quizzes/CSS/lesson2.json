@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What does RGBA stand for in CSS colors?",
+    "options": [
+      "Red, Green, Blue, Alpha",
+      "Red, Gray, Blue, Alpha",
+      "Red, Green, Black, Alpha",
+      "RGB, Alpha"
+    ],
+    "correctAnswer": 0,
+    "explanation": "RGBA stands for Red, Green, Blue, Alpha. The Alpha channel controls transparency (0.0 = transparent, 1.0 = opaque)."
+  },
+  {
+    "id": 2,
+    "question": "Which property sets the background color of an element?",
+    "options": [
+      "color",
+      "bg-color",
+      "background-color",
+      "background"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The background-color property sets the background color of an element. The color property sets the text color."
+  },
+  {
+    "id": 3,
+    "question": "Which border style value is required for borders to be visible?",
+    "options": [
+      "border-width",
+      "border-color",
+      "border-style",
+      "All are required"
+    ],
+    "correctAnswer": 2,
+    "explanation": "border-style is required for borders to be visible. Without it, even if you set width and color, the border won't show."
+  },
+  {
+    "id": 4,
+    "question": "Which property rounds the corners of an element?",
+    "options": [
+      "border-round",
+      "corner-radius",
+      "border-radius",
+      "round-corners"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The border-radius property rounds the corners of an element. A value of 50% makes the element circular."
+  },
+  {
+    "id": 5,
+    "question": "What does the hex color code #FF0000 represent?",
+    "options": [
+      "Green",
+      "Blue",
+      "Red",
+      "Yellow"
+    ],
+    "correctAnswer": 2,
+    "explanation": "#FF0000 represents red in hexadecimal color format. The format is #RRGGBB where FF is maximum red, 00 is no green, and 00 is no blue."
+  },
+  {
+    "id": 6,
+    "question": "Which background repeat value prevents the image from repeating?",
+    "options": [
+      "repeat",
+      "repeat-x",
+      "repeat-y",
+      "no-repeat"
+    ],
+    "correctAnswer": 3,
+    "explanation": "no-repeat prevents the background image from repeating. repeat-x repeats horizontally, repeat-y repeats vertically."
+  },
+  {
+    "id": 7,
+    "question": "Which background attachment value keeps the image fixed when scrolling?",
+    "options": [
+      "scroll",
+      "fixed",
+      "local",
+      "static"
+    ],
+    "correctAnswer": 1,
+    "explanation": "background-attachment: fixed keeps the background image fixed when scrolling the page. scroll makes the image scroll with the page."
+  },
+  {
+    "id": 8,
+    "question": "What does HSL stand for in CSS colors?",
+    "options": [
+      "High, Saturation, Lightness",
+      "Hue, Saturation, Lightness",
+      "Hue, Saturation, Level",
+      "High, Saturation, Level"
+    ],
+    "correctAnswer": 1,
+    "explanation": "HSL stands for Hue, Saturation, Lightness. Hue is 0-360 (color wheel), Saturation is 0-100%, and Lightness is 0-100%."
+  },
+  {
+    "id": 9,
+    "question": "Which border shorthand sets width, style, and color?",
+    "options": [
+      "border: 5px solid red;",
+      "border-width: 5px; border-style: solid; border-color: red;",
+      "Both are correct",
+      "Neither is correct"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Both are correct. The border shorthand (border: 5px solid red;) combines all three properties, but you can also set them individually."
+  },
+  {
+    "id": 10,
+    "question": "Which background size value covers the entire element?",
+    "options": [
+      "contain",
+      "cover",
+      "100%",
+      "auto"
+    ],
+    "correctAnswer": 1,
+    "explanation": "background-size: cover scales the image to cover the entire element, potentially cropping parts of the image. contain fits the image within the element."
+  }
+]

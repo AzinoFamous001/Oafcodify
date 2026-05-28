@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which property sets the font family for text?",
+    "options": [
+      "font-type",
+      "font-family",
+      "text-font",
+      "font-name"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The font-family property sets the font for an element. It can hold multiple font names as a fallback system."
+  },
+  {
+    "id": 2,
+    "question": "Which font weight value represents bold text?",
+    "options": [
+      "400",
+      "500",
+      "700",
+      "900"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Font weight 700 represents bold text. 400 is normal, 500 is medium, and 900 is black (extra bold)."
+  },
+  {
+    "id": 3,
+    "question": "Which property aligns text to the center?",
+    "options": [
+      "text-align: center;",
+      "align: center;",
+      "text-center: true;",
+      "alignment: center;"
+    ],
+    "correctAnswer": 0,
+    "explanation": "text-align: center aligns text to the center. Other values include left, right, and justify."
+  },
+  {
+    "id": 4,
+    "question": "Which text decoration value removes underlines from links?",
+    "options": [
+      "none",
+      "remove",
+      "hidden",
+      "no-underline"
+    ],
+    "correctAnswer": 0,
+    "explanation": "text-decoration: none removes underlines from links. Other values include underline, overline, and line-through."
+  },
+  {
+    "id": 5,
+    "question": "Which property controls the vertical space between lines of text?",
+    "options": [
+      "line-spacing",
+      "line-height",
+      "text-spacing",
+      "vertical-spacing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "line-height controls the vertical space between lines of text. A value of 1.5 means 1.5 times the font size."
+  },
+  {
+    "id": 6,
+    "question": "Which text transform value capitalizes the first letter of each word?",
+    "options": [
+      "uppercase",
+      "lowercase",
+      "capitalize",
+      "titlecase"
+    ],
+    "correctAnswer": 2,
+    "explanation": "text-transform: capitalize capitalizes the first letter of each word. uppercase makes all text uppercase, lowercase makes all lowercase."
+  },
+  {
+    "id": 7,
+    "question": "Which unit is relative to the root font size?",
+    "options": [
+      "px",
+      "em",
+      "rem",
+      "%"
+    ],
+    "correctAnswer": 2,
+    "explanation": "rem is relative to the root font size (html element). em is relative to the parent element's font size."
+  },
+  {
+    "id": 8,
+    "question": "Which property adds shadow to text?",
+    "options": [
+      "box-shadow",
+      "text-shadow",
+      "font-shadow",
+      "shadow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "text-shadow adds shadow to text. The syntax is: text-shadow: h-shadow v-shadow blur-radius color;"
+  },
+  {
+    "id": 9,
+    "question": "Which generic font family includes fonts like Times New Roman?",
+    "options": [
+      "sans-serif",
+      "serif",
+      "monospace",
+      "cursive"
+    ],
+    "correctAnswer": 1,
+    "explanation": "serif includes fonts like Times New Roman and Georgia. sans-serif includes Arial and Helvetica."
+  },
+  {
+    "id": 10,
+    "question": "Which property controls horizontal spacing between characters?",
+    "options": [
+      "letter-spacing",
+      "word-spacing",
+      "character-spacing",
+      "text-spacing"
+    ],
+    "correctAnswer": 0,
+    "explanation": "letter-spacing controls horizontal spacing between characters. word-spacing controls spacing between words."
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which statement is used for decision making in C++?",
+    "options": [
+      "when",
+      "if",
+      "check",
+      "decide"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The if statement is used for decision making in C++. It executes code if a condition is true."
+  },
+  {
+    "id": 2,
+    "question": "What is the purpose of the break statement in a switch?",
+    "options": [
+      "Exits the program",
+      "Prevents fall-through to the next case",
+      "Skips the switch",
+      "Ends the loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "break prevents fall-through to the next case in a switch statement. Without it, execution continues to the next case."
+  },
+  {
+    "id": 3,
+    "question": "Which loop executes at least once?",
+    "options": [
+      "for loop",
+      "while loop",
+      "do-while loop",
+      "All loops"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The do-while loop executes at least once because the condition is checked after the first iteration."
+  },
+  {
+    "id": 4,
+    "question": "What does the continue statement do?",
+    "options": [
+      "Exits the loop",
+      "Skips to the next iteration",
+      "Pauses the loop",
+      "Restarts the loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "continue skips the current iteration and moves to the next iteration of the loop."
+  },
+  {
+    "id": 5,
+    "question": "Which loop is best when the number of iterations is known?",
+    "options": [
+      "while loop",
+      "do-while loop",
+      "for loop",
+      "All are equal"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The for loop is best when the number of iterations is known because it has initialization, condition, and increment in one line."
+  },
+  {
+    "id": 6,
+    "question": "What is the correct syntax for a for loop?",
+    "options": [
+      "for (i = 0; i < 5; i++)",
+      "for (int i = 0; i < 5; i++)",
+      "for (int i = 0; i < 5; i++)",
+      "for (i = 0; i < 5; i++)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "for (int i = 0; i < 5; i++) is the correct syntax. The loop variable should be declared inside the for loop."
+  },
+  {
+    "id": 7,
+    "question": "Which logical operator requires both conditions to be true?",
+    "options": [
+      "|| (OR)",
+      "&& (AND)",
+      "! (NOT)",
+      "??"
+    ],
+    "correctAnswer": 1,
+    "explanation": "&& (AND) requires both conditions to be true. || (OR) requires at least one to be true."
+  },
+  {
+    "id": 8,
+    "question": "What is the default case in a switch statement?",
+    "options": [
+      "The first case",
+      "The last case",
+      "Executes when no case matches",
+      "Optional and not needed"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The default case executes when no other case matches. It's optional but recommended for handling unexpected values."
+  },
+  {
+    "id": 9,
+    "question": "Which loop iterates over array elements (C++11)?",
+    "options": [
+      "for loop",
+      "while loop",
+      "Range-based for loop",
+      "do-while loop"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The range-based for loop (for (int num : arr)) iterates over array elements introduced in C++11."
+  },
+  {
+    "id": 10,
+    "question": "What does the break statement do in a loop?",
+    "options": [
+      "Skips to next iteration",
+      "Exits the loop completely",
+      "Pauses execution",
+      "Restarts the loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "break exits the loop completely. continue skips to the next iteration."
+  }
+]

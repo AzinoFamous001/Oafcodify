@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What is a pointer in C++?",
+    "options": [
+      "A variable that stores a value",
+      "A variable that stores a memory address",
+      "A reference to a function",
+      "A constant value"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A pointer is a variable that stores the memory address of another variable."
+  },
+  {
+    "id": 2,
+    "question": "Which operator gets the address of a variable?",
+    "options": [
+      "*",
+      "&",
+      "->",
+      "::"
+    ],
+    "correctAnswer": 1,
+    "explanation": "& (address-of operator) gets the memory address of a variable. * (dereference operator) accesses the value at an address."
+  },
+  {
+    "id": 3,
+    "question": "What does the dereference operator (*) do?",
+    "options": [
+      "Gets the address of a variable",
+      "Accesses the value at a pointer's address",
+      "Creates a new pointer",
+      "Deletes a pointer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The dereference operator (*) accesses the value stored at the address held by a pointer."
+  },
+  {
+    "id": 4,
+    "question": "What is a reference in C++?",
+    "options": [
+      "A pointer to a variable",
+      "An alias for an existing variable",
+      "A copy of a variable",
+      "A constant variable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A reference is an alias for an existing variable. Changes to the reference affect the original variable."
+  },
+  {
+    "id": 5,
+    "question": "Which keyword represents a null pointer in modern C++?",
+    "options": [
+      "NULL",
+      "null",
+      "nullptr",
+      "0"
+    ],
+    "correctAnswer": 2,
+    "explanation": "nullptr is the modern C++ (C++11+) keyword for null pointers. NULL and 0 are older alternatives."
+  },
+  {
+    "id": 6,
+    "question": "What operator is used to access members through a pointer?",
+    "options": [
+      ".",
+      "->",
+      "::",
+      "=>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "-> is used to access members through a pointer (ptr->member). . is used for direct access (object.member)."
+  },
+  {
+    "id": 7,
+    "question": "What is dynamic memory allocation?",
+    "options": [
+      "Memory allocated at compile time",
+      "Memory allocated at runtime",
+      "Memory that is never freed",
+      "Memory in the stack"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dynamic memory allocation is memory allocated at runtime using the new operator."
+  },
+  {
+    "id": 8,
+    "question": "Which operator frees dynamically allocated memory?",
+    "options": [
+      "free",
+      "delete",
+      "release",
+      "clear"
+    ],
+    "correctAnswer": 1,
+    "explanation": "delete frees memory allocated with new. For arrays, use delete[]."
+  },
+  {
+    "id": 9,
+    "question": "What is a memory leak?",
+    "options": [
+      "Memory that is too slow",
+      "Memory that is allocated but never freed",
+      "Memory that is shared",
+      "Memory that is read-only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A memory leak occurs when memory is allocated but never freed, causing wasted resources."
+  },
+  {
+    "id": 10,
+    "question": "Can references be null?",
+    "options": [
+      "Yes",
+      "No",
+      "Only if initialized to null",
+      "Only const references"
+    ],
+    "correctAnswer": 1,
+    "explanation": "References cannot be null. They must be initialized to refer to a valid variable."
+  }
+]

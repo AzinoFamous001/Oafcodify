@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What does HTML stand for?",
+    "options": [
+      "Hyper Text Markup Language",
+      "High Tech Modern Language",
+      "Hyper Transfer Markup Language",
+      "Home Tool Markup Language"
+    ],
+    "correctAnswer": 0,
+    "explanation": "HTML stands for Hyper Text Markup Language. It is the standard language for creating web pages."
+  },
+  {
+    "id": 2,
+    "question": "Is HTML a programming language?",
+    "options": [
+      "Yes, it's a programming language",
+      "No, it's a markup language",
+      "Yes, it's a scripting language",
+      "No, it's a styling language"
+    ],
+    "correctAnswer": 1,
+    "explanation": "HTML is NOT a programming language - it's a markup language that uses tags to define the structure of web pages."
+  },
+  {
+    "id": 3,
+    "question": "What is the correct DOCTYPE declaration for HTML5?",
+    "options": [
+      "<!DOCTYPE HTML5>",
+      "<!DOCTYPE html>",
+      "<DOCTYPE html>",
+      "<html5>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The correct DOCTYPE declaration for HTML5 is <!DOCTYPE html>. It tells the browser this is an HTML5 document."
+  },
+  {
+    "id": 4,
+    "question": "Which HTML tag is used to define the most important heading?",
+    "options": [
+      "<heading>",
+      "<h6>",
+      "<head>",
+      "<h1>"
+    ],
+    "correctAnswer": 3,
+    "explanation": "<h1> defines the most important heading. HTML provides six levels of headings from <h1> (most important) to <h6> (least important)."
+  },
+  {
+    "id": 5,
+    "question": "Which attribute specifies a unique identifier for an HTML element?",
+    "options": [
+      "class",
+      "id",
+      "name",
+      "unique"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The id attribute specifies a unique identifier for an element. Each id must be unique within the page."
+  },
+  {
+    "id": 6,
+    "question": "What is the purpose of the <head> section in HTML?",
+    "options": [
+      "Contains the main content of the webpage",
+      "Contains metadata about the document",
+      "Contains all images",
+      "Contains the footer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <head> section contains metadata (information about the document) like title, meta tags, and links to CSS. It's not visible on the webpage."
+  },
+  {
+    "id": 7,
+    "question": "Which tag is used to create a paragraph in HTML?",
+    "options": [
+      "<paragraph>",
+      "<p>",
+      "<text>",
+      "<para>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <p> tag is used to create paragraphs in HTML. Browsers automatically add space above and below paragraphs."
+  },
+  {
+    "id": 8,
+    "question": "What is the correct syntax for adding inline styles to an HTML element?",
+    "options": [
+      "element { style: 'color: red;' }",
+      "element style='color: red;'",
+      "element style=\"color: red;\"",
+      "element css=\"color: red;\""
+    ],
+    "correctAnswer": 2,
+    "explanation": "Inline styles are added using the style attribute with the syntax: element style=\"property: value;\""
+  },
+  {
+    "id": 9,
+    "question": "Which HTML tag is self-closing and does not require a closing tag?",
+    "options": [
+      "<div>",
+      "<p>",
+      "<img>",
+      "<span>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<img> is a self-closing tag that doesn't require a closing tag. Other self-closing tags include <br>, <hr>, and <input>."
+  },
+  {
+    "id": 10,
+    "question": "What does the alt attribute provide for images?",
+    "options": [
+      "Alternative styling for the image",
+      "Alternative text for screen readers and when images fail to load",
+      "Alternative link for the image",
+      "Alternative animation for the image"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The alt attribute provides alternative text for screen readers (accessibility) and displays when images fail to load."
+  }
+]

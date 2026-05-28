@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What are props in React?",
+    "options": [
+      "Internal component state",
+      "Properties passed to components from parent",
+      "CSS styles",
+      "Event handlers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props (properties) are a way to pass data from parent components to child components. They are read-only and help create reusable components."
+  },
+  {
+    "id": 2,
+    "question": "What is state in React?",
+    "options": [
+      "Data that changes over time within a component",
+      "Static data passed from parent",
+      "CSS styling",
+      "Component properties"
+    ],
+    "correctAnswer": 0,
+    "explanation": "State is data that can change over time within a component. It's managed using the useState hook and triggers re-renders when updated."
+  },
+  {
+    "id": 3,
+    "question": "How do you update state in a functional component?",
+    "options": [
+      "this.setState({ count: 5 })",
+      "state.count = 5",
+      "setCount(5)",
+      "updateState('count', 5)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In functional components, you use the setter function returned by useState to update state, e.g., setCount(5)."
+  },
+  {
+    "id": 4,
+    "question": "What is the main difference between props and state?",
+    "options": [
+      "Props are mutable, state is immutable",
+      "Props are passed from parent, state is managed within component",
+      "State is passed from parent, props are managed within component",
+      "There is no difference"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props are passed down from parent components and are read-only. State is managed within the component and can be updated using setState."
+  },
+  {
+    "id": 5,
+    "question": "Which hook is used to manage state in functional components?",
+    "options": [
+      "useEffect",
+      "useState",
+      "useContext",
+      "useReducer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "useState is the hook used to add state to functional components. It returns a state value and a function to update it."
+  },
+  {
+    "id": 6,
+    "question": "Can props be modified by the child component?",
+    "options": [
+      "Yes, always",
+      "No, props are read-only",
+      "Only if they are objects",
+      "Only if the parent allows it"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Props are read-only in React. Child components should never modify props directly. If changes are needed, the parent should update them."
+  },
+  {
+    "id": 7,
+    "question": "What happens when state is updated in React?",
+    "options": [
+      "The component is destroyed and recreated",
+      "The component re-renders",
+      "Nothing happens",
+      "Only the specific element updates"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When state is updated, React schedules a re-render of the component to reflect the new state in the UI."
+  },
+  {
+    "id": 8,
+    "question": "How do you pass multiple props to a component?",
+    "options": [
+      "Using an array",
+      "Using an object",
+      "Using separate attributes",
+      "All of the above"
+    ],
+    "correctAnswer": 3,
+    "explanation": "You can pass multiple props as separate attributes, as an object using spread operator, or as an array depending on your use case."
+  }
+]

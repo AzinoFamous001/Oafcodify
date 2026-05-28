@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which display value enables Flexbox layout?",
+    "options": [
+      "display: flexbox;",
+      "display: flex;",
+      "display: box;",
+      "display: layout;"
+    ],
+    "correctAnswer": 1,
+    "explanation": "display: flex enables Flexbox layout. It creates a flex container that can arrange items in rows or columns."
+  },
+  {
+    "id": 2,
+    "question": "Which Flexbox property aligns items along the main axis?",
+    "options": [
+      "align-items",
+      "justify-content",
+      "align-content",
+      "flex-direction"
+    ],
+    "correctAnswer": 1,
+    "explanation": "justify-content aligns items along the main axis (horizontal for row, vertical for column). align-items aligns along the cross axis."
+  },
+  {
+    "id": 3,
+    "question": "Which display value enables CSS Grid layout?",
+    "options": [
+      "display: grid;",
+      "display: layout;",
+      "display: matrix;",
+      "display: table;"
+    ],
+    "correctAnswer": 0,
+    "explanation": "display: grid enables CSS Grid layout. It creates a grid container for two-dimensional layout (rows and columns)."
+  },
+  {
+    "id": 4,
+    "question": "Which Grid function automatically fits as many columns as possible?",
+    "options": [
+      "auto-fill",
+      "auto-fit",
+      "auto-size",
+      "auto-columns"
+    ],
+    "correctAnswer": 1,
+    "explanation": "auto-fit automatically fits as many columns as possible, collapsing empty tracks. auto-fill creates columns even if they're empty."
+  },
+  {
+    "id": 5,
+    "question": "Which media query targets screens smaller than 768px?",
+    "options": [
+      "@media (min-width: 768px)",
+      "@media (max-width: 768px)",
+      "@media (width < 768px)",
+      "@media (screen: 768px)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "@media (max-width: 768px) targets screens smaller than or equal to 768px. min-width targets screens larger than the specified width."
+  },
+  {
+    "id": 6,
+    "question": "Which Flexbox property changes the direction of items?",
+    "options": [
+      "flex-direction",
+      "flex-wrap",
+      "flex-flow",
+      "flex-order"
+    ],
+    "correctAnswer": 0,
+    "explanation": "flex-direction changes the direction of flex items (row, column, row-reverse, column-reverse)."
+  },
+  {
+    "id": 7,
+    "question": "Which Grid property defines the structure of columns and rows?",
+    "options": [
+      "grid-layout",
+      "grid-template",
+      "grid-structure",
+      "grid-format"
+    ],
+    "correctAnswer": 1,
+    "explanation": "grid-template defines the structure of grid columns and rows. You can use grid-template-columns and grid-template-rows separately."
+  },
+  {
+    "id": 8,
+    "question": "Which Flexbox value makes all flex items equal width?",
+    "options": [
+      "flex: 0;",
+      "flex: 1;",
+      "flex: auto;",
+      "flex: equal;"
+    ],
+    "correctAnswer": 1,
+    "explanation": "flex: 1 makes all flex items grow equally to fill available space. This creates equal-width columns."
+  },
+  {
+    "id": 9,
+    "question": "Which Grid function sets minimum and maximum size for grid tracks?",
+    "options": [
+      "minmax()",
+      "fit-content()",
+      "auto-fit()",
+      "min-content()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "minmax(min, max) sets minimum and maximum size for grid tracks. Often used with auto-fit: repeat(auto-fit, minmax(300px, 1fr));"
+  },
+  {
+    "id": 10,
+    "question": "Which property adds space between grid or flex items?",
+    "options": [
+      "space",
+      "gap",
+      "spacing",
+      "margin-gap"
+    ],
+    "correctAnswer": 1,
+    "explanation": "gap adds space between grid or flex items. It's a shorthand for row-gap and column-gap."
+  }
+]

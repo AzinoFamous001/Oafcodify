@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
+import SuccessModal from "../../Components/shared/Successmodal";
 
 const AnimatedBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
@@ -18,16 +19,25 @@ const ContactPage = () => {
     subject: "",
     message: "",
   });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Message sent successfully! We'll get back to you soon.");
+    setShowSuccess(true);
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
     <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-hidden">
       <AnimatedBackground />
+
+      <SuccessModal
+        isOpen={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        title="Message Sent!"
+        message="Your message has been sent successfully. We'll get back to you soon."
+        buttonText="OK"
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         {/* Header */}

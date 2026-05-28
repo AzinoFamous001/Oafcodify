@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "How do you handle a button click event in React?",
+    "options": [
+      "onclick=\"handleClick()\"",
+      "onClick={handleClick}",
+      "on-click={handleClick}",
+      "onClick=\"handleClick()\""
+    ],
+    "correctAnswer": 1,
+    "explanation": "In React, you use onClick with the function reference (not calling it). The correct syntax is onClick={handleClick}."
+  },
+  {
+    "id": 2,
+    "question": "How do you access the event object in an event handler?",
+    "options": [
+      "The event is passed as the first argument",
+      "Use window.event",
+      "It's automatically available",
+      "Use this.event"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The event object is automatically passed as the first argument to your event handler function in React."
+  },
+  {
+    "id": 3,
+    "question": "What is the correct way to handle form submission in React?",
+    "options": [
+      "Use the submit event and call event.preventDefault()",
+      "Use the action attribute",
+      "Use a submit button only",
+      "Use JavaScript form.submit()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In React, you handle form submission by listening to the onSubmit event and calling event.preventDefault() to prevent the default form submission behavior."
+  },
+  {
+    "id": 4,
+    "question": "How do you get the value of an input field in React?",
+    "options": [
+      "document.getElementById('input').value",
+      "Use state to track the input value",
+      "Use the value attribute directly",
+      "Use input.value"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In React, you typically use controlled components where the input value is stored in state and updated via onChange events."
+  },
+  {
+    "id": 5,
+    "question": "What is a controlled component?",
+    "options": [
+      "A component controlled by the browser",
+      "A component where form data is handled by React state",
+      "A component with no state",
+      "A component that controls other components"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A controlled component is a form element whose value is controlled by React state, making React the single source of truth."
+  },
+  {
+    "id": 6,
+    "question": "How do you handle multiple input fields in a form?",
+    "options": [
+      "Create separate state for each input",
+      "Use a single state object with dynamic keys",
+      "Use refs for all inputs",
+      "Use uncontrolled components only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "You can handle multiple inputs by using a single state object and updating it dynamically based on the input name attribute."
+  },
+  {
+    "id": 7,
+    "question": "What does event.preventDefault() do?",
+    "options": [
+      "Prevents the event from firing",
+      "Prevents the default browser behavior",
+      "Stops event propagation",
+      "Removes the event listener"
+    ],
+    "correctAnswer": 1,
+    "explanation": "event.preventDefault() prevents the default browser behavior for an event, such as form submission or link navigation."
+  },
+  {
+    "id": 8,
+    "question": "How do you handle checkbox changes in React?",
+    "options": [
+      "Use the checked attribute and onChange",
+      "Use the value attribute only",
+      "Use the selected attribute",
+      "Use the disabled attribute"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Checkboxes use the checked attribute (not value) and the onChange event to track their state in React."
+  }
+]

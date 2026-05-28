@@ -2,32 +2,82 @@
   {
     "id": "1",
     "title": "JavaScript Fundamentals",
-    "description": "Learn the basics of JavaScript programming, including variables, data types, and core concepts.",
+    "description": "Master the fundamentals of JavaScript programming - the language that powers the interactive web. Learn what JavaScript is, how it works, variables, data types, operators, functions, and core concepts that form the foundation of modern web development.",
     "level": "Beginner",
     "duration": "45 minutes",
     "learningObjectives": [
       "Understand what JavaScript is and where it runs",
-      "Declare and use variables",
-      "Work with different data types",
-      "Use console.log for debugging",
-      "Write basic JavaScript code"
+      "Learn the difference between var, let, and const for variable declaration",
+      "Work with different data types and understand type conversion",
+      "Use console.log and debugging techniques",
+      "Write and call functions using different syntaxes",
+      "Understand scope and hoisting basics"
     ],
     "subtopics": [
       {
-        "title": "What is JavaScript?",
-        "content": "JavaScript is a programming language that makes web pages interactive. It runs in web browsers and can manipulate HTML elements.\n\n**Key Points:**\n- Client-side scripting language\n- Runs in web browsers\n- Makes websites dynamic and interactive\n- Can respond to user actions\n\n**Simple Example:**\n```javascript\nconsole.log('Hello, World!');\n```\n\nThis code displays a message in the browser console - your first JavaScript program!"
+        "title": "What is JavaScript? Introduction to the Web's Programming Language",
+        "content": "JavaScript is a versatile programming language that makes web pages interactive. It's one of the three core technologies of the World Wide Web, alongside HTML and CSS.\n\n**JavaScript is NOT Java** - Despite the similar name, they are completely different languages. JavaScript was originally named Mocha, then LiveScript, before being renamed to JavaScript for marketing reasons.\n\n**What JavaScript Does:**\n- Makes web pages interactive and dynamic\n- Responds to user actions (clicks, keystrokes, form submissions)\n- Manipulates HTML elements and CSS styles\n- Validates form data before sending to servers\n- Creates animations and visual effects\n- Communicates with servers to fetch and send data\n\n**Where JavaScript Runs:**\n- **Web Browsers**: Chrome, Firefox, Safari, Edge (client-side)\n- **Servers**: Node.js (server-side JavaScript)\n- **Mobile Apps**: React Native, Ionic\n- **Desktop Apps**: Electron (VS Code, Slack, Discord)\n- **Databases**: MongoDB (uses JavaScript)\n\n**A Simple JavaScript Program:**\n```javascript\n// This is a comment - ignored by JavaScript\nconsole.log('Hello, World!');\n```\n\nThis code displays 'Hello, World!' in the browser console - your first JavaScript program!\n\n**JavaScript Version History:**\n- ES5 (2009) - Major standardization\n- ES6/ES2015 - Modern JavaScript with let, const, arrow functions\n- ES2016-ES2022 - Annual updates with new features\n- ES2023+ - Ongoing improvements\n\n**Why Learn JavaScript?**\n- **Ubiquitous**: Runs everywhere - browsers, servers, mobile, desktop\n- **Essential**: Required for modern web development\n- **Versatile**: Can build almost anything\n- **High Demand**: One of the most sought-after skills\n- **Easy to Start**: No setup needed - runs in any browser",
+        "imageUrl": "/images/javascript-introduction.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "JavaScript is NOT the same as Java - they are completely different languages with different purposes.",
+          "JavaScript is NOT just for web browsers - it can run on servers (Node.js), mobile devices, and desktop applications.",
+          "You don't need to compile JavaScript - it's an interpreted language that runs directly in browsers.",
+          "JavaScript is NOT a weak language - it's powerful and capable of building complex applications."
+        ],
+        "realWorldAnalogy": "JavaScript is like the electrical wiring in a house. HTML provides the structure (walls, rooms), CSS provides the decoration (paint, furniture), and JavaScript provides the functionality (lights, switches, appliances that make the house interactive and useful)."
       },
       {
-        "title": "Variables and Data Types",
-        "content": "Variables store data values. JavaScript has several data types:\n\n**Basic Data Types:**\n- `let name = 'John';` // String\n- `let age = 25;` // Number\n- `let isStudent = true;` // Boolean\n- `let hobbies = ['coding', 'reading'];` // Array\n\n**Example:**\n```javascript\nlet message = 'Welcome to JavaScript!';\nconsole.log(message);\n```\n\n**Rules:**\n- Use `let` or `const` to declare variables\n- Variable names should be descriptive\n- JavaScript is dynamically typed"
+        "title": "Variables - Storing Data in JavaScript",
+        "content": "Variables are containers for storing data values. In JavaScript, you can declare variables using `var`, `let`, or `const`.\n\n**Variable Declaration Keywords:**\n\n**1. `let` (Modern, Recommended)**\n```javascript\nlet name = 'John';\nlet age = 25;\nage = 26; // Can be reassigned\n```\n- Block-scoped (only accessible within the block it's declared)\n- Can be reassigned\n- Cannot be redeclared in the same scope\n- Use for variables that will change\n\n**2. `const` (Modern, Recommended)**\n```javascript\nconst PI = 3.14159;\nconst greeting = 'Hello';\n// greeting = 'Hi'; // Error - cannot be reassigned\n```\n- Block-scoped\n- Cannot be reassigned (immutable)\n- Must be initialized when declared\n- Use for values that won't change\n\n**3. `var` (Old, Not Recommended)**\n```javascript\nvar oldWay = 'This is the old way';\n```\n- Function-scoped (can leak outside blocks)\n- Can be reassigned and redeclared\n- Can cause bugs due to hoisting\n- Avoid in modern JavaScript\n\n**Variable Naming Rules:**\n- Must start with a letter, underscore (_), or dollar sign ($)\n- Can contain letters, numbers, underscores, and dollar signs\n- Cannot start with a number\n- Cannot be a reserved keyword (let, const, function, etc.)\n- Case-sensitive (myVar and myvar are different)\n\n**Best Practices:**\n```javascript\n// Good - descriptive names\nlet userName = 'John';\nlet userAge = 25;\nlet isLoggedIn = true;\n\n// Bad - unclear names\nlet x = 'John';\nlet a = 25;\nlet b = true;\n\n// Use camelCase for multi-word names\nlet firstName = 'John';\nlet lastName = 'Doe';\nlet totalScore = 100;\n```\n\n**Complete Example:**\n```javascript\nlet userName = 'Alice';\nlet userAge = 30;\nconst MAX_SCORE = 100;\nlet currentScore = 85;\n\nconsole.log(`Player: ${userName}`);\nconsole.log(`Age: ${userAge}`);\nconsole.log(`Score: ${currentScore}/${MAX_SCORE}`);\n```",
+        "imageUrl": "/images/javascript-variables.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "var and let are the same - FALSE, var is function-scoped and can cause bugs, let is block-scoped and safer.",
+          "const variables are completely immutable - FALSE, while the reference can't change, object/array properties can still be modified.",
+          "You must always use const - FALSE, use const for values that won't change, let for values that will.",
+          "Variable names can have spaces - FALSE, use camelCase or underscores instead."
+        ],
+        "realWorldAnalogy": "Variables are like labeled boxes where you store items. let is like a box you can open and change the contents, const is like a sealed box that can't be opened once filled, and var is like an old box that sometimes leaks its contents into other rooms."
       },
       {
-        "title": "Basic Operations",
-        "content": "JavaScript supports basic math and string operations:\n\n**Math Operations:**\n```javascript\nlet sum = 10 + 5;        // 15\nlet product = 3 * 4;     // 12\nlet remainder = 10 % 3;      // 1\n```\n\n**String Operations:**\n```javascript\nlet firstName = 'John';\nlet lastName = 'Doe';\nlet fullName = firstName + ' ' + lastName; // 'John Doe'\nlet greeting = `Hello, ${firstName}!`; // 'Hello, John!'\n```\n\n**Template Literals:** Use backticks (`) for easy string formatting."
+        "title": "Data Types - The Building Blocks of JavaScript",
+        "content": "JavaScript has several built-in data types that determine what kind of data a variable can hold and what operations can be performed on it.\n\n**JavaScript Data Types:**\n\n**1. Primitive Types (Immutable):**\n\n**String** - Text data\n```javascript\nlet firstName = 'John';\nlet lastName = \"Doe\";\nlet message = `Hello, ${firstName}`; // Template literal\n```\n\n**Number** - Numeric data (integers and decimals)\n```javascript\nlet age = 25;           // Integer\nlet price = 19.99;       // Decimal\nlet pi = 3.14159;       // More precise\nlet negative = -10;      // Negative number\n```\n\n**Boolean** - True or false values\n```javascript\nlet isStudent = true;\nlet isLoggedIn = false;\nlet hasPermission = true;\n```\n\n**Undefined** - Variable declared but not assigned\n```javascript\nlet x;\nconsole.log(x); // undefined\n```\n\n**Null** - Intentional absence of value\n```javascript\nlet emptyValue = null;\n```\n\n**Symbol** - Unique identifiers (ES6+)\n```javascript\nlet sym = Symbol('description');\n```\n\n**BigInt** - Large integers (ES2020+)\n```javascript\nlet bigNumber = 9007199254740991n;\n```\n\n**2. Reference Types (Mutable):**\n\n**Array** - Ordered list of values\n```javascript\nlet colors = ['red', 'green', 'blue'];\nlet numbers = [1, 2, 3, 4, 5];\nlet mixed = ['text', 123, true, null];\n```\n\n**Object** - Key-value pairs\n```javascript\nlet person = {\n  name: 'John',\n  age: 30,\n  isStudent: true\n};\n```\n\n**Function** - Reusable code blocks\n```javascript\nlet greet = function(name) {\n  return `Hello, ${name}`;\n};\n```\n\n**Type Checking:**\n```javascript\nlet value = 'Hello';\nconsole.log(typeof value); // 'string'\n\nlet num = 42;\nconsole.log(typeof num); // 'number'\n\nlet arr = [1, 2, 3];\nconsole.log(typeof arr); // 'object' (arrays are objects)\n```\n\n**Type Conversion:**\n```javascript\n// String to Number\nlet strNum = '123';\nlet num = Number(strNum); // 123\nlet num2 = parseInt(strNum); // 123\nlet num3 = parseFloat('3.14'); // 3.14\n\n// Number to String\nlet num = 123;\nlet str = String(num); // '123'\nlet str2 = num.toString(); // '123'\n\n// Boolean Conversion\nlet value = 'Hello';\nlet bool = Boolean(value); // true\n\n// Falsy values (convert to false):\n// 0, '', null, undefined, NaN, false\n\n// Truthy values (convert to true):\n// All other values, including empty arrays and objects\n```",
+        "imageUrl": "/images/javascript-datatypes.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Arrays are a separate data type from objects - FALSE, arrays are actually a special type of object in JavaScript.",
+          "null and undefined are the same - FALSE, undefined means a variable hasn't been assigned, null means it's intentionally empty.",
+          "JavaScript has integer and float types - FALSE, JavaScript has only one Number type for all numeric values.",
+          "typeof null returns 'null' - FALSE, typeof null returns 'object' due to a historical bug in JavaScript."
+        ],
+        "realWorldAnalogy": "Data types are like different types of containers. Strings are like text documents, Numbers are like calculators, Booleans are like light switches (on/off), Arrays are like shelves with labeled boxes, and Objects are like filing cabinets with organized folders."
       },
       {
-        "title": "Functions",
-        "content": "Functions are reusable blocks of code:\n\n**Function Declaration:**\n```javascript\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Arrow function\nconst add = (a, b) => a + b;\n```\n\n**Using Functions:**\n```javascript\nlet result = greet('Alice');\nconsole.log(result); // 'Hello, Alice!'\n\nlet sum = add(5, 3);\nconsole.log(sum); // 8\n```\n\n**Benefits:**\n- Reusable code\n- Easier debugging\n- Cleaner programs"
+        "title": "Operators - Performing Calculations and Comparisons",
+        "content": "JavaScript operators are used to perform operations on variables and values. They are the symbols that tell JavaScript to perform specific actions.\n\n**Arithmetic Operators:**\n```javascript\nlet a = 10, b = 3;\n\n// Addition\nlet sum = a + b;        // 13\n\n// Subtraction\nlet diff = a - b;       // 7\n\n// Multiplication\nlet product = a * b;    // 30\n\n// Division\nlet quotient = a / b;   // 3.333...\n\n// Modulus (remainder)\nlet remainder = a % b;  // 1\n\n// Exponentiation\nlet power = a ** b;     // 1000\n\n// Increment\nlet x = 5;\nx++;                  // x = 6 (post-increment)\n++x;                  // x = 7 (pre-increment)\n\n// Decrement\nlet y = 5;\ny--;                  // y = 4 (post-decrement)\n--y;                  // y = 3 (pre-decrement)\n```\n\n**Assignment Operators:**\n```javascript\nlet x = 10;\n\nx = 20;           // Simple assignment\nx += 5;           // x = x + 5  → 25\nx -= 3;           // x = x - 3  → 22\nx *= 2;           // x = x * 2  → 44\nx /= 4;           // x = x / 4  → 11\nx %= 3;           // x = x % 3  → 2\nx **= 2;          // x = x ** 2 → 4\n```\n\n**Comparison Operators:**\n```javascript\nlet a = 5, b = 10;\n\n// Equal (value only)\na == b;           // false\n'5' == 5;         // true (type coercion)\n\n// Not equal (value only)\na != b;           // true\n'5' != 5;         // false\n\n// Strict equal (value and type)\na === b;          // false\n'5' === 5;        // false\n\n// Strict not equal\na !== b;          // true\n'5' !== 5;        // true\n\n// Greater than\na > b;            // false\n\n// Less than\na < b;            // true\n\n// Greater than or equal\na >= b;           // false\n\n// Less than or equal\na <= b;           // true\n```\n\n**Logical Operators:**\n```javascript\nlet a = true, b = false;\n\n// AND (returns true if both are true)\na && b;           // false\ntrue && true;     // true\ntrue && false;    // false\n\n// OR (returns true if at least one is true)\na || b;           // true\ntrue || false;    // true\nfalse || false;   // false\n\n// NOT (reverses the boolean)\n!a;               // false\n!b;               // true\n```\n\n**String Operators:**\n```javascript\n// Concatenation\nlet firstName = 'John';\nlet lastName = 'Doe';\nlet fullName = firstName + ' ' + lastName; // 'John Doe'\n\n// Template literals (modern)\nlet greeting = `Hello, ${firstName}!`; // 'Hello, John!'\n\n// String comparison\nlet a = 'apple';\nlet b = 'banana';\na < b;            // true (alphabetical order)\n```\n\n**Ternary Operator (Conditional):**\n```javascript\nlet age = 18;\nlet canVote = age >= 18 ? 'Yes' : 'No';\nconsole.log(canVote); // 'Yes'\n\n// Equivalent to if-else:\nlet canVote;\nif (age >= 18) {\n  canVote = 'Yes';\n} else {\n  canVote = 'No';\n}\n```",
+        "imageUrl": "/images/javascript-operators.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "== and === are the same - FALSE, == compares values only (with type coercion), === compares both value and type.",
+          "The increment operator (++) always adds 1 - TRUE, but pre-increment (++x) and post-increment (x++) have different behaviors in expressions.",
+          "String addition and number addition are the same - FALSE, + with strings concatenates, with numbers adds.",
+          "Logical operators only work with booleans - FALSE, they work with any values using truthy/falsy evaluation."
+        ],
+        "realWorldAnalogy": "Operators are like mathematical symbols and comparison words. Arithmetic operators are like calculator buttons (+, -, ×, ÷), comparison operators are like comparison words (greater than, less than, equal to), and logical operators are like combining conditions (and, or, not)."
+      },
+      {
+        "title": "Functions - Reusable Code Blocks",
+        "content": "Functions are reusable blocks of code that perform a specific task. They are fundamental to JavaScript programming and help organize code, avoid repetition, and make programs more maintainable.\n\n**Why Use Functions?**\n- **Reusability**: Write code once, use it multiple times\n- **Organization**: Break complex problems into smaller pieces\n- **Maintainability**: Easier to debug and update\n- **Readability**: Makes code more understandable\n\n**Function Declaration:**\n```javascript\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// Calling the function\nconsole.log(greet('Alice')); // 'Hello, Alice!'\nconsole.log(greet('Bob'));   // 'Hello, Bob!'\n```\n\n**Function Expression:**\n```javascript\nconst greet = function(name) {\n  return `Hello, ${name}!`;\n};\n\nconsole.log(greet('Charlie')); // 'Hello, Charlie!'\n```\n\n**Arrow Functions (ES6, Modern):**\n```javascript\n// Simple arrow function\nconst greet = (name) => {\n  return `Hello, ${name}!`;\n};\n\n// Arrow function with implicit return\nconst greet = (name) => `Hello, ${name}!`;\n\n// Arrow function with single parameter (parentheses optional)\nconst greet = name => `Hello, ${name}!`;\n\n// Arrow function with no parameters\nconst sayHello = () => 'Hello!';\n```\n\n**Function Parameters:**\n```javascript\n// Multiple parameters\nfunction add(a, b) {\n  return a + b;\n}\n\nconsole.log(add(5, 3)); // 8\n\n// Default parameters (ES6)\nfunction greet(name = 'Guest') {\n  return `Hello, ${name}!`;\n}\n\nconsole.log(greet());        // 'Hello, Guest!'\nconsole.log(greet('Alice')); // 'Hello, Alice!'\n```\n\n**Return Values:**\n```javascript\n// Function with return value\nfunction multiply(a, b) {\n  return a * b;\n}\n\nlet result = multiply(4, 5);\nconsole.log(result); // 20\n\n// Function without return (returns undefined)\nfunction logMessage(message) {\n  console.log(message);\n}\n\nlet value = logMessage('Hello');\nconsole.log(value); // undefined\n```\n\n**Function Scope:**\n```javascript\nlet globalVar = 'I am global';\n\nfunction myFunction() {\n  let localVar = 'I am local';\n  console.log(globalVar); // Accessible\n  console.log(localVar);  // Accessible\n}\n\nmyFunction();\nconsole.log(globalVar); // Accessible\n// console.log(localVar); // Error - not accessible outside function\n```\n\n**Complete Example:**\n```javascript\n// Calculate area of different shapes\nfunction calculateRectangleArea(width, height) {\n  return width * height;\n}\n\nfunction calculateCircleArea(radius) {\n  return Math.PI * radius * radius;\n}\n\nfunction calculateTriangleArea(base, height) {\n  return 0.5 * base * height;\n}\n\n// Using the functions\nconsole.log('Rectangle:', calculateRectangleArea(5, 3));\nconsole.log('Circle:', calculateCircleArea(4));\nconsole.log('Triangle:', calculateTriangleArea(6, 4));\n```",
+        "imageUrl": "/images/javascript-functions.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Function declarations and function expressions are the same - FALSE, declarations are hoisted (can be called before definition), expressions are not.",
+          "Arrow functions are just shorter syntax - FALSE, they also have different behavior with 'this' keyword and cannot be used as constructors.",
+          "Functions must always return a value - FALSE, functions without return statements return undefined.",
+          "Parameters and arguments are the same - FALSE, parameters are variables in the function definition, arguments are the actual values passed when calling."
+        ],
+        "realWorldAnalogy": "Functions are like recipes. You write the recipe once (define the function), then you can use it multiple times (call the function) with different ingredients (parameters) to produce different results (return values). Just as a recipe for cookies can be used to make chocolate chip, oatmeal, or sugar cookies by changing the ingredients."
       }
     ],
     "resources": {
@@ -37,36 +87,114 @@
           "name": "Browser Developer Tools",
           "url": "https://developer.chrome.com/docs/devtools/",
           "free": true,
-          "reason": "Built-in debugging tools for JavaScript"
+          "reason": "Built-in debugging tools for JavaScript - press F12 in any browser"
         },
         {
           "name": "VS Code",
           "url": "https://code.visualstudio.com/",
           "free": true,
-          "reason": "Best code editor for JavaScript development"
+          "reason": "Best free code editor with excellent JavaScript support and extensions"
+        },
+        {
+          "name": "CodePen",
+          "url": "https://codepen.io/pen/",
+          "free": true,
+          "reason": "Online code editor to practice JavaScript instantly in your browser"
+        },
+        {
+          "name": "JSFiddle",
+          "url": "https://jsfiddle.net/",
+          "free": true,
+          "reason": "Online playground for testing JavaScript code snippets"
         }
       ],
       "furtherReading": [
-        "MDN Web Docs: JavaScript Guide",
-        "JavaScript.info - Online reference"
+        "MDN Web Docs: JavaScript Guide (free, comprehensive)",
+        "JavaScript.info - Modern JavaScript Tutorial (free, detailed)",
+        "Eloquent JavaScript by Marijn Haverbeke (free online book)",
+        "W3Schools JavaScript Tutorial (free, beginner-friendly)"
       ]
     },
     "glossary": [
       {
         "term": "Variable",
-        "definition": "A container for storing data values that can change during program execution."
+        "definition": "A named storage location in memory that holds a value which can change during program execution."
+      },
+      {
+        "term": "let",
+        "definition": "A modern keyword for declaring variables that can be reassigned, with block scope."
+      },
+      {
+        "term": "const",
+        "definition": "A modern keyword for declaring variables that cannot be reassigned, with block scope."
+      },
+      {
+        "term": "var",
+        "definition": "An older keyword for declaring variables with function scope, generally avoided in modern JavaScript."
+      },
+      {
+        "term": "Data Type",
+        "definition": "The classification of data that determines what operations can be performed on it (string, number, boolean, etc.)."
+      },
+      {
+        "term": "Primitive Type",
+        "definition": "Basic data types that are immutable (cannot be changed) - string, number, boolean, null, undefined, symbol, bigint."
+      },
+      {
+        "term": "Reference Type",
+        "definition": "Data types that store references to memory locations - objects, arrays, functions."
+      },
+      {
+        "term": "Type Coercion",
+        "definition": "Automatic or implicit conversion of values from one data type to another."
+      },
+      {
+        "term": "Operator",
+        "definition": "A symbol that performs an operation on one or more operands (e.g., +, -, *, /, =, ==, ===)."
       },
       {
         "term": "Function",
-        "definition": "A reusable block of code that performs a specific task and can be called multiple times."
+        "definition": "A reusable block of code that performs a specific task and can be called multiple times with different arguments."
       },
       {
-        "term": "Console",
-        "definition": "A developer tool in browsers for logging messages and debugging JavaScript code."
+        "term": "Parameter",
+        "definition": "A variable listed in the function definition that receives values when the function is called."
+      },
+      {
+        "term": "Argument",
+        "definition": "The actual value passed to a function when it is called."
+      },
+      {
+        "term": "Return Value",
+        "definition": "The value that a function sends back after completing its execution."
+      },
+      {
+        "term": "Scope",
+        "definition": "The context in which variables are declared and can be accessed (global scope, function scope, block scope)."
+      },
+      {
+        "term": "Hoisting",
+        "definition": "JavaScript's behavior of moving function and variable declarations to the top of their scope before code execution."
+      },
+      {
+        "term": "Arrow Function",
+        "definition": "A concise syntax for writing functions introduced in ES6, using the => notation."
       },
       {
         "term": "Template Literal",
-        "definition": "A string created using backticks (`) that allows embedded expressions and variables."
+        "definition": "A string enclosed in backticks (`) that allows embedded expressions and multi-line strings."
+      },
+      {
+        "term": "Console",
+        "definition": "A developer tool in browsers for logging messages, debugging, and inspecting JavaScript code."
+      },
+      {
+        "term": "Truthy",
+        "definition": "Values that evaluate to true in a boolean context (all values except: false, 0, '', null, undefined, NaN)."
+      },
+      {
+        "term": "Falsy",
+        "definition": "Values that evaluate to false in a boolean context (false, 0, '', null, undefined, NaN)."
       }
     ]
   }

@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "How do you handle exceptions in Python?",
+    "options": [
+      "try/except",
+      "if/else",
+      "catch/finally",
+      "error/handle"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python uses try/except blocks to handle exceptions. Code that might raise an exception goes in the try block, and handling code goes in the except block."
+  },
+  {
+    "id": 2,
+    "question": "What keyword is used to raise an exception manually?",
+    "options": [
+      "throw",
+      "raise",
+      "error",
+      "except"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The raise keyword is used to manually raise an exception in Python, e.g., raise ValueError('Invalid value')."
+  },
+  {
+    "id": 3,
+    "question": "What does the finally block do?",
+    "options": [
+      "Runs only if an exception occurs",
+      "Runs only if no exception occurs",
+      "Always runs regardless of exceptions",
+      "Never runs"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The finally block always executes, whether an exception occurred or not. It's typically used for cleanup operations."
+  },
+  {
+    "id": 4,
+    "question": "How do you catch a specific exception type?",
+    "options": [
+      "except Exception:",
+      "except ValueError:",
+      "catch ValueError:",
+      "error ValueError:"
+    ],
+    "correctAnswer": 1,
+    "explanation": "You can catch specific exception types by specifying them after the except keyword, e.g., except ValueError:"
+  },
+  {
+    "id": 5,
+    "question": "What is the purpose of debugging?",
+    "options": [
+      "To write code faster",
+      "To find and fix errors in code",
+      "To make code prettier",
+      "To delete code"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Debugging is the process of identifying, isolating, and fixing errors or bugs in computer code."
+  },
+  {
+    "id": 6,
+    "question": "How do you print debug information in Python?",
+    "options": [
+      "console.log()",
+      "print()",
+      "debug()",
+      "log()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The print() function is commonly used to output debug information in Python during development."
+  },
+  {
+    "id": 7,
+    "question": "What is a syntax error?",
+    "options": [
+      "An error that occurs during runtime",
+      "An error in the code structure that prevents execution",
+      "A logical error in the program",
+      "A warning message"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A syntax error occurs when the code violates the rules of the Python language, preventing it from being parsed and executed."
+  },
+  {
+    "id": 8,
+    "question": "How do you use the Python debugger?",
+    "options": [
+      "debugger",
+      "pdb",
+      "debug",
+      "breakpoint"
+    ],
+    "correctAnswer": 1,
+    "explanation": "pdb (Python Debugger) is the standard debugger module in Python. You can use it by importing pdb and calling pdb.set_trace()."
+  }
+]

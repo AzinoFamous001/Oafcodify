@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What is a function in C++?",
+    "options": [
+      "A variable",
+      "A reusable block of code",
+      "A loop",
+      "A class"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A function is a reusable block of code that performs a specific task. It helps organize code and avoid repetition."
+  },
+  {
+    "id": 2,
+    "question": "Which keyword indicates a function returns no value?",
+    "options": [
+      "null",
+      "void",
+      "empty",
+      "none"
+    ],
+    "correctAnswer": 1,
+    "explanation": "void indicates a function returns no value. Functions with other return types must return a value of that type."
+  },
+  {
+    "id": 3,
+    "question": "How do you declare an array in C++?",
+    "options": [
+      "array numbers[5];",
+      "int numbers[5];",
+      "int numbers = [5];",
+      "numbers = int[5];"
+    ],
+    "correctAnswer": 1,
+    "explanation": "int numbers[5]; declares an array of 5 integers. You must specify the type and size."
+  },
+  {
+    "id": 4,
+    "question": "What is function overloading?",
+    "options": [
+      "Calling a function multiple times",
+      "Multiple functions with the same name but different parameters",
+      "A function that calls itself",
+      "Loading functions from a library"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Function overloading allows multiple functions with the same name but different parameter lists (type, number, or order)."
+  },
+  {
+    "id": 5,
+    "question": "How do you access the first element of an array?",
+    "options": [
+      "array.first",
+      "array[0]",
+      "array[1]",
+      "array.first()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are zero-indexed, so array[0] accesses the first element."
+  },
+  {
+    "id": 6,
+    "question": "What is a default parameter in a function?",
+    "options": [
+      "A parameter with no value",
+      "A parameter with a predefined value",
+      "The first parameter",
+      "The last parameter"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A default parameter has a predefined value that is used if no argument is provided when calling the function."
+  },
+  {
+    "id": 7,
+    "question": "How do you calculate the size of an array?",
+    "options": [
+      "array.size()",
+      "sizeof(array) / sizeof(array[0])",
+      "array.length",
+      "length(array)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "sizeof(array) / sizeof(array[0]) calculates the number of elements in an array."
+  },
+  {
+    "id": 8,
+    "question": "What is a 2D array?",
+    "options": [
+      "An array with two elements",
+      "An array of arrays (matrix)",
+      "Two separate arrays",
+      "An array with double values"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A 2D array is an array of arrays, like a matrix with rows and columns."
+  },
+  {
+    "id": 9,
+    "question": "How are arrays passed to functions?",
+    "options": [
+      "By value",
+      "By reference",
+      "By pointer",
+      "By copy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are passed by reference in C++, meaning modifications in the function affect the original array."
+  },
+  {
+    "id": 10,
+    "question": "What is the range-based for loop syntax?",
+    "options": [
+      "for (int i in array)",
+      "for (int i : array)",
+      "for (array : int i)",
+      "for each (int i in array)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "for (int i : array) is the range-based for loop syntax introduced in C++11."
+  }
+]

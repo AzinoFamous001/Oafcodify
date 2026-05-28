@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What is a class in C++?",
+    "options": [
+      "A function",
+      "A blueprint for creating objects",
+      "A variable",
+      "A loop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A class is a blueprint or template for creating objects. It defines properties and behaviors."
+  },
+  {
+    "id": 2,
+    "question": "What is an object?",
+    "options": [
+      "A class definition",
+      "An instance of a class",
+      "A function",
+      "A variable"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An object is an instance of a class. It has its own state and behavior based on the class definition."
+  },
+  {
+    "id": 3,
+    "question": "What is a constructor?",
+    "options": [
+      "A function that destroys objects",
+      "A special member function that initializes objects",
+      "A regular member function",
+      "A static function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A constructor is a special member function that initializes objects when they are created."
+  },
+  {
+    "id": 4,
+    "question": "What access modifier makes members accessible only within the class?",
+    "options": [
+      "public",
+      "private",
+      "protected",
+      "internal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "private makes members accessible only within the class. public makes them accessible from anywhere."
+  },
+  {
+    "id": 5,
+    "question": "What is inheritance?",
+    "options": [
+      "Creating a new class from an existing class",
+      "Copying a class",
+      "Deleting a class",
+      "Modifying a class"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Inheritance allows creating a new class (derived) from an existing class (base), inheriting its properties and methods."
+  },
+  {
+    "id": 6,
+    "question": "What keyword is used for inheritance?",
+    "options": [
+      "inherits",
+      "extends",
+      ":",
+      "from"
+    ],
+    "correctAnswer": 2,
+    "explanation": ": is used for inheritance in C++ (class Derived : public Base)."
+  },
+  {
+    "id": 7,
+    "question": "What is polymorphism?",
+    "options": [
+      "Having multiple classes",
+      "Different classes responding to the same method differently",
+      "Creating multiple objects",
+      "Using multiple constructors"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Polymorphism allows different classes to respond to the same method call in different ways."
+  },
+  {
+    "id": 8,
+    "question": "What keyword makes a function overridable in derived classes?",
+    "options": [
+      "override",
+      "virtual",
+      "abstract",
+      "dynamic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "virtual makes a function overridable in derived classes. override is used in the derived class to indicate overriding."
+  },
+  {
+    "id": 9,
+    "question": "What is a destructor?",
+    "options": [
+      "A function that creates objects",
+      "A special member function that cleans up when objects are destroyed",
+      "A regular member function",
+      "A static function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A destructor is a special member function (~ClassName()) that cleans up when an object is destroyed."
+  },
+  {
+    "id": 10,
+    "question": "What STL container is a dynamic array?",
+    "options": [
+      "list",
+      "map",
+      "vector",
+      "set"
+    ],
+    "correctAnswer": 2,
+    "explanation": "vector is a dynamic array in the STL that can grow and shrink in size."
+  }
+]

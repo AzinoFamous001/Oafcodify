@@ -2,32 +2,95 @@
   {
     "id": "2",
     "title": "DOM Manipulation & Events",
-    "description": "Learn how to interact with HTML elements using JavaScript DOM manipulation and handle user events.",
+    "description": "Master the art of making web pages interactive through DOM manipulation and event handling. Learn how to select, modify, create, and remove HTML elements dynamically, and respond to user interactions like clicks, form submissions, and keyboard events - the core skills for building modern, interactive web applications.",
     "level": "Beginner",
     "duration": "50 minutes",
     "learningObjectives": [
-      "Select HTML elements with JavaScript",
-      "Modify element content and styles",
-      "Handle user interactions and events",
-      "Use event listeners effectively",
-      "Create dynamic web page updates"
+      "Understand the Document Object Model (DOM) and its structure",
+      "Select HTML elements using various JavaScript methods",
+      "Modify element content, attributes, and styles programmatically",
+      "Handle user interactions with event listeners and event objects",
+      "Create, append, and remove DOM elements dynamically",
+      "Implement event delegation for efficient event handling"
     ],
     "subtopics": [
       {
-        "title": "Selecting Elements",
-        "content": "Use JavaScript to select and manipulate HTML elements:\n\n**Common Selection Methods:**\n- `document.getElementById('id')` - Select by ID\n- `document.querySelector('.class')` - Select by CSS class\n- `document.querySelectorAll('div')` - Select multiple elements\n\n**Example:**\n```javascript\n// Select element by ID\nconst title = document.getElementById('pageTitle');\ntitle.textContent = 'New Title';\n\n// Select by class\nconst buttons = document.querySelectorAll('.btn');\nbuttons.forEach(btn => {\n  btn.style.backgroundColor = 'blue';\n});\n```\n\n**Best Practice:**\n- Store selected elements in variables for reuse\n- Use specific selectors for better performance"
+        "title": "Understanding the DOM - The Browser's Representation of Your Page",
+        "content": "The Document Object Model (DOM) is a programming interface for HTML and XML documents. It represents the page so that programs can change the document structure, style, and content.\n\n**What is the DOM?**\n- A tree-like structure of HTML elements\n- JavaScript's way of interacting with HTML\n- Created by the browser when a page loads\n- Allows JavaScript to access and modify page content\n\n**DOM Tree Structure:**\n```\nDocument\n├── html\n│   ├── head\n│   │   ├── title\n│   │   └── meta\n│   └── body\n│       ├── header\n│       │   └── h1\n│       ├── main\n│       │   ├── p\n│       │   └── div\n│       └── footer\n```\n\n**Key DOM Concepts:**\n- **Document**: The root of the DOM tree\n- **Element**: HTML tags (div, p, h1, etc.)\n- **Node**: Any point in the DOM tree (elements, text, comments)\n- **Attribute**: Properties of elements (id, class, href)\n\n**Why DOM Matters:**\n- Enables dynamic content updates without page reloads\n- Allows user interaction and responsiveness\n- Foundation for all modern web applications\n- Essential for frameworks like React, Vue, Angular\n\n**Accessing the DOM:**\n```javascript\n// The document object is your entry point\nconsole.log(document); // The entire document\nconsole.log(document.documentElement); // The <html> element\nconsole.log(document.body); // The <body> element\nconsole.log(document.head); // The <head> element\n```",
+        "imageUrl": "/images/javascript-dom-tree.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "The DOM is the same as HTML - FALSE, the DOM is JavaScript's representation of HTML, created by the browser.",
+          "DOM changes automatically update the HTML file - FALSE, DOM changes only affect the current page in memory, not the source file.",
+          "The DOM is only for JavaScript - FALSE, other languages can also manipulate the DOM, but JavaScript is most common.",
+          "DOM operations are always fast - FALSE, excessive DOM manipulation can cause performance issues."
+        ],
+        "realWorldAnalogy": "The DOM is like a live, interactive blueprint of a house. HTML is the static blueprint on paper, but the DOM is the 3D model you can walk through and modify in real-time. You can move walls (elements), change paint colors (styles), and add furniture (content) without redrawing the entire blueprint."
       },
       {
-        "title": "Modifying Content",
-        "content": "Change element content and styles:\n\n**Content Properties:**\n- `.textContent` - Text content\n- `.innerHTML` - HTML content (use carefully)\n- `.value` - Form input values\n\n**Style Properties:**\n- `.style.color = 'red'`\n- `.style.backgroundColor = '#f0f0f0'`\n- `.style.fontSize = '18px'`\n\n**Example:**\n```javascript\nconst message = document.getElementById('message');\nmessage.textContent = 'Hello World!';\nmessage.style.color = 'blue';\nmessage.style.fontSize = '24px';\n```\n\n**Security Note:**\n- Avoid innerHTML with user input\n- Sanitize content when possible"
+        "title": "Selecting DOM Elements - Finding What You Want to Change",
+        "content": "Before you can manipulate elements, you need to select them. JavaScript provides several methods for selecting DOM elements, each with different use cases.\n\n**Selection Methods:**\n\n**1. getElementById()** - Fastest, selects by unique ID\n```javascript\nconst title = document.getElementById('pageTitle');\nconsole.log(title); // Returns the element or null\n```\n- Returns a single element\n- Very fast (direct lookup)\n- ID must be unique in the document\n- Most commonly used method\n\n**2. getElementsByClassName()** - Selects by class name\n```javascript\nconst buttons = document.getElementsByClassName('btn');\nconsole.log(buttons); // Returns HTMLCollection (array-like)\nconsole.log(buttons[0]); // Access first element\n```\n- Returns multiple elements (HTMLCollection)\n- Live collection (updates automatically)\n- Can access by index\n\n**3. getElementsByTagName()** - Selects by tag name\n```javascript\nconst paragraphs = document.getElementsByTagName('p');\nconsole.log(paragraphs.length); // Number of <p> elements\n```\n- Returns all elements with specified tag\n- Useful for bulk operations\n- Returns HTMLCollection\n\n**4. querySelector()** - Modern, flexible CSS selector\n```javascript\nconst firstButton = document.querySelector('.btn');\nconst header = document.querySelector('#header');\nconst activeLink = document.querySelector('a.active');\n```\n- Returns first matching element\n- Supports any CSS selector\n- More flexible but slightly slower\n- Modern approach (IE9+)\n\n**5. querySelectorAll()** - Selects all matching elements\n```javascript\nconst allButtons = document.querySelectorAll('.btn');\nconst allLinks = document.querySelectorAll('a');\nconst specificDivs = document.querySelectorAll('div.highlight');\n```\n- Returns NodeList (array-like)\n- Static collection (doesn't auto-update)\n- Supports any CSS selector\n- Can use forEach() directly\n\n**Selection Best Practices:**\n```javascript\n// Good - Store selections in variables\nconst mainTitle = document.getElementById('mainTitle');\nconst allButtons = document.querySelectorAll('.btn');\n\n// Good - Use specific selectors\nconst submitButton = document.querySelector('#submit-btn');\nconst activeItems = document.querySelectorAll('.item.active');\n\n// Bad - Repeated selections (slow)\nfor (let i = 0; i < 10; i++) {\n  document.getElementById('title').style.color = 'red';\n}\n\n// Good - Select once, reuse\nconst title = document.getElementById('title');\nfor (let i = 0; i < 10; i++) {\n  title.style.color = 'red';\n}\n```\n\n**Complete Example:**\n```javascript\n// Select different elements\nconst header = document.getElementById('header');\nconst buttons = document.querySelectorAll('.btn');\nconst firstParagraph = document.querySelector('p');\nconst allImages = document.getElementsByTagName('img');\n\n// Check if element exists\nif (header) {\n  console.log('Header found!');\n  header.style.color = 'blue';\n}\n\n// Loop through multiple elements\nbuttons.forEach(button => {\n  button.addEventListener('click', () => {\n    console.log('Button clicked!');\n  });\n});\n```",
+        "imageUrl": "/images/javascript-selecting-elements.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "getElementById and querySelector('#id') are the same - FALSE, getElementById is faster and only works with IDs.",
+          "querySelectorAll returns an array - FALSE, it returns a NodeList which is array-like but not a true array.",
+          "getElementsByClassName returns an array - FALSE, it returns an HTMLCollection which is live (updates automatically).",
+          "You should always use querySelector - FALSE, getElementById is faster for ID selection."
+        ],
+        "realWorldAnalogy": "Selecting DOM elements is like using a library catalog. getElementById is like looking up a book by its unique ISBN number (fastest), getElementsByClassName is like finding all books in a specific section, and querySelector is like using a powerful search engine that can find books by any criteria (author, title, genre, etc.)."
       },
       {
-        "title": "Event Handling",
-        "content": "Respond to user actions:\n\n**Common Events:**\n- `click` - Mouse click\n- `submit` - Form submission\n- `keydown` - Keyboard press\n- `mouseover` - Mouse hover\n\n**Event Listeners:**\n```javascript\nconst button = document.getElementById('myButton');\nbutton.addEventListener('click', function() {\n  alert('Button clicked!');\n});\n\n// Arrow function\nbutton.addEventListener('click', () => {\n  console.log('Clicked!');\n});\n```\n\n**Event Object:**\n```javascript\nfunction handleClick(event) {\n  console.log('Target:', event.target);\n  event.preventDefault(); // Stop default action\n}\n```\n\n**Best Practice:**\n- Use specific event types\n- Remove event listeners when no longer needed\n- Use event delegation for multiple elements"
+        "title": "Modifying Element Content - Changing What Users See",
+        "content": "Once you've selected an element, you can modify its content, attributes, and styles. JavaScript provides multiple properties and methods for these operations.\n\n**Content Modification:**\n\n**textContent** - Text content only (safe)\n```javascript\nconst paragraph = document.getElementById('message');\nparagraph.textContent = 'Hello, World!';\n\n// Get text content\nconsole.log(paragraph.textContent);\n\n// textContent ignores HTML tags\nparagraph.textContent = '<strong>Bold</strong>'; // Shows as literal text\n```\n- Sets or gets text content\n- Safe from XSS attacks\n- Ignores HTML tags\n- Faster than innerHTML\n\n**innerHTML** - HTML content (use with caution)\n```javascript\nconst container = document.getElementById('container');\ncontainer.innerHTML = '<p>New paragraph</p><button>Click me</button>';\n\n// Get HTML content\nconsole.log(container.innerHTML);\n```\n- Sets or gets HTML content\n- Can insert HTML tags\n- XSS vulnerability risk with user input\n- Slower than textContent\n\n**outerHTML** - Element plus its content\n```javascript\nconst div = document.getElementById('myDiv');\ndiv.outerHTML = '<section>New section</section>';\n// Replaces the entire div element\n```\n\n**Form Values:**\n```javascript\nconst input = document.getElementById('username');\nconst textarea = document.getElementById('message');\nconst select = document.getElementById('country');\n\n// Get values\nconsole.log(input.value);\nconsole.log(textarea.value);\nconsole.log(select.value);\n\n// Set values\ninput.value = 'JohnDoe';\ntextarea.value = 'Hello there!';\nselect.value = 'USA';\n```\n\n**Attribute Modification:**\n```javascript\nconst image = document.getElementById('myImage');\nconst link = document.getElementById('myLink');\n\n// Get attributes\nconsole.log(image.src);\nconsole.log(link.href);\nconsole.log(image.alt);\n\n// Set attributes\nimage.src = 'new-image.jpg';\nimage.alt = 'A beautiful sunset';\nlink.href = 'https://example.com';\nlink.target = '_blank';\n\n// Using setAttribute and getAttribute\nimage.setAttribute('src', 'new-image.jpg');\nimage.setAttribute('alt', 'Description');\nconsole.log(image.getAttribute('src'));\n\n// Remove attribute\nimage.removeAttribute('title');\n\n// Check if attribute exists\nif (image.hasAttribute('alt')) {\n  console.log('Alt text exists');\n}\n```\n\n**Class Manipulation:**\n```javascript\nconst element = document.getElementById('myElement');\n\n// Add class\nelement.classList.add('highlight');\nelement.classList.add('active', 'featured'); // Multiple classes\n\n// Remove class\nelement.classList.remove('highlight');\nelement.classList.remove('active', 'featured');\n\n// Toggle class (add if absent, remove if present)\nelement.classList.toggle('active');\n\n// Check if class exists\nif (element.classList.contains('highlight')) {\n  console.log('Element has highlight class');\n}\n\n// Replace class\nelement.classList.replace('old-class', 'new-class');\n\n// Get all classes\nconsole.log(element.classList); // DOMTokenList\nconsole.log(element.className); // String of all classes\n```\n\n**Complete Example:**\n```javascript\nconst card = document.getElementById('userCard');\n\n// Modify content\ncard.querySelector('.name').textContent = 'John Doe';\ncard.querySelector('.email').textContent = 'john@example.com';\n\n// Modify attributes\ncard.querySelector('img').src = 'john.jpg';\ncard.querySelector('img').alt = 'Profile picture of John Doe';\n\n// Modify classes\ncard.classList.add('active');\ncard.classList.remove('hidden');\n\n// Modify styles\ncard.style.backgroundColor = '#f0f0f0';\ncard.style.padding = '20px';\ncard.style.borderRadius = '10px';\n```",
+        "imageUrl": "/images/javascript-modifying-content.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "textContent and innerHTML are interchangeable - FALSE, textContent is safer and faster, innerHTML can execute malicious code.",
+          "className and classList are the same - FALSE, className is a string, classList provides methods for manipulating classes.",
+          "setAttribute is always better than direct property access - FALSE, direct property access (element.src) is often more convenient.",
+          "innerHTML is the only way to modify content - FALSE, textContent, value, and other properties are often safer and more appropriate."
+        ],
+        "realWorldAnalogy": "Modifying element content is like editing a document. textContent is like using a typewriter (safe, text only), innerHTML is like using a word processor with formatting (powerful but can be dangerous), and attributes are like document properties (author, date, version) that you can change without affecting the content."
       },
       {
-        "title": "Dynamic Updates",
-        "content": "Create interactive and responsive pages:\n\n**Creating Elements:**\n```javascript\nconst newDiv = document.createElement('div');\nnewDiv.textContent = 'Dynamic content';\nnewDiv.className = 'highlight';\ndocument.body.appendChild(newDiv);\n```\n\n**Removing Elements:**\n```javascript\nconst element = document.getElementById('removeMe');\nelement.remove(); // Modern and simple\n```\n\n**Template Literals:**\n```javascript\nconst userCard = `\n  <div class='card'>\n    <h3>${name}</h3>\n    <p>${email}</p>\n  </div>\n`;\ndocument.getElementById('container').innerHTML = userCard;\n```\n\n**Performance Tips:**\n- Use document fragments for multiple updates\n- Batch DOM operations when possible"
+        "title": "Modifying Styles - Changing the Look and Feel",
+        "content": "JavaScript can dynamically change CSS styles, allowing you to create interactive and responsive user interfaces. There are multiple ways to apply styles programmatically.\n\n**Inline Styles (style property):**\n```javascript\nconst element = document.getElementById('myElement');\n\n// Set individual styles\nelement.style.color = 'red';\nelement.style.backgroundColor = 'blue';\nelement.style.fontSize = '20px';\nelement.style.padding = '10px';\nelement.style.borderRadius = '5px';\n\n// CSS properties use camelCase in JavaScript\n// background-color → backgroundColor\n// font-size → fontSize\n// border-radius → borderRadius\n```\n- Directly modifies element's style attribute\n- Highest specificity (hard to override)\n- Not recommended for large style changes\n- Good for dynamic, one-off changes\n\n**Getting Computed Styles:**\n```javascript\nconst element = document.getElementById('myElement');\n\n// Get computed styles (all applied styles)\nconst computedStyle = window.getComputedStyle(element);\nconsole.log(computedStyle.color);\nconsole.log(computedStyle.fontSize);\nconsole.log(computedStyle.backgroundColor);\n```\n- Returns all styles actually applied to element\n- Includes inherited and default styles\n- Read-only (cannot modify)\n- Useful for debugging and calculations\n\n**Class-Based Styling (Recommended):**\n```javascript\nconst element = document.getElementById('myElement');\n\n// Add pre-defined class\nelement.classList.add('highlight');\nelement.classList.add('error');\nelement.classList.remove('normal');\n\n// Toggle class based on condition\nif (isValid) {\n  element.classList.add('success');\n  element.classList.remove('error');\n}\n```\n- Best practice for most cases\n- Separates concerns (CSS in stylesheets)\n- Easier to maintain\n- Supports hover, active, media queries\n\n**CSS Variables (Custom Properties):**\n```javascript\n// Set CSS variable\ndocument.documentElement.style.setProperty('--primary-color', '#3498db');\ndocument.documentElement.style.setProperty('--font-size', '16px');\n\n// Get CSS variable\nconst primaryColor = getComputedStyle(document.documentElement)\n  .getPropertyValue('--primary-color');\n```\n- Modern approach for theming\n- Can be updated dynamically\n- Affects all elements using the variable\n- Great for dark mode, color themes\n\n**Complete Example:**\n```javascript\nconst button = document.getElementById('actionButton');\nconst card = document.getElementById('infoCard');\n\n// Inline styles for dynamic values\nbutton.style.transform = 'scale(1.1)';\nbutton.style.opacity = '0.8';\n\n// Class-based for structural changes\ncard.classList.add('highlight');\ncard.classList.remove('hidden');\n\n// CSS variables for theming\ndocument.documentElement.style.setProperty('--accent-color', '#e74c3c');\n\n// Get computed values for calculations\nconst cardWidth = parseInt(window.getComputedStyle(card).width);\nconsole.log(`Card width: ${cardWidth}px`);\n```",
+        "imageUrl": "/images/javascript-modifying-styles.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "Inline styles are the best way to style elements - FALSE, class-based styling is better for maintainability and separation of concerns.",
+          "CSS property names are the same in JavaScript - FALSE, hyphenated CSS properties become camelCase in JavaScript (background-color → backgroundColor).",
+          "getComputedStyle returns inline styles only - FALSE, it returns all computed styles including those from stylesheets and browser defaults.",
+          "You can modify computed styles - FALSE, getComputedStyle returns read-only values, use the style property or classList to modify styles."
+        ],
+        "realWorldAnalogy": "Modifying styles is like changing clothes. Inline styles are like putting on accessories directly (quick but limited), class-based styling is like changing entire outfits (coordinated and reusable), and CSS variables are like changing the color scheme of your wardrobe (affects everything at once)."
+      },
+      {
+        "title": "Event Handling - Responding to User Actions",
+        "content": "Events are actions that occur in the browser, such as clicks, key presses, and form submissions. JavaScript can listen for these events and respond with appropriate actions.\n\n**Common Event Types:**\n\n**Mouse Events:**\n- `click` - Mouse button pressed and released\n- `dblclick` - Double click\n- `mousedown` - Mouse button pressed\n- `mouseup` - Mouse button released\n- `mouseover` - Mouse enters element\n- `mouseout` - Mouse leaves element\n- `mousemove` - Mouse moves over element\n\n**Keyboard Events:**\n- `keydown` - Key pressed\n- `keyup` - Key released\n- `keypress` - Key pressed and released (deprecated)\n\n**Form Events:**\n- `submit` - Form submitted\n- `input` - Input value changed\n- `change` - Input value changed and focus lost\n- `focus` - Element gains focus\n- `blur` - Element loses focus\n\n**Document/Window Events:**\n- `load` - Page fully loaded\n- `DOMContentLoaded` - HTML parsed and loaded\n- `resize` - Window resized\n- `scroll` - Page scrolled\n\n**addEventListener() Method:**\n```javascript\nconst button = document.getElementById('myButton');\n\n// Basic event listener\nbutton.addEventListener('click', function() {\n  console.log('Button clicked!');\n});\n\n// Arrow function (modern)\nbutton.addEventListener('click', () => {\n  console.log('Button clicked!');\n});\n\n// Named function (reusable)\nfunction handleClick() {\n  console.log('Button clicked!');\n}\nbutton.addEventListener('click', handleClick);\n\n// Multiple event listeners\nbutton.addEventListener('click', () => {\n  console.log('First handler');\n});\nbutton.addEventListener('click', () => {\n  console.log('Second handler');\n});\n```\n\n**Event Object:**\n```javascript\nbutton.addEventListener('click', function(event) {\n  console.log('Event type:', event.type);\n  console.log('Target element:', event.target);\n  console.log('Current target:', event.currentTarget);\n  console.log('Mouse position:', event.clientX, event.clientY);\n  console.log('Key pressed:', event.key);\n  \n  // Prevent default behavior\n  event.preventDefault();\n  \n  // Stop event propagation\n  event.stopPropagation();\n});\n```\n\n**preventDefault() - Stop Default Behavior:**\n```javascript\n// Prevent form submission\nconst form = document.getElementById('myForm');\nform.addEventListener('submit', function(event) {\n  event.preventDefault(); // Stop form from submitting\n  // Handle form data with JavaScript\n});\n\n// Prevent link navigation\nconst link = document.getElementById('myLink');\nlink.addEventListener('click', function(event) {\n  event.preventDefault(); // Stop link from navigating\n  // Handle click with JavaScript\n});\n```\n\n**Event Delegation - Efficient Event Handling:**\n```javascript\n// Instead of adding listeners to each button\nconst buttons = document.querySelectorAll('.btn');\nbuttons.forEach(btn => {\n  btn.addEventListener('click', handleClick);\n});\n\n// Use event delegation on parent\nconst container = document.getElementById('buttonContainer');\ncontainer.addEventListener('click', function(event) {\n  if (event.target.classList.contains('btn')) {\n    console.log('Button clicked:', event.target.textContent);\n    // Handle button click\n  }\n});\n```\n- Single listener for multiple elements\n- Works for dynamically added elements\n- Better performance\n- Cleaner code\n\n**Removing Event Listeners:**\n```javascript\nfunction handleClick() {\n  console.log('Clicked!');\n}\n\nbutton.addEventListener('click', handleClick);\n\n// Remove specific listener\nbutton.removeEventListener('click', handleClick);\n\n// Remove all listeners (not directly possible)\n// Clone element to remove all listeners\nconst newButton = button.cloneNode(true);\nbutton.parentNode.replaceChild(newButton, button);\n```\n\n**Complete Example:**\n```javascript\nconst form = document.getElementById('contactForm');\nconst input = document.getElementById('emailInput');\n\n// Form submission\nform.addEventListener('submit', function(event) {\n  event.preventDefault();\n  \n  const email = input.value;\n  if (validateEmail(email)) {\n    console.log('Valid email:', email);\n    // Submit form data\n  } else {\n    console.log('Invalid email');\n    input.classList.add('error');\n  }\n});\n\n// Input validation\ninput.addEventListener('input', function(event) {\n  const email = event.target.value;\n  if (validateEmail(email)) {\n    input.classList.remove('error');\n    input.classList.add('valid');\n  } else {\n    input.classList.remove('valid');\n    input.classList.add('error');\n  }\n});\n\nfunction validateEmail(email) {\n  return email.includes('@') && email.includes('.');\n}\n```",
+        "imageUrl": "/images/javascript-event-handling.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "onclick attribute and addEventListener are the same - FALSE, addEventListener is more flexible and allows multiple listeners.",
+          "Event listeners are removed when elements are removed - FALSE, you should explicitly remove listeners to prevent memory leaks.",
+          "preventDefault() stops all event handling - FALSE, it only stops the default browser behavior, not other event listeners.",
+          "Event delegation is slower than individual listeners - FALSE, delegation is often faster and more efficient."
+        ],
+        "realWorldAnalogy": "Event handling is like setting up security cameras and alarms. addEventListener is like installing a camera that watches for specific actions (motion, door opening). The event object is like the camera footage showing exactly what happened (who, when, where). Event delegation is like having one security guard watch multiple doors instead of hiring a guard for each door."
+      },
+      {
+        "title": "Creating and Removing Elements - Dynamic DOM Updates",
+        "content": "JavaScript can dynamically create, modify, and remove DOM elements, allowing you to build interactive interfaces that respond to user actions and data changes.\n\n**Creating Elements:**\n```javascript\n// Create new element\nconst newDiv = document.createElement('div');\nconst newParagraph = document.createElement('p');\nconst newButton = document.createElement('button');\n\n// Set content\nnewParagraph.textContent = 'This is a new paragraph';\nnewButton.textContent = 'Click me';\n\n// Set attributes\nnewDiv.id = 'newDiv';\nnewDiv.className = 'container';\nnewButton.type = 'button';\nnewButton.setAttribute('data-id', '123');\n\n// Set styles\nnewDiv.style.backgroundColor = '#f0f0f0';\nnewDiv.style.padding = '20px';\n```\n\n**Appending Elements:**\n```javascript\nconst parent = document.getElementById('container');\nconst child = document.createElement('div');\nchild.textContent = 'Child element';\n\n// Append as last child\nparent.appendChild(child);\n\n// Append multiple children\nparent.appendChild(document.createElement('p'));\nparent.appendChild(document.createElement('span'));\n```\n\n**Inserting Elements:**\n```javascript\nconst parent = document.getElementById('container');\nconst newElement = document.createElement('div');\nconst referenceElement = document.getElementById('reference');\n\n// Insert before reference element\nparent.insertBefore(newElement, referenceElement);\n\n// Insert after (using insertAdjacentElement)\nreferenceElement.insertAdjacentElement('afterend', newElement);\n\n// Insert at specific positions\nparent.insertAdjacentElement('beforebegin', newElement); // Before parent\nparent.insertAdjacentElement('afterbegin', newElement);  // First child\nparent.insertAdjacentElement('beforeend', newElement);   // Last child\nparent.insertAdjacentElement('afterend', newElement);    // After parent\n```\n\n**Removing Elements:**\n```javascript\nconst element = document.getElementById('removeMe');\nconst parent = document.getElementById('container');\n\n// Remove element (modern, simple)\nelement.remove();\n\n// Remove via parent (older method)\nparent.removeChild(element);\n\n// Remove all children\nwhile (parent.firstChild) {\n  parent.removeChild(parent.firstChild);\n}\n\n// Clear all children (modern)\nparent.innerHTML = '';\n```\n\n**Replacing Elements:**\n```javascript\nconst oldElement = document.getElementById('oldElement');\nconst newElement = document.createElement('div');\nnewElement.textContent = 'New content';\n\n// Replace element\noldElement.parentNode.replaceChild(newElement, oldElement);\n```\n\n**Document Fragments - Performance Optimization:**\n```javascript\nconst fragment = document.createDocumentFragment();\nconst container = document.getElementById('container');\n\n// Add elements to fragment (not in DOM yet)\nfor (let i = 0; i < 1000; i++) {\n  const div = document.createElement('div');\n  div.textContent = `Item ${i}`;\n  fragment.appendChild(div);\n}\n\n// Add fragment to DOM (single reflow)\ncontainer.appendChild(fragment);\n```\n- Improves performance for multiple additions\n- Single DOM reflow instead of many\n- Elements not visible until appended\n- Best practice for bulk updates\n\n**Complete Example - Dynamic List:**\n```javascript\nconst list = document.getElementById('itemList');\nconst addButton = document.getElementById('addButton');\nconst input = document.getElementById('itemInput');\n\naddButton.addEventListener('click', function() {\n  const text = input.value.trim();\n  \n  if (text) {\n    // Create list item\n    const li = document.createElement('li');\n    li.textContent = text;\n    li.className = 'item';\n    \n    // Create delete button\n    const deleteBtn = document.createElement('button');\n    deleteBtn.textContent = '×';\n    deleteBtn.className = 'delete-btn';\n    \n    // Add delete functionality\n    deleteBtn.addEventListener('click', function() {\n      li.remove();\n    });\n    \n    // Append button to list item\n    li.appendChild(deleteBtn);\n    \n    // Append list item to list\n    list.appendChild(li);\n    \n    // Clear input\n    input.value = '';\n    input.focus();\n  }\n});\n```",
+        "imageUrl": "/images/javascript-creating-removing-elements.png",
+        "videoUrl": null,
+        "commonMisconceptions": [
+          "innerHTML is the best way to create elements - FALSE, createElement is safer and more performant for creating elements.",
+          "Removing an element removes its event listeners - FALSE, you should explicitly remove listeners to prevent memory leaks.",
+          "Document fragments are visible in the DOM - FALSE, fragments exist only in memory until appended to the DOM.",
+          "appendChild always adds to the end - TRUE, use insertBefore or insertAdjacentElement for other positions."
+        ],
+        "realWorldAnalogy": "Creating and removing DOM elements is like building with LEGO blocks. createElement is like getting a new block from the box, appendChild is like attaching it to your creation, remove is like taking a block off, and document fragments are like building a section separately before attaching it to the main structure (more efficient)."
       }
     ],
     "resources": {
@@ -37,32 +100,122 @@
           "name": "Browser DevTools",
           "url": "https://developer.chrome.com/docs/devtools/",
           "free": true,
-          "reason": "Essential for DOM debugging"
+          "reason": "Essential for DOM debugging - press F12 to inspect elements, view console, and debug JavaScript"
         },
         {
           "name": "JSFiddle",
           "url": "https://jsfiddle.net/",
           "free": true,
-          "reason": "Test JavaScript code online"
+          "reason": "Online playground to test JavaScript DOM manipulation code instantly"
+        },
+        {
+          "name": "CodePen",
+          "url": "https://codepen.io/pen/",
+          "free": true,
+          "reason": "Popular online editor for HTML, CSS, and JavaScript with live preview"
+        },
+        {
+          "name": "DOM Visualizer",
+          "url": "https://domvisualizer.com/",
+          "free": true,
+          "reason": "Visual tool to understand DOM structure and relationships"
         }
       ],
       "furtherReading": [
-        "MDN Web Docs: DOM",
-        "JavaScript.info - DOM manipulation reference"
+        "MDN Web Docs: Document Object Model (DOM) (free, comprehensive)",
+        "JavaScript.info - DOM manipulation reference (free, detailed)",
+        "W3Schools JavaScript HTML DOM (free, beginner-friendly)",
+        "DOM Enlightenment by Cody Lindley (free online book)"
       ]
     },
     "glossary": [
       {
         "term": "DOM",
-        "definition": "Document Object Model - the structure of HTML documents as objects."
+        "definition": "Document Object Model - A programming interface that represents HTML and XML documents as a tree of objects that JavaScript can interact with."
       },
       {
-        "term": "Event Listener",
-        "definition": "A function that waits for specific events to occur on an element."
+        "term": "DOM Tree",
+        "definition": "The hierarchical structure of HTML elements where the document is the root, html is the child, and all other elements are descendants."
+      },
+      {
+        "term": "Node",
+        "definition": "Any point in the DOM tree, including elements, text, comments, and the document itself."
       },
       {
         "term": "Element",
-        "definition": "An HTML element represented as a JavaScript object."
+        "definition": "An HTML tag represented as a JavaScript object in the DOM (e.g., div, p, h1)."
+      },
+      {
+        "term": "querySelector",
+        "definition": "A modern DOM method that selects the first element matching a CSS selector."
+      },
+      {
+        "term": "querySelectorAll",
+        "definition": "A DOM method that selects all elements matching a CSS selector, returning a NodeList."
+      },
+      {
+        "term": "textContent",
+        "definition": "A property that gets or sets the text content of an element, ignoring any HTML tags."
+      },
+      {
+        "term": "innerHTML",
+        "definition": "A property that gets or sets the HTML content of an element, including any HTML tags."
+      },
+      {
+        "term": "classList",
+        "definition": "A property that provides methods for adding, removing, and toggling CSS classes on an element."
+      },
+      {
+        "term": "Event",
+        "definition": "An action or occurrence that happens in the browser, such as a click, key press, or form submission."
+      },
+      {
+        "term": "Event Listener",
+        "definition": "A function that waits for a specific event to occur on an element and executes when that event happens."
+      },
+      {
+        "term": "addEventListener",
+        "definition": "A method that attaches an event listener to an element, allowing multiple listeners for the same event."
+      },
+      {
+        "term": "Event Object",
+        "definition": "An object passed to event handler functions containing information about the event (type, target, coordinates, etc.)."
+      },
+      {
+        "term": "preventDefault",
+        "definition": "A method that cancels the default browser behavior for an event (e.g., preventing form submission or link navigation)."
+      },
+      {
+        "term": "stopPropagation",
+        "definition": "A method that stops an event from bubbling up to parent elements in the DOM tree."
+      },
+      {
+        "term": "Event Delegation",
+        "definition": "A technique where a single event listener is attached to a parent element to handle events for multiple child elements."
+      },
+      {
+        "term": "createElement",
+        "definition": "A method that creates a new DOM element that can be added to the document."
+      },
+      {
+        "term": "appendChild",
+        "definition": "A method that adds a new child element as the last child of a parent element."
+      },
+      {
+        "term": "remove",
+        "definition": "A modern method that removes an element from the DOM."
+      },
+      {
+        "term": "Document Fragment",
+        "definition": "A lightweight document object that can hold DOM elements in memory before adding them to the actual DOM, improving performance."
+      },
+      {
+        "term": "getComputedStyle",
+        "definition": "A method that returns the computed styles of an element, including all CSS rules applied to it."
+      },
+      {
+        "term": "Reflow",
+        "definition": "The browser process of recalculating the layout of the page when the DOM changes, which can be expensive for performance."
       }
     ]
   }

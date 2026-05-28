@@ -67,6 +67,18 @@ async function callGemini(prompt) {
 }
 
 //
+// Fisher-Yates shuffle algorithm
+//
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+//
 // Load quiz questions from JSON files
 //
 const loadQuizQuestions = async (courseKey, lessonId) => {
@@ -75,7 +87,37 @@ const loadQuizQuestions = async (courseKey, lessonId) => {
     if (!response.ok) {
       throw new Error(`Failed to load quiz for ${courseKey} lesson ${lessonId}`);
     }
-    const questions = await response.json();
+    let questions = await response.json();
+
+    // Shuffle questions randomly
+    questions = shuffleArray(questions);
+
+    // Shuffle options within each question and update correctAnswer index
+    questions = questions.map(question => {
+      const originalOptions = question.options;
+      const originalCorrectIndex = question.correctAnswer;
+      const correctOptionText = originalOptions[originalCorrectIndex];
+
+      // Create array of option objects with original index
+      const optionsWithIndex = originalOptions.map((opt, idx) => ({
+        text: opt,
+        isCorrect: idx === originalCorrectIndex
+      }));
+
+      // Shuffle options
+      const shuffledOptionsWithIndex = shuffleArray(optionsWithIndex);
+
+      // Find new index of correct answer
+      const newCorrectIndex = shuffledOptionsWithIndex.findIndex(opt => opt.isCorrect);
+
+      // Return question with shuffled options and updated correctAnswer
+      return {
+        ...question,
+        options: shuffledOptionsWithIndex.map(opt => opt.text),
+        correctAnswer: newCorrectIndex
+      };
+    });
+
     return questions;
   } catch (error) {
     console.error('Error loading quiz questions:', error);
@@ -311,6 +353,11 @@ export default function QuizPage() {
     }
   }, [courseKey, lessonId]);
 
+  // Auto-scroll to top on page mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [courseKey, lessonId]);
+
   function checkAnswer() {
     if (selected === q.correctAnswer) {
       setScore((s) => s + 1);
@@ -378,13 +425,21 @@ export default function QuizPage() {
 
       <div className="relative z-10 max-w-3xl mx-auto">
         <nav className="flex justify-between items-center mb-8">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex gap-2 items-center text-white/60"
-          >
-            <FaArrowLeft />
-            Exit
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="flex gap-2 items-center text-white/60 hover:text-white"
+            >
+              <FaArrowLeft />
+              Dashboard
+            </button>
+            <button
+              onClick={() => navigate(-1)}
+              className="flex gap-2 items-center text-white/60 hover:text-white"
+            >
+              Exit
+            </button>
+          </div>
 
           <div className="bg-white/5 px-4 py-2 rounded-full">
             Question {index + 1}/{questions.length}

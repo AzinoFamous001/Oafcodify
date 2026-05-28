@@ -30,6 +30,7 @@ const EditorPage = () => {
   const [code, setCode] = useState(LANGUAGE_DEFAULTS.javascript);
   const [output, setOutput] = useState([]);
   const [isTerminalOpen, setIsTerminalOpen] = useState(true); // For mobile
+  const [codeRuns, setCodeRuns] = useState(0);
 
   // Update code template when language changes
   const handleLanguageChange = (newLang) => {
@@ -46,8 +47,32 @@ const EditorPage = () => {
     window.history.back();
   };
 
+  // Auto-scroll to top on page mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Load code runs from localStorage on mount
+  useEffect(() => {
+    const userId = sessionStorage.getItem('currentUserId');
+    if (userId) {
+      const savedCodeRuns = localStorage.getItem(`codeRuns_${userId}`);
+      if (savedCodeRuns) {
+        setCodeRuns(parseInt(savedCodeRuns) || 0);
+      }
+    }
+  }, []);
+
   const runCode = () => {
     setOutput([]);
+
+    // Increment code run counter
+    const userId = sessionStorage.getItem('currentUserId');
+    if (userId) {
+      const newCodeRuns = codeRuns + 1;
+      setCodeRuns(newCodeRuns);
+      localStorage.setItem(`codeRuns_${userId}`, newCodeRuns.toString());
+    }
 
     if (language === "javascript") {
       try {
@@ -143,12 +168,30 @@ const EditorPage = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          <div className={`hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono ${
+            theme === "vs-dark" ? "bg-[#3c3c3c] text-gray-300" : "bg-gray-200 text-gray-700"
+          }`}>
+            <span>Runs:</span>
+            <span className="font-bold">{codeRuns}</span>
+          </div>
+
           <button
             onClick={runCode}
             className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-5 py-2 rounded-xl font-bold text-sm transition-all shadow-lg active:scale-95"
           >
             <FaPlay size={13} />{" "}
             <span className="hidden sm:inline">Run Code</span>
+          </button>
+
+          <button
+            onClick={() => window.location.href = "/dashboard"}
+            className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+              theme === "vs-dark"
+                ? "bg-blue-600 hover:bg-blue-500 text-white"
+                : "bg-blue-600 hover:bg-blue-500 text-white"
+            }`}
+          >
+            Dashboard
           </button>
 
           <button

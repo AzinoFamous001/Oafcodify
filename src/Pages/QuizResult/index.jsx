@@ -50,7 +50,7 @@ const QuizResult = () => {
       setPassed(percent >= 60);
 
       // Save score to localStorage
-      const userId = localStorage.getItem('currentUserId');
+      const userId = sessionStorage.getItem('currentUserId');
       if (userId) {
         // Save individual quiz result (for quick access)
         const quizResultKey = `${userId}_${ck}_lesson_${lid}_score`;
@@ -62,34 +62,42 @@ const QuizResult = () => {
           timestamp: new Date().toISOString()
         }));
 
-        // Save to quizResults array (tracks all attempts)
-        const allQuizResults = JSON.parse(localStorage.getItem('quizResults') || '[]');
+        // Save to quizResults array (tracks all attempts) - user-specific storage
+        const quizResultsKey = `quizResults_${userId}`;
+        const allQuizResults = JSON.parse(localStorage.getItem(quizResultsKey) || '[]');
         
-        // Check if this user already has a result for this specific lesson
-        const existingResultIndex = allQuizResults.findIndex(
-          r => r.userId === userId && r.courseKey === ck && r.lessonId === lid
+        // Check if this exact result (same quiz, same score, same timestamp within 1 second) already exists
+        // to prevent duplicate saves from page refreshes
+        const exactDuplicateIndex = allQuizResults.findIndex(
+          r => r.userId === userId && 
+               r.courseKey === ck && 
+               r.lessonId === lid && 
+               r.score === quizScore && 
+               r.percentage === percent &&
+               Math.abs(new Date(r.date) - new Date()) < 1000 // Within 1 second
         );
         
-        const newQuizResult = {
-          userId: userId,
-          courseKey: ck,
-          lessonId: lid,
-          quizTitle: `${ck.toUpperCase()} - Lesson ${lid}`,
-          score: quizScore,
-          totalQuestions: quizTotal,
-          percentage: percent,
-          passed: percent >= 60,
-          date: new Date().toISOString()
-        };
-        
-        if (existingResultIndex !== -1) {
-          // Update existing result instead of adding duplicate
-          allQuizResults[existingResultIndex] = newQuizResult;
-        } else {
-          // Add new result
+        // Only add if no exact duplicate exists (prevents duplicate saves from refresh)
+        if (exactDuplicateIndex === -1) {
+          const newQuizResult = {
+            userId: userId,
+            courseKey: ck,
+            lessonId: lid,
+            quizTitle: `${ck.toUpperCase()} - Lesson ${lid}`,
+            score: quizScore,
+            totalQuestions: quizTotal,
+            percentage: percent,
+            passed: percent >= 60,
+            date: new Date().toISOString(),
+            attemptNumber: allQuizResults.filter(
+              r => r.userId === userId && r.courseKey === ck && r.lessonId === lid
+            ).length + 1
+          };
+          
+          // Always add as a new entry to track individual attempts
           allQuizResults.push(newQuizResult);
+          localStorage.setItem(quizResultsKey, JSON.stringify(allQuizResults));
         }
-        localStorage.setItem('quizResults', JSON.stringify(allQuizResults));
 
         // Mark lesson as completed if passed (only if not already completed)
         if (percent >= 60) {
@@ -110,8 +118,8 @@ const QuizResult = () => {
               const savedNotifications = JSON.parse(localStorage.getItem(storageKey) || '[]');
 
               // Check if notification already exists to avoid duplicates
-              const exists = savedNotifications.some(n => 
-                n.type === 'achievement' && 
+              const exists = savedNotifications.some(n =>
+                n.type === 'achievement' &&
                 n.title === `New Lesson Unlocked!` &&
                 n.message.includes(`${ck.toUpperCase()} Lesson ${nextLessonId}`)
               );
@@ -129,6 +137,60 @@ const QuizResult = () => {
                   courseKey: ck
                 };
                 savedNotifications.unshift(unlockNotification);
+                localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+              }
+            }
+
+            // Check if course is completed (all 5 lessons done)
+            let completedInCourse = 0;
+            for (let i = 1; i <= 5; i++) {
+              const checkKey = `${userId}_${ck}_lesson_${i}_completed`;
+              if (localStorage.getItem(checkKey)) {
+                completedInCourse++;
+              }
+            }
+
+            if (completedInCourse === 5) {
+              const storageKey = `notifications_${userId}`;
+              const savedNotifications = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+              const courseCompletedNotification = {
+                id: Date.now() + 1,
+                type: 'achievement',
+                title: `🏆 Course Completed: ${ck.toUpperCase()}!`,
+                message: `Amazing! You've completed all 5 lessons in ${ck.toUpperCase()}. You're making great progress!`,
+                time: 'Just now',
+                isRead: false,
+                iconType: 'achievement',
+                courseKey: ck
+              };
+              savedNotifications.unshift(courseCompletedNotification);
+              localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+
+              // Check rank change
+              const completedCoursesKey = `completedCourses_${userId}`;
+              let completedCourses = parseInt(localStorage.getItem(completedCoursesKey) || '0');
+              completedCourses++;
+              localStorage.setItem(completedCoursesKey, completedCourses.toString());
+
+              let newRank = 'Bronze';
+              if (completedCourses >= 2) {
+                newRank = 'Gold';
+              } else if (completedCourses >= 1) {
+                newRank = 'Silver';
+              }
+
+              if (newRank !== 'Bronze') {
+                const rankNotification = {
+                  id: Date.now() + 2,
+                  type: 'achievement',
+                  title: `🥇 Rank Upgraded to ${newRank}!`,
+                  message: `Congratulations! You've earned the ${newRank} rank by completing ${completedCourses} course(s)!`,
+                  time: 'Just now',
+                  isRead: false,
+                  iconType: 'achievement'
+                };
+                savedNotifications.unshift(rankNotification);
                 localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
               }
             }
@@ -172,6 +234,9 @@ const QuizResult = () => {
       // If no state, redirect to dashboard
       navigate('/dashboard');
     }
+
+    // Auto-scroll to top on page mount
+    window.scrollTo(0, 0);
   }, [location.state, navigate]);
 
   const handleRetakeQuiz = () => {

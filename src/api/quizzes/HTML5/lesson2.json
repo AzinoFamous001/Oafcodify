@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which tag is used to make text bold with semantic importance?",
+    "options": [
+      "<b>",
+      "<strong>",
+      "<bold>",
+      "<heavy>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<strong> makes text bold AND indicates semantic importance, which is better for SEO and accessibility. <b> only makes text visually bold."
+  },
+  {
+    "id": 2,
+    "question": "Which tag is used for long quotations that span multiple lines?",
+    "options": [
+      "<q>",
+      "<quote>",
+      "<blockquote>",
+      "<citation>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "<blockquote> is used for long quotations that span multiple lines. It's typically displayed as an indented block by browsers."
+  },
+  {
+    "id": 3,
+    "question": "What is the correct syntax for an HTML comment?",
+    "options": [
+      "// This is a comment",
+      "/* This is a comment */",
+      "<!-- This is a comment -->",
+      "' This is a comment"
+    ],
+    "correctAnswer": 2,
+    "explanation": "HTML comments start with <!-- and end with -->. Everything between them is ignored by the browser."
+  },
+  {
+    "id": 4,
+    "question": "What does the hex color code #FF0000 represent?",
+    "options": [
+      "Green",
+      "Blue",
+      "Red",
+      "Yellow"
+    ],
+    "correctAnswer": 2,
+    "explanation": "#FF0000 represents red in hexadecimal color format. The format is #RRGGBB where FF is maximum red, 00 is no green, and 00 is no blue."
+  },
+  {
+    "id": 5,
+    "question": "Which CSS method is recommended for production websites?",
+    "options": [
+      "Inline CSS",
+      "Internal CSS",
+      "External CSS",
+      "All are equally good"
+    ],
+    "correctAnswer": 2,
+    "explanation": "External CSS (separate .css file) is recommended for production because it's reusable, maintainable, and separates concerns."
+  },
+  {
+    "id": 6,
+    "question": "What does RGBA stand for in CSS colors?",
+    "options": [
+      "Red, Green, Blue, Alpha",
+      "Red, Gray, Blue, Alpha",
+      "Red, Green, Black, Alpha",
+      "RGB, Alpha"
+    ],
+    "correctAnswer": 0,
+    "explanation": "RGBA stands for Red, Green, Blue, Alpha. The Alpha channel controls transparency (0.0 = transparent, 1.0 = opaque)."
+  },
+  {
+    "id": 7,
+    "question": "Which tag is used to mark or highlight text for reference?",
+    "options": [
+      "<highlight>",
+      "<mark>",
+      "<highlighted>",
+      "<span>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<mark> is used to mark or highlight text for reference purposes. It typically displays with a yellow background."
+  },
+  {
+    "id": 8,
+    "question": "What is the purpose of the cite attribute in blockquote?",
+    "options": [
+      "To cite the author's name",
+      "To contain the URL of the source",
+      "To add a citation number",
+      "To style the quote"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The cite attribute in blockquote contains the URL of the source where the quotation came from."
+  },
+  {
+    "id": 9,
+    "question": "Which CSS selector is used to select elements with a specific class?",
+    "options": [
+      "#classname",
+      ".classname",
+      "classname",
+      "*classname"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The class selector uses a dot (.) prefix: .classname. The ID selector uses #, and element selectors use just the tag name."
+  },
+  {
+    "id": 10,
+    "question": "What does HSL stand for in CSS colors?",
+    "options": [
+      "High, Saturation, Lightness",
+      "Hue, Saturation, Lightness",
+      "Hue, Saturation, Level",
+      "High, Saturation, Level"
+    ],
+    "correctAnswer": 1,
+    "explanation": "HSL stands for Hue, Saturation, Lightness. Hue is 0-360 (color wheel), Saturation is 0-100%, and Lightness is 0-100%."
+  }
+]

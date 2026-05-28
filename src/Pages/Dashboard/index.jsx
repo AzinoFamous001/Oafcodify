@@ -46,6 +46,9 @@ const LearningBox = ({
   courseKey,
   onLessonClick,
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const lessons = [
     { name: "Lesson 1: Foundations", number: 1 },
     { name: "Lesson 2: Core Syntax", number: 2 },
@@ -53,6 +56,21 @@ const LearningBox = ({
     { name: "Lesson 4: Patterns & Debugging", number: 4 },
     { name: "Lesson 5: Real Mini-Project", number: 5 },
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDropdownOpen]);
 
   return (
     <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-xl h-full min-h-[320px] overflow-visible">
@@ -69,43 +87,48 @@ const LearningBox = ({
           {desc}
         </p>
 
-        <div className="relative group/curriculum mt-6 pt-4 border-t border-white/10">
-          <div className="flex items-center text-white text-sm font-bold cursor-pointer select-none">
-            View Curriculum <FaChevronRight size={14} className="ml-1" />
+        <div className="relative mt-6 pt-4 border-t border-white/10" ref={dropdownRef}>
+          <div
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center text-white text-sm font-bold cursor-pointer select-none"
+          >
+            View Curriculum <FaChevronRight size={14} className={`ml-1 transition-transform ${isDropdownOpen ? 'rotate-90' : ''}`} />
           </div>
 
-          <div
-            className="
-              absolute bottom-full left-0 mb-2 w-full min-w-[220px]
-              opacity-0 invisible pointer-events-none
-              group-hover/curriculum:opacity-100 group-hover/curriculum:visible group-hover/curriculum:pointer-events-auto
-              translate-y-2 group-hover/curriculum:translate-y-0
-              transition-all duration-200 ease-out
-              z-50 bg-slate-900/95 border border-white/10 rounded-2xl p-2 shadow-2xl
-            "
-          >
-            <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2 px-2">
-              Select Lesson
-            </p>
-            <ul className="space-y-1">
-              {lessons.map((lesson, index) => (
-                <li
-                  key={index}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onLessonClick(courseKey, lesson.number);
-                  }}
-                  className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/30 text-white/90 hover:text-white transition-all cursor-pointer group/item"
-                >
-                  <span className="text-sm font-medium">{lesson.name}</span>
-                  <FaChevronRight
-                    size={12}
-                    className="text-white/40 group-hover/item:text-blue-400 transition-transform group-hover/item:translate-x-1"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
+          {isDropdownOpen && (
+            <div
+              className="
+                absolute bottom-full left-0 mb-2 w-full min-w-[220px]
+                opacity-100 visible pointer-events-auto
+                translate-y-0
+                transition-all duration-200 ease-out
+                z-50 bg-slate-900/95 border border-white/10 rounded-2xl p-2 shadow-2xl
+              "
+            >
+              <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2 px-2">
+                Select Lesson
+              </p>
+              <ul className="space-y-1">
+                {lessons.map((lesson, index) => (
+                  <li
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onLessonClick(courseKey, lesson.number);
+                      setIsDropdownOpen(false);
+                    }}
+                    className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-blue-600/30 text-white/90 hover:text-white transition-all cursor-pointer group/item"
+                  >
+                    <span className="text-sm font-medium">{lesson.name}</span>
+                    <FaChevronRight
+                      size={12}
+                      className="text-white/40 group-hover/item:text-blue-400 transition-transform group-hover/item:translate-x-1"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -149,8 +172,8 @@ const DashboardPage = () => {
     const lessonKey = `${userId}_${courseKey}_lesson_${prevLessonNumber}_completed`;
     const lessonCompleted = localStorage.getItem(lessonKey);
     
-    // Check if previous quiz is completed with 60%+ score
-    const quizResultsKey = "quizResults";
+    // Check if previous quiz is completed with 60%+ score (user-specific storage)
+    const quizResultsKey = `quizResults_${userId}`;
     const quizResults = JSON.parse(localStorage.getItem(quizResultsKey) || '[]');
     const prevQuizResult = quizResults.find(
       r => r.userId === userId && r.courseKey === courseKey && r.lessonId === prevLessonNumber
@@ -189,31 +212,38 @@ const DashboardPage = () => {
 
 
   useEffect(() => {
-    const savedName = localStorage.getItem("userName");
-    const currentUserId = localStorage.getItem("currentUserId");
+    const currentUserId = sessionStorage.getItem("currentUserId");
+    if (!currentUserId) {
+      navigate("/login");
+      return;
+    }
+    setUserId(currentUserId);
+
+
+    // Load user-specific data
+    const savedName = localStorage.getItem(`userName_${currentUserId}`);
     if (savedName) {
       setUserName(savedName);
     }
-    if (currentUserId) {
-      setUserId(currentUserId);
-    }
 
-    // Load or generate cartoon avatar
-    const savedAvatar = localStorage.getItem("userAvatar");
+    // Load or generate cartoon avatar (user-specific storage)
+    const avatarKey = `userAvatar_${currentUserId}`;
+    const savedAvatar = localStorage.getItem(avatarKey);
     if (savedAvatar && savedAvatar.startsWith("https://api.dicebear.com")) {
       setUserAvatar(savedAvatar);
     } else if (savedName) {
       const newAvatar = generateCartoonAvatar(savedName);
       setUserAvatar(newAvatar);
-      localStorage.setItem("userAvatar", newAvatar);
+      localStorage.setItem(avatarKey, newAvatar);
     }
 
     // Update streak on dashboard visit
-    if (currentUserId) {
-      updateLoginStreak(currentUserId);
-      checkDailyLessonReminder(currentUserId);
-    }
-  }, []);
+    updateLoginStreak(currentUserId);
+    checkDailyLessonReminder(currentUserId);
+
+    // Auto-scroll to top on page mount
+    window.scrollTo(0, 0);
+  }, [navigate]);
 
   const handleLessonClick = (courseKey, lessonNumber) => {
     navigate(`/lesson/${courseKey}/${lessonNumber}`);

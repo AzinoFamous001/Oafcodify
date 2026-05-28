@@ -54,27 +54,27 @@ const PerformancePage = () => {
     skillRadar: [],
   });
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const userId = localStorage.getItem("currentUserId");
-    if (!userId) {
+    const currentUserId = sessionStorage.getItem("currentUserId");
+    if (!currentUserId) {
       navigate("/login");
       return;
     }
+    setUserId(currentUserId);
 
-    const courses = ["HTML", "CSS", "C++", "React", "Python", "JavaScript"];
+    const courses = ["HTML5", "CSS3", "JavaScript", "Python", "C++", "React"];
 
-    // 1. Fetch real data from localStorage
-    let savedResults = [];
+    // 1. Fetch real data from localStorage (user-specific storage)
     let userResults = [];
     
     try {
-      savedResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
-      userResults = savedResults.filter((r) => r.userId === userId);
-      console.log('Performance page - User results loaded:', userResults.length, 'results for user:', userId);
+      const quizResultsKey = `quizResults_${currentUserId}`;
+      userResults = JSON.parse(localStorage.getItem(quizResultsKey) || "[]");
+      console.log('Performance page - User results loaded:', userResults.length, 'results for user:', currentUserId);
     } catch (error) {
       console.error('Error loading quiz results:', error);
-      savedResults = [];
       userResults = [];
     }
 
@@ -88,7 +88,7 @@ const PerformancePage = () => {
         const key = localStorage.key(i);
         // Checking for keys like: "userId_courseKey_lesson_lessonId_completed"
         if (
-          key.startsWith(`${userId}_${course}_lesson_`) &&
+          key.startsWith(`${currentUserId}_${course}_lesson_`) &&
           key.includes("_completed")
         ) {
           courseCount++;

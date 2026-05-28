@@ -46,7 +46,7 @@ const NotificationsPage = () => {
 
   // --- LOAD USER SPECIFIC NOTIFICATIONS ---
   useEffect(() => {
-    const currentId = localStorage.getItem("currentUserId");
+    const currentId = sessionStorage.getItem("currentUserId");
     if (!currentId) {
       navigate("/login");
       return;

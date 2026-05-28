@@ -79,7 +79,7 @@ const isLessonUnlocked = (courseKey, lessonId) => {
   // Lesson 1 is always unlocked
   if (parseInt(lessonId) === 1) return true;
 
-  const userId = localStorage.getItem('currentUserId');
+  const userId = sessionStorage.getItem('currentUserId');
   if (!userId) return false;
 
   // Check if this specific lesson has been explicitly unlocked
@@ -93,8 +93,8 @@ const isLessonUnlocked = (courseKey, lessonId) => {
   const lessonKey = `${userId}_${courseKey}_lesson_${prevLessonNumber}_completed`;
   const lessonCompleted = localStorage.getItem(lessonKey);
 
-  // Check if previous quiz is completed with 60%+ score
-  const quizResultsKey = "quizResults";
+  // Check if previous quiz is completed with 60%+ score (user-specific storage)
+  const quizResultsKey = `quizResults_${userId}`;
   const quizResults = JSON.parse(localStorage.getItem(quizResultsKey) || '[]');
   const prevQuizResult = quizResults.find(
     r => r.userId === userId && r.courseKey === courseKey && r.lessonId === prevLessonNumber
@@ -111,9 +111,9 @@ const LessonPage = () => {
 
   const [lesson, setLesson] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [completedTopics, setCompletedTopics] = useState([]);
   const [copiedCode, setCopiedCode] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
+  const [completedTopics, setCompletedTopics] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -177,19 +177,6 @@ const LessonPage = () => {
 
     if (found) {
       setLesson(found);
-
-      const userId = localStorage.getItem('currentUserId');
-      const saved = localStorage.getItem(
-        `${userId}_${courseKey}_lesson_${lessonId}_completed`,
-      );
-
-      if (saved) {
-        try {
-          setCompletedTopics(JSON.parse(saved));
-        } catch {
-          setCompletedTopics([]);
-        }
-      }
     }
 
     setLoading(false);
@@ -200,6 +187,11 @@ const LessonPage = () => {
     if (lessonId && courseKey) {
       setIsLocked(!isLessonUnlocked(courseKey, lessonId));
     }
+  }, [lessonId, courseKey]);
+
+  // Auto-scroll to top on page mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, [lessonId, courseKey]);
 
   const handleCopyCode = (code, identifier) => {
@@ -317,9 +309,6 @@ const LessonPage = () => {
     );
   }
 
-  const progress =
-    (completedTopics.length / (lesson.subtopics?.length || 1)) * 100;
-
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 pb-20 overflow-x-hidden">
       <AnimatedBackground />
@@ -335,17 +324,6 @@ const LessonPage = () => {
             <span className="hidden sm:inline">Back to dashboard</span>
           </button>
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-3">
-              <div className="w-32 h-2 bg-white/20 rounded-full overflow-hidden">
-                <div
-                  className="bg-green-400 h-full transition-all duration-700"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <span className="text-sm text-white font-medium">
-                {Math.round(progress)}%
-              </span>
-            </div>
             <Button
               size="sm"
               onClick={() => navigate("/editor")}

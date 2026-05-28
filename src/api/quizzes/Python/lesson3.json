@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "How do you read the entire content of a file in Python?",
+    "options": [
+      "file.read()",
+      "file.load()",
+      "file.get()",
+      "file.content()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The read() method reads the entire content of a file as a single string."
+  },
+  {
+    "id": 2,
+    "question": "What is the purpose of the 'with' statement when opening files?",
+    "options": [
+      "To make the file read-only",
+      "To automatically close the file after operations",
+      "To open multiple files",
+      "To format the file content"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'with' statement ensures that the file is properly closed after the operations are complete, even if an error occurs."
+  },
+  {
+    "id": 3,
+    "question": "How do you import a module in Python?",
+    "options": [
+      "include module",
+      "import module",
+      "require module",
+      "using module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The import statement is used to import modules in Python, e.g., import math."
+  },
+  {
+    "id": 4,
+    "question": "What is a Python module?",
+    "options": [
+      "A function",
+      "A file containing Python definitions and statements",
+      "A variable",
+      "A class"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A module is a file containing Python definitions and statements that can be imported and used in other Python programs."
+  },
+  {
+    "id": 5,
+    "question": "How do you import a specific function from a module?",
+    "options": [
+      "import module.function",
+      "from module import function",
+      "include module.function",
+      "require module.function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'from module import function' syntax allows you to import specific functions or classes from a module."
+  },
+  {
+    "id": 6,
+    "question": "What is the __init__.py file used for?",
+    "options": [
+      "To initialize the Python interpreter",
+      "To mark a directory as a Python package",
+      "To store configuration",
+      "To define main function"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The __init__.py file marks a directory as a Python package, allowing it to be imported like a module."
+  },
+  {
+    "id": 7,
+    "question": "How do you handle file not found errors?",
+    "options": [
+      "if file.exists():",
+      "try/except FileNotFoundError",
+      "check file before opening",
+      "use safe_open()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The try/except block with FileNotFoundError is the standard way to handle file not found errors in Python."
+  },
+  {
+    "id": 8,
+    "question": "What mode do you use to write to a file?",
+    "options": [
+      "'r'",
+      "'w'",
+      "'a'",
+      "'x'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'w' mode opens a file for writing. If the file doesn't exist, it creates it. If it exists, it truncates the file."
+  }
+]

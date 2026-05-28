@@ -49,15 +49,15 @@
   },
   {
     "id": 5,
-    "question": "How do you write a comment in HTML?",
+    "question": "What is the correct syntax for the lang attribute?",
     "options": [
-      "// This is a comment",
-      "/* This is a comment */",
-      "<!-- This is a comment -->",
-      "# This is a comment"
+      "lang='english'",
+      "lang='en'",
+      "language='en'",
+      "lang='english-US'"
     ],
-    "correctAnswer": 2,
-    "explanation": "HTML comments are written using <!-- --> syntax."
+    "correctAnswer": 1,
+    "explanation": "The lang attribute uses language codes like 'en' for English, 'es' for Spanish, etc."
   },
   {
     "id": 6,
@@ -109,15 +109,15 @@
   },
   {
     "id": 10,
-    "question": "Which tag creates an unordered list?",
+    "question": "Which attribute is used to specify a unique identifier for an element?",
     "options": [
-      "<ol>",
-      "<ul>",
-      "<list>",
-      "<li>"
+      "class",
+      "id",
+      "name",
+      "tag"
     ],
     "correctAnswer": 1,
-    "explanation": "The <ul> tag creates an unordered (bulleted) list."
+    "explanation": "The id attribute specifies a unique identifier for an element, which must be unique within the page."
   },
   {
     "id": 11,
@@ -133,15 +133,15 @@
   },
   {
     "id": 12,
-    "question": "Which tag is used to define the main content of a document?",
+    "question": "Which attribute is used to add inline CSS styling to an element?",
     "options": [
-      "<main>",
-      "<content>",
-      "<body>",
-      "<section>"
+      "css",
+      "style",
+      "class",
+      "format"
     ],
-    "correctAnswer": 0,
-    "explanation": "The <main> tag specifies the main content of a document."
+    "correctAnswer": 1,
+    "explanation": "The style attribute is used to add inline CSS styling directly to an HTML element."
   },
   {
     "id": 13,
@@ -181,15 +181,15 @@
   },
   {
     "id": 16,
-    "question": "Which tag is used to emphasize text?",
+    "question": "What is the purpose of the title attribute?",
     "options": [
-      "<bold>",
-      "<strong>",
-      "<em>",
-      "<italic>"
+      "To set the page title",
+      "To provide tooltip text when hovering",
+      "To add styling",
+      "To create links"
     ],
-    "correctAnswer": 2,
-    "explanation": "The <em> tag is used to emphasize text, typically displayed in italics."
+    "correctAnswer": 1,
+    "explanation": "The title attribute provides extra information shown as a tooltip when you hover over the element."
   },
   {
     "id": 17,
@@ -205,15 +205,15 @@
   },
   {
     "id": 18,
-    "question": "Which tag creates a subscript text?",
+    "question": "Which attribute is used to specify one or more class names for an element?",
     "options": [
-      "<sub>",
-      "<sup>",
-      "<low>",
-      "<down>"
+      "id",
+      "class",
+      "name",
+      "style"
     ],
-    "correctAnswer": 0,
-    "explanation": "The <sub> tag creates subscript text."
+    "correctAnswer": 1,
+    "explanation": "The class attribute specifies one or more class names for an element, used for CSS styling."
   },
   {
     "id": 19,
@@ -229,14 +229,14 @@
   },
   {
     "id": 20,
-    "question": "Which tag creates a superscript text?",
+    "question": "What is the correct HTML for setting text color to red using inline styles?",
     "options": [
-      "<sub>",
-      "<sup>",
-      "<high>",
-      "<up>"
+      "<p color='red'>Text</p>",
+      "<p style='color: red;'>Text</p>",
+      "<p style='text-color: red;'>Text</p>",
+      "<p style='font-color: red;'>Text</p>"
     ],
     "correctAnswer": 1,
-    "explanation": "The <sup> tag creates superscript text."
+    "explanation": "The style attribute with 'color: red;' sets the text color to red."
   }
 ]

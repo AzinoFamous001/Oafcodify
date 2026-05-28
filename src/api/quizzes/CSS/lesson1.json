@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What does CSS stand for?",
+    "options": [
+      "Computer Style Sheets",
+      "Cascading Style Sheets",
+      "Creative Style Sheets",
+      "Colorful Style Sheets"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSS stands for Cascading Style Sheets. It's a stylesheet language used to describe the presentation of HTML documents."
+  },
+  {
+    "id": 2,
+    "question": "Which CSS selector selects elements with a specific class?",
+    "options": [
+      "#classname",
+      ".classname",
+      "classname",
+      "*classname"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The class selector uses a dot (.) prefix: .classname. The ID selector uses #, and element selectors use just the tag name."
+  },
+  {
+    "id": 3,
+    "question": "Which CSS method is recommended for production websites?",
+    "options": [
+      "Inline CSS",
+      "Internal CSS",
+      "External CSS",
+      "All are equally good"
+    ],
+    "correctAnswer": 2,
+    "explanation": "External CSS (separate .css file) is recommended for production because it's reusable, maintainable, and separates concerns."
+  },
+  {
+    "id": 4,
+    "question": "What is the correct syntax for a CSS rule?",
+    "options": [
+      "selector { property: value; }",
+      "selector { property = value; }",
+      "selector (property: value)",
+      "selector: property = value;"
+    ],
+    "correctAnswer": 0,
+    "explanation": "CSS syntax uses curly braces and colons: selector { property: value; }. Each declaration ends with a semicolon."
+  },
+  {
+    "id": 5,
+    "question": "Which selector has the highest specificity?",
+    "options": [
+      "Element selector",
+      "Class selector",
+      "ID selector",
+      "Universal selector"
+    ],
+    "correctAnswer": 2,
+    "explanation": "ID selectors have the highest specificity, followed by class selectors, then element selectors. Universal selectors have the lowest."
+  },
+  {
+    "id": 6,
+    "question": "How do you add a comment in CSS?",
+    "options": [
+      "// This is a comment",
+      "/* This is a comment */",
+      "<!-- This is a comment -->",
+      "# This is a comment"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSS comments use /* */ syntax. Single-line comments with // do NOT work in CSS."
+  },
+  {
+    "id": 7,
+    "question": "Which selector selects all elements on a page?",
+    "options": [
+      "*",
+      ".all",
+      "#all",
+      "all"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The universal selector (*) selects all elements on the page. It's often used for resets but should be used carefully on large pages."
+  },
+  {
+    "id": 8,
+    "question": "Can multiple elements share the same class?",
+    "options": [
+      "No, classes must be unique",
+      "Yes, multiple elements can share the same class",
+      "Only two elements can share a class",
+      "Classes cannot be used at all"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Multiple elements can share the same class. This is the purpose of classes - to style groups of elements together."
+  },
+  {
+    "id": 9,
+    "question": "Which HTML tag is used to link an external CSS file?",
+    "options": [
+      "<css>",
+      "<style>",
+      "<link>",
+      "<script>"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The <link> tag is used to link external CSS files: <link rel=\"stylesheet\" href=\"styles.css\">"
+  },
+  {
+    "id": 10,
+    "question": "Where should internal CSS be placed?",
+    "options": [
+      "In the <body> section",
+      "In the <head> section",
+      "At the end of the document",
+      "In a separate file"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Internal CSS should be placed in the <head> section within a <style> tag. It's good for single-page websites but not reusable."
+  }
+]

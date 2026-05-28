@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What is the correct file extension for Python files?",
+    "options": [
+      ".python",
+      ".py",
+      ".pt",
+      ".pyt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python files use the .py extension. This is the standard convention recognized by Python interpreters and IDEs."
+  },
+  {
+    "id": 2,
+    "question": "How do you create a variable in Python?",
+    "options": [
+      "var x = 5",
+      "int x = 5",
+      "x = 5",
+      "declare x = 5"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In Python, you create variables by simply assigning a value: x = 5. No type declaration or keywords are needed."
+  },
+  {
+    "id": 3,
+    "question": "What is the output of print(type(3.14))?",
+    "options": [
+      "int",
+      "float",
+      "str",
+      "double"
+    ],
+    "correctAnswer": 1,
+    "explanation": "3.14 is a floating-point number in Python, so type(3.14) returns <class 'float'>."
+  },
+  {
+    "id": 4,
+    "question": "How do you write a comment in Python?",
+    "options": [
+      "// This is a comment",
+      "/* This is a comment */",
+      "# This is a comment",
+      "-- This is a comment"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Python uses the # symbol for single-line comments. Multi-line comments can be created using triple quotes."
+  },
+  {
+    "id": 5,
+    "question": "What is the result of 2 ** 3 in Python?",
+    "options": [
+      "6",
+      "8",
+      "9",
+      "5"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ** operator is used for exponentiation in Python. 2 ** 3 means 2 raised to the power of 3, which equals 8."
+  },
+  {
+    "id": 6,
+    "question": "Which data type is immutable in Python?",
+    "options": [
+      "List",
+      "Dictionary",
+      "Tuple",
+      "Set"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tuples are immutable in Python, meaning they cannot be modified after creation. Lists, dictionaries, and sets are mutable."
+  },
+  {
+    "id": 7,
+    "question": "How do you get user input in Python?",
+    "options": [
+      "input()",
+      "read()",
+      "get()",
+      "scan()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The input() function is used to get user input in Python. It always returns a string."
+  },
+  {
+    "id": 8,
+    "question": "What is the correct way to check if two variables have the same value?",
+    "options": [
+      "x = y",
+      "x == y",
+      "x === y",
+      "x.equals(y)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In Python, == is used for equality comparison. A single = is used for assignment."
+  }
+]
