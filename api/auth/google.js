@@ -47,10 +47,12 @@ passport.use(
         }
         
         user = await User.create({
+          id: Date.now(),
           fullName: profile.displayName,
           email: profile.emails[0].value,
           googleId: profile.id,
           avatar: generateCartoonAvatar(profile.displayName),
+          provider: 'google'
         });
         
         done(null, user);
@@ -68,7 +70,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     await connectToDatabase();
-    const user = await User.findById(id);
+    const user = await User.findOne({ id });
     done(null, user);
   } catch (err) {
     done(err, null);

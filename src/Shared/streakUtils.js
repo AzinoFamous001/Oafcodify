@@ -4,6 +4,13 @@ const addNotification = (userId, notification) => {
   const savedNotifications = JSON.parse(localStorage.getItem(storageKey) || '[]');
   savedNotifications.unshift(notification);
   localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+  
+  // Sync notification to backend
+  fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ notification })
+  }).catch(err => console.error('Error syncing notification to backend:', err));
 };
 
 // Shared utility for managing login streaks
@@ -34,6 +41,16 @@ export const updateLoginStreak = (userId) => {
     localStorage.setItem(streakKey, streak.toString());
     console.log('Streak Debug - First time login, set streak to 1');
     
+    // Sync streak to backend
+    fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        streak: streak,
+        lastLogin: todayStr
+      })
+    }).catch(err => console.error('Error syncing streak to backend:', err));
+    
     // Add notification for first streak
     addNotification(userId, {
       id: Date.now(),
@@ -63,6 +80,16 @@ export const updateLoginStreak = (userId) => {
       localStorage.setItem(streakKey, streak.toString());
       console.log('Streak Debug - Consecutive day, incremented streak to:', streak);
       
+      // Sync streak to backend
+      fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          streak: streak,
+          lastLogin: todayStr
+        })
+      }).catch(err => console.error('Error syncing streak to backend:', err));
+      
       // Add notification for streak increase
       addNotification(userId, {
         id: Date.now(),
@@ -85,6 +112,16 @@ export const updateLoginStreak = (userId) => {
       localStorage.setItem(streakKey, streak.toString());
       console.log('Streak Debug - Missed day, reset streak to 1');
       
+      // Sync streak to backend
+      fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          streak: streak,
+          lastLogin: todayStr
+        })
+      }).catch(err => console.error('Error syncing streak to backend:', err));
+      
       // Add notification for streak reset
       addNotification(userId, {
         id: Date.now(),
@@ -100,6 +137,16 @@ export const updateLoginStreak = (userId) => {
       localStorage.setItem(lastLoginKey, todayStr);
       localStorage.setItem(streakKey, streak.toString());
       console.log('Streak Debug - Future date, reset streak to 1');
+      
+      // Sync streak to backend
+      fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          streak: streak,
+          lastLogin: todayStr
+        })
+      }).catch(err => console.error('Error syncing streak to backend:', err));
       
       // Add notification for streak reset (timezone issue)
       addNotification(userId, {
@@ -199,6 +246,16 @@ export const resetStreak = (userId) => {
 
   localStorage.setItem(lastLoginKey, todayStr);
   localStorage.setItem(streakKey, "1");
+
+  // Sync streak to backend
+  fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      streak: 1,
+      lastLogin: todayStr
+    })
+  }).catch(err => console.error('Error syncing streak to backend:', err));
 
   console.log('Streak Debug - Force reset streak to 1 for userId:', userId);
   return 1;

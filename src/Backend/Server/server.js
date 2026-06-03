@@ -6,7 +6,8 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GitHubStrategy = require("passport-github2").Strategy;
 const MongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../../../.env") });
 
 const app = express();
 
@@ -55,7 +56,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findOne({ id });
     done(null, user);
   } catch (err) {
     done(err, null);
@@ -80,86 +81,98 @@ const generateCartoonAvatar = (userName) => {
 };
 
 // Google OAuth Strategy
-passport.use(
-  "google",
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL,
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        let user = await User.findOne({ googleId: profile.id });
-        
-        if (user) {
-          return done(null, user);
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  passport.use(
+    "google",
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          let user = await User.findOne({ googleId: profile.id });
+          
+          if (user) {
+            return done(null, user);
+          }
+          
+          user = await User.findOne({ email: profile.emails[0].value });
+          
+          if (user) {
+            user.googleId = profile.id;
+            user.avatar = generateCartoonAvatar(profile.displayName);
+            await user.save();
+            return done(null, user);
+          }
+          
+          user = await User.create({
+            id: Date.now(),
+            fullName: profile.displayName,
+            email: profile.emails[0].value,
+            googleId: profile.id,
+            avatar: generateCartoonAvatar(profile.displayName),
+            provider: 'google'
+          });
+          
+          done(null, user);
+        } catch (err) {
+          done(err, null);
         }
-        
-        user = await User.findOne({ email: profile.emails[0].value });
-        
-        if (user) {
-          user.googleId = profile.id;
-          user.avatar = generateCartoonAvatar(profile.displayName);
-          await user.save();
-          return done(null, user);
-        }
-        
-        user = await User.create({
-          fullName: profile.displayName,
-          email: profile.emails[0].value,
-          googleId: profile.id,
-          avatar: generateCartoonAvatar(profile.displayName),
-        });
-        
-        done(null, user);
-      } catch (err) {
-        done(err, null);
       }
-    }
-  )
-);
+    )
+  );
+} else {
+  console.warn("⚠️ Google OAuth credentials not found. Google authentication will not be available.");
+}
 
 // GitHub OAuth Strategy
-passport.use(
-  "github",
-  new GitHubStrategy(
-    {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.GITHUB_CALLBACK_URL,
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        let user = await User.findOne({ githubId: profile.id });
-        
-        if (user) {
-          return done(null, user);
+if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+  passport.use(
+    "github",
+    new GitHubStrategy(
+      {
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_CALLBACK_URL,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          let user = await User.findOne({ githubId: profile.id });
+          
+          if (user) {
+            return done(null, user);
+          }
+          
+          user = await User.findOne({ email: profile.emails?.[0]?.value });
+          
+          if (user) {
+            user.githubId = profile.id;
+            user.avatar = generateCartoonAvatar(profile.displayName || profile.username);
+            await user.save();
+            return done(null, user);
+          }
+          
+          user = await User.create({
+            id: Date.now(),
+            fullName: profile.displayName || profile.username,
+            email: profile.emails?.[0]?.value || `${profile.username}@github.local`,
+            githubId: profile.id,
+            avatar: generateCartoonAvatar(profile.displayName || profile.username),
+            provider: 'github'
+          });
+          
+          done(null, user);
+        } catch (err) {
+          done(err, null);
         }
-        
-        user = await User.findOne({ email: profile.emails?.[0]?.value });
-        
-        if (user) {
-          user.githubId = profile.id;
-          user.avatar = generateCartoonAvatar(profile.displayName || profile.username);
-          await user.save();
-          return done(null, user);
-        }
-        
-        user = await User.create({
-          fullName: profile.displayName || profile.username,
-          email: profile.emails?.[0]?.value || `${profile.username}@github.local`,
-          githubId: profile.id,
-          avatar: generateCartoonAvatar(profile.displayName || profile.username),
-        });
-        
-        done(null, user);
-      } catch (err) {
-        done(err, null);
       }
-    }
-  )
-);
+    )
+  );
+} else {
+  console.warn("⚠️ GitHub OAuth credentials not found. GitHub authentication will not be available.");
+}
 
 // Gemini API Integration
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -195,23 +208,89 @@ app.post("/api/gemini", async (req, res) => {
 });
 
 // OAuth Routes
-app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+app.get("/api/auth/google", (req, res, next) => {
+  const from = req.query.from || "login";
+  req.session.oauthFrom = from;
+  req.session.save((err) => {
+    if (err) {
+      console.error("Session save error on Google auth init:", err);
+    }
+    passport.authenticate("google", { scope: ["profile", "email"] })(req, res, next);
+  });
+});
 
 app.get(
   "/api/auth/google/callback",
   passport.authenticate("google", { failureRedirect: `${process.env.CLIENT_URL}/login?error=auth_failed` }),
   (req, res) => {
-    res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+    const from = req.session.oauthFrom || "login";
+    // REGENERATE SESSION TO PREVENT SESSION FIXATION
+    req.session.regenerate((err) => {
+      if (err) {
+        console.error("Session regeneration error:", err);
+        return res.redirect(`${process.env.CLIENT_URL}/login?error=session_regeneration_failed`);
+      }
+
+      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+      req.session.userId = req.user.id;
+      req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      req.session.save((err) => {
+        if (err) {
+          console.error("Session save error:", err);
+          return res.redirect(`${process.env.CLIENT_URL}/login?error=session_save_failed`);
+        }
+
+        // Successful authentication
+        if (from === "signup") {
+          res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
+        } else {
+          res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+        }
+      });
+    });
   }
 );
 
-app.get("/api/auth/github", passport.authenticate("github", { scope: ["user:email"] }));
+app.get("/api/auth/github", (req, res, next) => {
+  const from = req.query.from || "login";
+  req.session.oauthFrom = from;
+  req.session.save((err) => {
+    if (err) {
+      console.error("Session save error on GitHub auth init:", err);
+    }
+    passport.authenticate("github", { scope: ["user:email"] })(req, res, next);
+  });
+});
 
 app.get(
   "/api/auth/github/callback",
   passport.authenticate("github", { failureRedirect: `${process.env.CLIENT_URL}/login?error=auth_failed` }),
   (req, res) => {
-    res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+    const from = req.session.oauthFrom || "login";
+    // REGENERATE SESSION TO PREVENT SESSION FIXATION
+    req.session.regenerate((err) => {
+      if (err) {
+        console.error("Session regeneration error:", err);
+        return res.redirect(`${process.env.CLIENT_URL}/login?error=session_regeneration_failed`);
+      }
+
+      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+      req.session.userId = req.user.id;
+      req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      req.session.save((err) => {
+        if (err) {
+          console.error("Session save error:", err);
+          return res.redirect(`${process.env.CLIENT_URL}/login?error=session_save_failed`);
+        }
+
+        // Successful authentication
+        if (from === "signup") {
+          res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
+        } else {
+          res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+        }
+      });
+    });
   }
 );
 
@@ -220,7 +299,7 @@ app.get("/api/auth/user", (req, res) => {
   if (req.isAuthenticated()) {
     res.json({
       user: {
-        id: req.user._id,
+        id: req.user.id,
         fullName: req.user.fullName,
         email: req.user.email,
         avatar: req.user.avatar,

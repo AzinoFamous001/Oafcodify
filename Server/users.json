@@ -1,1 +1,74 @@
-[{"id":1779646352443,"fullName":"john Doe","email":"johndoe@gmail.com","password":"$2b$10$8YcD24EHCz/fLSGDbSwWAutft32sVqGiRrE9auAcWdTKkzgQl8iUC"},{"id":1779647061016,"fullName":"Azino Famous","email":"azino@gmail.com","password":"$2b$10$ia8QFuDSlGwftktWhPJ/MetReXGiK/skPp1WHuJecuppzBLZn/Zdm"},{"id":1779707472202,"fullName":"Young Crest ","email":"youngcret0@gmail.com","password":"$2b$10$qh1G7xUIYy2UqW218feeEOO1RJhY4CPh2qavg0nYPQxn8lM0WFqle"},{"id":1779707968941,"fullName":"Kaycee","email":"anything@gmail.com","password":"$2b$10$AE2TjTu8XzoV4dihVm6zseKH13VMRVG4NXE28i0nScKhb8zDWW7Aa"},{"id":1779708580574,"fullName":"Godswill ","email":"swill@gmail.com","password":"$2b$10$kc9sWLIfyE6qiLMVNfT8eOWgDALh2YtngoErZux/CpDZblVshhW0C"},{"id":1779709141893,"fullName":"Joseph Emmanuel ","email":"jospemm@gmail.com","password":"$2b$10$uQXbLK4TE3FLZF70a4R1SOgdMyLZ1fisJt8axRHr0I1zrCq494Ofy"},{"id":1779709844686,"fullName":"Okoye Chioma Blessing","email":"blessedchomzy@gmail.com","password":"$2b$10$H7Y/qQ4h5FnVqCGNlMeZreNmulwFA1xNU0Uwd8u8eL47ctdmHcB/G"},{"id":1779731663664,"fullName":"Azino Famous","email":"azinofamous@gmail.com","password":"$2b$10$YZMoPEyMsR0QLGtEco0QleeqjapY6n0S89W5BDK/Cy1PFP6QJ624O"},{"id":1779754332051,"fullName":"Peter Anugwa","email":"Anugwa@gmail.com","password":"$2b$10$qixZ02rtJIaQikAp9gOZXuBHvSVwKY9QiXbR3Pnp38HfZAHyE7/te"},{"id":1779789539925,"fullName":"Famous Chinedu","email":"famousschnd2@gmail.com","password":"$2b$10$jiB2N7U0VlgJ4gkhbxDMguMydw8mQSdDq82RkMJ42cnRYAzHuLYlS"},{"id":1779801773226,"fullName":"rabiu","email":"rabiu@gmail.com","password":"$2b$10$k9hn4e.bwbHdzMssY4Py..Ydoij1QykoDsaE/mjQQvvXxzxjt2uie"},{"id":1779802341580,"fullName":"Anugwa Peter","email":"peteranugwa@gmail.com","password":"$2b$10$s22igizygYu4C10GcnYD6uV6CJLGWcJDrGD307YMZXW7KX94DK1Se"}]
+[
+  {
+    "id": 1779646352443,
+    "fullName": "john Doe",
+    "email": "johndoe@gmail.com",
+    "password": "$2b$10$8YcD24EHCz/fLSGDbSwWAutft32sVqGiRrE9auAcWdTKkzgQl8iUC"
+  },
+  {
+    "id": 1779647061016,
+    "fullName": "Azino Famous",
+    "email": "azino@gmail.com",
+    "password": "$2b$10$ia8QFuDSlGwftktWhPJ/MetReXGiK/skPp1WHuJecuppzBLZn/Zdm"
+  },
+  {
+    "id": 1779707472202,
+    "fullName": "Young Crest ",
+    "email": "youngcret0@gmail.com",
+    "password": "$2b$10$qh1G7xUIYy2UqW218feeEOO1RJhY4CPh2qavg0nYPQxn8lM0WFqle"
+  },
+  {
+    "id": 1779707968941,
+    "fullName": "Kaycee",
+    "email": "anything@gmail.com",
+    "password": "$2b$10$AE2TjTu8XzoV4dihVm6zseKH13VMRVG4NXE28i0nScKhb8zDWW7Aa"
+  },
+  {
+    "id": 1779708580574,
+    "fullName": "Godswill ",
+    "email": "swill@gmail.com",
+    "password": "$2b$10$kc9sWLIfyE6qiLMVNfT8eOWgDALh2YtngoErZux/CpDZblVshhW0C"
+  },
+  {
+    "id": 1779709141893,
+    "fullName": "Joseph Emmanuel ",
+    "email": "jospemm@gmail.com",
+    "password": "$2b$10$uQXbLK4TE3FLZF70a4R1SOgdMyLZ1fisJt8axRHr0I1zrCq494Ofy"
+  },
+  {
+    "id": 1779709844686,
+    "fullName": "Okoye Chioma Blessing",
+    "email": "blessedchomzy@gmail.com",
+    "password": "$2b$10$H7Y/qQ4h5FnVqCGNlMeZreNmulwFA1xNU0Uwd8u8eL47ctdmHcB/G"
+  },
+  {
+    "id": 1779731663664,
+    "fullName": "Azino Famous",
+    "email": "azinofamous@gmail.com",
+    "password": "$2b$10$YZMoPEyMsR0QLGtEco0QleeqjapY6n0S89W5BDK/Cy1PFP6QJ624O"
+  },
+  {
+    "id": 1779754332051,
+    "fullName": "Peter Anugwa",
+    "email": "Anugwa@gmail.com",
+    "password": "$2b$10$qixZ02rtJIaQikAp9gOZXuBHvSVwKY9QiXbR3Pnp38HfZAHyE7/te"
+  },
+  {
+    "id": 1779789539925,
+    "fullName": "Famous Chinedu",
+    "email": "famousschnd2@gmail.com",
+    "password": "$2b$10$jiB2N7U0VlgJ4gkhbxDMguMydw8mQSdDq82RkMJ42cnRYAzHuLYlS"
+  },
+  {
+    "id": 1779801773226,
+    "fullName": "rabiu",
+    "email": "rabiu@gmail.com",
+    "password": "$2b$10$k9hn4e.bwbHdzMssY4Py..Ydoij1QykoDsaE/mjQQvvXxzxjt2uie"
+  },
+  {
+    "id": 1779802341580,
+    "fullName": "Anugwa Peter",
+    "email": "peteranugwa@gmail.com",
+    "password": "$2b$10$s22igizygYu4C10GcnYD6uV6CJLGWcJDrGD307YMZXW7KX94DK1Se"
+  }
+]

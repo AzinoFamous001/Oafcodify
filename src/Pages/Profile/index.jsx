@@ -204,6 +204,9 @@ const ProfilePage = () => {
     // Check for daily lesson reminder
     checkDailyLessonReminder(currentUserId);
 
+    // Sync progress to backend
+    syncProgressToBackend(currentUserId);
+
     // Auto-scroll to top on page mount
     window.scrollTo(0, 0);
   }, [navigate, userId]);
@@ -307,7 +310,60 @@ const ProfilePage = () => {
     if (!exists) {
       savedNotifications.unshift(notification);
       localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+      
+      // Sync notification to backend
+      fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notification })
+      }).catch(err => console.error('Error syncing notification to backend:', err));
     }
+  };
+
+  // Helper function to sync progress to backend
+  const syncProgressToBackend = (userId) => {
+    if (!userId) return;
+    
+    // Collect all progress data from localStorage
+    const quizResults = JSON.parse(localStorage.getItem(`quizResults_${userId}`) || '[]');
+    const streak = {
+      current: parseInt(localStorage.getItem(`streak_${userId}`) || '0'),
+      lastLogin: localStorage.getItem(`lastLogin_${userId}`)
+    };
+    const notifications = JSON.parse(localStorage.getItem(`notifications_${userId}`) || '[]');
+    const completedCourses = parseInt(localStorage.getItem(`completedCourses_${userId}`) || '0');
+    
+    // Collect lesson progress
+    const lessonProgress = {};
+    const courses = ["HTML5", "CSS3", "JavaScript", "Python", "C++", "React"];
+    courses.forEach(course => {
+      for (let lessonId = 1; lessonId <= 5; lessonId++) {
+        const completedKey = `${userId}_${course}_lesson_${lessonId}_completed`;
+        const unlockedKey = `${userId}_${course}_lesson_${lessonId}_unlocked`;
+        const key = `${course}_lesson_${lessonId}`;
+        
+        if (localStorage.getItem(completedKey)) {
+          lessonProgress[key] = { completed: true };
+        }
+        if (localStorage.getItem(unlockedKey)) {
+          if (!lessonProgress[key]) lessonProgress[key] = {};
+          lessonProgress[key].unlocked = true;
+        }
+      }
+    });
+    
+    // Send progress to backend
+    fetch(`http://localhost:5000/api/user/progress/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        quizResults,
+        lessonProgress,
+        streak,
+        notifications,
+        completedCourses
+      })
+    }).catch(err => console.error('Error syncing progress to backend:', err));
   };
 
   // Check for newly earned achievements and send notifications

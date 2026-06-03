@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   id: {
@@ -50,11 +50,7 @@ const userSchema = new mongoose.Schema({
     attemptNumber: Number
   }],
   lessonProgress: {
-    type: Map,
-    of: {
-      completed: Boolean,
-      unlocked: Boolean
-    },
+    type: Object,
     default: {}
   },
   streak: {
@@ -97,4 +93,4 @@ userSchema.pre('save', function() {
   this.updatedAt = Date.now();
 });
 
-export default mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

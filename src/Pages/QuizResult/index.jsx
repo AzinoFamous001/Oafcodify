@@ -97,6 +97,13 @@ const QuizResult = () => {
           // Always add as a new entry to track individual attempts
           allQuizResults.push(newQuizResult);
           localStorage.setItem(quizResultsKey, JSON.stringify(allQuizResults));
+          
+          // Sync quiz result to backend
+          fetch(`http://localhost:5000/api/user/quiz-result/${userId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quizResult: newQuizResult })
+          }).catch(err => console.error('Error syncing quiz result to backend:', err));
         }
 
         // Mark lesson as completed if passed (only if not already completed)
@@ -107,10 +114,32 @@ const QuizResult = () => {
           if (!alreadyCompleted) {
             localStorage.setItem(lessonKey, JSON.stringify([0, 1, 2, 3, 4])); // Mark all subtopics as complete
 
+            // Sync lesson completion to backend
+            fetch(`http://localhost:5000/api/user/lesson-progress/${userId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                courseKey: ck,
+                lessonId: lid,
+                completed: true
+              })
+            }).catch(err => console.error('Error syncing lesson completion to backend:', err));
+
             // Unlock next lesson - set the NEXT lesson as unlocked
             const nextLessonId = parseInt(lid) + 1;
             const unlockKey = `${userId}_${ck}_lesson_${nextLessonId}_unlocked`;
             localStorage.setItem(unlockKey, 'true');
+            
+            // Sync lesson unlock to backend
+            fetch(`http://localhost:5000/api/user/lesson-progress/${userId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                courseKey: ck,
+                lessonId: nextLessonId,
+                unlocked: true
+              })
+            }).catch(err => console.error('Error syncing lesson unlock to backend:', err));
 
             // Add notification for unlocked lesson
             if (nextLessonId <= 5) {
@@ -138,6 +167,13 @@ const QuizResult = () => {
                 };
                 savedNotifications.unshift(unlockNotification);
                 localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+
+                // Sync notification to backend
+                fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ notification: unlockNotification })
+                }).catch(err => console.error('Error syncing notification to backend:', err));
               }
             }
 
@@ -167,11 +203,25 @@ const QuizResult = () => {
               savedNotifications.unshift(courseCompletedNotification);
               localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
 
+              // Sync notification to backend
+              fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ notification: courseCompletedNotification })
+              }).catch(err => console.error('Error syncing notification to backend:', err));
+
               // Check rank change
               const completedCoursesKey = `completedCourses_${userId}`;
               let completedCourses = parseInt(localStorage.getItem(completedCoursesKey) || '0');
               completedCourses++;
               localStorage.setItem(completedCoursesKey, completedCourses.toString());
+
+              // Sync completedCourses to backend
+              fetch(`http://localhost:5000/api/user/progress/${userId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completedCourses })
+              }).catch(err => console.error('Error syncing completedCourses to backend:', err));
 
               let newRank = 'Bronze';
               if (completedCourses >= 2) {
@@ -192,6 +242,13 @@ const QuizResult = () => {
                 };
                 savedNotifications.unshift(rankNotification);
                 localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+
+                // Sync notification to backend
+                fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ notification: rankNotification })
+                }).catch(err => console.error('Error syncing notification to backend:', err));
               }
             }
 
@@ -224,6 +281,13 @@ const QuizResult = () => {
             };
             savedNotifications.unshift(recommendation);
             localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
+
+            // Sync notification to backend
+            fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ notification: recommendation })
+            }).catch(err => console.error('Error syncing notification to backend:', err));
           }
         }
 

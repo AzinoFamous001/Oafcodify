@@ -60,12 +60,23 @@ const SettingsPage = () => {
     }
   }, [navigate]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Save Profile Info with userId prefix for complete user isolation
     localStorage.setItem(`userName_${userId}`, userName);
     localStorage.setItem(`userEmail_${userId}`, userEmail);
     // Save Toggles
     localStorage.setItem(`settings_${userId}`, JSON.stringify(settings));
+
+    // Sync profile info to backend
+    try {
+      await fetch(`http://localhost:5000/api/user/profile/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName: userName, email: userEmail })
+      });
+    } catch (err) {
+      console.error('Error syncing profile to backend:', err);
+    }
 
     setShowSuccess(true);
   };

@@ -34,7 +34,7 @@ passport.use(
         let user = await User.findOne({ googleId: profile.id });
         
         if (user) {
-          return done(null, user);
+          return done(null, { user, isNewUser: false });
         }
         
         user = await User.findOne({ email: profile.emails[0].value });
@@ -43,17 +43,19 @@ passport.use(
           user.googleId = profile.id;
           user.avatar = generateCartoonAvatar(profile.displayName);
           await user.save();
-          return done(null, user);
+          return done(null, { user, isNewUser: false });
         }
         
         user = await User.create({
+          id: Date.now(),
           fullName: profile.displayName,
           email: profile.emails[0].value,
           googleId: profile.id,
           avatar: generateCartoonAvatar(profile.displayName),
+          provider: 'google'
         });
         
-        done(null, user);
+        done(null, { user, isNewUser: true });
       } catch (err) {
         done(err, null);
       }
@@ -61,14 +63,14 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
+passport.serializeUser((data, done) => {
+  done(null, data.user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     await connectToDatabase();
-    const user = await User.findById(id);
+    const user = await User.findOne({ id });
     done(null, user);
   } catch (err) {
     done(err, null);
@@ -78,7 +80,17 @@ passport.deserializeUser(async (id, done) => {
 export default async function handler(req, res) {
   await passport.authenticate('google', { 
     failureRedirect: `${process.env.CLIENT_URL}/login?error=auth_failed` 
-  })(req, res, () => {
-    res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
-  });
+  }, (err, data) => {
+    if (err) {
+      return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+    }
+    
+    if (data.isNewUser) {
+      // New user - redirect to signup page with newUser flag
+      res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
+    } else {
+      // Existing user - redirect to login page with success flag
+      res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+    }
+  })(req, res);
 }

@@ -4,6 +4,7 @@ import Button from "../../Shared/Buttons";
 import TextField from "../../Shared/Textfield";
 import LoadingPage from "../../Components/shared/LoadingPage";
 import ErrorModal from "../../Components/shared/Errormodal";
+import SuccessModal from "../../Components/shared/Successmodal";
 import { updateLoginStreak } from "../../Shared/streakUtils";
 
 import {
@@ -51,6 +52,7 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
 
   // Generate cartoon avatar (deterministic based on username)
@@ -74,8 +76,12 @@ const SignupPage = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const authSuccess = urlParams.get('auth');
+    const isNewUser = urlParams.get('newUser');
 
     if (authSuccess === 'success') {
+      // Clear URL params to prevent re-processing
+      window.history.replaceState({}, document.title, '/signup');
+
       // Fetch user data from backend
       fetch('http://localhost:5000/api/auth/user', {
         credentials: 'include'
@@ -89,14 +95,20 @@ const SignupPage = () => {
           sessionStorage.setItem('currentUserId', data.user.id);
           localStorage.setItem(`userName_${data.user.id}`, data.user.fullName);
           localStorage.setItem(`userEmail_${data.user.id}`, data.user.email);
-          
+
           // Generate cartoon avatar (user-specific)
           const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
           localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
           // Update login streak for OAuth users
           updateLoginStreak(data.user.id);
-          // Navigate directly to dashboard
-          navigate("/dashboard");
+          
+          // If new user from OAuth, navigate directly to dashboard
+          if (isNewUser === 'true') {
+            navigate('/dashboard');
+          } else {
+            // Show success modal for existing users
+            setShowSuccess(true);
+          }
         })
         .catch(err => {
           console.error('OAuth callback error:', err);
@@ -209,6 +221,12 @@ const SignupPage = () => {
         onClose={() => setShowError(false)}
         message={errorMessage}
       />
+      <SuccessModal
+        isOpen={showSuccess}
+        onClose={() => navigate("/dashboard")}
+        title="Account Created Successfully!"
+        message="Welcome to Oafcodify! Your account has been created and you're ready to start learning."
+      />
       <AnimatedBackground />
 
       <div className="relative z-10 w-full max-w-md md:max-w-4xl">
@@ -320,7 +338,7 @@ const SignupPage = () => {
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <button
                 type="button"
-                onClick={() => window.location.href = "http://localhost:5000/api/auth/github"}
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/github?from=signup"}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGithub size={18} className="mr-2 text-gray-700" />
@@ -329,7 +347,7 @@ const SignupPage = () => {
 
               <button
                 type="button"
-                onClick={() => window.location.href = "http://localhost:5000/api/auth/google"}
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/google?from=signup"}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGoogle size={18} className="mr-2 text-gray-700" />

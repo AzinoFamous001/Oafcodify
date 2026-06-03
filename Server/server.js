@@ -1,10 +1,9 @@
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const express = require("express");
-const fs = require("fs-extra");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
-const path = require("path");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -12,12 +11,15 @@ const GitHubStrategy = require("passport-github2").Strategy;
 const session = require("express-session");
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
+const connectDB = require("./config/database");
+const User = require("./models/User");
 
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-const FILE_PATH = path.join(__dirname, "users.json");
+// Connect to MongoDB
+connectDB();
 
 // MIDDLEWARE
 app.use(cors({
@@ -46,16 +48,11 @@ app.use(passport.session());
 
 // SESSION VALIDATION MIDDLEWARE
 const validateSession = (req, res, next) => {
-  // If user is authenticated via passport, validate session
-  if (req.isAuthenticated() && req.session.userId) {
-    // Ensure session userId matches passport user
-    if (req.user && req.user.id !== req.session.userId) {
-      // Session mismatch - destroy session
-      req.session.destroy((err) => {
-        if (err) console.error("Session destruction error:", err);
-      });
-      return res.status(401).json({ message: "Session mismatch. Please login again." });
-    }
+  // Only check if user is authenticated via passport
+  // Removed strict session userId validation to prevent automatic logouts
+  if (req.isAuthenticated()) {
+    // User is authenticated, allow request
+    return next();
   }
   next();
 };
@@ -109,7 +106,7 @@ async function sendStudyReminder(email, userName) {
 // Schedule daily study reminders at 9 AM
 cron.schedule('0 9 * * *', async () => {
   try {
-    const users = await getUsers();
+    const users = await User.find({});
     for (const user of users) {
       if (user.email) {
         await sendStudyReminder(user.email, user.fullName);
@@ -129,8 +126,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const users = await getUsers();
-    const user = users.find(u => u.id === id);
+    const user = await User.findOne({ id });
     done(null, user);
   } catch (error) {
     done(error, null);
@@ -148,21 +144,32 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      const users = await getUsers();
-      let user = users.find(u => u.email === profile.emails[0].value);
+      // Find user in MongoDB by email or googleId
+      let user = await User.findOne({
+        $or: [
+          { email: profile.emails[0].value },
+          { googleId: profile.id }
+        ]
+      });
 
       if (!user) {
-        // Create new user
-        user = {
+        // Create new user in MongoDB
+        user = new User({
           id: Date.now(),
           fullName: profile.displayName,
           email: profile.emails[0].value,
           provider: "google",
           googleId: profile.id,
-          avatar: profile.photos[0]?.value
-        };
-        users.push(user);
-        await fs.outputJson(FILE_PATH, users);
+          avatar: profile.photos?.[0]?.value || ""
+        });
+        await user.save();
+      } else if (!user.googleId) {
+        // Link googleId to existing user
+        user.googleId = profile.id;
+        if (!user.avatar && profile.photos?.[0]?.value) {
+          user.avatar = profile.photos[0].value;
+        }
+        await user.save();
       }
 
       return done(null, user);
@@ -183,21 +190,33 @@ if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      const users = await getUsers();
-      let user = users.find(u => u.email === profile.emails?.[0]?.value || u.githubId === profile.id);
+      // Find user in MongoDB
+      const emailVal = profile.emails?.[0]?.value;
+      let user = await User.findOne({ 
+        $or: [
+          ...(emailVal ? [{ email: emailVal }] : []),
+          { githubId: profile.id }
+        ]
+      });
 
       if (!user) {
-        // Create new user
-        user = {
+        // Create new user in MongoDB
+        user = new User({
           id: Date.now(),
           fullName: profile.displayName || profile.username,
-          email: profile.emails?.[0]?.value || `${profile.username}@github.local`,
+          email: emailVal || `${profile.username}@github.local`,
           provider: "github",
           githubId: profile.id,
-          avatar: profile.photos[0]?.value
-        };
-        users.push(user);
-        await fs.outputJson(FILE_PATH, users);
+          avatar: profile.photos?.[0]?.value || ""
+        });
+        await user.save();
+      } else if (!user.githubId) {
+        // Link githubId to existing user
+        user.githubId = profile.id;
+        if (!user.avatar && profile.photos?.[0]?.value) {
+          user.avatar = profile.photos[0].value;
+        }
+        await user.save();
       }
 
       return done(null, user);
@@ -212,15 +231,11 @@ if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
 // =========================
 async function getUsers() {
   try {
-    if (!fs.existsSync(FILE_PATH)) {
-      await fs.outputJson(FILE_PATH, []);
-    }
-
-    const data = await fs.readFile(FILE_PATH, "utf8");
-
-    return data ? JSON.parse(data) : [];
+    // Use MongoDB for all user operations
+    const users = await User.find({});
+    return users;
   } catch (error) {
-    console.error("Error reading users file:", error);
+    console.error("Error reading users from MongoDB:", error);
     return [];
   }
 }
@@ -239,10 +254,8 @@ app.post("/api/register", async (req, res) => {
       });
     }
 
-    const users = await getUsers();
-
-    // CHECK IF USER EXISTS
-    const existingUser = users.find((u) => u.email === email);
+    // CHECK IF USER EXISTS IN MONGODB
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return res.status(400).json({
@@ -253,17 +266,16 @@ app.post("/api/register", async (req, res) => {
     // HASH PASSWORD
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // CREATE USER
-    const newUser = {
+    // CREATE USER IN MONGODB
+    const newUser = new User({
       id: Date.now(),
       fullName,
       email,
       password: hashedPassword,
-    };
+      provider: 'local'
+    });
 
-    users.push(newUser);
-
-    await fs.outputJson(FILE_PATH, users);
+    await newUser.save();
 
     res.status(201).json({
       message: "Account created successfully",
@@ -296,9 +308,8 @@ app.post("/api/login", async (req, res) => {
       });
     }
 
-    const users = await getUsers();
-
-    const user = users.find((u) => u.email === email);
+    // FIND USER IN MONGODB
+    const user = await User.findOne({ email });
 
     // USER NOT FOUND
     if (!user) {
@@ -427,16 +438,26 @@ YOUR TASK:
 // =========================
 
 // Google OAuth
-app.get("/api/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+app.get("/api/auth/google", (req, res, next) => {
+  const from = req.query.from || "login";
+  req.session.oauthFrom = from;
+  req.session.save((err) => {
+    if (err) {
+      console.error("Session save error on Google auth init:", err);
+    }
+    passport.authenticate("google", { scope: ["profile", "email"] })(req, res, next);
+  });
+});
 
 app.get("/api/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed` }),
   (req, res) => {
+    const from = req.session.oauthFrom || "login";
     // REGENERATE SESSION TO PREVENT SESSION FIXATION
     req.session.regenerate((err) => {
       if (err) {
         console.error("Session regeneration error:", err);
-        return res.redirect("/login");
+        return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_regeneration_failed`);
       }
 
       // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
@@ -445,27 +466,41 @@ app.get("/api/auth/google/callback",
       req.session.save((err) => {
         if (err) {
           console.error("Session save error:", err);
-          return res.redirect("/login");
+          return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_save_failed`);
         }
 
         // Successful authentication
-        res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard?auth=success`);
+        if (from === "signup") {
+          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/signup?auth=success&newUser=true`);
+        } else {
+          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?auth=success`);
+        }
       });
     });
   }
 );
 
 // GitHub OAuth
-app.get("/api/auth/github", passport.authenticate("github", { scope: ["user:email"] }));
+app.get("/api/auth/github", (req, res, next) => {
+  const from = req.query.from || "login";
+  req.session.oauthFrom = from;
+  req.session.save((err) => {
+    if (err) {
+      console.error("Session save error on GitHub auth init:", err);
+    }
+    passport.authenticate("github", { scope: ["user:email"] })(req, res, next);
+  });
+});
 
 app.get("/api/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
+  passport.authenticate("github", { failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed` }),
   (req, res) => {
+    const from = req.session.oauthFrom || "login";
     // REGENERATE SESSION TO PREVENT SESSION FIXATION
     req.session.regenerate((err) => {
       if (err) {
         console.error("Session regeneration error:", err);
-        return res.redirect("/login");
+        return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_regeneration_failed`);
       }
 
       // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
@@ -474,11 +509,15 @@ app.get("/api/auth/github/callback",
       req.session.save((err) => {
         if (err) {
           console.error("Session save error:", err);
-          return res.redirect("/login");
+          return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_save_failed`);
         }
 
         // Successful authentication
-        res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard?auth=success`);
+        if (from === "signup") {
+          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/signup?auth=success&newUser=true`);
+        } else {
+          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?auth=success`);
+        }
       });
     });
   }
@@ -520,6 +559,220 @@ app.post("/api/auth/logout", (req, res, next) => {
 // =========================
 app.get("/", (req, res) => {
   res.send("CodeBay Backend Server Running...");
+});
+
+// =========================
+// USER PROGRESS ROUTES
+// =========================
+
+// Get user progress data
+app.get("/api/user/progress/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return user progress data (or empty object if not exists)
+    res.json({
+      quizResults: user.quizResults || [],
+      lessonProgress: user.lessonProgress || {},
+      streak: user.streak || { current: 0, lastLogin: null },
+      notifications: user.notifications || [],
+      completedCourses: user.completedCourses || 0
+    });
+  } catch (error) {
+    console.error("Error fetching user progress:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Update user progress data
+app.post("/api/user/progress/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { quizResults, lessonProgress, streak, notifications, completedCourses } = req.body;
+
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update user progress data
+    if (quizResults !== undefined) user.quizResults = quizResults;
+    if (lessonProgress !== undefined) user.lessonProgress = lessonProgress;
+    if (streak !== undefined) user.streak = streak;
+    if (notifications !== undefined) user.notifications = notifications;
+    if (completedCourses !== undefined) user.completedCourses = completedCourses;
+
+    await user.save();
+
+    res.json({ message: "Progress updated successfully" });
+  } catch (error) {
+    console.error("Error updating user progress:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Add quiz result
+app.post("/api/user/quiz-result/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { quizResult } = req.body;
+
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Initialize quizResults array if not exists
+    if (!user.quizResults) {
+      user.quizResults = [];
+    }
+
+    // Check for duplicate quiz result (same user, course, lesson, score, and timestamp within 2 seconds)
+    const isDuplicate = user.quizResults.some(
+      r => r.userId === quizResult.userId &&
+           r.courseKey === quizResult.courseKey &&
+           r.lessonId === quizResult.lessonId &&
+           r.score === quizResult.score &&
+           r.totalQuestions === quizResult.totalQuestions &&
+           Math.abs(new Date(r.date) - new Date(quizResult.date)) < 2000
+    );
+
+    if (isDuplicate) {
+      return res.json({ message: "Quiz result already exists (duplicate prevented)" });
+    }
+
+    // Add new quiz result
+    user.quizResults.push(quizResult);
+    await user.save();
+
+    res.json({ message: "Quiz result saved successfully" });
+  } catch (error) {
+    console.error("Error saving quiz result:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Update lesson progress
+app.post("/api/user/lesson-progress/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { courseKey, lessonId, completed, unlocked } = req.body;
+
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Initialize lessonProgress object if not exists
+    if (!user.lessonProgress) {
+      user.lessonProgress = {};
+    }
+
+    const key = `${courseKey}_lesson_${lessonId}`;
+    if (!user.lessonProgress[key]) {
+      user.lessonProgress[key] = {};
+    }
+
+    if (completed !== undefined) user.lessonProgress[key].completed = completed;
+    if (unlocked !== undefined) user.lessonProgress[key].unlocked = unlocked;
+
+    await user.save();
+
+    res.json({ message: "Lesson progress updated successfully" });
+  } catch (error) {
+    console.error("Error updating lesson progress:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Update streak
+app.post("/api/user/streak/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { streak, lastLogin } = req.body;
+
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Initialize streak object if not exists
+    if (!user.streak) {
+      user.streak = {};
+    }
+
+    if (streak !== undefined) user.streak.current = streak;
+    if (lastLogin !== undefined) user.streak.lastLogin = lastLogin;
+
+    await user.save();
+
+    res.json({ message: "Streak updated successfully" });
+  } catch (error) {
+    console.error("Error updating streak:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Add notification
+app.post("/api/user/notification/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { notification } = req.body;
+
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Initialize notifications array if not exists
+    if (!user.notifications) {
+      user.notifications = [];
+    }
+
+    // Add new notification
+    user.notifications.unshift(notification);
+    await user.save();
+
+    res.json({ message: "Notification added successfully" });
+  } catch (error) {
+    console.error("Error adding notification:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Update user profile
+app.put("/api/user/profile/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { fullName, email, avatar } = req.body;
+
+    const user = await User.findOne({ id: parseInt(userId) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (fullName !== undefined) user.fullName = fullName;
+    if (email !== undefined) user.email = email;
+    if (avatar !== undefined) user.avatar = avatar;
+
+    await user.save();
+
+    res.json({ message: "Profile updated successfully", user: { id: user.id, fullName: user.fullName, email: user.email, avatar: user.avatar } });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 // =========================

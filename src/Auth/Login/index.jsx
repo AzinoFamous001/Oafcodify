@@ -77,6 +77,9 @@ const LoginPage = () => {
     const authSuccess = urlParams.get('auth');
 
     if (authSuccess === 'success') {
+      // Clear URL params to prevent re-processing
+      window.history.replaceState({}, document.title, '/login');
+
       // Fetch user data from backend
       fetch('http://localhost:5000/api/auth/user', {
         credentials: 'include'
@@ -90,10 +93,62 @@ const LoginPage = () => {
           sessionStorage.setItem('currentUserId', data.user.id);
           localStorage.setItem(`userName_${data.user.id}`, data.user.fullName);
           localStorage.setItem(`userEmail_${data.user.id}`, data.user.email);
-          
+
           // Generate cartoon avatar (user-specific)
           const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
           localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
+
+          // Fetch user progress from backend
+          fetch(`http://localhost:5000/api/user/progress/${data.user.id}`)
+            .then(progressRes => {
+              if (progressRes.ok) {
+                return progressRes.json();
+              }
+              throw new Error('Failed to fetch progress');
+            })
+            .then(progressData => {
+              // Sync quiz results from backend to localStorage
+              if (progressData.quizResults && progressData.quizResults.length > 0) {
+                localStorage.setItem(`quizResults_${data.user.id}`, JSON.stringify(progressData.quizResults));
+              }
+
+              // Sync lesson progress from backend to localStorage
+              if (progressData.lessonProgress) {
+                Object.keys(progressData.lessonProgress).forEach(key => {
+                  const lessonData = progressData.lessonProgress[key];
+                  if (lessonData.completed) {
+                    localStorage.setItem(`${data.user.id}_${key}_completed`, JSON.stringify([0, 1, 2, 3, 4]));
+                  }
+                  if (lessonData.unlocked) {
+                    localStorage.setItem(`${data.user.id}_${key}_unlocked`, 'true');
+                  }
+                });
+              }
+
+              // Sync streak from backend to localStorage
+              if (progressData.streak) {
+                if (progressData.streak.current) {
+                  localStorage.setItem(`streak_${data.user.id}`, progressData.streak.current.toString());
+                }
+                if (progressData.streak.lastLogin) {
+                  localStorage.setItem(`lastLogin_${data.user.id}`, progressData.streak.lastLogin);
+                }
+              }
+
+              // Sync notifications from backend to localStorage
+              if (progressData.notifications && progressData.notifications.length > 0) {
+                localStorage.setItem(`notifications_${data.user.id}`, JSON.stringify(progressData.notifications));
+              }
+
+              // Sync completed courses from backend to localStorage
+              if (progressData.completedCourses) {
+                localStorage.setItem(`completedCourses_${data.user.id}`, progressData.completedCourses.toString());
+              }
+            })
+            .catch(progressErr => {
+              console.error('Error fetching user progress:', progressErr);
+            });
+
           // Update login streak for OAuth users
           updateLoginStreak(data.user.id);
           setShowSuccess(true);
@@ -133,6 +188,55 @@ const LoginPage = () => {
         // Generate cartoon avatar (user-specific)
         const cartoonAvatar = generateCartoonAvatar(data.user.fullName);
         localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
+
+        // Fetch user progress from backend
+        try {
+          const progressResponse = await fetch(`http://localhost:5000/api/user/progress/${data.user.id}`);
+          if (progressResponse.ok) {
+            const progressData = await progressResponse.json();
+            
+            // Sync quiz results from backend to localStorage
+            if (progressData.quizResults && progressData.quizResults.length > 0) {
+              localStorage.setItem(`quizResults_${data.user.id}`, JSON.stringify(progressData.quizResults));
+            }
+            
+            // Sync lesson progress from backend to localStorage
+            if (progressData.lessonProgress) {
+              Object.keys(progressData.lessonProgress).forEach(key => {
+                const lessonData = progressData.lessonProgress[key];
+                if (lessonData.completed) {
+                  localStorage.setItem(`${data.user.id}_${key}_completed`, JSON.stringify([0, 1, 2, 3, 4]));
+                }
+                if (lessonData.unlocked) {
+                  localStorage.setItem(`${data.user.id}_${key}_unlocked`, 'true');
+                }
+              });
+            }
+            
+            // Sync streak from backend to localStorage
+            if (progressData.streak) {
+              if (progressData.streak.current) {
+                localStorage.setItem(`streak_${data.user.id}`, progressData.streak.current.toString());
+              }
+              if (progressData.streak.lastLogin) {
+                localStorage.setItem(`lastLogin_${data.user.id}`, progressData.streak.lastLogin);
+              }
+            }
+            
+            // Sync notifications from backend to localStorage
+            if (progressData.notifications && progressData.notifications.length > 0) {
+              localStorage.setItem(`notifications_${data.user.id}`, JSON.stringify(progressData.notifications));
+            }
+            
+            // Sync completed courses from backend to localStorage
+            if (progressData.completedCourses) {
+              localStorage.setItem(`completedCourses_${data.user.id}`, progressData.completedCourses.toString());
+            }
+          }
+        } catch (progressError) {
+          console.error('Error fetching user progress:', progressError);
+          // Continue with login even if progress sync fails
+        }
 
         // Update login streak (preserves legitimate streaks)
         updateLoginStreak(data.user.id);
@@ -252,7 +356,8 @@ const LoginPage = () => {
 
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <button
-                onClick={() => window.location.href = "http://localhost:5000/api/auth/github"}
+                type="button"
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/github?from=login"}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGithub size={18} className="mr-2 text-gray-700" />
@@ -260,7 +365,8 @@ const LoginPage = () => {
               </button>
 
               <button
-                onClick={() => window.location.href = "http://localhost:5000/api/auth/google"}
+                type="button"
+                onClick={() => window.location.href = "http://localhost:5000/api/auth/google?from=login"}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGoogle size={18} className="mr-2 text-gray-700" />
