@@ -1,16 +1,39 @@
 // Helper function to add notification
 const addNotification = (userId, notification) => {
+  console.log('Notification Debug - userId:', userId);
+  console.log('Notification Debug - notification:', notification);
+  
   const storageKey = `notifications_${userId}`;
   const savedNotifications = JSON.parse(localStorage.getItem(storageKey) || '[]');
   savedNotifications.unshift(notification);
   localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
   
   // Sync notification to backend
+  console.log('Notification Debug - Sending to backend:', `http://localhost:5000/api/user/notification/${userId}`);
+  
+  // Validate userId is a valid number before sending
+  const numericUserId = parseInt(userId);
+  if (isNaN(numericUserId)) {
+    console.error('Notification Debug - Invalid userId:', userId);
+    return;
+  }
+  
   fetch(`http://localhost:5000/api/user/notification/${userId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ notification })
-  }).catch(err => console.error('Error syncing notification to backend:', err));
+  })
+  .then(response => {
+    console.log('Notification Debug - Backend response status:', response.status);
+    if (!response.ok) {
+      throw new Error(`Backend returned ${response.status}: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Notification Debug - Backend response data:', data);
+  })
+  .catch(err => console.error('Error syncing notification to backend:', err));
 };
 
 // Shared utility for managing login streaks
@@ -225,6 +248,21 @@ export const checkDailyLessonReminder = (userId) => {
       savedNotifications.unshift(reminderNotification);
       localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
       localStorage.setItem(reminderKey, todayStr);
+
+      // Sync notification to backend
+      const numericUserId = parseInt(userId);
+      if (!isNaN(numericUserId)) {
+        fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ notification: reminderNotification })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+          return response.json();
+        })
+        .catch(err => console.error('Error syncing notification to backend:', err));
+      }
     }
   }
 };

@@ -50,7 +50,11 @@ const userSchema = new mongoose.Schema({
     attemptNumber: Number
   }],
   lessonProgress: {
-    type: Object,
+    type: Map,
+    of: {
+      completed: Boolean,
+      unlocked: Boolean
+    },
     default: {}
   },
   streak: {

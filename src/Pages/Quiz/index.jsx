@@ -407,13 +407,17 @@ export default function QuizPage() {
   }
 
   if (showResults) {
+    // Generate unique attempt ID before navigation
+    const attemptId = `${sessionStorage.getItem('currentUserId')}_${courseKey}_${lessonId}_${Date.now()}`;
+    
     // Redirect to QuizResult page with state
     navigate('/quiz-result', {
       state: {
         score,
         total: questions.length,
         courseKey,
-        lessonId
+        lessonId,
+        attemptId
       }
     });
     return null;

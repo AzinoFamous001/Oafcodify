@@ -35,11 +35,27 @@ const QuizResult = () => {
   const [courseKey, setCourseKey] = useState('');
   const [lessonId, setLessonId] = useState('');
   const [passed, setPassed] = useState(false);
-  const hasSavedResult = useRef(false);
 
   useEffect(() => {
-    if (location.state && !hasSavedResult.current) {
-      const { score: quizScore, total: quizTotal, courseKey: ck, lessonId: lid } = location.state;
+    if (location.state) {
+      const { score: quizScore, total: quizTotal, courseKey: ck, lessonId: lid, attemptId } = location.state;
+      
+      // Check if this specific attempt has already been saved using sessionStorage
+      const saveKey = `quiz_saved_${attemptId}`;
+      if (sessionStorage.getItem(saveKey)) {
+        // This attempt was already saved, skip
+        setScore(quizScore);
+        setTotal(quizTotal);
+        setCourseKey(ck);
+        setLessonId(lid);
+        const percent = Math.round((quizScore / quizTotal) * 100);
+        setPercentage(percent);
+        setPassed(percent >= 60);
+        return;
+      }
+      
+      // Mark this attempt as saved
+      sessionStorage.setItem(saveKey, 'true');
       setScore(quizScore);
       setTotal(quizTotal);
       setCourseKey(ck);
@@ -66,7 +82,10 @@ const QuizResult = () => {
         const quizResultsKey = `quizResults_${userId}`;
         const allQuizResults = JSON.parse(localStorage.getItem(quizResultsKey) || '[]');
         
-        // Check if this exact result (same quiz, same score, same timestamp within 1 second) already exists
+        // Check if this attemptId already exists (most reliable duplicate check)
+        const attemptExists = allQuizResults.some(r => r.attemptId === attemptId);
+        
+        // Fallback: Check if this exact result (same quiz, same score, same timestamp within 1 second) already exists
         // to prevent duplicate saves from page refreshes
         const exactDuplicateIndex = allQuizResults.findIndex(
           r => r.userId === userId && 
@@ -78,7 +97,7 @@ const QuizResult = () => {
         );
         
         // Only add if no exact duplicate exists (prevents duplicate saves from refresh)
-        if (exactDuplicateIndex === -1) {
+        if (!attemptExists && exactDuplicateIndex === -1) {
           const newQuizResult = {
             userId: userId,
             courseKey: ck,
@@ -91,7 +110,8 @@ const QuizResult = () => {
             date: new Date().toISOString(),
             attemptNumber: allQuizResults.filter(
               r => r.userId === userId && r.courseKey === ck && r.lessonId === lid
-            ).length + 1
+            ).length + 1,
+            attemptId: attemptId // Unique identifier for this attempt
           };
           
           // Always add as a new entry to track individual attempts
@@ -169,11 +189,19 @@ const QuizResult = () => {
                 localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
 
                 // Sync notification to backend
-                fetch(`http://localhost:5000/api/user/notification/${userId}`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ notification: unlockNotification })
-                }).catch(err => console.error('Error syncing notification to backend:', err));
+                const numericUserId = parseInt(userId);
+                if (!isNaN(numericUserId)) {
+                  fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ notification: unlockNotification })
+                  })
+                  .then(response => {
+                    if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+                    return response.json();
+                  })
+                  .catch(err => console.error('Error syncing notification to backend:', err));
+                }
               }
             }
 
@@ -204,11 +232,19 @@ const QuizResult = () => {
               localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
 
               // Sync notification to backend
-              fetch(`http://localhost:5000/api/user/notification/${userId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ notification: courseCompletedNotification })
-              }).catch(err => console.error('Error syncing notification to backend:', err));
+              const numericUserId = parseInt(userId);
+              if (!isNaN(numericUserId)) {
+                fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ notification: courseCompletedNotification })
+                })
+                .then(response => {
+                  if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+                  return response.json();
+                })
+                .catch(err => console.error('Error syncing notification to backend:', err));
+              }
 
               // Check rank change
               const completedCoursesKey = `completedCourses_${userId}`;
@@ -244,11 +280,19 @@ const QuizResult = () => {
                 localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
 
                 // Sync notification to backend
-                fetch(`http://localhost:5000/api/user/notification/${userId}`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ notification: rankNotification })
-                }).catch(err => console.error('Error syncing notification to backend:', err));
+                const numericUserId = parseInt(userId);
+                if (!isNaN(numericUserId)) {
+                  fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ notification: rankNotification })
+                  })
+                  .then(response => {
+                    if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+                    return response.json();
+                  })
+                  .catch(err => console.error('Error syncing notification to backend:', err));
+                }
               }
             }
 
@@ -283,16 +327,21 @@ const QuizResult = () => {
             localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
 
             // Sync notification to backend
-            fetch(`http://localhost:5000/api/user/notification/${userId}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ notification: recommendation })
-            }).catch(err => console.error('Error syncing notification to backend:', err));
+            const numericUserId = parseInt(userId);
+            if (!isNaN(numericUserId)) {
+              fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ notification: recommendation })
+              })
+              .then(response => {
+                if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+                return response.json();
+              })
+              .catch(err => console.error('Error syncing notification to backend:', err));
+            }
           }
         }
-
-        // Mark that we've saved the result to prevent duplicate saves
-        hasSavedResult.current = true;
       }
     } else if (!location.state) {
       // If no state, redirect to dashboard

@@ -234,18 +234,27 @@ app.get(
       // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
       req.session.userId = req.user.id;
       req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-      req.session.save((err) => {
-        if (err) {
-          console.error("Session save error:", err);
-          return res.redirect(`${process.env.CLIENT_URL}/login?error=session_save_failed`);
+
+      // AUTHENTICATE USER IN THE NEW SESSION
+      req.logIn(req.user, (loginErr) => {
+        if (loginErr) {
+          console.error("Passport login error:", loginErr);
+          return res.redirect(`${process.env.CLIENT_URL}/login?error=login_failed`);
         }
 
-        // Successful authentication
-        if (from === "signup") {
-          res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
-        } else {
-          res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
-        }
+        req.session.save((err) => {
+          if (err) {
+            console.error("Session save error:", err);
+            return res.redirect(`${process.env.CLIENT_URL}/login?error=session_save_failed`);
+          }
+
+          // Successful authentication
+          if (from === "signup") {
+            res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
+          } else {
+            res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+          }
+        });
       });
     });
   }
@@ -277,18 +286,27 @@ app.get(
       // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
       req.session.userId = req.user.id;
       req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-      req.session.save((err) => {
-        if (err) {
-          console.error("Session save error:", err);
-          return res.redirect(`${process.env.CLIENT_URL}/login?error=session_save_failed`);
+
+      // AUTHENTICATE USER IN THE NEW SESSION
+      req.logIn(req.user, (loginErr) => {
+        if (loginErr) {
+          console.error("Passport login error:", loginErr);
+          return res.redirect(`${process.env.CLIENT_URL}/login?error=login_failed`);
         }
 
-        // Successful authentication
-        if (from === "signup") {
-          res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
-        } else {
-          res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
-        }
+        req.session.save((err) => {
+          if (err) {
+            console.error("Session save error:", err);
+            return res.redirect(`${process.env.CLIENT_URL}/login?error=session_save_failed`);
+          }
+
+          // Successful authentication
+          if (from === "signup") {
+            res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
+          } else {
+            res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
+          }
+        });
       });
     });
   }

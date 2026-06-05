@@ -56,81 +56,6 @@ const ProfilePage = () => {
     return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
   };
 
-  // --- FIXED DAILY STREAK LOGIC ---
-  const updateLoginStreak = useCallback((userId) => {
-    const streakKey = `streak_${userId}`;
-    const lastLoginKey = `lastLogin_${userId}`;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalize time to midnight
-    const todayStr = today.toISOString().split("T")[0];
-
-    const lastLoginStr = localStorage.getItem(lastLoginKey);
-
-    console.log('Streak Debug - userId:', userId);
-    console.log('Streak Debug - todayStr:', todayStr);
-    console.log('Streak Debug - lastLoginStr:', lastLoginStr);
-
-    // Validate and initialize streak
-    let streak = 0;
-    const savedStreak = localStorage.getItem(streakKey);
-    if (savedStreak && !isNaN(savedStreak)) {
-      streak = Math.max(0, parseInt(savedStreak));
-    }
-    console.log('Streak Debug - savedStreak:', savedStreak, 'current streak:', streak);
-
-    // Case 1: First time login ever
-    if (!lastLoginStr) {
-      streak = 1;
-      localStorage.setItem(lastLoginKey, todayStr);
-      localStorage.setItem(streakKey, streak.toString());
-      console.log('Streak Debug - First time login, set streak to 1');
-    } else {
-      // Check if already logged in today
-      if (lastLoginStr === todayStr) {
-        // Already logged in today - return current streak without changes
-        console.log('Streak Debug - Already logged in today, returning streak:', streak);
-        return streak;
-      }
-
-      const lastLoginDate = new Date(lastLoginStr);
-      lastLoginDate.setHours(0, 0, 0, 0);
-
-      // Calculate difference in days using Math.floor for accurate day counting
-      const diffTime = today - lastLoginDate;
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-      console.log('Streak Debug - diffDays:', diffDays);
-
-      if (diffDays === 1) {
-        // Case 2: Consecutive day login
-        streak += 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-        console.log('Streak Debug - Consecutive day, incremented streak to:', streak);
-      } else if (diffDays > 1) {
-        // Case 3: Missed a day - Reset
-        streak = 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-        console.log('Streak Debug - Missed day, reset streak to 1');
-      }
-      // Case 4: diffDays < 0 (Future date due to timezone issues) -> Reset to 1
-      else if (diffDays < 0) {
-        streak = 1;
-        localStorage.setItem(lastLoginKey, todayStr);
-        localStorage.setItem(streakKey, streak.toString());
-        console.log('Streak Debug - Future date, reset streak to 1');
-      } else {
-        // diffDays === 0, same day but different string format
-        console.log('Streak Debug - Same day (diffDays 0), returning streak:', streak);
-        return streak;
-      }
-    }
-
-    console.log('Streak Debug - Final streak:', streak);
-    return Math.max(0, streak);
-  }, []);
 
   useEffect(() => {
     const currentUserId = sessionStorage.getItem("currentUserId");
@@ -312,11 +237,19 @@ const ProfilePage = () => {
       localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
       
       // Sync notification to backend
-      fetch(`http://localhost:5000/api/user/notification/${userId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ notification })
-      }).catch(err => console.error('Error syncing notification to backend:', err));
+      const numericUserId = parseInt(userId);
+      if (!isNaN(numericUserId)) {
+        fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ notification })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+          return response.json();
+        })
+        .catch(err => console.error('Error syncing notification to backend:', err));
+      }
     }
   };
 

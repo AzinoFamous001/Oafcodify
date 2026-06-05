@@ -74,6 +74,21 @@ const NotificationsPage = () => {
       ];
       setNotifications(welcomeNotifications);
       localStorage.setItem(storageKey, JSON.stringify(welcomeNotifications));
+
+      // Sync welcome notification to backend
+      const numericUserId = parseInt(currentId);
+      if (!isNaN(numericUserId)) {
+        fetch(`http://localhost:5000/api/user/notification/${currentId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ notification: welcomeNotifications[0] })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+          return response.json();
+        })
+        .catch(err => console.error('Error syncing welcome notification to backend:', err));
+      }
     }
   }, [navigate]);
 

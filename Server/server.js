@@ -120,7 +120,9 @@ cron.schedule('0 9 * * *', async () => {
 // =========================
 // PASSPORT SERIALIZATION
 // =========================
-passport.serializeUser((user, done) => {
+passport.serializeUser((data, done) => {
+  // Handle both plain user object and { user, isNewUser } structure
+  const user = data?.user || data;
   done(null, user.id);
 });
 
@@ -152,8 +154,11 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
         ]
       });
 
+      let isNewUser = false;
+
       if (!user) {
         // Create new user in MongoDB
+        console.log('Google Strategy - Creating new user for email:', profile.emails[0].value);
         user = new User({
           id: Date.now(),
           fullName: profile.displayName,
@@ -163,16 +168,22 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
           avatar: profile.photos?.[0]?.value || ""
         });
         await user.save();
+        isNewUser = true;
+        console.log('Google Strategy - New user created with id:', user.id, 'isNewUser:', isNewUser);
       } else if (!user.googleId) {
         // Link googleId to existing user
+        console.log('Google Strategy - Linking googleId to existing user:', user.id);
         user.googleId = profile.id;
         if (!user.avatar && profile.photos?.[0]?.value) {
           user.avatar = profile.photos[0].value;
         }
         await user.save();
+        console.log('Google Strategy - Existing user linked, isNewUser:', isNewUser);
+      } else {
+        console.log('Google Strategy - Existing user found with googleId:', user.id, 'isNewUser:', isNewUser);
       }
 
-      return done(null, user);
+      return done(null, { user, isNewUser });
     } catch (error) {
       return done(error, null);
     }
@@ -199,8 +210,11 @@ if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
         ]
       });
 
+      let isNewUser = false;
+
       if (!user) {
         // Create new user in MongoDB
+        console.log('GitHub Strategy - Creating new user for username:', profile.username);
         user = new User({
           id: Date.now(),
           fullName: profile.displayName || profile.username,
@@ -210,16 +224,22 @@ if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
           avatar: profile.photos?.[0]?.value || ""
         });
         await user.save();
+        isNewUser = true;
+        console.log('GitHub Strategy - New user created with id:', user.id, 'isNewUser:', isNewUser);
       } else if (!user.githubId) {
         // Link githubId to existing user
+        console.log('GitHub Strategy - Linking githubId to existing user:', user.id);
         user.githubId = profile.id;
         if (!user.avatar && profile.photos?.[0]?.value) {
           user.avatar = profile.photos[0].value;
         }
         await user.save();
+        console.log('GitHub Strategy - Existing user linked, isNewUser:', isNewUser);
+      } else {
+        console.log('GitHub Strategy - Existing user found with githubId:', user.id, 'isNewUser:', isNewUser);
       }
 
-      return done(null, user);
+      return done(null, { user, isNewUser });
     } catch (error) {
       return done(error, null);
     }
@@ -450,33 +470,66 @@ app.get("/api/auth/google", (req, res, next) => {
 });
 
 app.get("/api/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed` }),
-  (req, res) => {
-    const from = req.session.oauthFrom || "login";
-    // REGENERATE SESSION TO PREVENT SESSION FIXATION
-    req.session.regenerate((err) => {
+  (req, res, next) => {
+    console.log('Google OAuth Callback - Starting...');
+    passport.authenticate("google", { failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed` }, (err, data) => {
       if (err) {
-        console.error("Session regeneration error:", err);
-        return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_regeneration_failed`);
+        console.error('Google OAuth Callback - Error:', err);
+        return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed`);
       }
-
-      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
-      req.session.userId = req.user.id;
-      req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-      req.session.save((err) => {
+      
+      console.log('Google OAuth Callback - Data received:', data);
+      const user = data?.user || data;
+      const isNewUser = data?.isNewUser || false;
+      
+      console.log('Google OAuth Callback - User:', user);
+      console.log('Google OAuth Callback - isNewUser:', isNewUser);
+      
+      // Store isNewUser in session before regeneration
+      req.session.oauthIsNewUser = isNewUser;
+      
+      // REGENERATE SESSION TO PREVENT SESSION FIXATION
+      req.session.regenerate((err) => {
         if (err) {
-          console.error("Session save error:", err);
-          return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_save_failed`);
+          console.error("Session regeneration error:", err);
+          return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_regeneration_failed`);
         }
 
-        // Successful authentication
-        if (from === "signup") {
-          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/signup?auth=success&newUser=true`);
-        } else {
-          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?auth=success`);
-        }
+        // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+        req.session.userId = user.id;
+        req.session.sessionId = `${user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+        req.session.oauthIsNewUser = isNewUser; // Preserve after regeneration
+
+        console.log('Google OAuth Callback - Session regenerated, userId:', user.id);
+
+        // AUTHENTICATE USER IN THE NEW SESSION
+        req.logIn(user, (loginErr) => {
+          if (loginErr) {
+            console.error("Passport login error:", loginErr);
+            return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=login_failed`);
+          }
+
+          req.session.save((err) => {
+            if (err) {
+              console.error("Session save error:", err);
+              return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_save_failed`);
+            }
+
+            console.log('Google OAuth Callback - Redirecting based on isNewUser:', isNewUser);
+            // Successful authentication - redirect based on whether user is actually new
+            if (isNewUser) {
+              // New user - redirect to signup page which will navigate to dashboard
+              console.log('Google OAuth Callback - Redirecting to signup with newUser=true');
+              res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/signup?auth=success&newUser=true`);
+            } else {
+              // Existing user - redirect to login page to show success modal
+              console.log('Google OAuth Callback - Redirecting to login with auth=success');
+              res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?auth=success`);
+            }
+          });
+        });
       });
-    });
+    })(req, res, next);
   }
 );
 
@@ -493,33 +546,66 @@ app.get("/api/auth/github", (req, res, next) => {
 });
 
 app.get("/api/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed` }),
-  (req, res) => {
-    const from = req.session.oauthFrom || "login";
-    // REGENERATE SESSION TO PREVENT SESSION FIXATION
-    req.session.regenerate((err) => {
+  (req, res, next) => {
+    console.log('GitHub OAuth Callback - Starting...');
+    passport.authenticate("github", { failureRedirect: `${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed` }, (err, data) => {
       if (err) {
-        console.error("Session regeneration error:", err);
-        return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_regeneration_failed`);
+        console.error('GitHub OAuth Callback - Error:', err);
+        return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=auth_failed`);
       }
-
-      // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
-      req.session.userId = req.user.id;
-      req.session.sessionId = `${req.user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-      req.session.save((err) => {
+      
+      console.log('GitHub OAuth Callback - Data received:', data);
+      const user = data?.user || data;
+      const isNewUser = data?.isNewUser || false;
+      
+      console.log('GitHub OAuth Callback - User:', user);
+      console.log('GitHub OAuth Callback - isNewUser:', isNewUser);
+      
+      // Store isNewUser in session before regeneration
+      req.session.oauthIsNewUser = isNewUser;
+      
+      // REGENERATE SESSION TO PREVENT SESSION FIXATION
+      req.session.regenerate((err) => {
         if (err) {
-          console.error("Session save error:", err);
-          return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_save_failed`);
+          console.error("Session regeneration error:", err);
+          return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_regeneration_failed`);
         }
 
-        // Successful authentication
-        if (from === "signup") {
-          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/signup?auth=success&newUser=true`);
-        } else {
-          res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?auth=success`);
-        }
+        // STORE USER ID IN SESSION WITH UNIQUE IDENTIFIER
+        req.session.userId = user.id;
+        req.session.sessionId = `${user.id}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+        req.session.oauthIsNewUser = isNewUser; // Preserve after regeneration
+
+        console.log('GitHub OAuth Callback - Session regenerated, userId:', user.id);
+
+        // AUTHENTICATE USER IN THE NEW SESSION
+        req.logIn(user, (loginErr) => {
+          if (loginErr) {
+            console.error("Passport login error:", loginErr);
+            return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=login_failed`);
+          }
+
+          req.session.save((err) => {
+            if (err) {
+              console.error("Session save error:", err);
+              return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?error=session_save_failed`);
+            }
+
+            console.log('GitHub OAuth Callback - Redirecting based on isNewUser:', isNewUser);
+            // Successful authentication - redirect based on whether user is actually new
+            if (isNewUser) {
+              // New user - redirect to signup page which will navigate to dashboard
+              console.log('GitHub OAuth Callback - Redirecting to signup with newUser=true');
+              res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/signup?auth=success&newUser=true`);
+            } else {
+              // Existing user - redirect to login page to show success modal
+              console.log('GitHub OAuth Callback - Redirecting to login with auth=success');
+              res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/login?auth=success`);
+            }
+          });
+        });
       });
-    });
+    })(req, res, next);
   }
 );
 
@@ -541,13 +627,16 @@ app.get("/api/auth/user", validateSession, (req, res) => {
 
 // Logout
 app.post("/api/auth/logout", (req, res, next) => {
-  req.session.destroy((err) => {
+  req.logout((err) => {
     if (err) {
-      console.error("Session destruction error:", err);
+      console.error("Logout error:", err);
       return next(err);
     }
-    req.logout((err) => {
-      if (err) return next(err);
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Session destruction error:", err);
+        return next(err);
+      }
       res.clearCookie('oafcodify.sid');
       res.json({ message: "Logged out successfully" });
     });
@@ -576,9 +665,14 @@ app.get("/api/user/progress/:userId", async (req, res) => {
     }
 
     // Return user progress data (or empty object if not exists)
+    // Convert Map to plain object for JSON serialization
+    const lessonProgressObj = user.lessonProgress instanceof Map 
+      ? Object.fromEntries(user.lessonProgress) 
+      : (user.lessonProgress || {});
+    
     res.json({
       quizResults: user.quizResults || [],
-      lessonProgress: user.lessonProgress || {},
+      lessonProgress: lessonProgressObj,
       streak: user.streak || { current: 0, lastLogin: null },
       notifications: user.notifications || [],
       completedCourses: user.completedCourses || 0
@@ -603,7 +697,13 @@ app.post("/api/user/progress/:userId", async (req, res) => {
 
     // Update user progress data
     if (quizResults !== undefined) user.quizResults = quizResults;
-    if (lessonProgress !== undefined) user.lessonProgress = lessonProgress;
+    if (lessonProgress !== undefined) {
+      // Merge lessonProgress using Map methods to preserve individual lesson completions
+      if (!user.lessonProgress) user.lessonProgress = new Map();
+      Object.keys(lessonProgress).forEach(key => {
+        user.lessonProgress.set(key, lessonProgress[key]);
+      });
+    }
     if (streak !== undefined) user.streak = streak;
     if (notifications !== undefined) user.notifications = notifications;
     if (completedCourses !== undefined) user.completedCourses = completedCourses;
@@ -634,7 +734,15 @@ app.post("/api/user/quiz-result/:userId", async (req, res) => {
       user.quizResults = [];
     }
 
-    // Check for duplicate quiz result (same user, course, lesson, score, and timestamp within 2 seconds)
+    // Check for duplicate quiz result using attemptId if available
+    if (quizResult.attemptId) {
+      const isDuplicate = user.quizResults.some(r => r.attemptId === quizResult.attemptId);
+      if (isDuplicate) {
+        return res.json({ message: "Quiz result already exists (duplicate prevented by attemptId)" });
+      }
+    }
+
+    // Fallback: Check for duplicate quiz result (same user, course, lesson, score, and timestamp within 2 seconds)
     const isDuplicate = user.quizResults.some(
       r => r.userId === quizResult.userId &&
            r.courseKey === quizResult.courseKey &&
@@ -671,18 +779,18 @@ app.post("/api/user/lesson-progress/:userId", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Initialize lessonProgress object if not exists
+    // Initialize lessonProgress Map if not exists
     if (!user.lessonProgress) {
-      user.lessonProgress = {};
+      user.lessonProgress = new Map();
     }
 
     const key = `${courseKey}_lesson_${lessonId}`;
-    if (!user.lessonProgress[key]) {
-      user.lessonProgress[key] = {};
-    }
+    const existingData = user.lessonProgress.get(key) || {};
 
-    if (completed !== undefined) user.lessonProgress[key].completed = completed;
-    if (unlocked !== undefined) user.lessonProgress[key].unlocked = unlocked;
+    if (completed !== undefined) existingData.completed = completed;
+    if (unlocked !== undefined) existingData.unlocked = unlocked;
+
+    user.lessonProgress.set(key, existingData);
 
     await user.save();
 
@@ -728,9 +836,13 @@ app.post("/api/user/notification/:userId", async (req, res) => {
     const { userId } = req.params;
     const { notification } = req.body;
 
+    console.log('Notification Debug - userId:', userId);
+    console.log('Notification Debug - notification:', notification);
+
     const user = await User.findOne({ id: parseInt(userId) });
 
     if (!user) {
+      console.log('Notification Debug - User not found for userId:', userId);
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -743,6 +855,7 @@ app.post("/api/user/notification/:userId", async (req, res) => {
     user.notifications.unshift(notification);
     await user.save();
 
+    console.log('Notification Debug - Successfully saved notification for user:', userId);
     res.json({ message: "Notification added successfully" });
   } catch (error) {
     console.error("Error adding notification:", error);

@@ -33,19 +33,25 @@ passport.use(
         
         let user = await User.findOne({ githubId: profile.id });
         
+        let isNewUser = false;
+        
         if (user) {
-          return done(null, { user, isNewUser: false });
+          console.log('GitHub Strategy (Vercel) - Existing user found with githubId:', user.id, 'isNewUser:', isNewUser);
+          return done(null, { user, isNewUser });
         }
         
         user = await User.findOne({ email: profile.emails?.[0]?.value });
         
         if (user) {
+          console.log('GitHub Strategy (Vercel) - Linking githubId to existing user:', user.id);
           user.githubId = profile.id;
           user.avatar = generateCartoonAvatar(profile.displayName || profile.username);
           await user.save();
-          return done(null, { user, isNewUser: false });
+          console.log('GitHub Strategy (Vercel) - Existing user linked, isNewUser:', isNewUser);
+          return done(null, { user, isNewUser });
         }
         
+        console.log('GitHub Strategy (Vercel) - Creating new user for username:', profile.username);
         user = await User.create({
           id: Date.now(),
           fullName: profile.displayName || profile.username,
@@ -54,9 +60,12 @@ passport.use(
           avatar: generateCartoonAvatar(profile.displayName || profile.username),
           provider: 'github'
         });
+        isNewUser = true;
+        console.log('GitHub Strategy (Vercel) - New user created with id:', user.id, 'isNewUser:', isNewUser);
         
-        done(null, { user, isNewUser: true });
+        done(null, { user, isNewUser });
       } catch (err) {
+        console.error('GitHub Strategy (Vercel) - Error:', err);
         done(err, null);
       }
     }
@@ -86,10 +95,10 @@ export default async function handler(req, res) {
     }
     
     if (data.isNewUser) {
-      // New user - redirect to signup page with newUser flag
+      // New user - redirect to signup page with newUser flag (will navigate to dashboard)
       res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
     } else {
-      // Existing user - redirect to login page with success flag
+      // Existing user - redirect to login page with success flag (will show success modal)
       res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
     }
   })(req, res);
