@@ -1,5 +1,6 @@
 import connectToDatabase from '../db.js';
 import User from '../../src/Backend/User Schema/index.js';
+import { verifyToken } from '../lib/jwt.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -9,23 +10,31 @@ export default async function handler(req, res) {
   try {
     await connectToDatabase();
     
-    // For serverless, we'll use session cookies
-    // In a real implementation, you'd need to handle session management
-    // For now, we'll return a simple response
-    const sessionCookie = req.cookies.session || req.headers.authorization;
+    // Verify JWT token
+    const token = req.cookies.token || req.headers.authorization?.replace('Bearer ', '');
     
-    if (!sessionCookie) {
+    if (!token) {
       return res.status(401).json({ error: 'Not authenticated' });
     }
 
-    // Parse user from session (simplified - in production use proper session management)
-    // For now, we'll need to implement a proper session solution for Vercel
-    // This is a placeholder - you'll need to implement proper session handling
-    // using Vercel KV or another serverless-compatible session store
-    
-    res.status(501).json({ 
-      error: 'Session management not yet implemented for serverless',
-      message: 'Please implement Vercel KV or similar for session storage'
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    const user = await User.findOne({ id: decoded.userId });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        avatar: user.avatar
+      }
     });
   } catch (error) {
     console.error('Auth user error:', error);

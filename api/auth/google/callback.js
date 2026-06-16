@@ -2,6 +2,7 @@ import passport from 'passport';
 import { GoogleStrategy } from 'passport-google-oauth20';
 import connectToDatabase from '../../db.js';
 import User from '../../../src/Backend/User Schema/index.js';
+import { generateToken, setTokenCookie } from '../../lib/jwt.js';
 
 // Generate cartoon avatar (deterministic based on username)
 const generateCartoonAvatar = (userName) => {
@@ -94,7 +95,14 @@ export default async function handler(req, res) {
       return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
     }
     
-    if (data.isNewUser) {
+    const user = data?.user || data;
+    const isNewUser = data?.isNewUser || false;
+    
+    // Generate JWT token and set cookie
+    const token = generateToken({ userId: user.id, email: user.email });
+    setTokenCookie(res, token);
+    
+    if (isNewUser) {
       // New user - redirect to signup page with newUser flag (will navigate to dashboard)
       res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
     } else {
