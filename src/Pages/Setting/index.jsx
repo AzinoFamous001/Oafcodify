@@ -69,7 +69,7 @@ const SettingsPage = () => {
 
     // Sync profile info to backend
     try {
-      await fetch(`http://localhost:5000/api/user/profile/${userId}`, {
+      await fetch(`/api/user/profile/${userId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fullName: userName, email: userEmail })
@@ -90,7 +90,7 @@ const SettingsPage = () => {
 
     // Call server logout to destroy session
     try {
-      await fetch("http://localhost:5000/api/auth/logout", {
+      await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include"
       });

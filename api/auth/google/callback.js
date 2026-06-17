@@ -1,5 +1,3 @@
-import passport from 'passport';
-import { GoogleStrategy } from 'passport-google-oauth20';
 import connectToDatabase from '../../db.js';
 import User from '../../../src/Backend/User Schema/index.js';
 import { generateToken, setTokenCookie } from '../../lib/jwt.js';
@@ -20,94 +18,81 @@ const generateCartoonAvatar = (userName) => {
   return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
 };
 
-// Configure Google Strategy
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL,
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        await connectToDatabase();
-        
-        let user = await User.findOne({ googleId: profile.id });
-        
-        let isNewUser = false;
-        
-        if (user) {
-          console.log('Google Strategy (Vercel) - Existing user found with googleId:', user.id, 'isNewUser:', isNewUser);
-          return done(null, { user, isNewUser });
-        }
-        
-        user = await User.findOne({ email: profile.emails[0].value });
-        
-        if (user) {
-          console.log('Google Strategy (Vercel) - Linking googleId to existing user:', user.id);
-          user.googleId = profile.id;
-          user.avatar = generateCartoonAvatar(profile.displayName);
-          await user.save();
-          console.log('Google Strategy (Vercel) - Existing user linked, isNewUser:', isNewUser);
-          return done(null, { user, isNewUser });
-        }
-        
-        console.log('Google Strategy (Vercel) - Creating new user for email:', profile.emails[0].value);
+export default async function handler(req, res) {
+  const { code } = req.query;
+  
+  if (!code) {
+    return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+  }
+
+  try {
+    // Exchange code for access token
+    const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        code,
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        client_secret: process.env.GOOGLE_CLIENT_SECRET,
+        redirect_uri: process.env.GOOGLE_CALLBACK_URL,
+        grant_type: 'authorization_code',
+      }),
+    });
+
+    const tokenData = await tokenResponse.json();
+    
+    if (tokenData.error) {
+      throw new Error(tokenData.error);
+    }
+
+    // Get user info with access token
+    const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    });
+
+    const profile = await userResponse.json();
+
+    await connectToDatabase();
+
+    let user = await User.findOne({ googleId: profile.id });
+    let isNewUser = false;
+
+    if (user) {
+      console.log('Google OAuth (Vercel) - Existing user found with googleId:', user.id);
+    } else {
+      user = await User.findOne({ email: profile.email });
+
+      if (user) {
+        console.log('Google OAuth (Vercel) - Linking googleId to existing user:', user.id);
+        user.googleId = profile.id;
+        user.avatar = generateCartoonAvatar(profile.name);
+        await user.save();
+      } else {
+        console.log('Google OAuth (Vercel) - Creating new user for email:', profile.email);
         user = await User.create({
           id: Date.now(),
-          fullName: profile.displayName,
-          email: profile.emails[0].value,
+          fullName: profile.name,
+          email: profile.email,
           googleId: profile.id,
-          avatar: generateCartoonAvatar(profile.displayName),
+          avatar: generateCartoonAvatar(profile.name),
           provider: 'google'
         });
         isNewUser = true;
-        console.log('Google Strategy (Vercel) - New user created with id:', user.id, 'isNewUser:', isNewUser);
-        
-        done(null, { user, isNewUser });
-      } catch (err) {
-        console.error('Google Strategy (Vercel) - Error:', err);
-        done(err, null);
+        console.log('Google OAuth (Vercel) - New user created with id:', user.id);
       }
     }
-  )
-);
 
-passport.serializeUser((data, done) => {
-  done(null, data.user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    await connectToDatabase();
-    const user = await User.findOne({ id });
-    done(null, user);
-  } catch (err) {
-    done(err, null);
-  }
-});
-
-export default async function handler(req, res) {
-  await passport.authenticate('google', { 
-    failureRedirect: `${process.env.CLIENT_URL}/login?error=auth_failed` 
-  }, (err, data) => {
-    if (err) {
-      return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
-    }
-    
-    const user = data?.user || data;
-    const isNewUser = data?.isNewUser || false;
-    
     // Generate JWT token and set cookie
     const token = generateToken({ userId: user.id, email: user.email });
     setTokenCookie(res, token);
-    
+
     if (isNewUser) {
-      // New user - redirect to signup page with newUser flag (will navigate to dashboard)
       res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
     } else {
-      // Existing user - redirect to login page with success flag (will show success modal)
       res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
     }
-  })(req, res);
+  } catch (error) {
+    console.error('Google OAuth Error:', error);
+    res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+  }
 }

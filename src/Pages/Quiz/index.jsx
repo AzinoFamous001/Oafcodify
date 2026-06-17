@@ -34,7 +34,7 @@ ${className}
 //
 async function callGemini(prompt) {
   try {
-    const res = await fetch("http://localhost:5000/api/gemini", {
+    const res = await fetch("/api/gemini", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

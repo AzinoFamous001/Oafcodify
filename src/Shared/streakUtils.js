@@ -9,7 +9,7 @@ const addNotification = (userId, notification) => {
   localStorage.setItem(storageKey, JSON.stringify(savedNotifications));
   
   // Sync notification to backend
-  console.log('Notification Debug - Sending to backend:', `http://localhost:5000/api/user/notification/${userId}`);
+  console.log('Notification Debug - Sending to backend:', `/api/user/notification/${userId}`);
   
   // Validate userId is a valid number before sending
   const numericUserId = parseInt(userId);
@@ -18,7 +18,7 @@ const addNotification = (userId, notification) => {
     return;
   }
   
-  fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+  fetch(`/api/user/notification/${userId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ notification })
@@ -65,7 +65,7 @@ export const updateLoginStreak = (userId) => {
     console.log('Streak Debug - First time login, set streak to 1');
     
     // Sync streak to backend
-    fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+    fetch(`/api/user/streak/${userId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -104,7 +104,7 @@ export const updateLoginStreak = (userId) => {
       console.log('Streak Debug - Consecutive day, incremented streak to:', streak);
       
       // Sync streak to backend
-      fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+      fetch(`/api/user/streak/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -136,7 +136,7 @@ export const updateLoginStreak = (userId) => {
       console.log('Streak Debug - Missed day, reset streak to 1');
       
       // Sync streak to backend
-      fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+      fetch(`/api/user/streak/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -162,7 +162,7 @@ export const updateLoginStreak = (userId) => {
       console.log('Streak Debug - Future date, reset streak to 1');
       
       // Sync streak to backend
-      fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+      fetch(`/api/user/streak/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -252,7 +252,7 @@ export const checkDailyLessonReminder = (userId) => {
       // Sync notification to backend
       const numericUserId = parseInt(userId);
       if (!isNaN(numericUserId)) {
-        fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+        fetch(`/api/user/notification/${userId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ notification: reminderNotification })
@@ -286,7 +286,7 @@ export const resetStreak = (userId) => {
   localStorage.setItem(streakKey, "1");
 
   // Sync streak to backend
-  fetch(`http://localhost:5000/api/user/streak/${userId}`, {
+  fetch(`/api/user/streak/${userId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

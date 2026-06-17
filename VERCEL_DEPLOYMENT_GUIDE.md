@@ -177,7 +177,7 @@ All API endpoints remain the same, but are now served as serverless functions:
 
 ## Session Management
 
-The application now uses JWT (JSON Web Tokens) for session management instead of express-session:
+The application uses JWT (JSON Web Tokens) for session management:
 
 - **Token Storage**: HTTP-only cookies
 - **Token Expiration**: 24 hours
@@ -185,6 +185,15 @@ The application now uses JWT (JSON Web Tokens) for session management instead of
 - **Security**: Tokens are signed with `SESSION_SECRET`
 
 This approach is stateless and works perfectly with Vercel's serverless architecture.
+
+## OAuth Implementation
+
+OAuth authentication uses direct OAuth flow without Passport.js middleware:
+
+- **Google OAuth**: Direct redirect to Google OAuth endpoint, code exchange, and JWT token generation
+- **GitHub OAuth**: Direct redirect to GitHub OAuth endpoint, code exchange, and JWT token generation
+- **Serverless Compatible**: No middleware dependencies, works perfectly with Vercel functions
+- **JWT Integration**: OAuth callbacks generate JWT tokens for stateless authentication
 
 ## Important Notes
 

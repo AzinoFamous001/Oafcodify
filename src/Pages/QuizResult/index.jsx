@@ -119,7 +119,7 @@ const QuizResult = () => {
           localStorage.setItem(quizResultsKey, JSON.stringify(allQuizResults));
           
           // Sync quiz result to backend
-          fetch(`http://localhost:5000/api/user/quiz-result/${userId}`, {
+          fetch(`/api/user/quiz-result/${userId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ quizResult: newQuizResult })
@@ -135,7 +135,7 @@ const QuizResult = () => {
             localStorage.setItem(lessonKey, JSON.stringify([0, 1, 2, 3, 4])); // Mark all subtopics as complete
 
             // Sync lesson completion to backend
-            fetch(`http://localhost:5000/api/user/lesson-progress/${userId}`, {
+            fetch(`/api/user/lesson-progress/${userId}`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -151,7 +151,7 @@ const QuizResult = () => {
             localStorage.setItem(unlockKey, 'true');
             
             // Sync lesson unlock to backend
-            fetch(`http://localhost:5000/api/user/lesson-progress/${userId}`, {
+            fetch(`/api/user/lesson-progress/${userId}`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -191,7 +191,7 @@ const QuizResult = () => {
                 // Sync notification to backend
                 const numericUserId = parseInt(userId);
                 if (!isNaN(numericUserId)) {
-                  fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                  fetch(`/api/user/notification/${userId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ notification: unlockNotification })
@@ -234,7 +234,7 @@ const QuizResult = () => {
               // Sync notification to backend
               const numericUserId = parseInt(userId);
               if (!isNaN(numericUserId)) {
-                fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                fetch(`/api/user/notification/${userId}`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ notification: courseCompletedNotification })
@@ -253,7 +253,7 @@ const QuizResult = () => {
               localStorage.setItem(completedCoursesKey, completedCourses.toString());
 
               // Sync completedCourses to backend
-              fetch(`http://localhost:5000/api/user/progress/${userId}`, {
+              fetch(`/api/user/progress/${userId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ completedCourses })
@@ -282,7 +282,7 @@ const QuizResult = () => {
                 // Sync notification to backend
                 const numericUserId = parseInt(userId);
                 if (!isNaN(numericUserId)) {
-                  fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+                  fetch(`/api/user/notification/${userId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ notification: rankNotification })
@@ -329,7 +329,7 @@ const QuizResult = () => {
             // Sync notification to backend
             const numericUserId = parseInt(userId);
             if (!isNaN(numericUserId)) {
-              fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+              fetch(`/api/user/notification/${userId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ notification: recommendation })

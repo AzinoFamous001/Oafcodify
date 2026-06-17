@@ -1,5 +1,3 @@
-import passport from 'passport';
-import { GitHubStrategy } from 'passport-github2';
 import connectToDatabase from '../../db.js';
 import User from '../../../src/Backend/User Schema/index.js';
 import { generateToken, setTokenCookie } from '../../lib/jwt.js';
@@ -20,94 +18,90 @@ const generateCartoonAvatar = (userName) => {
   return `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${seed}`;
 };
 
-// Configure GitHub Strategy
-passport.use(
-  new GitHubStrategy(
-    {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.GITHUB_CALLBACK_URL,
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        await connectToDatabase();
-        
-        let user = await User.findOne({ githubId: profile.id });
-        
-        let isNewUser = false;
-        
-        if (user) {
-          console.log('GitHub Strategy (Vercel) - Existing user found with githubId:', user.id, 'isNewUser:', isNewUser);
-          return done(null, { user, isNewUser });
-        }
-        
-        user = await User.findOne({ email: profile.emails?.[0]?.value });
-        
-        if (user) {
-          console.log('GitHub Strategy (Vercel) - Linking githubId to existing user:', user.id);
-          user.githubId = profile.id;
-          user.avatar = generateCartoonAvatar(profile.displayName || profile.username);
-          await user.save();
-          console.log('GitHub Strategy (Vercel) - Existing user linked, isNewUser:', isNewUser);
-          return done(null, { user, isNewUser });
-        }
-        
-        console.log('GitHub Strategy (Vercel) - Creating new user for username:', profile.username);
+export default async function handler(req, res) {
+  const { code } = req.query;
+  
+  if (!code) {
+    return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+  }
+
+  try {
+    // Exchange code for access token
+    const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        code,
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        redirect_uri: process.env.GITHUB_CALLBACK_URL,
+      }),
+    });
+
+    const tokenData = await tokenResponse.json();
+    
+    if (tokenData.error) {
+      throw new Error(tokenData.error);
+    }
+
+    // Get user info with access token
+    const userResponse = await fetch('https://api.github.com/user', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    });
+
+    const profile = await userResponse.json();
+
+    // Get user email (GitHub requires separate API call for email)
+    const emailResponse = await fetch('https://api.github.com/user/emails', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    });
+    const emails = await emailResponse.json();
+    const primaryEmail = emails.find(e => e.primary)?.email || `${profile.login}@github.local`;
+
+    await connectToDatabase();
+
+    let user = await User.findOne({ githubId: profile.id });
+    let isNewUser = false;
+
+    if (user) {
+      console.log('GitHub OAuth (Vercel) - Existing user found with githubId:', user.id);
+    } else {
+      user = await User.findOne({ email: primaryEmail });
+
+      if (user) {
+        console.log('GitHub OAuth (Vercel) - Linking githubId to existing user:', user.id);
+        user.githubId = profile.id;
+        user.avatar = generateCartoonAvatar(profile.name || profile.login);
+        await user.save();
+      } else {
+        console.log('GitHub OAuth (Vercel) - Creating new user for username:', profile.login);
         user = await User.create({
           id: Date.now(),
-          fullName: profile.displayName || profile.username,
-          email: profile.emails?.[0]?.value || `${profile.username}@github.local`,
+          fullName: profile.name || profile.login,
+          email: primaryEmail,
           githubId: profile.id,
-          avatar: generateCartoonAvatar(profile.displayName || profile.username),
+          avatar: generateCartoonAvatar(profile.name || profile.login),
           provider: 'github'
         });
         isNewUser = true;
-        console.log('GitHub Strategy (Vercel) - New user created with id:', user.id, 'isNewUser:', isNewUser);
-        
-        done(null, { user, isNewUser });
-      } catch (err) {
-        console.error('GitHub Strategy (Vercel) - Error:', err);
-        done(err, null);
+        console.log('GitHub OAuth (Vercel) - New user created with id:', user.id);
       }
     }
-  )
-);
 
-passport.serializeUser((data, done) => {
-  done(null, data.user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    await connectToDatabase();
-    const user = await User.findOne({ id });
-    done(null, user);
-  } catch (err) {
-    done(err, null);
-  }
-});
-
-export default async function handler(req, res) {
-  await passport.authenticate('github', { 
-    failureRedirect: `${process.env.CLIENT_URL}/login?error=auth_failed` 
-  }, (err, data) => {
-    if (err) {
-      return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
-    }
-    
-    const user = data?.user || data;
-    const isNewUser = data?.isNewUser || false;
-    
     // Generate JWT token and set cookie
     const token = generateToken({ userId: user.id, email: user.email });
     setTokenCookie(res, token);
-    
+
     if (isNewUser) {
-      // New user - redirect to signup page with newUser flag (will navigate to dashboard)
       res.redirect(`${process.env.CLIENT_URL}/signup?auth=success&newUser=true`);
     } else {
-      // Existing user - redirect to login page with success flag (will show success modal)
       res.redirect(`${process.env.CLIENT_URL}/login?auth=success`);
     }
-  })(req, res);
+  } catch (error) {
+    console.error('GitHub OAuth Error:', error);
+    res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+  }
 }

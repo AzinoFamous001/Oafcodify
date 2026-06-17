@@ -239,7 +239,7 @@ const ProfilePage = () => {
       // Sync notification to backend
       const numericUserId = parseInt(userId);
       if (!isNaN(numericUserId)) {
-        fetch(`http://localhost:5000/api/user/notification/${userId}`, {
+        fetch(`/api/user/notification/${userId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ notification })
@@ -286,7 +286,7 @@ const ProfilePage = () => {
     });
     
     // Send progress to backend
-    fetch(`http://localhost:5000/api/user/progress/${userId}`, {
+    fetch(`/api/user/progress/${userId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
