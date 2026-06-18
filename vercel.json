@@ -31,5 +31,15 @@
         }
       ]
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/auth/github/callback",
+      "dest": "/api/auth/github?action=callback"
+    },
+    {
+      "src": "/api/auth/google/callback",
+      "dest": "/api/auth/google?action=callback"
+    }
   ]
 }
