@@ -31,6 +31,16 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// STATIC FILE SERVING (for production)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../dist")));
+}
+
+// HEALTH CHECK ENDPOINT
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 // SESSION CONFIGURATION
 app.use(session({
   secret: process.env.SESSION_SECRET || "oafcodify-secret-key",
@@ -910,6 +920,15 @@ app.post("/api/send-study-reminder", async (req, res) => {
     res.status(500).json({ message: "Failed to send study reminder" });
   }
 });
+
+// =========================
+// SPA FALLBACK ROUTE (for production)
+// =========================
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../dist/index.html"));
+  });
+}
 
 // =========================
 // START SERVER
