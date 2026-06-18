@@ -9,6 +9,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GitHubStrategy = require("passport-github2").Strategy;
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 const connectDB = require("./config/database");
@@ -46,6 +47,9 @@ app.use(session({
   secret: process.env.SESSION_SECRET || "oafcodify-secret-key",
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI || "mongodb://localhost:27017/oafcodify",
+  }),
   cookie: {
     secure: process.env.NODE_ENV === "production",
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
@@ -462,6 +466,35 @@ YOUR TASK:
 
     res.status(500).json({
       error: "Failed to generate AI feedback",
+    });
+  }
+});
+
+// =========================
+// GEMINI GENERAL API ROUTE
+// =========================
+app.post("/api/gemini", async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
+
+    // Get the generative model
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    // Generate content
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    res.json({ response: text });
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    res.status(500).json({ 
+      error: "Failed to generate response",
+      response: "AI service is currently unavailable. Please try again later." 
     });
   }
 });
