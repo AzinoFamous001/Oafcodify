@@ -4,12 +4,15 @@ const session = require("express-session");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GitHubStrategy = require("passport-github2").Strategy;
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo").default;
 const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../../../.env") });
 
 const app = express();
+
+// Trust proxy for secure cookies in production on Render
+app.set("trust proxy", 1);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/oafcodify", {

@@ -16,6 +16,9 @@ const User = require("./models/User");
 
 const app = express();
 
+// Trust proxy for secure cookies in production on Render
+app.set("trust proxy", 1);
+
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
