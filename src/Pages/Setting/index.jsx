@@ -69,7 +69,7 @@ const SettingsPage = () => {
 
     // Sync profile info to backend
     try {
-      await fetch(`/api/user/profile/${userId}`, {
+      await fetch(`/api/user/${userId}?action=profile`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fullName: userName, email: userEmail })

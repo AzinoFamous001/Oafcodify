@@ -99,7 +99,7 @@ const LoginPage = () => {
           localStorage.setItem(`userAvatar_${data.user.id}`, cartoonAvatar);
 
           // Fetch user progress from backend
-          fetch(`http://localhost:5000/api/user/progress/${data.user.id}`)
+          fetch(`/api/user/${data.user.id}?action=progress`)
             .then(progressRes => {
               if (progressRes.ok) {
                 return progressRes.json();
@@ -191,7 +191,7 @@ const LoginPage = () => {
 
         // Fetch user progress from backend
         try {
-          const progressResponse = await fetch(`http://localhost:5000/api/user/progress/${data.user.id}`);
+          const progressResponse = await fetch(`/api/user/${data.user.id}?action=progress`);
           if (progressResponse.ok) {
             const progressData = await progressResponse.json();
             

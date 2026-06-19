@@ -45,7 +45,7 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
       // Sync welcome notification to backend
       const numericUserId = parseInt(currentId);
       if (!isNaN(numericUserId)) {
-        fetch(`/api/user/notification/${currentId}`, {
+        fetch(`/api/user/${currentId}?action=notification`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ notification: welcomeNotifications[0] })

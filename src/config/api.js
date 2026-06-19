@@ -4,9 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 export const API_URLS = {
   // Auth endpoints
   GOOGLE_AUTH: `${API_BASE_URL}/api/auth/google`,
-  GOOGLE_CALLBACK: `${API_BASE_URL}/api/auth/google/callback`,
   GITHUB_AUTH: `${API_BASE_URL}/api/auth/github`,
-  GITHUB_CALLBACK: `${API_BASE_URL}/api/auth/github/callback`,
   AUTH_USER: `${API_BASE_URL}/api/auth/user`,
   LOGOUT: `${API_BASE_URL}/api/auth/logout`,
   

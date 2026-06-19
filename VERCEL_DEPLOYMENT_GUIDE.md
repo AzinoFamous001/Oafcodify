@@ -28,34 +28,33 @@ The application has been converted from a traditional Express server to Vercel s
 - Manual email reminder API (cron jobs removed - Vercel doesn't support them)
 - Each API endpoint is a separate serverless function
 
-## New Serverless Functions
+## Serverless Functions (Consolidated to 11 functions)
 
-### Authentication
+### Authentication (4 functions)
 - `api/auth/register.js` - User registration with password hashing
 - `api/auth/login.js` - User login with JWT token generation
 - `api/auth/logout.js` - User logout with token clearing
 - `api/auth/user.js` - Get current authenticated user
-- `api/auth/google.js` - Google OAuth initiation
-- `api/auth/google/callback.js` - Google OAuth callback with JWT
-- `api/auth/github.js` - GitHub OAuth initiation
-- `api/auth/github/callback.js` - GitHub OAuth callback with JWT
+- `api/auth/google.js` - Google OAuth (initiation and callback via action parameter)
+- `api/auth/github.js` - GitHub OAuth (initiation and callback via action parameter)
 
-### User Progress
-- `api/user/progress/[userId].js` - Get/update user progress
-- `api/user/quiz-result/[userId].js` - Save quiz results
-- `api/user/lesson-progress/[userId].js` - Update lesson progress
-- `api/user/streak/[userId].js` - Update user streak
-- `api/user/notification/[userId].js` - Add notifications
-- `api/user/profile/[userId].js` - Update user profile
+### User Progress (1 function)
+- `api/user/[userId].js` - Consolidated endpoint for all user operations:
+  - GET/POST: Progress tracking
+  - POST: Quiz results (action=quiz-result)
+  - POST: Lesson progress (action=lesson-progress)
+  - POST: Streak updates (action=streak)
+  - POST: Notifications (action=notification)
+  - PUT: Profile updates (action=profile)
 
-### Features
+### Features (4 functions)
 - `api/quiz-feedback.js` - Gemini AI quiz feedback
 - `api/gemini.js` - General Gemini AI endpoint
 - `api/send-study-reminder.js` - Email reminder (manual)
 - `api/health.js` - Health check endpoint
-- `api/db.js` - MongoDB connection with caching
 
-### Utilities
+### Utilities (2 files - not serverless functions)
+- `api/db.js` - MongoDB connection with caching
 - `api/lib/jwt.js` - JWT token generation and verification
 
 ## Deployment Steps
@@ -155,19 +154,21 @@ All API endpoints remain the same, but are now served as serverless functions:
 - `POST /api/auth/login` - Login user
 - `POST /api/auth/logout` - Logout user
 - `GET /api/auth/user` - Get current user
-- `GET /api/auth/google` - Initiate Google OAuth
-- `GET /api/auth/google/callback` - Google OAuth callback
-- `GET /api/auth/github` - Initiate GitHub OAuth
-- `GET /api/auth/github/callback` - GitHub OAuth callback
+- `GET /api/auth/google?action=init` - Initiate Google OAuth
+- `GET /api/auth/google?action=callback&code=...` - Google OAuth callback
+- `GET /api/auth/github?action=init` - Initiate GitHub OAuth
+- `GET /api/auth/github?action=callback&code=...` - GitHub OAuth callback
 
-### User Progress
-- `GET /api/user/progress/[userId]` - Get user progress
-- `POST /api/user/progress/[userId]` - Update user progress
-- `POST /api/user/quiz-result/[userId]` - Save quiz result
-- `POST /api/user/lesson-progress/[userId]` - Update lesson progress
-- `POST /api/user/streak/[userId]` - Update streak
-- `POST /api/user/notification/[userId]` - Add notification
-- `PUT /api/user/profile/[userId]` - Update profile
+### User Progress (Consolidated endpoint)
+- `GET /api/user/[userId]` - Get user progress
+- `GET /api/user/[userId]?action=progress` - Get user progress
+- `POST /api/user/[userId]` - Update user progress
+- `POST /api/user/[userId]?action=progress` - Update user progress
+- `POST /api/user/[userId]?action=quiz-result` - Save quiz result
+- `POST /api/user/[userId]?action=lesson-progress` - Update lesson progress
+- `POST /api/user/[userId]?action=streak` - Update streak
+- `POST /api/user/[userId]?action=notification` - Add notification
+- `PUT /api/user/[userId]?action=profile` - Update profile
 
 ### Features
 - `POST /api/quiz-feedback` - Get AI quiz feedback
@@ -257,32 +258,38 @@ For issues specific to Vercel deployment, check:
 
 ## Summary of Changes
 
-### Files Created
-- `api/lib/jwt.js` - JWT utility functions
-- `api/auth/register.js` - Registration endpoint
-- `api/auth/login.js` - Login endpoint
-- `api/auth/logout.js` - Logout endpoint (updated)
-- `api/auth/user.js` - User endpoint (updated)
-- `api/auth/google/callback.js` - Google callback (updated)
-- `api/auth/github/callback.js` - GitHub callback (updated)
-- `api/user/progress/[userId].js` - Progress endpoint
-- `api/user/quiz-result/[userId].js` - Quiz result endpoint
-- `api/user/lesson-progress/[userId].js` - Lesson progress endpoint
-- `api/user/streak/[userId].js` - Streak endpoint
-- `api/user/notification/[userId].js` - Notification endpoint
-- `api/user/profile/[userId].js` - Profile endpoint
-- `api/quiz-feedback.js` - Quiz feedback endpoint
-- `api/send-study-reminder.js` - Email reminder endpoint
+### Files Removed (Consolidation to meet 12-function limit)
+- `api/auth/google/callback.js` - Callback logic moved to google.js via action parameter
+- `api/auth/github/callback.js` - Callback logic moved to github.js via action parameter
+- `api/user/lesson-progress/[userId].js` - Consolidated into api/user/[userId].js
+- `api/user/notification/[userId].js` - Consolidated into api/user/[userId].js
+- `api/user/profile/[userId].js` - Consolidated into api/user/[userId].js
+- `api/user/progress/[userId].js` - Consolidated into api/user/[userId].js
+- `api/user/quiz-result/[userId].js` - Consolidated into api/user/[userId].js
+- `api/user/streak/[userId].js` - Consolidated into api/user/[userId].js
 
 ### Files Updated
-- `vercel.json` - Added runtime configuration and CORS headers
-- `package.json` - Added jsonwebtoken and bcryptjs dependencies
+- `vercel.json` - Removed callback routes (now handled via action parameters)
+- `VERCEL_DEPLOYMENT_GUIDE.md` - Updated to reflect consolidated structure
+
+### Final Serverless Function Count: 11 functions
+1. `api/auth/register.js` - User registration
+2. `api/auth/login.js` - User login
+3. `api/auth/logout.js` - User logout
+4. `api/auth/user.js` - Get current user
+5. `api/auth/google.js` - Google OAuth (init + callback)
+6. `api/auth/github.js` - GitHub OAuth (init + callback)
+7. `api/user/[userId].js` - Consolidated user operations
+8. `api/quiz-feedback.js` - AI quiz feedback
+9. `api/gemini.js` - General Gemini AI endpoint
+10. `api/send-study-reminder.js` - Email reminder
+11. `api/health.js` - Health check
 
 ### Files Preserved (No Changes)
 - `Server/server.js` - Kept for local development
 - `Server/models/User.js` - User model unchanged
 - `Server/config/database.js` - Database config unchanged
 - All frontend code in `src/` - No changes
-- All existing API functions in `api/` - Enhanced but compatible
+- Utility files: `api/db.js`, `api/lib/jwt.js` - Not serverless functions
 
-All features work exactly as before, just adapted for Vercel's serverless architecture.
+All features work exactly as before, just consolidated to meet Vercel's 12-function limit.
