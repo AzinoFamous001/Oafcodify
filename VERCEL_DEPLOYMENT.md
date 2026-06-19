@@ -126,9 +126,13 @@ The current implementation uses a simplified session approach. For production us
 - Verify OAuth app is not in test mode
 
 ### MongoDB Connection Errors
-- Check IP whitelist in MongoDB Atlas
-- Verify connection string format
-- Ensure database user has correct permissions
+- Check IP whitelist in MongoDB Atlas (use 0.0.0.0/0 for all IPs)
+- Verify connection string format: `mongodb+srv://username:password@cluster.mongodb.net/database?retryWrites=true&w=majority`
+- Ensure database user has correct permissions (read/write)
+- Test connection using `/api/test-mongodb` endpoint
+- Check Vercel environment variables are set correctly
+- Ensure MONGODB_URI includes the database name
+- Verify MongoDB Atlas cluster is running (not paused)
 
 ### Build Errors
 - Ensure all dependencies are in package.json
