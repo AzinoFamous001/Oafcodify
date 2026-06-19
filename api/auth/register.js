@@ -1,6 +1,6 @@
 import connectToDatabase from '../../lib/db.js';
 import bcrypt from 'bcryptjs';
-import User from '../../src/Backend/User Schema/index.js';
+import User from '../../models/User.js';
 import { generateToken, setTokenCookie } from '../../lib/jwt.js';
 
 export default async function handler(req, res) {

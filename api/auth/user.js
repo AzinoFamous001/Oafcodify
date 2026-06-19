@@ -1,5 +1,5 @@
 import connectToDatabase from '../../lib/db.js';
-import User from '../../src/Backend/User Schema/index.js';
+import User from '../../models/User.js';
 import { verifyToken } from '../../lib/jwt.js';
 
 export default async function handler(req, res) {
