@@ -1,6 +1,6 @@
-import connectToDatabase from '../db.js';
+import connectToDatabase from '../../lib/db.js';
 import User from '../../src/Backend/User Schema/index.js';
-import { generateToken, setTokenCookie } from '../lib/jwt.js';
+import { generateToken, setTokenCookie } from '../../lib/jwt.js';
 
 // Generate cartoon avatar (deterministic based on username)
 const generateCartoonAvatar = (userName) => {

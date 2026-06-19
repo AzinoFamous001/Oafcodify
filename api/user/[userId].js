@@ -1,6 +1,6 @@
-import connectToDatabase from '../db.js';
+import connectToDatabase from '../../lib/db.js';
 import User from '../../src/Backend/User Schema/index.js';
-import { verifyToken } from '../lib/jwt.js';
+import { verifyToken } from '../../lib/jwt.js';
 
 export default async function handler(req, res) {
   const { userId } = req.query;
