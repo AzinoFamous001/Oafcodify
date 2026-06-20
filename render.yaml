@@ -34,6 +34,8 @@ services:
         sync: false
       - key: EMAIL_PASS
         sync: false
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=512
     healthCheckPath: /api/health
     # Auto-deploy from main branch
     branch: main
