@@ -23,8 +23,13 @@ app.set("trust proxy", 1);
 
 const PORT = process.env.PORT || 10000;
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB and wait for connection before starting server
+connectDB().then(() => {
+  console.log('Database connection established, starting server...');
+}).catch((error) => {
+  console.error('Failed to connect to database:', error);
+  console.log('Starting server anyway - will retry database connection...');
+});
 
 // MIDDLEWARE
 app.use(cors({
@@ -50,12 +55,23 @@ app.get("/api/health", async (req, res) => {
       3: 'disconnecting'
     }[mongoStatus] || 'unknown';
 
+    // Test database query
+    let userCount = 0;
+    let dbError = null;
+    try {
+      userCount = await User.countDocuments();
+    } catch (err) {
+      dbError = err.message;
+    }
+
     res.json({ 
       status: "ok", 
       timestamp: new Date().toISOString(),
       mongodb: {
         status: mongoStatusText,
-        readyState: mongoStatus
+        readyState: mongoStatus,
+        userCount: userCount,
+        dbError: dbError
       },
       uptime: process.uptime()
     });
@@ -684,18 +700,23 @@ app.get("/api/auth/github/callback",
 );
 
 // Get current user
-app.get("/api/auth/user", validateSession, (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({
-      user: {
-        id: req.user.id,
-        fullName: req.user.fullName,
-        email: req.user.email,
-        avatar: req.user.avatar
-      }
-    });
-  } else {
-    res.status(401).json({ message: "Not authenticated" });
+app.get("/api/auth/user", validateSession, async (req, res) => {
+  try {
+    if (req.isAuthenticated()) {
+      res.json({
+        user: {
+          id: req.user.id,
+          fullName: req.user.fullName,
+          email: req.user.email,
+          avatar: req.user.avatar
+        }
+      });
+    } else {
+      res.status(401).json({ message: "Not authenticated" });
+    }
+  } catch (error) {
+    console.error("Error getting current user:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
 
