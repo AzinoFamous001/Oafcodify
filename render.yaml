@@ -3,7 +3,7 @@ services:
     name: oafcodify-app
     env: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm run build:all
     startCommand: node Server/server.js
     envVars:
       - key: NODE_ENV

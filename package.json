@@ -2,10 +2,11 @@
   "name": "oafcodify-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:server": "cd Server && npm install",
+    "build:all": "npm install && npm run build:server && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "concurrently \"npm run dev\" \"node Server/server.js\""
