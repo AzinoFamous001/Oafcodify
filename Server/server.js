@@ -26,16 +26,19 @@ const PORT = parseInt(process.env.PORT) || 10000;
 
 // Connect to MongoDB and wait for connection before starting server
 connectDB().then(() => {
-  console.log('Database connection established, starting server...');
+  console.log('✅ Database connection established, starting server...');
 }).catch((error) => {
-  console.error('Failed to connect to database:', error);
-  console.log('Starting server anyway - will retry database connection...');
+  console.error('❌ Failed to connect to database:', error.message);
+  console.log('⚠️  Starting server anyway - will retry database connection...');
+  console.error('Full error details:', error);
 });
 
 // MIDDLEWARE
 app.use(cors({
   origin: process.env.CLIENT_URL || "http://localhost:5173",
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
@@ -1017,7 +1020,9 @@ if (process.env.NODE_ENV === "production") {
 // START SERVER
 // =========================
 const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on http://0.0.0.0:${PORT}`);
+  console.log(`✅ Server running on http://0.0.0.0:${PORT}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Client URL: ${process.env.CLIENT_URL || 'http://localhost:5173'}`);
 });
 
 // Increase timeout values for Render

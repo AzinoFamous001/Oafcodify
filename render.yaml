@@ -12,28 +12,40 @@ services:
         value: "10000"
       - key: MONGODB_URI
         sync: false
+        description: "MongoDB Atlas connection string"
       - key: GOOGLE_CLIENT_ID
         sync: false
+        description: "Google OAuth client ID"
       - key: GOOGLE_CLIENT_SECRET
         sync: false
+        description: "Google OAuth client secret"
       - key: GOOGLE_CALLBACK_URL
         sync: false
+        description: "Google OAuth callback URL"
       - key: GITHUB_CLIENT_ID
         sync: false
+        description: "GitHub OAuth client ID"
       - key: GITHUB_CLIENT_SECRET
         sync: false
+        description: "GitHub OAuth client secret"
       - key: GITHUB_CALLBACK_URL
         sync: false
+        description: "GitHub OAuth callback URL"
       - key: GEMINI_API_KEY
         sync: false
+        description: "Google Gemini AI API key"
       - key: SESSION_SECRET
         sync: false
+        description: "Session secret for encryption"
       - key: CLIENT_URL
         sync: false
+        description: "Frontend URL for CORS"
       - key: EMAIL_USER
         sync: false
+        description: "Email address for notifications"
       - key: EMAIL_PASS
         sync: false
+        description: "Email app password"
       - key: NODE_OPTIONS
         value: --max-old-space-size=512
     healthCheckPath: /api/health

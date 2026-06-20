@@ -6,6 +6,7 @@ import LoadingPage from "../../Components/shared/LoadingPage";
 import ErrorModal from "../../Components/shared/Errormodal";
 import SuccessModal from "../../Components/shared/Successmodal";
 import { updateLoginStreak } from "../../Shared/streakUtils";
+import { API_URLS } from "../../config/api";
 
 import {
   FaGithub,
@@ -81,7 +82,7 @@ const LoginPage = () => {
       window.history.replaceState({}, document.title, '/login');
 
       // Fetch user data from backend
-      fetch('http://localhost:5000/api/auth/user', {
+      fetch(API_URLS.AUTH_USER, {
         credentials: 'include'
       })
         .then(res => {
@@ -171,7 +172,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch(API_URLS.LOGIN, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -357,7 +358,7 @@ const LoginPage = () => {
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <button
                 type="button"
-                onClick={() => window.location.href = "http://localhost:5000/api/auth/github?from=login"}
+                onClick={() => window.location.href = `${API_URLS.GITHUB_AUTH}?from=login`}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGithub size={18} className="mr-2 text-gray-700" />
@@ -366,7 +367,7 @@ const LoginPage = () => {
 
               <button
                 type="button"
-                onClick={() => window.location.href = "http://localhost:5000/api/auth/google?from=login"}
+                onClick={() => window.location.href = `${API_URLS.GOOGLE_AUTH}?from=login`}
                 className="px-4 py-2.5 border border-gray-200 flex justify-center items-center rounded-2xl cursor-pointer hover:bg-gray-50 transition-all flex-1"
               >
                 <FaGoogle size={18} className="mr-2 text-gray-700" />
