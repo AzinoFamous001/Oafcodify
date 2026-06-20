@@ -986,7 +986,7 @@ app.post("/api/send-study-reminder", async (req, res) => {
 // SPA FALLBACK ROUTE (for production)
 // =========================
 if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
   });
 }
