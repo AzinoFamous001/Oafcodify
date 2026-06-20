@@ -22,7 +22,7 @@ const app = express();
 // Trust proxy for secure cookies in production on Render
 app.set("trust proxy", 1);
 
-const PORT = process.env.PORT || 10000;
+const PORT = parseInt(process.env.PORT) || 10000;
 
 // Connect to MongoDB and wait for connection before starting server
 connectDB().then(() => {
