@@ -61,7 +61,7 @@ If you prefer manual configuration:
    - **Name**: oafcodify-app
    - **Environment**: Node
    - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `node src/Backend/Server/server.js`
+   - **Start Command**: `node Server/server.js`
    - **Instance Type**: Free (or paid for better performance)
 
 ## Step 5: Configure Environment Variables

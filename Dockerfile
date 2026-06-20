@@ -29,11 +29,11 @@ RUN npm install --omit=dev
 # Copy built frontend from builder
 COPY --from=frontend-builder /app/dist ./dist
 
-# Copy server files and install their dependencies
-COPY Server/package*.json ./Server/
-RUN cd Server && npm install --omit=dev
+# Copy server files
 COPY Server ./Server
 COPY api ./api
+COPY lib ./lib
+COPY models ./models
 
 # Copy environment file template
 COPY .env.example .env.example

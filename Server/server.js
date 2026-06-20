@@ -1,4 +1,5 @@
 const path = require("path");
+// Load environment variables from .env file if it exists, but don't fail if it doesn't
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const express = require("express");
@@ -20,7 +21,7 @@ const app = express();
 // Trust proxy for secure cookies in production on Render
 app.set("trust proxy", 1);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 // Connect to MongoDB
 connectDB();
@@ -38,8 +39,33 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // HEALTH CHECK ENDPOINT
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+app.get("/api/health", async (req, res) => {
+  try {
+    // Check MongoDB connection status
+    const mongoStatus = mongoose.connection.readyState;
+    const mongoStatusText = {
+      0: 'disconnected',
+      1: 'connected',
+      2: 'connecting',
+      3: 'disconnecting'
+    }[mongoStatus] || 'unknown';
+
+    res.json({ 
+      status: "ok", 
+      timestamp: new Date().toISOString(),
+      mongodb: {
+        status: mongoStatusText,
+        readyState: mongoStatus
+      },
+      uptime: process.uptime()
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: "error", 
+      error: error.message,
+      timestamp: new Date().toISOString() 
+    });
+  }
 });
 
 // SESSION CONFIGURATION
@@ -49,12 +75,14 @@ app.use(session({
   saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI || "mongodb://localhost:27017/oafcodify",
+    touchAfter: 24 * 3600, // Reduce database writes, session only updated once per 24h
   }),
   cookie: {
     secure: process.env.NODE_ENV === "production",
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     httpOnly: true,
-    sameSite: 'lax'
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+    domain: process.env.NODE_ENV === "production" ? undefined : undefined
   },
   name: 'oafcodify.sid' // Custom session name for better isolation
 }));
@@ -966,6 +994,51 @@ if (process.env.NODE_ENV === "production") {
 // =========================
 // START SERVER
 // =========================
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// Keep server alive and handle graceful shutdown
+const gracefulShutdown = (signal) => {
+  console.log(`\n${signal} received. Starting graceful shutdown...`);
+  
+  // Close HTTP server
+  server.close(() => {
+    console.log('HTTP server closed');
+    
+    // Close MongoDB connection
+    mongoose.connection.close(false, () => {
+      console.log('MongoDB connection closed');
+      process.exit(0);
+    });
+  });
+
+  // Force shutdown after 10 seconds if graceful shutdown fails
+  setTimeout(() => {
+    console.error('Forced shutdown after timeout');
+    process.exit(1);
+  }, 10000);
+};
+
+// Handle shutdown signals
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Handle uncaught errors
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+  gracefulShutdown('uncaughtException');
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  gracefulShutdown('unhandledRejection');
+});
+
+// Keep server alive with periodic health checks
+setInterval(() => {
+  if (mongoose.connection.readyState !== 1) {
+    console.warn('MongoDB disconnected, attempting to reconnect...');
+    connectDB().catch(err => console.error('Reconnection failed:', err));
+  }
+}, 30000); // Check every 30 seconds
