@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { CheckCircle, XCircle, Trophy, BookOpen, Home } from 'lucide-react';
 import { FaLaptopCode, FaTerminal, FaPython, FaJsSquare } from 'react-icons/fa';
 import { SiReact } from 'react-icons/si';
+import { API_URLS } from '../../config/api';
 
 const AnimatedBackground = () => {
   return (
@@ -119,7 +120,7 @@ const QuizResult = () => {
           localStorage.setItem(quizResultsKey, JSON.stringify(allQuizResults));
           
           // Sync quiz result to backend
-          fetch(`/api/user/${userId}?action=quiz-result`, {
+          fetch(API_URLS.QUIZ_RESULT(userId), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ quizResult: newQuizResult })
@@ -135,7 +136,7 @@ const QuizResult = () => {
             localStorage.setItem(lessonKey, JSON.stringify([0, 1, 2, 3, 4])); // Mark all subtopics as complete
 
             // Sync lesson completion to backend
-            fetch(`/api/user/${userId}?action=lesson-progress`, {
+            fetch(API_URLS.LESSON_PROGRESS(userId), {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -151,7 +152,7 @@ const QuizResult = () => {
             localStorage.setItem(unlockKey, 'true');
             
             // Sync lesson unlock to backend
-            fetch(`/api/user/${userId}?action=lesson-progress`, {
+            fetch(API_URLS.LESSON_PROGRESS(userId), {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -191,7 +192,7 @@ const QuizResult = () => {
                 // Sync notification to backend
                 const numericUserId = parseInt(userId);
                 if (!isNaN(numericUserId)) {
-                  fetch(`/api/user/${userId}?action=notification`, {
+                  fetch(API_URLS.NOTIFICATION(userId), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ notification: unlockNotification })
@@ -234,7 +235,7 @@ const QuizResult = () => {
               // Sync notification to backend
               const numericUserId = parseInt(userId);
               if (!isNaN(numericUserId)) {
-                fetch(`/api/user/${userId}?action=notification`, {
+                fetch(API_URLS.NOTIFICATION(userId), {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ notification: courseCompletedNotification })
@@ -253,7 +254,7 @@ const QuizResult = () => {
               localStorage.setItem(completedCoursesKey, completedCourses.toString());
 
               // Sync completedCourses to backend
-              fetch(`/api/user/${userId}?action=progress`, {
+              fetch(API_URLS.USER_PROGRESS(userId), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ completedCourses })
@@ -282,7 +283,7 @@ const QuizResult = () => {
                 // Sync notification to backend
                 const numericUserId = parseInt(userId);
                 if (!isNaN(numericUserId)) {
-                  fetch(`/api/user/${userId}?action=notification`, {
+                  fetch(API_URLS.NOTIFICATION(userId), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ notification: rankNotification })
@@ -329,7 +330,7 @@ const QuizResult = () => {
             // Sync notification to backend
             const numericUserId = parseInt(userId);
             if (!isNaN(numericUserId)) {
-              fetch(`/api/user/${userId}?action=notification`, {
+              fetch(API_URLS.NOTIFICATION(userId), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ notification: recommendation })

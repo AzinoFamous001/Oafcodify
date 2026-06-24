@@ -16,6 +16,7 @@ import {
   FaInfoCircle,
   FaRedo,
 } from "react-icons/fa";
+import { API_URLS } from "../../config/api";
 
 // --- ANIMATED BACKGROUND ---
 const AnimatedBackground = () => (
@@ -78,7 +79,7 @@ const NotificationsPage = () => {
       // Sync welcome notification to backend
       const numericUserId = parseInt(currentId);
       if (!isNaN(numericUserId)) {
-        fetch(`/api/user/${currentId}?action=notification`, {
+        fetch(API_URLS.NOTIFICATION(currentId), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ notification: welcomeNotifications[0] })

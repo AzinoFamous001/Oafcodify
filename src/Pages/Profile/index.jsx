@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa";
 import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 import { updateLoginStreak, getCurrentStreak, checkDailyLessonReminder } from "../../Shared/streakUtils";
+import { API_URLS } from "../../config/api";
 
 const AnimatedBackground = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-60">
@@ -239,10 +240,10 @@ const ProfilePage = () => {
       // Sync notification to backend
       const numericUserId = parseInt(userId);
       if (!isNaN(numericUserId)) {
-        fetch(`/api/user/${userId}?action=notification`, {
+        fetch(API_URLS.USER_PROGRESS(userId), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ notification })
+          body: JSON.stringify({ notifications: savedNotifications })
         })
         .then(response => {
           if (!response.ok) throw new Error(`Backend returned ${response.status}`);
@@ -286,7 +287,7 @@ const ProfilePage = () => {
     });
     
     // Send progress to backend
-    fetch(`/api/user/${userId}?action=progress`, {
+    fetch(API_URLS.USER_PROGRESS(userId), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
