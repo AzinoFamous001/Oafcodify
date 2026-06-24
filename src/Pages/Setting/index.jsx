@@ -102,7 +102,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-hidden">
+    <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-x-hidden">
       <AnimatedBackground />
 
       <SuccessModal

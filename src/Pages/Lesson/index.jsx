@@ -232,12 +232,19 @@ const LessonPage = () => {
 
     return parts.map((part, idx) => {
       if (part.type === "text") {
-        const formattedText = part.content
+        // Escape HTML to prevent tags like <head> from disappearing
+        let escapedText = part.content
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+        const formattedText = escapedText
           .replace(
             /\*\*(.*?)\*\*/g,
             '<strong class="text-white font-bold">$1</strong>',
           )
-          .replace(/\*(.*?)\*/g, '<em class="text-blue-100">$1</em>');
+          .replace(/\*(.*?)\*/g, '<em class="text-blue-100">$1</em>')
+          .replace(/`(.*?)`/g, '<code class="bg-white/10 text-blue-200 px-1 py-0.5 rounded font-mono text-sm">$1</code>');
 
         return (
           <div
@@ -378,7 +385,7 @@ const LessonPage = () => {
               key={index}
               className="bg-blue-950/80 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl"
             >
-              <div className="bg-white/5 px-8 py-6 flex items-start border-b border-white/10 gap-4">
+              <div className="bg-white/5 px-6 sm:px-8 py-6 flex flex-col sm:flex-row sm:items-start border-b border-white/10 gap-4">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-4">
                   <span className="text-blue-300 text-3xl font-black">
                     {index + 1}.
@@ -392,10 +399,10 @@ const LessonPage = () => {
                   </div>
                 )}
               </div>
-              <div className="p-8 md:p-12">
+              <div className="p-6 md:p-12">
                 {renderContent(topic.content, index)}
                 {topic.realWorldAnalogy && (
-                  <div className="mt-8 bg-yellow-400/10 border border-yellow-400/30 rounded-3xl p-6 flex gap-4">
+                  <div className="mt-8 bg-yellow-400/10 border border-yellow-400/30 rounded-3xl p-6 flex flex-col sm:flex-row gap-4">
                     <FaLightbulb
                       className="text-yellow-400 shrink-0 mt-1"
                       size={24}

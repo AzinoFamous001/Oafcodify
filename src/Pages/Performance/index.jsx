@@ -316,7 +316,7 @@ const PerformancePage = () => {
     userStats.quizzesCount === 0 ? (
       <EmptyState />
     ) : (
-      <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-hidden text-white">
+      <main className="relative min-h-screen pb-20 bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-x-hidden text-white">
         <AnimatedBackground />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 pt-10">
@@ -429,7 +429,7 @@ const PerformancePage = () => {
 
           {/* Quick Stats */}
        {/* Quick Stats */}
-       <div className="flex justify-center lg:justify-between gap-4 sm:gap-6">
+       <div className="flex flex-wrap justify-center lg:justify-between gap-4 sm:gap-6">
         <SummaryCard
           icon={FaFire}
           label="Accuracy"

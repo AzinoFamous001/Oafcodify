@@ -104,7 +104,7 @@ const Error404Page = () => {
   }[errorInfo.type];
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-hidden flex items-center justify-center px-4 py-16">
+    <main className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-indigo-900 overflow-x-hidden flex items-center justify-center px-4 py-16">
       <AnimatedBackground />
 
       <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center text-center gap-6">
