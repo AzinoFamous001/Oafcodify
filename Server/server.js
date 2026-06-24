@@ -125,6 +125,41 @@ const validateSession = (req, res, next) => {
 // GEMINI SETUP
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+// =========================
+// GEMINI API ENDPOINT
+// =========================
+app.post("/api/gemini", async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ error: "Gemini API key is not configured" });
+    }
+
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    res.json({ response: text });
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    
+    if (error.status === 429) {
+      return res.status(429).json({ error: "API Quota exceeded or too many requests. Please try again later." });
+    }
+    if (error.status === 403) {
+      return res.status(403).json({ error: "Your Gemini API key is invalid or was reported as leaked." });
+    }
+    
+    res.status(500).json({ error: "Failed to generate AI response" });
+  }
+});
+
 // EMAIL SETUP
 const transporter = nodemailer.createTransport({
   service: 'gmail',

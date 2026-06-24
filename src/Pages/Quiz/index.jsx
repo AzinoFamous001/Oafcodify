@@ -42,11 +42,13 @@ async function callGemini(prompt) {
       body: JSON.stringify({ prompt }),
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      throw new Error(`Server responded with status: ${res.status}`);
+      // If the backend sent an error message (like 403 or 429), return it so the user sees it
+      return `🤖 AI Error: ${data.error || "Failed to contact Gemini."}`;
     }
 
-    const data = await res.json();
     return data.response || "No response available";
   } catch (err) {
     console.error("Gemini API Error:", err);
