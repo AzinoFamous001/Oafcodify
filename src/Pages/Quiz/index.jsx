@@ -7,6 +7,7 @@ import {
   FaCode,
   FaDatabase,
 } from "react-icons/fa";
+import { API_URLS } from "../../config/api";
 
 //
 // Button Component
@@ -34,7 +35,7 @@ ${className}
 //
 async function callGemini(prompt) {
   try {
-    const res = await fetch("/api/gemini", {
+    const res = await fetch(API_URLS.GEMINI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
