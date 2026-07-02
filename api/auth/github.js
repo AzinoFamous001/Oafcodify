@@ -28,6 +28,7 @@ export default async function handler(req, res) {
       client_id: process.env.GITHUB_CLIENT_ID,
       redirect_uri: process.env.GITHUB_CALLBACK_URL,
       scope: 'user:email',
+      prompt: 'consent',
     });
     res.redirect(`${githubAuthUrl}?${params.toString()}`);
     return;
